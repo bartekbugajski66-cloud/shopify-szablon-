@@ -231,7 +231,8 @@
     fetch(root+'cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:items})})
       .then(function(res){return res.json().then(function(d){return{ok:res.ok,d:d}})})
       .then(function(r2){if(!r2.ok)throw new Error(r2.d&&r2.d.description?r2.d.description:'Nie udało się dodać do koszyka.');
-        window.location.href=(after==='checkout')?'/checkout':root+'cart';})
+        if(after==='checkout'){window.location.href='/checkout';}
+        else{cta.removeAttribute('aria-busy');document.dispatchEvent(new CustomEvent('cart:refresh'));}})
       .catch(function(e2){cta.removeAttribute('aria-busy');err.textContent=e2.message||'Wystąpił błąd.';err.hidden=false;});
   }
   form.addEventListener('submit',function(e){e.preventDefault();addToCart();});
