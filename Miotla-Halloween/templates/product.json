@@ -378,12 +378,15 @@
       "type": "pf-reviews",
       "settings": {
         "rating_value": "4,8",
-        "rating_count": "na podstawie 263 opinii",
-        "pct_5": 82,
-        "pct_4": 12,
-        "pct_3": 4,
-        "pct_2": 1,
-        "pct_1": 1
+        "rating_count": "263 opinie",
+        "count_5": 221,
+        "count_4": 33,
+        "count_3": 9,
+        "count_2": 0,
+        "count_1": 0,
+        "write_review_enable": true,
+        "write_review_heading": "Podziel się opinią",
+        "write_review_cta": "Napisz opinię"
       },
       "blocks": {
         "rv1": {
@@ -391,7 +394,8 @@
           "settings": {
             "rating": 5,
             "name": "Karolina M.",
-            "text": "Dużo lepsza niż te tandetne dekoracje, które widać, że są sztuczne już z 5 metrów. Ta naprawdę robi wrażenie — mój mąż ją uwielbia."
+            "text": "Dużo lepsza niż te tandetne dekoracje, które widać, że są sztuczne już z 5 metrów. Ta naprawdę robi wrażenie — mój mąż ją uwielbia.",
+            "date": "26 lip 2026"
           }
         },
         "rv2": {
@@ -399,7 +403,8 @@
           "settings": {
             "rating": 5,
             "name": "Tomek R.",
-            "text": "Sąsiedzi pytali, gdzie kupiłem. Świeci na zielono i naprawdę rusza się po zmroku."
+            "text": "Sąsiedzi pytali, gdzie kupiłem. Świeci na zielono i naprawdę rusza się po zmroku.",
+            "date": "27 lip 2026"
           }
         },
         "rv3": {
@@ -407,7 +412,8 @@
           "settings": {
             "rating": 5,
             "name": "Ania W.",
-            "text": "Montaż zajął dosłownie 2 minuty. Giętki trzonek pozwolił ułożyć miotłę dokładnie tak, jak chciałam."
+            "text": "Montaż zajął dosłownie 2 minuty. Giętki trzonek pozwolił ułożyć miotłę dokładnie tak, jak chciałam.",
+            "date": "28 lip 2026"
           }
         },
         "rv4": {
@@ -415,7 +421,8 @@
           "settings": {
             "rating": 4,
             "name": "Marek Sz.",
-            "text": "Bardzo dobra jakość jak na tę cenę. Jedyny minus — baterie trzeba dokupić osobno."
+            "text": "Bardzo dobra jakość jak na tę cenę. Jedyny minus — baterie trzeba dokupić osobno.",
+            "date": "29 lip 2026"
           }
         },
         "rv5": {
@@ -423,7 +430,8 @@
           "settings": {
             "rating": 5,
             "name": "Kasia D.",
-            "text": "Dzieci z całej ulicy przychodzą zobaczyć, jak miotła się rusza i śmieje. Najlepszy zakup na Halloween."
+            "text": "Dzieci z całej ulicy przychodzą zobaczyć, jak miotła się rusza i śmieje. Najlepszy zakup na Halloween.",
+            "date": "30 lip 2026"
           }
         },
         "rv6": {
@@ -431,7 +439,8 @@
           "settings": {
             "rating": 5,
             "name": "Tomek W.",
-            "text": "Wygląda dokładnie jak na zdjęciach — świeci mocno i naprawdę robi wrażenie po zmroku."
+            "text": "Wygląda dokładnie jak na zdjęciach — świeci mocno i naprawdę robi wrażenie po zmroku.",
+            "date": "31 lip 2026"
           }
         },
         "rv7": {
@@ -439,7 +448,8 @@
           "settings": {
             "rating": 5,
             "name": "Ola J.",
-            "text": "Kupiłam dwie sztuki — jedną na drzwi, drugą do ogrodu. Obie działają bez zarzutu."
+            "text": "Kupiłam dwie sztuki — jedną na drzwi, drugą do ogrodu. Obie działają bez zarzutu.",
+            "date": "1 sie 2026"
           }
         },
         "rv8": {
@@ -447,7 +457,8 @@
           "settings": {
             "rating": 5,
             "name": "Bartek K.",
-            "text": "Najlepsza dekoracja Halloweenowa, jaką miałem. Ruch nóżek robi niesamowite wrażenie."
+            "text": "Najlepsza dekoracja Halloweenowa, jaką miałem. Ruch nóżek robi niesamowite wrażenie.",
+            "date": "2 sie 2026"
           }
         },
         "rv9": {
@@ -455,7 +466,8 @@
           "settings": {
             "rating": 4,
             "name": "Magda T.",
-            "text": "Solidne wykonanie, dźwięk głośniejszy niż się spodziewałam — w pozytywnym sensie."
+            "text": "Solidne wykonanie, dźwięk głośniejszy niż się spodziewałam — w pozytywnym sensie.",
+            "date": "3 sie 2026"
           }
         },
         "rv10": {
@@ -463,7 +475,8 @@
           "settings": {
             "rating": 5,
             "name": "Piotr N.",
-            "text": "Przesyłka szybka, a jakość zaskoczyła mnie pozytywnie. Polecam każdemu, kto lubi Halloween."
+            "text": "Przesyłka szybka, a jakość zaskoczyła mnie pozytywnie. Polecam każdemu, kto lubi Halloween.",
+            "date": "4 sie 2026"
           }
         },
         "rv11": {
@@ -471,7 +484,8 @@
           "settings": {
             "rating": 5,
             "name": "Ewa L.",
-            "text": "Genialny prezent-niespodzianka dla dzieci. Same pytały, czy miotła jest zaczarowana."
+            "text": "Genialny prezent-niespodzianka dla dzieci. Same pytały, czy miotła jest zaczarowana.",
+            "date": "5 sie 2026"
           }
         },
         "rv12": {
@@ -479,7 +493,8 @@
           "settings": {
             "rating": 5,
             "name": "Damian F.",
-            "text": "Świetna zabawa dla całej rodziny — montaż banalny, efekt piorunujący."
+            "text": "Świetna zabawa dla całej rodziny — montaż banalny, efekt piorunujący.",
+            "date": "6 sie 2026"
           }
         }
       },

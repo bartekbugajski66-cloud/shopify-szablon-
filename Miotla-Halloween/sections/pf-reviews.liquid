@@ -1,4 +1,4 @@
-{%- comment -%} Miotła Halloween — Opinie: podsumowanie oceny + siatka recenzji (styl panefright) {%- endcomment -%}
+{%- comment -%} Miotła Halloween — Opinie: podsumowanie oceny + masonry siatka recenzji ze zdjęciami {%- endcomment -%}
 <section class="pf pf-rev pf-sec pf-sec--alt" id="pf-rev-{{ section.id }}">
   <div class="pf-container">
     <div class="pf-rev__summary">
@@ -8,16 +8,26 @@
         <span class="pf-rev__count">{{ section.settings.rating_count }}</span>
       </div>
       <div class="pf-rev__bars">
-        {%- assign bars = "5:" | append: section.settings.pct_5 | append: ",4:" | append: section.settings.pct_4 | append: ",3:" | append: section.settings.pct_3 | append: ",2:" | append: section.settings.pct_2 | append: ",1:" | append: section.settings.pct_1 | split: "," -%}
-        {%- for b in bars -%}
-          {%- assign parts = b | split: ":" -%}
+        {%- assign counts = "5:" | append: section.settings.count_5 | append: ",4:" | append: section.settings.count_4 | append: ",3:" | append: section.settings.count_3 | append: ",2:" | append: section.settings.count_2 | append: ",1:" | append: section.settings.count_1 | split: "," -%}
+        {%- assign total = section.settings.count_5 | plus: section.settings.count_4 | plus: section.settings.count_3 | plus: section.settings.count_2 | plus: section.settings.count_1 -%}
+        {%- for c in counts -%}
+          {%- assign parts = c | split: ":" -%}
+          {%- assign n = parts[1] | plus: 0 -%}
+          {%- if total > 0 -%}{%- assign pct = n | times: 100 | divided_by: total -%}{%- else -%}{%- assign pct = 0 -%}{%- endif -%}
           <div class="pf-rev__bar">
             <span class="pf-rev__barlabel">{{ parts[0] }}★</span>
-            <span class="pf-rev__bartrack"><span class="pf-rev__barfill" style="width:{{ parts[1] }}%"></span></span>
-            <span class="pf-rev__barpct">{{ parts[1] }}%</span>
+            <span class="pf-rev__bartrack"><span class="pf-rev__barfill" style="width:{{ pct }}%"></span></span>
+            <span class="pf-rev__barpct">({{ n }})</span>
           </div>
         {%- endfor -%}
       </div>
+      {%- if section.settings.write_review_enable -%}
+        <div class="pf-rev__write">
+          <span class="pf-rev__writelabel">{{ section.settings.write_review_heading }}</span>
+          <span class="pf-star-row" aria-hidden="true">★★★★★</span>
+          <a href="{{ section.settings.write_review_link | default: '#' }}" class="pf-rev__writebtn">{{ section.settings.write_review_cta }}</a>
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="pf-rev__grid">
@@ -26,10 +36,14 @@
           {%- if block.settings.image != blank -%}
             {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', class: 'pf-rev__img', alt: block.settings.name | escape }}
           {%- endif -%}
+          {%- if block.settings.image2 != blank -%}
+            {{ block.settings.image2 | image_url: width: 500 | image_tag: loading: 'lazy', class: 'pf-rev__img', alt: block.settings.name | escape }}
+          {%- endif -%}
           <div class="pf-rev__body">
             {%- assign pf_empty_stars = 5 | minus: block.settings.rating -%}
             <span class="pf-star-row" aria-hidden="true">{% for i in (1..block.settings.rating) %}★{% endfor %}{% if pf_empty_stars > 0 %}{% for i in (1..pf_empty_stars) %}☆{% endfor %}{% endif %}</span>
-            <p class="pf-rev__text">{{ block.settings.text }}</p>
+            {%- if block.settings.date != blank -%}<span class="pf-rev__date">{{ block.settings.date }}</span>{%- endif -%}
+            {%- if block.settings.text != blank -%}<p class="pf-rev__text">{{ block.settings.text }}</p>{%- endif -%}
             <span class="pf-rev__name">{{ block.settings.name }}</span>
           </div>
         </figure>
@@ -38,57 +52,76 @@
   </div>
 </section>
 {%- style -%}
-  #pf-rev-{{ section.id }} .pf-rev__summary{display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center;margin-bottom:36px}
-  #pf-rev-{{ section.id }} .pf-rev__score{display:flex;flex-direction:column;align-items:center;gap:6px}
+  #pf-rev-{{ section.id }} .pf-rev__summary{display:flex;flex-direction:column;gap:24px;margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid var(--pf-line)}
+  #pf-rev-{{ section.id }} .pf-rev__score{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
   #pf-rev-{{ section.id }} .pf-rev__num{font-size:44px;font-weight:800;line-height:1}
   #pf-rev-{{ section.id }} .pf-rev__count{font-size:13px;color:var(--pf-text-dim)}
-  #pf-rev-{{ section.id }} .pf-rev__bars{width:100%;max-width:280px;display:flex;flex-direction:column;gap:6px}
-  #pf-rev-{{ section.id }} .pf-rev__bar{display:grid;grid-template-columns:28px 1fr 36px;align-items:center;gap:8px;font-size:11.5px;color:var(--pf-text-dim)}
-  #pf-rev-{{ section.id }} .pf-rev__bartrack{height:6px;border-radius:999px;background:var(--pf-bg-card);overflow:hidden}
+  #pf-rev-{{ section.id }} .pf-rev__bars{width:100%;max-width:360px;margin:0 auto;display:flex;flex-direction:column;gap:7px}
+  #pf-rev-{{ section.id }} .pf-rev__bar{display:grid;grid-template-columns:28px 1fr 40px;align-items:center;gap:8px;font-size:12px;color:var(--pf-text-dim)}
+  #pf-rev-{{ section.id }} .pf-rev__bartrack{height:7px;border-radius:999px;background:var(--pf-bg-card);overflow:hidden}
   #pf-rev-{{ section.id }} .pf-rev__barfill{display:block;height:100%;background:var(--pf-star)}
-  #pf-rev-{{ section.id }} .pf-rev__grid{display:grid;grid-template-columns:1fr;gap:14px}
-  #pf-rev-{{ section.id }} .pf-rev__card{overflow:hidden}
-  #pf-rev-{{ section.id }} .pf-rev__img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--pf-bg-card);display:block}
-  #pf-rev-{{ section.id }} .pf-rev__body{padding:14px 16px}
-  #pf-rev-{{ section.id }} .pf-rev__text{margin:8px 0 10px;font-size:12.5px;color:var(--pf-text-dim);line-height:1.55}
+  #pf-rev-{{ section.id }} .pf-rev__write{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+  #pf-rev-{{ section.id }} .pf-rev__writelabel{font-size:15px;font-weight:800;color:var(--pf-text)}
+  #pf-rev-{{ section.id }} .pf-rev__writebtn{display:inline-block;background:#e7e9e7;color:#111;text-decoration:none;font-weight:700;font-size:13.5px;padding:11px 22px;border-radius:9px;margin-top:2px}
+  #pf-rev-{{ section.id }} .pf-rev__writebtn:hover{filter:brightness(.96)}
+  #pf-rev-{{ section.id }} .pf-rev__grid{columns:2;column-gap:14px}
+  #pf-rev-{{ section.id }} .pf-rev__card{display:inline-block;width:100%;break-inside:avoid;margin:0 0 14px;overflow:hidden}
+  #pf-rev-{{ section.id }} .pf-rev__img{width:100%;object-fit:cover;background:var(--pf-bg-card);display:block}
+  #pf-rev-{{ section.id }} .pf-rev__img + .pf-rev__img{border-top:2px solid var(--pf-bg)}
+  #pf-rev-{{ section.id }} .pf-rev__body{padding:12px 14px}
+  #pf-rev-{{ section.id }} .pf-rev__date{display:block;font-size:10.5px;color:var(--pf-text-dim);margin:2px 0 6px}
+  #pf-rev-{{ section.id }} .pf-rev__text{margin:0 0 8px;font-size:12.5px;color:var(--pf-text-dim);line-height:1.55}
   #pf-rev-{{ section.id }} .pf-rev__name{font-size:11.5px;font-weight:700;color:var(--pf-text)}
-  @media(min-width:640px){#pf-rev-{{ section.id }} .pf-rev__grid{grid-template-columns:repeat(2,1fr)}}
-  @media(min-width:960px){#pf-rev-{{ section.id }} .pf-rev__grid{grid-template-columns:repeat(3,1fr)}#pf-rev-{{ section.id }} .pf-rev__summary{flex-direction:row;justify-content:center;gap:48px}}
+  @media(min-width:640px){#pf-rev-{{ section.id }} .pf-rev__grid{columns:3}}
+  @media(min-width:900px){
+    #pf-rev-{{ section.id }} .pf-rev__grid{columns:4}
+    #pf-rev-{{ section.id }} .pf-rev__summary{flex-direction:row;align-items:center;justify-content:space-between;text-align:left}
+    #pf-rev-{{ section.id }} .pf-rev__score{text-align:left;align-items:flex-start}
+    #pf-rev-{{ section.id }} .pf-rev__write{align-items:flex-end;text-align:right}
+  }
 {%- endstyle -%}
 {% schema %}
 {
   "name": "MH — Opinie",
   "settings": [
     { "type": "text", "id": "rating_value", "label": "Ocena ogólna", "default": "4,8" },
-    { "type": "text", "id": "rating_count", "label": "Liczba opinii", "default": "na podstawie 263 opinii" },
-    { "type": "range", "id": "pct_5", "label": "% ocen 5★", "min": 0, "max": 100, "default": 82 },
-    { "type": "range", "id": "pct_4", "label": "% ocen 4★", "min": 0, "max": 100, "default": 12 },
-    { "type": "range", "id": "pct_3", "label": "% ocen 3★", "min": 0, "max": 100, "default": 4 },
-    { "type": "range", "id": "pct_2", "label": "% ocen 2★", "min": 0, "max": 100, "default": 1 },
-    { "type": "range", "id": "pct_1", "label": "% ocen 1★", "min": 0, "max": 100, "default": 1 }
+    { "type": "text", "id": "rating_count", "label": "Liczba opinii (tekst)", "default": "263 opinie" },
+    { "type": "header", "content": "Rozkład ocen" },
+    { "type": "number", "id": "count_5", "label": "Liczba ocen 5★", "default": 221 },
+    { "type": "number", "id": "count_4", "label": "Liczba ocen 4★", "default": 33 },
+    { "type": "number", "id": "count_3", "label": "Liczba ocen 3★", "default": 9 },
+    { "type": "number", "id": "count_2", "label": "Liczba ocen 2★", "default": 0 },
+    { "type": "number", "id": "count_1", "label": "Liczba ocen 1★", "default": 0 },
+    { "type": "header", "content": "Napisz opinię" },
+    { "type": "checkbox", "id": "write_review_enable", "label": "Pokaż przycisk", "default": true },
+    { "type": "text", "id": "write_review_heading", "label": "Nagłówek", "default": "Podziel się opinią" },
+    { "type": "text", "id": "write_review_cta", "label": "Tekst przycisku", "default": "Napisz opinię" },
+    { "type": "url", "id": "write_review_link", "label": "Link przycisku", "info": "Np. mailto: lub link" }
   ],
   "blocks": [
     { "type": "review", "name": "Opinia", "settings": [
-      { "type": "image_picker", "id": "image", "label": "Zdjęcie (opcjonalnie)" },
+      { "type": "image_picker", "id": "image", "label": "Zdjęcie 1 (opcjonalnie)" },
+      { "type": "image_picker", "id": "image2", "label": "Zdjęcie 2 (opcjonalnie)" },
       { "type": "range", "id": "rating", "label": "Ocena", "min": 1, "max": 5, "default": 5 },
+      { "type": "text", "id": "date", "label": "Data", "default": "1 sty 2026" },
       { "type": "textarea", "id": "text", "label": "Treść", "default": "Świetna dekoracja, robi ogromne wrażenie po zmroku." },
       { "type": "text", "id": "name", "label": "Autor", "default": "Anna K." }
     ] }
   ],
   "max_blocks": 18,
   "presets": [ { "name": "MH — Opinie", "blocks": [
-    { "type": "review", "settings": { "rating": 5, "name": "Karolina M.", "text": "Dużo lepsza niż te tandetne dekoracje, które widać, że są sztuczne już z 5 metrów. Ta naprawdę robi wrażenie — mój mąż i dzieciaki ją uwielbiają." } },
-    { "type": "review", "settings": { "rating": 5, "name": "Łukasz P.", "text": "Sąsiedzi pytali, gdzie kupiłem. Zielona poświata widoczna z drugiej strony ulicy, a dźwięk naprawdę straszy." } },
-    { "type": "review", "settings": { "rating": 5, "name": "Ania W.", "text": "Montaż zajął dosłownie 2 minuty. Giętki trzonek pozwolił ułożyć miotłę dokładnie tak, jak chciałam." } },
-    { "type": "review", "settings": { "rating": 4, "name": "Marek Sz.", "text": "Bardzo dobra jakość jak na tę cenę. Jedyny minus — baterie trzeba dokupić osobno." } },
-    { "type": "review", "settings": { "rating": 5, "name": "Kasia D.", "text": "Dzieci z całej ulicy przychodzą zobaczyć, jak miotła się rusza i śmieje. Najlepszy zakup na Halloween." } },
-    { "type": "review", "settings": { "rating": 5, "name": "Tomek R.", "text": "Wygląda dokładnie jak na zdjęciach — świeci mocno i naprawdę robi wrażenie po zmroku." } },
-    { "type": "review", "settings": { "rating": 5, "name": "Ola J.", "text": "Kupiłam dwie sztuki — jedną na drzwi, drugą do ogrodu. Obie działają bez zarzutu." } },
-    { "type": "review", "settings": { "rating": 5, "name": "Bartek K.", "text": "Najlepsza dekoracja Halloweenowa, jaką miałem. Ruch nóżek robi niesamowite wrażenie." } },
-    { "type": "review", "settings": { "rating": 4, "name": "Magda T.", "text": "Solidne wykonanie, dźwięk głośniejszy niż się spodziewałam — w pozytywnym sensie." } },
-    { "type": "review", "settings": { "rating": 5, "name": "Piotr N.", "text": "Przesyłka szybka, a jakość zaskoczyła mnie pozytywnie. Polecam każdemu, kto lubi Halloween." } },
-    { "type": "review", "settings": { "rating": 5, "name": "Ewa L.", "text": "Genialny prezent-niespodzianka dla dzieci. Same pytały, czy miotła jest zaczarowana." } },
-    { "type": "review", "settings": { "rating": 5, "name": "Damian F.", "text": "Świetna zabawa dla całej rodziny — montaż banalny, efekt piorunujący." } }
+    { "type": "review", "settings": { "rating": 5, "name": "Karolina M.", "date": "26 lip 2026", "text": "Dużo lepsza niż te tandetne dekoracje, które widać, że są sztuczne już z 5 metrów. Ta naprawdę robi wrażenie — mój mąż i dzieciaki ją uwielbiają." } },
+    { "type": "review", "settings": { "rating": 5, "name": "Łukasz P.", "date": "27 lip 2026", "text": "Sąsiedzi pytali, gdzie kupiłem. Zielona poświata widoczna z drugiej strony ulicy, a dźwięk naprawdę straszy." } },
+    { "type": "review", "settings": { "rating": 5, "name": "Ania W.", "date": "28 lip 2026", "text": "Montaż zajął dosłownie 2 minuty. Giętki trzonek pozwolił ułożyć miotłę dokładnie tak, jak chciałam." } },
+    { "type": "review", "settings": { "rating": 4, "name": "Marek Sz.", "date": "29 lip 2026", "text": "Bardzo dobra jakość jak na tę cenę. Jedyny minus — baterie trzeba dokupić osobno." } },
+    { "type": "review", "settings": { "rating": 5, "name": "Kasia D.", "date": "30 lip 2026", "text": "Dzieci z całej ulicy przychodzą zobaczyć, jak miotła się rusza i śmieje. Najlepszy zakup na Halloween." } },
+    { "type": "review", "settings": { "rating": 5, "name": "Tomek R.", "date": "31 lip 2026", "text": "Wygląda dokładnie jak na zdjęciach — świeci mocno i naprawdę robi wrażenie po zmroku." } },
+    { "type": "review", "settings": { "rating": 5, "name": "Ola J.", "date": "1 sie 2026", "text": "Kupiłam dwie sztuki — jedną na drzwi, drugą do ogrodu. Obie działają bez zarzutu." } },
+    { "type": "review", "settings": { "rating": 5, "name": "Bartek K.", "date": "2 sie 2026", "text": "Najlepsza dekoracja Halloweenowa, jaką miałem. Ruch nóżek robi niesamowite wrażenie." } },
+    { "type": "review", "settings": { "rating": 4, "name": "Magda T.", "date": "3 sie 2026", "text": "Solidne wykonanie, dźwięk głośniejszy niż się spodziewałam — w pozytywnym sensie." } },
+    { "type": "review", "settings": { "rating": 5, "name": "Piotr N.", "date": "4 sie 2026", "text": "Przesyłka szybka, a jakość zaskoczyła mnie pozytywnie. Polecam każdemu, kto lubi Halloween." } },
+    { "type": "review", "settings": { "rating": 5, "name": "Ewa L.", "date": "5 sie 2026", "text": "Genialny prezent-niespodzianka dla dzieci. Same pytały, czy miotła jest zaczarowana." } },
+    { "type": "review", "settings": { "rating": 5, "name": "Damian F.", "date": "6 sie 2026", "text": "Świetna zabawa dla całej rodziny — montaż banalny, efekt piorunujący." } }
   ] } ]
 }
 {% endschema %}
