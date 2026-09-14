@@ -1,0 +1,51 @@
+{%- comment -%} Miotła Halloween — Problemy (styl THEVIREA) {%- endcomment -%}
+<section class="drip-prob drip-sec" id="drip-prob-{{ section.id }}">
+  <div class="drip-container drip-prob__wrap">
+    <div class="drip-prob__head">
+      {%- if section.settings.eyebrow != blank -%}<span class="drip-eyebrow drip-eyebrow--red">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="drip-h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p class="drip-lead">{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+    <div class="drip-prob__list">
+      {%- for block in section.blocks -%}
+        <div class="drip-prob__card" {{ block.shopify_attributes }}>
+          <span class="drip-prob__ico" aria-hidden="true">{{ block.settings.icon }}</span>
+          <div>
+            <h3 class="drip-prob__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="drip-prob__desc">{{ block.settings.text }}</p>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- style -%}
+  #drip-prob-{{ section.id }} .drip-prob__wrap{max-width:920px;margin:0 auto}
+  #drip-prob-{{ section.id }} .drip-prob__list{display:flex;flex-direction:column;gap:14px}
+  #drip-prob-{{ section.id }} .drip-prob__card{display:flex;align-items:flex-start;gap:16px;background:#fff;border:1px solid var(--drip-line);border-radius:16px;padding:18px 20px;box-shadow:0 2px 12px rgba(15,23,42,.04)}
+  #drip-prob-{{ section.id }} .drip-prob__ico{flex:none;width:46px;height:46px;display:grid;place-items:center;border-radius:50%;background:#fde7ea;font-size:22px}
+  #drip-prob-{{ section.id }} .drip-prob__title{margin:0 0 4px;font-size:16px;font-weight:800}
+  #drip-prob-{{ section.id }} .drip-prob__desc{margin:0;font-size:14px;color:var(--drip-ink);line-height:1.5}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "Miotła Halloween • Problemy",
+  "settings": [
+    { "type":"text","id":"eyebrow","label":"Nadtytuł","default":"BRZMI ZNAJOMO?" },
+    { "type":"text","id":"heading","label":"Nagłówek","default":"Twoja dekoracja na Halloween nudzi sąsiadów?" },
+    { "type":"textarea","id":"subheading","label":"Podnagłówek","default":"Zwykłe dynie i pajęczyny już nikogo nie zaskakują. Czas na coś, co naprawdę przestraszy." }
+  ],
+  "blocks": [ { "type":"problem","name":"Problem","settings":[
+    {"type":"text","id":"icon","label":"Emoji","default":"🎃"},
+    {"type":"text","id":"title","label":"Tytuł","default":"Nudna, statyczna dekoracja"},
+    {"type":"textarea","id":"text","label":"Opis","default":"Sztuczne dynie i sztywne pajęczyny nie przyciągają wzroku i nikogo nie straszą."}
+  ] } ],
+  "max_blocks": 8,
+  "presets": [ { "name":"Miotła Halloween • Problemy", "blocks":[
+    {"type":"problem","settings":{"icon":"🎃","title":"Nudna, statyczna dekoracja","text":"Sztuczne dynie i sztywne pajęczyny nie przyciągają wzroku i nikogo nie straszą."}},
+    {"type":"problem","settings":{"icon":"🔋","title":"Skomplikowany montaż","text":"Girlandy świetlne trzeba wieszać godzinami, a efekt i tak jest przeciętny."}},
+    {"type":"problem","settings":{"icon":"🤫","title":"Brak efektu WOW","text":"Bez ruchu i dźwięku dekoracja ginie w tle innych domów w okolicy."}},
+    {"type":"problem","settings":{"icon":"🌧️","title":"Nie nadaje się na zewnątrz","text":"Wiele dekoracji świetlnych szybko się psuje i nie wytrzymuje pogody."}}
+  ] } ]
+}
+{% endschema %}

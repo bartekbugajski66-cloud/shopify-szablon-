@@ -1,0 +1,24 @@
+<div class="drip-page page-width">
+  <h1>Zamówienie {{ order.name }}</h1>
+  <p><a href="{{ routes.account_url }}">‹ Wróć do konta</a></p>
+  <p>Data: {{ order.created_at | date: '%d.%m.%Y' }} · Płatność: {{ order.financial_status_label }} · Wysyłka: {{ order.fulfillment_status_label }}</p>
+
+  <table class="drip-cart-table">
+    <thead><tr><th>Produkt</th><th>Ilość</th><th>Cena</th></tr></thead>
+    <tbody>
+      {%- for line_item in order.line_items -%}
+        <tr>
+          <td>{{ line_item.title }}</td>
+          <td>{{ line_item.quantity }}</td>
+          <td>{{ line_item.final_line_price | money }}</td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+
+  <div class="drip-cart-footer">
+    <span>Dostawa: {{ order.total_shipping_price | money }}</span>
+    <span>Podatek: {{ order.tax_price | money }}</span>
+    <span class="drip-cart-total">Razem: {{ order.total_price | money }}</span>
+  </div>
+</div>

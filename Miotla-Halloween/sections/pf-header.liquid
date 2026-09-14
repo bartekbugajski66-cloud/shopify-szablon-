@@ -1,0 +1,79 @@
+{%- comment -%} Miotła Halloween — Header ciemny (styl panefright) {%- endcomment -%}
+<header class="pf pf-hd" id="pf-hd-{{ section.id }}">
+  <div class="pf-container pf-hd__inner">
+    <details class="pf-hd__drawer">
+      <summary class="pf-hd__burger" aria-label="Menu"><span></span><span></span><span></span></summary>
+      <nav class="pf-hd__mobilenav" aria-label="Menu mobilne">
+        {%- for link in section.settings.menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+      </nav>
+    </details>
+
+    <nav class="pf-hd__nav pf-hd__nav--left" aria-label="Menu główne">
+      {%- for link in section.settings.menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+      {%- if section.settings.pill_text != blank -%}
+        <a href="{{ section.settings.pill_link | default: '#pf-buy' }}" class="pf-hd__pill">{{ section.settings.pill_text }}</a>
+      {%- endif -%}
+    </nav>
+
+    <a href="{{ routes.root_url }}" class="pf-hd__logo">
+      {%- if section.settings.logo_image != blank -%}
+        {{ section.settings.logo_image | image_url: width: 600 | image_tag: loading: 'eager', class: 'pf-hd__logoimg', widths: '150,300,450,600', alt: shop.name | escape }}
+      {%- else -%}
+        <span class="pf-hd__name" aria-hidden="true">🧹</span>
+        <span class="pf-hd__name">{{ section.settings.logo_text | default: shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    <div class="pf-hd__icons">
+      <a href="{{ routes.search_url }}" class="pf-hd__icon" aria-label="Szukaj">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </a>
+      <a href="{{ routes.account_url }}" class="pf-hd__icon" aria-label="Konto">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.6-4 5-6 8-6s6.4 2 8 6"/></svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="pf-hd__icon" aria-label="Koszyk ({{ cart.item_count }})">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+        {%- if cart.item_count > 0 -%}<span class="pf-hd__count">{{ cart.item_count }}</span>{%- endif -%}
+      </a>
+    </div>
+  </div>
+</header>
+{%- style -%}
+  #pf-hd-{{ section.id }}{background:var(--pf-bg);border-bottom:1px solid var(--pf-line);position:relative;z-index:50}
+  #pf-hd-{{ section.id }} .pf-hd__inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;padding-bottom:14px}
+  #pf-hd-{{ section.id }} .pf-hd__logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--pf-text);margin:0 auto}
+  #pf-hd-{{ section.id }} .pf-hd__logoimg{height:{{ section.settings.logo_height }}px;width:auto;display:block}
+  #pf-hd-{{ section.id }} .pf-hd__name{font-size:16px;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
+  #pf-hd-{{ section.id }} .pf-hd__nav{display:none;gap:22px;align-items:center}
+  #pf-hd-{{ section.id }} .pf-hd__nav a{color:var(--pf-text-dim);text-decoration:none;font-size:13.5px;font-weight:600}
+  #pf-hd-{{ section.id }} .pf-hd__nav a:hover{color:var(--pf-text)}
+  #pf-hd-{{ section.id }} .pf-hd__pill{background:var(--pf-accent);color:var(--pf-accent-text)!important;padding:6px 13px;border-radius:999px;font-weight:800!important;font-size:12px!important}
+  #pf-hd-{{ section.id }} .pf-hd__icons{display:flex;align-items:center;gap:14px;flex:none}
+  #pf-hd-{{ section.id }} .pf-hd__icon{position:relative;color:var(--pf-text);display:inline-flex}
+  #pf-hd-{{ section.id }} .pf-hd__count{position:absolute;top:-6px;right:-8px;background:var(--pf-accent);color:var(--pf-accent-text);font-size:10px;font-weight:800;min-width:16px;height:16px;border-radius:999px;display:grid;place-items:center;padding:0 3px}
+  #pf-hd-{{ section.id }} .pf-hd__burger{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:4.5px;padding:6px 4px;flex:none}
+  #pf-hd-{{ section.id }} .pf-hd__burger::-webkit-details-marker{display:none}
+  #pf-hd-{{ section.id }} .pf-hd__burger span{width:20px;height:2px;background:var(--pf-text);border-radius:2px;display:block}
+  #pf-hd-{{ section.id }} .pf-hd__mobilenav{position:absolute;top:calc(100% + 8px);left:16px;min-width:220px;background:var(--pf-bg-card);border:1px solid var(--pf-line);border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.5);display:flex;flex-direction:column;padding:8px;z-index:60}
+  #pf-hd-{{ section.id }} .pf-hd__mobilenav a{color:var(--pf-text);text-decoration:none;font-size:14.5px;font-weight:600;padding:11px 14px;border-radius:10px}
+  #pf-hd-{{ section.id }} .pf-hd__mobilenav a:hover{background:var(--pf-bg-alt)}
+  @media(min-width:900px){
+    #pf-hd-{{ section.id }} .pf-hd__drawer{display:none}
+    #pf-hd-{{ section.id }} .pf-hd__nav{display:flex;flex:1}
+    #pf-hd-{{ section.id }} .pf-hd__logo{margin:0}
+    #pf-hd-{{ section.id }} .pf-hd__icons{flex:1;justify-content:flex-end}
+  }
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "Miotła Halloween • Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo_image", "label": "Logo (obrazek) — zostaw puste dla tekstu" },
+    { "type": "range", "id": "logo_height", "min": 24, "max": 70, "step": 2, "unit": "px", "label": "Wysokość logo", "default": 34 },
+    { "type": "text", "id": "logo_text", "label": "Logo (tekst, gdy brak obrazka)", "default": "MIOTŁA HALLOWEEN™" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "text", "id": "pill_text", "label": "Przycisk-pigułka w menu", "default": "Wyprzedaż" },
+    { "type": "url", "id": "pill_link", "label": "Link pigułki", "info": "Puste = przewinie do sekcji zakupu (#pf-buy)." }
+  ]
+}
+{% endschema %}

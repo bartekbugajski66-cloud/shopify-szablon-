@@ -1,0 +1,40 @@
+{%- comment -%} Miotła Halloween — Liczniki (granatowy pas, styl THEVIREA) {%- endcomment -%}
+<section class="drip-sp" id="drip-sp-{{ section.id }}">
+  <div class="drip-container">
+    <div class="drip-sp__grid">
+      {%- for block in section.blocks -%}
+        <div class="drip-sp__item" {{ block.shopify_attributes }}>
+          <span class="drip-sp__num">{{ block.settings.number }}</span>
+          <span class="drip-sp__lbl">{{ block.settings.label }}</span>
+          {%- if block.settings.note != blank -%}<span class="drip-sp__note">{{ block.settings.note }}</span>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- style -%}
+  #drip-sp-{{ section.id }}{background:var(--drip-blue);color:#fff;padding:40px 0}
+  #drip-sp-{{ section.id }} .drip-sp__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 12px}
+  #drip-sp-{{ section.id }} .drip-sp__item{text-align:center;position:relative}
+  #drip-sp-{{ section.id }} .drip-sp__num{display:block;font-size:clamp(30px,8vw,44px);font-weight:800;line-height:1}
+  #drip-sp-{{ section.id }} .drip-sp__lbl{display:block;font-size:13px;font-weight:600;margin-top:6px;opacity:.95}
+  #drip-sp-{{ section.id }} .drip-sp__note{display:block;font-size:10.5px;opacity:.6;margin-top:4px}
+  @media(min-width:900px){#drip-sp-{{ section.id }}{padding:56px 0}#drip-sp-{{ section.id }} .drip-sp__grid{grid-template-columns:repeat(4,1fr);gap:20px}#drip-sp-{{ section.id }} .drip-sp__item:not(:last-child)::after{content:"";position:absolute;right:-10px;top:10%;height:80%;width:1px;background:rgba(255,255,255,.2)}}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "Miotła Halloween • Liczniki",
+  "blocks": [ { "type":"stat","name":"Licznik","settings":[
+    {"type":"text","id":"number","label":"Liczba","default":"1000+"},
+    {"type":"text","id":"label","label":"Opis","default":"Sprzedanych mioteł Halloween"},
+    {"type":"text","id":"note","label":"Przypis","default":"* dane sprzedażowe marketplace"}
+  ] } ],
+  "max_blocks": 4,
+  "presets": [ { "name":"Miotła Halloween • Liczniki", "blocks":[
+    {"type":"stat","settings":{"number":"1000+","label":"Sprzedanych mioteł Halloween","note":"* dane sprzedażowe marketplace"}},
+    {"type":"stat","settings":{"number":"450+","label":"Komentarzy i reakcji","note":"* w naszych mediach społecznościowych"}},
+    {"type":"stat","settings":{"number":"4,9★","label":"Średnia ocena zadowolenia","note":"* na podstawie opinii z social media"}},
+    {"type":"stat","settings":{"number":"30","label":"Dni na domowe testy","note":"* gwarancja satysfakcji – bez ryzyka"}}
+  ] } ]
+}
+{% endschema %}

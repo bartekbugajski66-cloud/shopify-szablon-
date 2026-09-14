@@ -1,0 +1,158 @@
+{
+  "sections": {
+    "product_main": {
+      "type": "pf-buybox",
+      "settings": {
+        "fallback_title": "Miotła Halloween™",
+        "show_rating": true,
+        "rating_value": "4,8",
+        "rating_count": "263 opinie",
+        "badge_text": "WYPRZEDAŻ | OGRANICZONA ILOŚĆ",
+        "countdown_label": "Pośpiesz się! Oferta wygasa za",
+        "countdown_minutes": 15,
+        "cta_text": "DODAJ DO KOSZYKA",
+        "after_add": "cart"
+      },
+      "blocks": {
+        "h1": { "type": "highlight", "settings": { "icon": "✨", "title": "Wygląda jak żywa", "text": "Realistyczny ruch i zielona poświata — zero plastikowego wrażenia" } },
+        "h2": { "type": "highlight", "settings": { "icon": "⏱️", "title": "Gotowa w mniej niż 3 minuty", "text": "Włóż baterie, zawieś na drzwiach, włącz przełącznik" } },
+        "h3": { "type": "highlight", "settings": { "icon": "🔀", "title": "Ustaw ją, gdzie chcesz", "text": "Drzwi, ganek lub ogród — dzięki giętkiemu trzonkowi" } },
+        "pk1": { "type": "package", "settings": {
+          "title": "1 MIOTŁA", "price": "69,99 zł", "compare_price": "129,99 zł",
+          "savings_text": "Oszczędzasz 94,98 zł na tym zamówieniu",
+          "quantity": 1, "preselect": false,
+          "bonus1_text": "Pętla montażowa", "bonus1_compare": "19,99 zł",
+          "bonus2_text": "Zapasowe baterie AAA", "bonus2_compare": "14,99 zł"
+        } },
+        "pk2": { "type": "package", "settings": {
+          "title": "2 MIOTŁY", "badge": "OSZCZĘDZASZ 55%", "price": "116,90 zł", "compare_price": "259,98 zł",
+          "savings_text": "Oszczędzasz 203,05 zł na tym zamówieniu",
+          "quantity": 2, "highlight": true, "preselect": true,
+          "bonus1_text": "Pętla montażowa", "bonus1_compare": "19,99 zł",
+          "bonus2_text": "Zapasowe baterie AAA", "bonus2_compare": "14,99 zł",
+          "bonus3_text": "Sztuczna pajęczyna XXL", "bonus3_compare": "24,99 zł"
+        } },
+        "pk3": { "type": "package", "settings": {
+          "title": "3 MIOTŁY", "badge": "OSZCZĘDZASZ 58%", "price": "153,90 zł", "compare_price": "389,97 zł",
+          "savings_text": "Oszczędzasz 296,04 zł na tym zamówieniu",
+          "quantity": 3, "preselect": false,
+          "bonus1_text": "Pętla montażowa", "bonus1_compare": "19,99 zł",
+          "bonus2_text": "Sztuczna pajęczyna XXL", "bonus2_compare": "24,99 zł",
+          "bonus3_text": "Zapasowe baterie AAA", "bonus3_compare": "14,99 zł"
+        } },
+        "tr1": { "type": "trust", "settings": { "icon": "🛡️", "title": "30-dniowa gwarancja zwrotu" } },
+        "tr2": { "type": "trust", "settings": { "icon": "🚚", "title": "Darmowa wysyłka" } },
+        "tr3": { "type": "trust", "settings": { "icon": "🔒", "title": "Bezpieczne zamówienia" } },
+        "mr1": { "type": "mini_review", "settings": { "name": "Karolina M.", "text": "Dużo lepsza niż te tandetne dekoracje, które widać, że są sztuczne już z 5 metrów. Ta naprawdę robi wrażenie — mój mąż ją uwielbia." } },
+        "mr2": { "type": "mini_review", "settings": { "name": "Tomek R.", "text": "Sąsiedzi pytali, gdzie kupiłem. Świeci na zielono i naprawdę rusza się po zmroku." } },
+        "mr3": { "type": "mini_review", "settings": { "name": "Ania W.", "text": "Montaż zajął dosłownie 2 minuty. Najlepszy zakup na ten Halloween." } },
+        "f1": { "type": "faq", "settings": { "question": "Czy naprawdę wygląda tak dobrze na żywo?", "answer": "Tak — zdjęcia i wideo pokazują dokładnie to, co zobaczysz po rozpakowaniu. Zielona poświata jest widoczna nawet z drugiej strony ulicy." } },
+        "f2": { "type": "faq", "settings": { "question": "Czy muszę coś jeszcze dokupić, żeby zacząć?", "answer": "Potrzebujesz tylko 3 baterii AAA (nie są dołączone do zestawu) — reszta jest gotowa do użycia od razu." } },
+        "f3": { "type": "faq", "settings": { "question": "Czy działa na zewnątrz?", "answer": "Tak, ale zalecamy chronić ją przed silnym deszczem i bezpośrednim zalaniem." } },
+        "f4": { "type": "faq", "settings": { "question": "Czy montaż jest trudny?", "answer": "Nie. Wystarczy zawiesić miotłę na dołączonej pętelce lub oprzeć ją, wykorzystując giętki trzonek." } },
+        "f5": { "type": "faq", "settings": { "question": "Jakiej długości jest miotła?", "answer": "Około 90 cm (35,43 cala) — idealny rozmiar na drzwi i ganek." } },
+        "f6": { "type": "faq", "settings": { "question": "Kiedy dostanę zamówienie i czy mogę zwrócić?", "answer": "Wysyłka 1–3 dni robocze. Masz 30 dni na test — jeśli nie zachwyci, zwrócimy pieniądze." } }
+      },
+      "block_order": ["h1", "h2", "h3", "pk1", "pk2", "pk3", "tr1", "tr2", "tr3", "mr1", "mr2", "mr3", "f1", "f2", "f3", "f4", "f5", "f6"]
+    },
+    "split": {
+      "type": "pf-content-split",
+      "settings": {
+        "heading_before": "Jedyna dekoracja, która przyciąga",
+        "heading_accent": "sąsiadów pod Twoje drzwi.",
+        "text": "Świecąca, animowana miotła wiedźmy sprawia, że Twój dom staje się punktem, o którym mówi cała ulica.",
+        "cta_text": "KUPUJĘ TERAZ"
+      },
+      "blocks": {
+        "b1": { "type": "bullet", "settings": { "text": "Widoczna z całej ulicy — świeci na zielono w ciemności" } },
+        "b2": { "type": "bullet", "settings": { "text": "Rusza „nóżkami” i wydaje dźwięk złowrogiego śmiechu" } },
+        "b3": { "type": "bullet", "settings": { "text": "Gotowa w niecałe 3 minuty — bez narzędzi" } }
+      },
+      "block_order": ["b1", "b2", "b3"]
+    },
+    "features": {
+      "type": "pf-features-grid",
+      "settings": {
+        "heading_before": "Dekorowanie ganku zajęło Ci cały dzień.",
+        "heading_accent": "To zajmuje trzy minuty.",
+        "subheading": "Cztery efekty w jednej dekoracji — bez narzędzi i bez godzin przygotowań.",
+        "cta_text": "KUPUJĘ TERAZ",
+        "cta_note": "30 dni gwarancji zwrotu pieniędzy"
+      },
+      "blocks": {
+        "t1": { "type": "feature", "settings": { "title": "Świecące LED", "text": "Zielona poświata w mroku tworzy magiczny, niepokojący klimat na ganku." } },
+        "t2": { "type": "feature", "settings": { "badge": "DŹWIĘK", "title": "Złowrogi śmiech", "text": "Wbudowany efekt dźwiękowy włącza się jednym przyciskiem." } },
+        "t3": { "type": "feature", "settings": { "title": "Ruchome „nóżki”", "text": "Miotła porusza się, jakby sama chodziła po ganku." } },
+        "t4": { "type": "feature", "settings": { "badge": "GIĘTKI TRZONEK", "title": "Dowolny kształt", "text": "Ustaw miotłę opartą, latającą czy wiszącą." } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "before_after": {
+      "type": "pf-before-after",
+      "settings": {
+        "heading_before": "Te same drzwi.",
+        "heading_accent": "Zupełnie inny Halloween.",
+        "subheading": "Jedna dekoracja robi różnicę, którą widać z drugiej strony ulicy.",
+        "before_label": "PRZED",
+        "after_label": "Z MIOTŁĄ HALLOWEEN™"
+      }
+    },
+    "comparison": {
+      "type": "pf-comparison-table",
+      "settings": {
+        "heading_before": "Wszystko inne na ganku",
+        "heading_accent": "wygląda jak plastik.",
+        "subheading": "Zobacz, dlaczego zwykłe dekoracje przegrywają z Miotłą Halloween™.",
+        "left_title": "Zwykłe dekoracje",
+        "right_title": "Miotła Halloween™",
+        "cta_text": "KUPUJĘ TERAZ",
+        "cta_note": "30 dni gwarancji zwrotu pieniędzy"
+      },
+      "blocks": {
+        "r1": { "type": "row", "settings": { "text": "Widoczna z ulicy po zmroku" } },
+        "r2": { "type": "row", "settings": { "text": "Rusza się i wydaje dźwięk" } },
+        "r3": { "type": "row", "settings": { "text": "Montaż poniżej 3 minut" } },
+        "r4": { "type": "row", "settings": { "text": "Wytrzymuje na dworze" } },
+        "r5": { "type": "row", "settings": { "text": "Robi wrażenie na sąsiadach" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5"]
+    },
+    "steps": {
+      "type": "pf-steps",
+      "settings": {
+        "heading": "Pełna dekoracja gotowa w 3 minuty",
+        "subheading": "Bez narzędzi i skomplikowanego montażu."
+      },
+      "blocks": {
+        "s1": { "type": "step", "settings": { "title": "ZAWIEŚ JĄ", "text": "Powieś miotłę na drzwiach lub oprzyj o ganek dzięki giętkiemu trzonkowi." } },
+        "s2": { "type": "step", "settings": { "title": "WŁÓŻ BATERIE", "text": "3 x AAA (nie w zestawie) — otwórz komorę i włóż baterie w kilka sekund." } },
+        "s3": { "type": "step", "settings": { "title": "WŁĄCZ POKAZ", "text": "Jeden przełącznik uruchamia światło, dźwięk i ruch." } }
+      },
+      "block_order": ["s1", "s2", "s3"]
+    },
+    "reviews": {
+      "type": "pf-reviews",
+      "settings": {
+        "rating_value": "4,8",
+        "rating_count": "na podstawie 263 opinii",
+        "pct_5": 82, "pct_4": 12, "pct_3": 4, "pct_2": 1, "pct_1": 1
+      },
+      "blocks": {
+        "rv1": { "type": "review", "settings": { "rating": 5, "name": "Karolina M.", "text": "Dużo lepsza niż te tandetne dekoracje, które widać, że są sztuczne już z 5 metrów. Ta naprawdę robi wrażenie — mój mąż ją uwielbia." } },
+        "rv2": { "type": "review", "settings": { "rating": 5, "name": "Tomek R.", "text": "Sąsiedzi pytali, gdzie kupiłem. Świeci na zielono i naprawdę rusza się po zmroku." } },
+        "rv3": { "type": "review", "settings": { "rating": 5, "name": "Ania W.", "text": "Montaż zajął dosłownie 2 minuty. Giętki trzonek pozwolił ułożyć miotłę dokładnie tak, jak chciałam." } },
+        "rv4": { "type": "review", "settings": { "rating": 4, "name": "Marek Sz.", "text": "Bardzo dobra jakość jak na tę cenę. Jedyny minus — baterie trzeba dokupić osobno." } },
+        "rv5": { "type": "review", "settings": { "rating": 5, "name": "Kasia D.", "text": "Dzieci z całej ulicy przychodzą zobaczyć, jak miotła się rusza i śmieje. Najlepszy zakup na Halloween." } },
+        "rv6": { "type": "review", "settings": { "rating": 5, "name": "Tomek W.", "text": "Wygląda dokładnie jak na zdjęciach — świeci mocno i naprawdę robi wrażenie po zmroku." } },
+        "rv7": { "type": "review", "settings": { "rating": 5, "name": "Ola J.", "text": "Kupiłam dwie sztuki — jedną na drzwi, drugą do ogrodu. Obie działają bez zarzutu." } },
+        "rv8": { "type": "review", "settings": { "rating": 5, "name": "Bartek K.", "text": "Najlepsza dekoracja Halloweenowa, jaką miałem. Ruch nóżek robi niesamowite wrażenie." } },
+        "rv9": { "type": "review", "settings": { "rating": 4, "name": "Magda T.", "text": "Solidne wykonanie, dźwięk głośniejszy niż się spodziewałam — w pozytywnym sensie." } },
+        "rv10": { "type": "review", "settings": { "rating": 5, "name": "Piotr N.", "text": "Przesyłka szybka, a jakość zaskoczyła mnie pozytywnie. Polecam każdemu, kto lubi Halloween." } },
+        "rv11": { "type": "review", "settings": { "rating": 5, "name": "Ewa L.", "text": "Genialny prezent-niespodzianka dla dzieci. Same pytały, czy miotła jest zaczarowana." } },
+        "rv12": { "type": "review", "settings": { "rating": 5, "name": "Damian F.", "text": "Świetna zabawa dla całej rodziny — montaż banalny, efekt piorunujący." } }
+      },
+      "block_order": ["rv1", "rv2", "rv3", "rv4", "rv5", "rv6", "rv7", "rv8", "rv9", "rv10", "rv11", "rv12"]
+    }
+  },
+  "order": ["product_main", "split", "features", "before_after", "comparison", "steps", "reviews"]
+}

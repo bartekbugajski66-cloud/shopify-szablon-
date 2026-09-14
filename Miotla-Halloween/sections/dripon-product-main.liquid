@@ -1,0 +1,296 @@
+{%- comment -%} Miotła Halloween — Hero + buy-box + pakiety (styl THEVIREA) {%- endcomment -%}
+{%- liquid
+  assign drip_go = section.settings.after_add | default: 'cart'
+  if settings.skip_cart
+    assign drip_go = 'checkout'
+  endif
+-%}
+<section class="drip-buy" id="drip-buy-{{ section.id }}" data-after-add="{{ drip_go }}">
+  <div class="drip-container drip-buy__grid">
+
+    <!-- LEWA: zdjęcia -->
+    <div class="drip-buy__media">
+      <div class="drip-buy__main">
+        {%- if product.featured_media -%}
+          <img id="drip-main-img-{{ section.id }}" class="drip-buy__img" src="{{ product.featured_media | image_url: width: 1200 }}" alt="{{ product.title | escape }}" loading="eager" fetchpriority="high" width="{{ product.featured_media.width }}" height="{{ product.featured_media.height }}">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'drip-buy__img' }}
+        {%- endif -%}
+        {%- if section.settings.trust_text != blank -%}
+          <div class="drip-buy__bubble">
+            <span class="drip-buy__pulse" aria-hidden="true"></span>
+            <span>{{ section.settings.trust_text }}{% if section.settings.trust_sub != blank %}<br><small>{{ section.settings.trust_sub }}</small>{% endif %}</span>
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="drip-buy__thumbs" id="drip-thumbs-{{ section.id }}">
+          {%- for media in product.media limit:8 -%}
+            {%- if media.media_type == 'image' -%}
+              <button type="button" class="drip-buy__thumb{% if forloop.first %} is-active{% endif %}" data-full="{{ media | image_url: width: 1200 }}" aria-label="Pokaż zdjęcie {{ forloop.index }}">
+                <img src="{{ media | image_url: width: 200 }}" loading="lazy" width="200" height="200" alt="{{ product.title | escape }} — {{ forloop.index }}">
+              </button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- PRAWA: zakup -->
+    <div class="drip-buy__col">
+      {%- if section.settings.badge != blank -%}<span class="drip-buy__redbadge">{{ section.settings.badge }}</span>{%- endif -%}
+      <h1 class="drip-buy__title">{{ section.settings.heading }}{% if section.settings.heading_accent != blank %} <span>{{ section.settings.heading_accent }}</span>{% endif %}</h1>
+      {%- if section.settings.subheading != blank -%}<p class="drip-buy__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+      {%- if section.settings.show_rating -%}
+        <div class="drip-buy__rating"><span class="drip-buy__stars" aria-hidden="true">★★★★★</span> <strong>{{ section.settings.rating }}</strong> · {{ section.settings.rating_text }}</div>
+      {%- endif -%}
+      <ul class="drip-buy__benefits">
+        {%- for block in section.blocks -%}{%- if block.type == 'benefit' -%}
+          <li {{ block.shopify_attributes }}><span class="drip-buy__check" aria-hidden="true">✓</span>{{ block.settings.text }}</li>
+        {%- endif -%}{%- endfor -%}
+      </ul>
+
+      <form class="drip-buy__form" id="drip-buy-form-{{ section.id }}">
+        {%- if section.settings.packs_label != blank -%}<span class="drip-buy__packlabel">{{ section.settings.packs_label }}</span>{%- endif -%}
+        <fieldset class="drip-buy__packs">
+          <legend class="visually-hidden">Wybierz pakiet</legend>
+          {%- for block in section.blocks -%}{%- if block.type == 'package' -%}
+            {%- assign vid = block.settings.variant_id | default: product.selected_or_first_available_variant.id -%}
+            <label class="drip-buy__pack{% if block.settings.highlight %} is-pop{% endif %}" {{ block.shopify_attributes }}>
+              {%- if block.settings.badge != blank -%}<span class="drip-buy__packbadge">{{ block.settings.badge }}</span>{%- endif -%}
+              <input type="radio" name="drip-pack" class="drip-buy__radio" value="{{ vid }}"
+                data-qty="{{ block.settings.quantity | default:1 }}" data-price="{{ block.settings.price }}" data-compare="{{ block.settings.compare_price }}" data-discount="{{ block.settings.discount }}"
+                {% if block.settings.preselect %}checked{% endif %}>
+              <span class="drip-buy__dot" aria-hidden="true"></span>
+              <span class="drip-buy__packbody">
+                <span class="drip-buy__packtitle">{{ block.settings.title }}</span>
+                {%- if block.settings.desc != blank -%}<span class="drip-buy__packdesc">{{ block.settings.desc }}</span>{%- endif -%}
+              </span>
+              <span class="drip-buy__packprice">
+                <span class="drip-buy__packnow">{{ block.settings.price }}</span>
+                {%- if block.settings.compare_price != blank -%}<s class="drip-buy__packold">{{ block.settings.compare_price }}</s>{%- endif -%}
+              </span>
+            </label>
+          {%- endif -%}{%- endfor -%}
+        </fieldset>
+
+        <div class="drip-buy__pricerow">
+          <span class="drip-buy__price" id="drip-price-{{ section.id }}"></span>
+          <s class="drip-buy__old" id="drip-old-{{ section.id }}"></s>
+          <span class="drip-buy__disc" id="drip-disc-{{ section.id }}"></span>
+        </div>
+
+        <button type="submit" class="drip-btn" id="drip-cta-{{ section.id }}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+          <span class="drip-buy__ctatext">{{ section.settings.cta_text }}</span>
+          <span class="drip-buy__spin" aria-hidden="true"></span>
+        </button>
+        <p class="drip-buy__err" id="drip-err-{{ section.id }}" role="alert" hidden></p>
+
+        <ul class="drip-buy__trust">
+          {%- for block in section.blocks -%}{%- if block.type == 'trust' -%}
+            <li {{ block.shopify_attributes }}><span aria-hidden="true">{{ block.settings.icon }}</span> {{ block.settings.text }}</li>
+          {%- endif -%}{%- endfor -%}
+        </ul>
+
+        {%- if section.settings.upsell_enable -%}
+          <label class="drip-buy__upsell">
+            <input type="checkbox" id="drip-up-{{ section.id }}" class="drip-buy__upcheck" data-variant="{{ section.settings.upsell_variant_id }}" data-qty="{{ section.settings.upsell_qty | default:1 }}">
+            <span class="drip-buy__upbody"><strong>{{ section.settings.upsell_title }}</strong><span>{{ section.settings.upsell_text }}</span></span>
+            {%- if section.settings.upsell_price != blank -%}<span class="drip-buy__upprice">{{ section.settings.upsell_price }}</span>{%- endif -%}
+          </label>
+        {%- endif -%}
+      </form>
+
+      {%- if section.settings.brand_box_title != blank -%}
+        <div class="drip-buy__brandbox"><strong>🛡️ {{ section.settings.brand_box_title }}</strong><p>{{ section.settings.brand_box_text }}</p></div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- STICKY dolny pasek (mobile) -->
+  <div class="drip-sbar" id="drip-sbar-{{ section.id }}" aria-hidden="true">
+    <div class="drip-sbar__inner">
+      <div class="drip-sbar__info">
+        <span class="drip-sbar__price" id="drip-sbprice-{{ section.id }}"></span>
+        <span class="drip-sbar__name">{{ product.title | default: 'Miotła Halloween' }}</span>
+      </div>
+      <button type="button" class="drip-sbar__btn" id="drip-sbcta-{{ section.id }}">{{ section.settings.sticky_cta | default: 'Dodaj do koszyka' }}</button>
+    </div>
+  </div>
+</section>
+
+{%- style -%}
+  #drip-buy-{{ section.id }}{background:#fff;padding:24px 0 8px}
+  #drip-buy-{{ section.id }} .drip-buy__grid{display:grid;grid-template-columns:1fr;gap:28px}
+  #drip-buy-{{ section.id }} .drip-buy__main{position:relative;border-radius:20px;overflow:hidden;background:var(--drip-bg)}
+  #drip-buy-{{ section.id }} .drip-buy__img{width:100%;border-radius:20px;display:block}
+  #drip-buy-{{ section.id }} .drip-buy__bubble{position:absolute;left:14px;bottom:14px;display:flex;align-items:center;gap:8px;background:rgba(15,23,42,.82);color:#fff;font-size:12.5px;font-weight:600;padding:8px 12px;border-radius:12px;backdrop-filter:blur(4px)}
+  #drip-buy-{{ section.id }} .drip-buy__bubble small{opacity:.75;font-weight:500}
+  #drip-buy-{{ section.id }} .drip-buy__pulse{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:dripPulse 1.8s infinite;flex:none}
+  @keyframes dripPulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+  #drip-buy-{{ section.id }} .drip-buy__thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none}
+  #drip-buy-{{ section.id }} .drip-buy__thumbs::-webkit-scrollbar{display:none}
+  #drip-buy-{{ section.id }} .drip-buy__thumb{flex:0 0 64px;width:64px;height:64px;padding:0;border:2px solid var(--drip-line);border-radius:10px;overflow:hidden;background:var(--drip-bg);cursor:pointer}
+  #drip-buy-{{ section.id }} .drip-buy__thumb.is-active{border-color:var(--drip-blue)}
+  #drip-buy-{{ section.id }} .drip-buy__thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  #drip-buy-{{ section.id }} .drip-buy__redbadge{display:inline-block;background:var(--drip-red);color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;padding:6px 12px;border-radius:8px;margin-bottom:14px}
+  #drip-buy-{{ section.id }} .drip-buy__title{font-size:clamp(26px,6vw,40px);font-weight:800;line-height:1.12;letter-spacing:-.01em;margin:0 0 12px}
+  #drip-buy-{{ section.id }} .drip-buy__title span{color:var(--drip-blue)}
+  #drip-buy-{{ section.id }} .drip-buy__sub{color:var(--drip-ink);font-size:15.5px;margin:0 0 14px}
+  #drip-buy-{{ section.id }} .drip-buy__rating{font-size:14px;margin:0 0 18px}
+  #drip-buy-{{ section.id }} .drip-buy__stars{color:#f5a623;letter-spacing:1px}
+  #drip-buy-{{ section.id }} .drip-buy__benefits{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:11px}
+  #drip-buy-{{ section.id }} .drip-buy__benefits li{display:flex;align-items:flex-start;gap:10px;font-size:15px;font-weight:600}
+  #drip-buy-{{ section.id }} .drip-buy__check{flex:none;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--drip-blue);color:#fff;font-size:12px;font-weight:800}
+  #drip-buy-{{ section.id }} .drip-buy__packlabel{display:block;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--drip-ink);margin-bottom:10px}
+  #drip-buy-{{ section.id }} .drip-buy__packs{border:0;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:10px}
+  #drip-buy-{{ section.id }} .drip-buy__pack{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;background:#fff;border:2px solid var(--drip-line);border-radius:14px;padding:15px 16px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+  #drip-buy-{{ section.id }} .drip-buy__pack:has(.drip-buy__radio:checked){border-color:var(--drip-blue);box-shadow:0 8px 22px rgba(34,197,94,.14)}
+  #drip-buy-{{ section.id }} .drip-buy__packbadge{position:absolute;top:-11px;left:14px;background:var(--drip-blue);color:#fff;font-size:11px;font-weight:800;padding:3px 11px;border-radius:999px}
+  #drip-buy-{{ section.id }} .drip-buy__radio{position:absolute;opacity:0;pointer-events:none}
+  #drip-buy-{{ section.id }} .drip-buy__dot{width:20px;height:20px;border-radius:50%;border:2px solid #c3ccdb;position:relative;flex:none}
+  #drip-buy-{{ section.id }} .drip-buy__pack:has(.drip-buy__radio:checked) .drip-buy__dot{border-color:var(--drip-blue)}
+  #drip-buy-{{ section.id }} .drip-buy__pack:has(.drip-buy__radio:checked) .drip-buy__dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--drip-blue)}
+  #drip-buy-{{ section.id }} .drip-buy__packbody{display:flex;flex-direction:column;gap:2px}
+  #drip-buy-{{ section.id }} .drip-buy__packtitle{font-weight:700;font-size:15px}
+  #drip-buy-{{ section.id }} .drip-buy__packdesc{font-size:12.5px;color:var(--drip-ink)}
+  #drip-buy-{{ section.id }} .drip-buy__packprice{text-align:right}
+  #drip-buy-{{ section.id }} .drip-buy__packnow{display:block;font-weight:800;font-size:16px}
+  #drip-buy-{{ section.id }} .drip-buy__packold{font-size:12.5px;color:#94a3b8}
+  #drip-buy-{{ section.id }} .drip-buy__pricerow{display:flex;align-items:baseline;gap:12px;margin:6px 0 16px;flex-wrap:wrap}
+  #drip-buy-{{ section.id }} .drip-buy__price{font-size:32px;font-weight:800}
+  #drip-buy-{{ section.id }} .drip-buy__old{font-size:17px;color:#94a3b8}
+  #drip-buy-{{ section.id }} .drip-buy__disc{font-size:13px;font-weight:700;color:var(--drip-red);background:#fde4e6;padding:4px 10px;border-radius:999px}
+  #drip-buy-{{ section.id }} .drip-buy__disc:empty{display:none}
+  #drip-buy-{{ section.id }} .drip-buy__spin{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.5);border-top-color:#fff;border-radius:50%;animation:dripSpin .7s linear infinite}
+  #drip-buy-{{ section.id }} .drip-btn[aria-busy="true"] .drip-buy__spin{display:inline-block}
+  #drip-buy-{{ section.id }} .drip-btn[aria-busy="true"]{opacity:.85;pointer-events:none}
+  @keyframes dripSpin{to{transform:rotate(360deg)}}
+  #drip-buy-{{ section.id }} .drip-buy__err{color:var(--drip-red);font-size:13px;text-align:center;margin:10px 0 0}
+  #drip-buy-{{ section.id }} .drip-buy__trust{list-style:none;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin:14px 0 0;padding:0}
+  #drip-buy-{{ section.id }} .drip-buy__trust li{font-size:12.5px;font-weight:600;color:var(--drip-ink);display:inline-flex;align-items:center;gap:5px}
+  #drip-buy-{{ section.id }} .drip-buy__upsell{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;border:2px dashed #f0b94d;background:#fffaf0;border-radius:14px;padding:14px 16px;margin:18px 0 0;cursor:pointer}
+  #drip-buy-{{ section.id }} .drip-buy__upcheck{width:20px;height:20px;accent-color:var(--drip-blue);flex:none}
+  #drip-buy-{{ section.id }} .drip-buy__upbody{display:flex;flex-direction:column;gap:2px}
+  #drip-buy-{{ section.id }} .drip-buy__upbody strong{font-size:14px}
+  #drip-buy-{{ section.id }} .drip-buy__upbody span{font-size:12.5px;color:var(--drip-ink)}
+  #drip-buy-{{ section.id }} .drip-buy__upprice{font-weight:800;color:var(--drip-amber);font-size:14px}
+  #drip-buy-{{ section.id }} .drip-buy__brandbox{border:1px solid var(--drip-line);background:var(--drip-bg);border-radius:14px;padding:16px 18px;margin:18px 0 0}
+  #drip-buy-{{ section.id }} .drip-buy__brandbox strong{display:block;font-size:13px;color:var(--drip-blue);margin-bottom:4px}
+  #drip-buy-{{ section.id }} .drip-buy__brandbox p{margin:0;font-size:13.5px;color:var(--drip-ink)}
+  /* sticky bottom bar */
+  #drip-sbar-{{ section.id }}{position:fixed;left:0;right:0;bottom:0;z-index:55;background:#fff;border-top:1px solid var(--drip-line);box-shadow:0 -4px 18px rgba(15,23,42,.12);transform:translateY(110%);transition:transform .28s ease}
+  #drip-sbar-{{ section.id }}.is-visible{transform:translateY(0)}
+  #drip-sbar-{{ section.id }} .drip-sbar__inner{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:1200px;margin:0 auto}
+  #drip-sbar-{{ section.id }} .drip-sbar__info{display:flex;flex-direction:column;line-height:1.1}
+  #drip-sbar-{{ section.id }} .drip-sbar__price{font-size:18px;font-weight:800}
+  #drip-sbar-{{ section.id }} .drip-sbar__name{font-size:11.5px;color:var(--drip-ink)}
+  #drip-sbar-{{ section.id }} .drip-sbar__btn{margin-left:auto;background:var(--drip-blue);color:#fff;border:0;cursor:pointer;font-weight:800;font-size:15px;padding:13px 22px;border-radius:999px;white-space:nowrap}
+  @media(min-width:900px){
+    #drip-buy-{{ section.id }}{padding:40px 0 16px}
+    #drip-buy-{{ section.id }} .drip-buy__grid{grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+    #drip-buy-{{ section.id }} .drip-buy__media{position:sticky;top:16px}
+    #drip-sbar-{{ section.id }}{display:none}
+  }
+{%- endstyle -%}
+
+<script>
+(function(){
+  var form=document.getElementById('drip-buy-form-{{ section.id }}');if(!form)return;
+  var sec=document.getElementById('drip-buy-{{ section.id }}');
+  var cta=document.getElementById('drip-cta-{{ section.id }}');
+  var err=document.getElementById('drip-err-{{ section.id }}');
+  var pEl=document.getElementById('drip-price-{{ section.id }}'),oEl=document.getElementById('drip-old-{{ section.id }}'),dEl=document.getElementById('drip-disc-{{ section.id }}');
+  var sbPrice=document.getElementById('drip-sbprice-{{ section.id }}');
+  var after=sec.getAttribute('data-after-add')||'cart';
+
+  /* miniaturki -> zmiana glownego zdjecia */
+  var mainImg=document.getElementById('drip-main-img-{{ section.id }}');
+  var thumbs=document.getElementById('drip-thumbs-{{ section.id }}');
+  if(mainImg&&thumbs){thumbs.querySelectorAll('.drip-buy__thumb').forEach(function(btn){btn.addEventListener('click',function(){
+    var f=btn.getAttribute('data-full');if(f){mainImg.removeAttribute('srcset');mainImg.src=f;}
+    thumbs.querySelectorAll('.drip-buy__thumb').forEach(function(b){b.classList.remove('is-active')});btn.classList.add('is-active');
+  })});}
+
+  function sync(){var r=form.querySelector('input[name="drip-pack"]:checked');if(!r)return;
+    var p=r.getAttribute('data-price')||'';pEl.textContent=p;if(sbPrice)sbPrice.textContent=p;
+    var o=r.getAttribute('data-compare')||'';oEl.textContent=o;oEl.style.display=o?'':'none';
+    dEl.textContent=r.getAttribute('data-discount')||'';}
+  form.querySelectorAll('input[name="drip-pack"]').forEach(function(r){r.addEventListener('change',sync)});sync();
+
+  function addToCart(){err.hidden=true;
+    var r=form.querySelector('input[name="drip-pack"]:checked');
+    if(!r||!r.value){err.textContent='Wybierz pakiet, aby kontynuować.';err.hidden=false;sec.scrollIntoView({behavior:'smooth'});return;}
+    var items=[{id:parseInt(r.value,10),quantity:parseInt(r.getAttribute('data-qty')||'1',10)}];
+    var up=document.getElementById('drip-up-{{ section.id }}');
+    if(up&&up.checked&&up.getAttribute('data-variant')){items.push({id:parseInt(up.getAttribute('data-variant'),10),quantity:parseInt(up.getAttribute('data-qty')||'1',10)});}
+    cta.setAttribute('aria-busy','true');
+    var root=(window.Shopify&&window.Shopify.routes)?window.Shopify.routes.root:'/';
+    fetch(root+'cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:items})})
+      .then(function(res){return res.json().then(function(d){return{ok:res.ok,d:d}})})
+      .then(function(r2){if(!r2.ok)throw new Error(r2.d&&r2.d.description?r2.d.description:'Nie udało się dodać do koszyka.');
+        window.location.href=(after==='checkout')?'/checkout':root+'cart';})
+      .catch(function(e2){cta.removeAttribute('aria-busy');err.textContent=e2.message||'Wystąpił błąd.';err.hidden=false;});
+  }
+  form.addEventListener('submit',function(e){e.preventDefault();addToCart();});
+
+  /* sticky dolny pasek */
+  var sbar=document.getElementById('drip-sbar-{{ section.id }}');
+  var sbcta=document.getElementById('drip-sbcta-{{ section.id }}');
+  if(sbcta){sbcta.addEventListener('click',addToCart);}
+  if(sbar){var ticking=false;function upd(){var r=form.getBoundingClientRect();
+      if(r.bottom<80){sbar.classList.add('is-visible');sbar.setAttribute('aria-hidden','false');}
+      else{sbar.classList.remove('is-visible');sbar.setAttribute('aria-hidden','true');}ticking=false;}
+    window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(upd);ticking=true;}},{passive:true});upd();}
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Miotła Halloween • Buy-box",
+  "settings": [
+    { "type": "text", "id": "badge", "label": "Czerwona plakietka", "default": "NAJNIŻSZA CENA Z 30 DNI!" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Zamień drzwi w straszną atrakcję —" },
+    { "type": "text", "id": "heading_accent", "label": "Nagłówek (kolorowe słowo)", "default": "świecąca miotła wiedźmy, która tańczy i śmieje się" },
+    { "type": "textarea", "id": "subheading", "label": "Podnagłówek", "default": "Miotła Halloween™ to animowana, świecąca na zielono miotła wiedźmy z dźwiękiem złowrogiego śmiechu. Giętki trzonek ułożysz w dowolnym kształcie, a ruchome „nóżki” sprawiają wrażenie, że miotła naprawdę chodzi." },
+    { "type": "checkbox", "id": "show_rating", "label": "Pokaż ocenę", "default": true },
+    { "type": "text", "id": "rating", "label": "Ocena", "default": "4,9/5" },
+    { "type": "text", "id": "rating_text", "label": "Tekst przy ocenie", "default": "Na podstawie opinii z social media" },
+    { "type": "text", "id": "trust_text", "label": "Bąbel na zdjęciu", "default": "Wiele osób ogląda tę ofertę" },
+    { "type": "text", "id": "trust_sub", "label": "Bąbel — druga linia", "default": "Ostatni wybór klienta: 4 min temu" },
+    { "type": "header", "content": "Pakiety i koszyk" },
+    { "type": "text", "id": "packs_label", "label": "Nagłówek pakietów", "default": "WYBIERZ SWÓJ ZESTAW:" },
+    { "type": "text", "id": "cta_text", "label": "Tekst CTA", "default": "Zamawiam Miotłę Halloween — chcę przestraszyć sąsiadów" },
+    { "type": "text", "id": "sticky_cta", "label": "Tekst CTA na dolnym pasku (mobile)", "default": "Dodaj do koszyka" },
+    { "type": "select", "id": "after_add", "label": "Po dodaniu", "default": "cart", "options": [ {"value":"cart","label":"Koszyk"}, {"value":"checkout","label":"Kasa"} ] },
+    { "type": "header", "content": "Upsell" },
+    { "type": "checkbox", "id": "upsell_enable", "label": "Pokaż upsell", "default": true },
+    { "type": "text", "id": "upsell_title", "label": "Tytuł", "default": "TAK, dobieram drugą miotłę w promocji!" },
+    { "type": "textarea", "id": "upsell_text", "label": "Opis", "default": "Powieś jedną na drzwiach, drugą postaw w ogrodzie. Tylko teraz dodasz ją za jedyne 39,99 zł (zamiast 69,99 zł)." },
+    { "type": "text", "id": "upsell_price", "label": "Cena", "default": "+39,99 zł" },
+    { "type": "text", "id": "upsell_variant_id", "label": "ID wariantu upsell" },
+    { "type": "number", "id": "upsell_qty", "label": "Ilość upsell", "default": 1 },
+    { "type": "header", "content": "Box marki" },
+    { "type": "text", "id": "brand_box_title", "label": "Tytuł", "default": "ORYGINALNA MIOTŁA HALLOWEEN™" },
+    { "type": "textarea", "id": "brand_box_text", "label": "Tekst", "default": "Każda miotła przechodzi kontrolę jakości — sprawdzony mechanizm świetlny i dźwiękowy działa od pierwszego dotknięcia." }
+  ],
+  "blocks": [
+    { "type": "benefit", "name": "Zaleta (✓)", "settings": [ {"type":"text","id":"text","label":"Tekst","default":"Świeci na magicznie zielono w ciemności"} ] },
+    { "type": "package", "name": "Pakiet", "settings": [
+      {"type":"text","id":"title","label":"Tytuł","default":"1 sztuka — pakiet startowy"},
+      {"type":"text","id":"desc","label":"Opis","default":"Miotła Halloween™"},
+      {"type":"text","id":"badge","label":"Plakietka"},
+      {"type":"text","id":"price","label":"Cena teraz","default":"69,99 zł"},
+      {"type":"text","id":"compare_price","label":"Cena przekreślona","default":"99,99 zł"},
+      {"type":"text","id":"discount","label":"Tekst zniżki","default":"Zniżka -30 zł"},
+      {"type":"text","id":"variant_id","label":"ID wariantu Shopify"},
+      {"type":"number","id":"quantity","label":"Ilość sztuk","default":1},
+      {"type":"checkbox","id":"highlight","label":"Wyróżnij","default":false},
+      {"type":"checkbox","id":"preselect","label":"Zaznacz domyślnie","default":false}
+    ] },
+    { "type": "trust", "name": "Ikona zaufania", "settings": [ {"type":"text","id":"icon","label":"Emoji","default":"🚚"}, {"type":"text","id":"text","label":"Tekst","default":"Darmowa dostawa"} ] }
+  ],
+  "presets": [ { "name": "Miotła Halloween • Buy-box" } ]
+}
+{% endschema %}

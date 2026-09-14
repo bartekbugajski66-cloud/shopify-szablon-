@@ -1,0 +1,108 @@
+{%- comment -%} Miotła Halloween — Hero premium {%- endcomment -%}
+<section
+  class="drip-hero"
+  id="drip-hero-{{ section.id }}"
+  style="--drip-accent: {{ section.settings.accent_color }}; --drip-bg: {{ section.settings.bg_color }}; --drip-text: {{ section.settings.text_color }};"
+>
+  <div class="drip-hero__wrap page-width">
+    <div class="drip-hero__col drip-hero__content">
+      {%- if section.settings.badge != blank -%}
+        <span class="drip-hero__badge">{{ section.settings.badge }}</span>
+      {%- endif -%}
+      <h1 class="drip-hero__title">{{ section.settings.heading }}</h1>
+      <p class="drip-hero__sub">{{ section.settings.subheading }}</p>
+
+      <a href="{{ section.settings.cta_link }}" class="drip-hero__cta">{{ section.settings.cta_text }}</a>
+
+      {%- if section.settings.trust_text != blank -%}
+        <div class="drip-hero__trust">
+          <span class="drip-hero__pulse" aria-hidden="true"></span>
+          <span>{{ section.settings.trust_text }}</span>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_stars -%}
+        <div class="drip-hero__stars" aria-label="Ocena {{ section.settings.rating }} na 5">
+          <span aria-hidden="true">★★★★★</span>
+          <span class="drip-hero__rating">{{ section.settings.rating }}</span>
+          <span class="drip-hero__rcount">{{ section.settings.rating_count }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="drip-hero__col drip-hero__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag:
+          loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 750px) 50vw, 100vw',
+          widths: '400, 600, 800, 1000, 1200', class: 'drip-hero__img', alt: section.settings.heading | escape }}
+      {%- else -%}
+        <div class="drip-hero__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag: 'drip-hero__img' }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- style -%}
+  #drip-hero-{{ section.id }} { background: var(--drip-bg); color: var(--drip-text); overflow: hidden; }
+  #drip-hero-{{ section.id }} .drip-hero__wrap {
+    display: flex; flex-direction: column; gap: 24px;
+    padding: 28px 16px 36px; max-width: 1200px; margin: 0 auto;
+  }
+  #drip-hero-{{ section.id }} .drip-hero__badge {
+    display: inline-block; align-self: flex-start;
+    font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--drip-accent); background: rgba(34,197,94,.10);
+    padding: 6px 12px; border-radius: 999px;
+  }
+  #drip-hero-{{ section.id }} .drip-hero__title {
+    font-size: clamp(28px, 8vw, 44px); line-height: 1.1; font-weight: 800;
+    margin: 14px 0 12px; letter-spacing: -.01em;
+  }
+  #drip-hero-{{ section.id }} .drip-hero__sub { font-size: 16px; line-height: 1.55; opacity: .85; margin: 0 0 22px; }
+  #drip-hero-{{ section.id }} .drip-hero__cta {
+    display: inline-block; background: var(--drip-accent); color: #fff; text-decoration: none;
+    font-weight: 700; font-size: 17px; padding: 16px 30px; border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(34,197,94,.30); transition: filter .15s, transform .1s;
+  }
+  #drip-hero-{{ section.id }} .drip-hero__cta:hover { filter: brightness(1.06); }
+  #drip-hero-{{ section.id }} .drip-hero__cta:active { transform: scale(.98); }
+  #drip-hero-{{ section.id }} .drip-hero__trust { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 13.5px; opacity: .8; }
+  #drip-hero-{{ section.id }} .drip-hero__pulse { width: 9px; height: 9px; border-radius: 50%; background: #22C55E; box-shadow: 0 0 0 0 rgba(34,197,94,.6); animation: dripPulse 1.8s infinite; }
+  @keyframes dripPulse { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,.5);} 70% { box-shadow: 0 0 0 8px rgba(34,197,94,0);} 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0);} }
+  #drip-hero-{{ section.id }} .drip-hero__stars { display: flex; align-items: center; gap: 8px; margin-top: 12px; color: #F5A623; font-weight: 700; }
+  #drip-hero-{{ section.id }} .drip-hero__rating { color: var(--drip-text); }
+  #drip-hero-{{ section.id }} .drip-hero__rcount { color: var(--drip-text); opacity: .6; font-weight: 500; font-size: 13px; }
+  #drip-hero-{{ section.id }} .drip-hero__media { display: flex; justify-content: center; }
+  #drip-hero-{{ section.id }} .drip-hero__img { width: 100%; max-width: 560px; height: auto; border-radius: 24px; display: block; }
+  @media (min-width: 750px) {
+    #drip-hero-{{ section.id }} .drip-hero__wrap { flex-direction: row; align-items: center; gap: 40px; padding: 56px 24px 64px; }
+    #drip-hero-{{ section.id }} .drip-hero__col { flex: 1; }
+    #drip-hero-{{ section.id }} .drip-hero__media { order: 2; }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Miotła Halloween • Hero",
+  "tag": "section",
+  "class": "drip-section drip-section--hero",
+  "settings": [
+    { "type": "text", "id": "badge", "label": "Badge", "default": "Świecąca Miotła Wiedźmy" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Zamień drzwi w straszną atrakcję na Halloween" },
+    { "type": "textarea", "id": "subheading", "label": "Podnagłówek", "default": "Miotła Halloween™ to animowana, świecąca na zielono miotła wiedźmy z dźwiękiem złowrogiego śmiechu i ruchomymi „nóżkami”." },
+    { "type": "text", "id": "cta_text", "label": "Tekst CTA", "default": "Zamawiam Miotłę Halloween" },
+    { "type": "text", "id": "cta_link", "label": "Link CTA", "default": "#drip-offer", "info": "Najlepiej #drip-offer (sekcja wyboru zestawu)." },
+    { "type": "text", "id": "trust_text", "label": "Trust bubble", "default": "Wiele osób ogląda tę ofertę" },
+    { "type": "image_picker", "id": "image", "label": "Główne zdjęcie produktu" },
+    { "type": "header", "content": "Ocena" },
+    { "type": "checkbox", "id": "show_stars", "label": "Pokaż gwiazdki", "default": true },
+    { "type": "text", "id": "rating", "label": "Ocena", "default": "4.9/5" },
+    { "type": "text", "id": "rating_count", "label": "Liczba opinii", "default": "(450+ opinii)" },
+    { "type": "header", "content": "Kolory" },
+    { "type": "color", "id": "accent_color", "label": "Akcent / CTA", "default": "#16A34A" },
+    { "type": "color", "id": "bg_color", "label": "Tło", "default": "#F5F7FB" },
+    { "type": "color", "id": "text_color", "label": "Tekst", "default": "#0F172A" }
+  ],
+  "presets": [{ "name": "Miotła Halloween • Hero" }]
+}
+{% endschema %}

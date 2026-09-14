@@ -1,0 +1,55 @@
+{%- comment -%} Miotła Halloween — Galeria mozaika (styl THEVIREA) {%- endcomment -%}
+<section class="drip-gal drip-sec drip-sec--bg" id="drip-gal-{{ section.id }}">
+  <div class="drip-container">
+    <div class="drip-gal__head">
+      {%- if section.settings.eyebrow != blank -%}<span class="drip-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="drip-h2">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="drip-gal__grid">
+      {%- for block in section.blocks -%}
+        <figure class="drip-gal__cell" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width:1000 | image_tag: loading:'lazy', class:'drip-gal__img', alt: block.settings.caption | escape }}
+          {%- else -%}<span class="drip-gal__ph"></span>{%- endif -%}
+          {%- if block.settings.caption != blank -%}<figcaption class="drip-gal__cap">{{ block.settings.caption }}</figcaption>{%- endif -%}
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- style -%}
+  #drip-gal-{{ section.id }} .drip-gal__head{margin:0 0 24px}
+  #drip-gal-{{ section.id }} .drip-gal__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  #drip-gal-{{ section.id }} .drip-gal__cell{position:relative;margin:0;border-radius:16px;overflow:hidden;aspect-ratio:1/1;background:#e3e9f3}
+  #drip-gal-{{ section.id }} .drip-gal__img,#drip-gal-{{ section.id }} .drip-gal__ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  #drip-gal-{{ section.id }} .drip-gal__cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(15,23,42,.82));color:#fff;font-size:12.5px;font-weight:700;padding:20px 12px 10px}
+  @media(min-width:900px){
+    #drip-gal-{{ section.id }} .drip-gal__grid{grid-template-columns:repeat(3,1fr);grid-template-rows:240px 240px;gap:16px}
+    #drip-gal-{{ section.id }} .drip-gal__cell{aspect-ratio:auto}
+    #drip-gal-{{ section.id }} .drip-gal__cell:nth-child(1){grid-area:1/1/3/2}
+    #drip-gal-{{ section.id }} .drip-gal__cell:nth-child(2){grid-area:1/2/2/3}
+    #drip-gal-{{ section.id }} .drip-gal__cell:nth-child(3){grid-area:1/3/2/4}
+    #drip-gal-{{ section.id }} .drip-gal__cell:nth-child(4){grid-area:2/2/3/4}
+    #drip-gal-{{ section.id }} .drip-gal__cell:nth-child(n+5){grid-column:span 1}
+  }
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "Miotła Halloween • Galeria",
+  "settings": [
+    { "type":"text","id":"eyebrow","label":"Nadtytuł","default":"GALERIA" },
+    { "type":"text","id":"heading","label":"Nagłówek","default":"Zobacz Miotłę Halloween z bliska" }
+  ],
+  "blocks": [ { "type":"photo","name":"Zdjęcie","settings":[
+    {"type":"image_picker","id":"image","label":"Zdjęcie"},
+    {"type":"text","id":"caption","label":"Podpis","default":"Zielona poświata w ciemności"}
+  ] } ],
+  "max_blocks": 6,
+  "presets": [ { "name":"Miotła Halloween • Galeria", "blocks":[
+    {"type":"photo","settings":{"caption":"Zielona poświata w ciemności"}},
+    {"type":"photo","settings":{"caption":"Giętki, animowany trzonek"}},
+    {"type":"photo","settings":{"caption":"Idealna na drzwi i ganek"}},
+    {"type":"photo","settings":{"caption":"Prosty montaż w minutę"}}
+  ] } ]
+}
+{% endschema %}

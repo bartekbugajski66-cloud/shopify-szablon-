@@ -1,0 +1,65 @@
+{%- comment -%} Miotła Halloween — Opinie (styl komentarzy FB, jak THEVIREA) {%- endcomment -%}
+<section class="drip-rev drip-sec" id="drip-rev-{{ section.id }}">
+  <div class="drip-container drip-center">
+    {%- if section.settings.eyebrow != blank -%}<span class="drip-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <h2 class="drip-h2">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}<p class="drip-lead">{{ section.settings.subheading }}</p>{%- endif -%}
+  </div>
+  <div class="drip-container drip-rev__list">
+    {%- for block in section.blocks -%}
+      <figure class="drip-rev__card" {{ block.shopify_attributes }}>
+        <div class="drip-rev__top">
+          <span class="drip-rev__av" style="background:{{ block.settings.color }}" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>
+          <div>
+            <span class="drip-rev__name">{{ block.settings.name }}</span>
+            <span class="drip-rev__stars" aria-hidden="true">★★★★★</span>
+          </div>
+        </div>
+        {%- if block.settings.title != blank -%}<h3 class="drip-rev__title">„{{ block.settings.title }}"</h3>{%- endif -%}
+        <blockquote class="drip-rev__text">{{ block.settings.text }}</blockquote>
+        <figcaption class="drip-rev__meta"><span class="drip-rev__fb">Facebook</span><span class="drip-rev__src">{{ block.settings.source }}</span></figcaption>
+      </figure>
+    {%- endfor -%}
+  </div>
+  {%- if section.settings.disclaimer != blank -%}
+    <p class="drip-rev__disc drip-container">{{ section.settings.disclaimer }}</p>
+  {%- endif -%}
+</section>
+{%- style -%}
+  #drip-rev-{{ section.id }} .drip-rev__list{max-width:820px;display:flex;flex-direction:column;gap:16px;margin-top:8px}
+  #drip-rev-{{ section.id }} .drip-rev__card{margin:0;background:#eef3fb;border-radius:16px;padding:20px 22px;text-align:left}
+  #drip-rev-{{ section.id }} .drip-rev__top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  #drip-rev-{{ section.id }} .drip-rev__av{width:42px;height:42px;border-radius:50%;color:#fff;font-weight:800;display:grid;place-items:center;font-size:17px;flex:none}
+  #drip-rev-{{ section.id }} .drip-rev__name{display:block;font-weight:800;font-size:15px}
+  #drip-rev-{{ section.id }} .drip-rev__stars{color:#f5a623;font-size:13px}
+  #drip-rev-{{ section.id }} .drip-rev__title{margin:0 0 8px;font-size:16px;font-weight:800;color:var(--drip-blue)}
+  #drip-rev-{{ section.id }} .drip-rev__text{margin:0 0 12px;font-size:14.5px;line-height:1.6;color:#2c3a52}
+  #drip-rev-{{ section.id }} .drip-rev__meta{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #dde6f3;padding-top:10px}
+  #drip-rev-{{ section.id }} .drip-rev__fb{color:var(--drip-blue);font-weight:700;font-size:13px}
+  #drip-rev-{{ section.id }} .drip-rev__src{font-size:12px;color:var(--drip-ink);font-style:italic}
+  #drip-rev-{{ section.id }} .drip-rev__disc{font-size:11px;color:#94a3b8;text-align:center;margin:22px auto 0;max-width:760px;line-height:1.6}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "Miotła Halloween • Opinie",
+  "settings": [
+    { "type":"text","id":"eyebrow","label":"Nadtytuł","default":"PRAWDZIWE HISTORIE" },
+    { "type":"text","id":"heading","label":"Nagłówek","default":"Opinie klientów o Miotle Halloween" },
+    { "type":"text","id":"subheading","label":"Podnagłówek","default":"Średnia ocena 4,9/5 na podstawie komentarzy z mediów społecznościowych" },
+    { "type":"textarea","id":"disclaimer","label":"Disclaimer (RODO)","default":"* Informacja: Prezentowane opinie są przepisywane z publicznych komentarzy w serwisie Facebook w celu ochrony prywatności autorów (RODO). Sklep nie weryfikuje, czy każda osoba dokonała zakupu, jednak wszystkie treści pochodzą od realnych użytkowników naszych kanałów społecznościowych." }
+  ],
+  "blocks": [ { "type":"review","name":"Opinia","settings":[
+    {"type":"text","id":"name","label":"Autor","default":"Pan Marek"},
+    {"type":"color","id":"color","label":"Kolor awatara","default":"#22c55e"},
+    {"type":"text","id":"title","label":"Tytuł opinii","default":"Świetna dekoracja na Halloween"},
+    {"type":"textarea","id":"text","label":"Treść","default":"Mam miotłę od tygodnia i robi robotę. Świeci, rusza się i śmieje — goście są zachwyceni."},
+    {"type":"text","id":"source","label":"Źródło","default":"Komentarz pod reklamą"}
+  ] } ],
+  "max_blocks": 12,
+  "presets": [ { "name":"Miotła Halloween • Opinie", "blocks":[
+    {"type":"review","settings":{"name":"Pani Ania","color":"#22c55e","title":"Sąsiedzi pytają, gdzie kupiłam!","text":"Powiesiłam na drzwiach i efekt jest rewelacyjny — świeci na zielono, a jak ktoś podejdzie bliżej, miotła zaczyna się ruszać i śmiać. Dzieciaki uwielbiają.","source":"Komentarz pod reklamą"}},
+    {"type":"review","settings":{"name":"Pan Damian","color":"#15803d","title":"Najlepsza dekoracja na Halloween","text":"Montaż zajął dosłownie minutę. Giętki trzonek pozwolił ułożyć miotłę dokładnie tak, jak chciałem. Robi niesamowite wrażenie po zmroku.","source":"Komentarz pod reklamą"}},
+    {"type":"review","settings":{"name":"Pani Kasia","color":"#16a34a","title":"Świetna jakość za tę cenę","text":"Bałam się, że to tandeta, a jednak mechanizm działa świetnie i bateria starcza na długo. Polecam każdemu, kto chce przestraszyć sąsiadów.","source":"Komentarz pod reklamą"}}
+  ] } ]
+}
+{% endschema %}

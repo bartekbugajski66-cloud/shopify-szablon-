@@ -1,0 +1,32 @@
+{
+  "current": {
+    "sections": {
+      "pf-header": {
+        "type": "pf-header",
+        "settings": { "logo_text": "MIOTŁA HALLOWEEN™", "logo_height": 34, "pill_text": "Wyprzedaż" }
+      },
+      "pf-footer": {
+        "type": "pf-footer",
+        "settings": {
+          "newsletter_enable": true,
+          "newsletter_title": "Zapisz się do naszego newslettera",
+          "newsletter_text": "Otrzymaj 10% zniżki na pierwsze zamówienie i bądź na bieżąco z nowościami na Halloween.",
+          "newsletter_cta": "Zapisz się",
+          "brand_name": "MIOTŁA HALLOWEEN™",
+          "payments": "BLIK, Przelew, VISA, MasterCard, ApplePay"
+        }
+      },
+      "pf-announcement": {
+        "type": "pf-announcement",
+        "settings": { "speed": 26 },
+        "blocks": {
+          "b1": { "type": "item", "settings": { "icon": "⚡", "text": "WYPRZEDAŻ — OGRANICZONA ILOŚĆ" } },
+          "b2": { "type": "item", "settings": { "icon": "🚚", "text": "DARMOWA WYSYŁKA" } },
+          "b3": { "type": "item", "settings": { "icon": "🎃", "text": "WYPRZEDAŻ — OGRANICZONA ILOŚĆ" } },
+          "b4": { "type": "item", "settings": { "icon": "🚚", "text": "DARMOWA WYSYŁKA" } }
+        },
+        "block_order": ["b1", "b2", "b3", "b4"]
+      }
+    }
+  }
+}

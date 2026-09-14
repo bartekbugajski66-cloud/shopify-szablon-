@@ -1,0 +1,106 @@
+{%- comment -%} Miotła Halloween — Sticky pasek ceny + CTA (mobile-first) {%- endcomment -%}
+{%- liquid
+  assign accent = section.settings.accent_color
+  assign sale = section.settings.sale_price
+  assign old = section.settings.compare_price
+-%}
+
+<div
+  class="drip-sticky"
+  id="drip-sticky-{{ section.id }}"
+  data-show-after="{{ section.settings.show_after_px }}"
+  style="--drip-accent: {{ accent }}; --drip-old: {{ section.settings.compare_color }};"
+  role="region"
+  aria-label="{{ section.settings.aria_label | escape }}"
+>
+  <div class="drip-sticky__inner page-width">
+    <div class="drip-sticky__price">
+      {%- if section.settings.label != blank -%}
+        <span class="drip-sticky__tag">{{ section.settings.label }}</span>
+      {%- endif -%}
+      <span class="drip-sticky__sale">{{ sale }}</span>
+      {%- if old != blank -%}
+        <span class="drip-sticky__old">{{ old }}</span>
+      {%- endif -%}
+    </div>
+    <a href="{{ section.settings.cta_link }}" class="drip-sticky__btn">
+      {{ section.settings.cta_text }}
+    </a>
+  </div>
+</div>
+
+{%- style -%}
+  #drip-sticky-{{ section.id }} {
+    position: fixed;
+    left: 0; right: 0; top: 0;
+    z-index: 60;
+    background: #fff;
+    box-shadow: 0 2px 14px rgba(15,23,42,.10);
+    transform: translateY(-110%);
+    transition: transform .28s ease;
+    border-bottom: 1px solid #eef1f6;
+  }
+  #drip-sticky-{{ section.id }}.is-visible { transform: translateY(0); }
+  #drip-sticky-{{ section.id }} .drip-sticky__inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 9px 16px; max-width: 1200px; margin: 0 auto;
+  }
+  #drip-sticky-{{ section.id }} .drip-sticky__price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  #drip-sticky-{{ section.id }} .drip-sticky__tag {
+    font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    color: var(--drip-accent); background: rgba(34,197,94,.10); padding: 3px 7px; border-radius: 6px;
+  }
+  #drip-sticky-{{ section.id }} .drip-sticky__sale { font-size: 18px; font-weight: 800; color: #0F172A; }
+  #drip-sticky-{{ section.id }} .drip-sticky__old { font-size: 13px; color: var(--drip-old); text-decoration: line-through; }
+  #drip-sticky-{{ section.id }} .drip-sticky__btn {
+    background: var(--drip-accent); color: #fff; text-decoration: none;
+    font-weight: 700; font-size: 14px; padding: 11px 18px; border-radius: 12px;
+    white-space: nowrap; transition: filter .15s ease, transform .1s ease;
+  }
+  #drip-sticky-{{ section.id }} .drip-sticky__btn:hover { filter: brightness(1.06); }
+  #drip-sticky-{{ section.id }} .drip-sticky__btn:active { transform: scale(.98); }
+  @media (min-width: 750px) {
+    #drip-sticky-{{ section.id }} .drip-sticky__sale { font-size: 20px; }
+    #drip-sticky-{{ section.id }} .drip-sticky__btn { font-size: 15px; padding: 12px 26px; }
+  }
+{%- endstyle -%}
+
+<script>
+  (function () {
+    var el = document.getElementById('drip-sticky-{{ section.id }}');
+    if (!el) return;
+    var after = parseInt(el.getAttribute('data-show-after'), 10) || 500;
+    var ticking = false;
+    function update() {
+      if (window.pageYOffset > after) { el.classList.add('is-visible'); }
+      else { el.classList.remove('is-visible'); }
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Miotła Halloween • Sticky oferta",
+  "tag": "section",
+  "class": "drip-section drip-section--sticky",
+  "settings": [
+    { "type": "header", "content": "Pasek przyklejony u góry" },
+    { "type": "text", "id": "label", "label": "Etykieta", "default": "NAJNIŻSZA CENA" },
+    { "type": "text", "id": "sale_price", "label": "Cena promocyjna", "default": "69,99 zł" },
+    { "type": "text", "id": "compare_price", "label": "Cena przekreślona", "default": "99,99 zł" },
+    { "type": "text", "id": "cta_text", "label": "Tekst przycisku", "default": "Sprawdź ofertę" },
+    { "type": "text", "id": "cta_link", "label": "Link CTA (np. #drip-offer)", "default": "#drip-offer", "info": "Wpisz #drip-offer aby przewinąć do sekcji wyboru zestawu." },
+    { "type": "range", "id": "show_after_px", "min": 100, "max": 1500, "step": 50, "unit": "px", "label": "Pokaż po przewinięciu", "default": 500 },
+    { "type": "text", "id": "aria_label", "label": "Etykieta dostępności (aria)", "default": "Oferta Miotła Halloween™" },
+    { "type": "header", "content": "Kolory" },
+    { "type": "color", "id": "accent_color", "label": "Kolor akcentu / CTA", "default": "#16A34A" },
+    { "type": "color", "id": "compare_color", "label": "Kolor ceny przekreślonej", "default": "#94A3B8" }
+  ],
+  "presets": [{ "name": "Miotła Halloween • Sticky oferta" }]
+}
+{% endschema %}
