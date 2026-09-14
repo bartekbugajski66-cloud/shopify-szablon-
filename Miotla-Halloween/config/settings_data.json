@@ -20,8 +20,8 @@
           "payments": "BLIK, Przelew, VISA, MasterCard, ApplePay"
         }
       },
-      "pf-announcement": {
-        "type": "pf-announcement",
+      "pf-ticker": {
+        "type": "pf-ticker",
         "settings": {
           "speed": 26
         },

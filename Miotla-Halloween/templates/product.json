@@ -1,7 +1,7 @@
 {
   "sections": {
-    "pf-buybox": {
-      "type": "pf-buybox",
+    "pf-buy": {
+      "type": "pf-buy",
       "settings": {
         "fallback_title": "Miotła Halloween™",
         "show_rating": true,
@@ -196,8 +196,8 @@
         "f6"
       ]
     },
-    "pf-content-split": {
-      "type": "pf-content-split",
+    "pf-split": {
+      "type": "pf-split",
       "settings": {
         "heading_before": "Jedyna dekoracja, która przyciąga",
         "heading_accent": "sąsiadów pod Twoje drzwi.",
@@ -230,8 +230,8 @@
         "b3"
       ]
     },
-    "pf-features-grid": {
-      "type": "pf-features-grid",
+    "pf-grid": {
+      "type": "pf-grid",
       "settings": {
         "heading_before": "Dekorowanie ganku zajęło Ci cały dzień.",
         "heading_accent": "To zajmuje trzy minuty.",
@@ -278,8 +278,8 @@
         "t4"
       ]
     },
-    "pf-before-after": {
-      "type": "pf-before-after",
+    "pf-before": {
+      "type": "pf-before",
       "settings": {
         "heading_before": "Te same drzwi.",
         "heading_accent": "Zupełnie inny Halloween.",
@@ -288,8 +288,8 @@
         "after_label": "Z MIOTŁĄ HALLOWEEN™"
       }
     },
-    "pf-comparison-table": {
-      "type": "pf-comparison-table",
+    "pf-compare": {
+      "type": "pf-compare",
       "settings": {
         "heading_before": "Wszystko inne na ganku",
         "heading_accent": "wygląda jak plastik.",
@@ -500,11 +500,11 @@
     }
   },
   "order": [
-    "pf-buybox",
-    "pf-content-split",
-    "pf-features-grid",
-    "pf-before-after",
-    "pf-comparison-table",
+    "pf-buy",
+    "pf-split",
+    "pf-grid",
+    "pf-before",
+    "pf-compare",
     "pf-steps",
     "pf-reviews"
   ]
