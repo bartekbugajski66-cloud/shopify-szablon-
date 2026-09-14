@@ -1,4 +1,6 @@
 {
+  "type": "product",
+  "name": "Product",
   "sections": {
     "product_main": {
       "type": "pf-buybox",
