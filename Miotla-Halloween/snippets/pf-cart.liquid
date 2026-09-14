@@ -14,6 +14,11 @@
       <div class="pf-cart__items" id="pf-cart-items"></div>
     </div>
     <div class="pf-cart__foot" id="pf-cart-foot" hidden>
+      <div class="pf-cart__discounts" id="pf-cart-discounts" hidden></div>
+      <div class="pf-cart__discountrow">
+        <input type="text" id="pf-cart-discount-input" class="pf-input" placeholder="Kod rabatowy">
+        <button type="button" class="pf-btn pf-cart__discapply" id="pf-cart-discount-apply">Zastosuj</button>
+      </div>
       <div class="pf-cart__subtotal">
         <span>Suma</span>
         <span id="pf-cart-subtotal">0,00 zł</span>
@@ -30,8 +35,7 @@
   html.pf-cart-lock{overflow:hidden}
   #pf-cart{position:fixed;inset:0;z-index:200;visibility:hidden;pointer-events:none}
   #pf-cart.is-open{visibility:visible;pointer-events:auto}
-  #pf-cart .pf-cart__overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);opacity:0;transition:opacity .25s ease}
-  #pf-cart.is-open .pf-cart__overlay{opacity:1}
+  #pf-cart .pf-cart__overlay{position:absolute;inset:0;background:transparent}
   #pf-cart .pf-cart__panel{position:absolute;top:0;right:0;height:100%;width:100%;max-width:420px;background:var(--pf-bg);border-left:1px solid var(--pf-line);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s ease}
   #pf-cart.is-open .pf-cart__panel{transform:translateX(0)}
   #pf-cart .pf-cart__head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--pf-line);flex:none}
@@ -57,6 +61,11 @@
   #pf-cart .pf-cart__itemprice span:not(.pf-cart__save){font-weight:800;color:var(--pf-text)}
   #pf-cart .pf-cart__save{font-size:10px;font-weight:800;color:var(--pf-accent-text);background:var(--pf-accent);padding:2px 8px;border-radius:999px;white-space:nowrap}
   #pf-cart .pf-cart__foot{flex:none;padding:16px 20px 20px;border-top:1px solid var(--pf-line)}
+  #pf-cart .pf-cart__discounts{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  #pf-cart .pf-cart__discount{display:flex;align-items:center;justify-content:space-between;gap:8px;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.3);color:var(--pf-accent);font-size:12px;font-weight:700;border-radius:8px;padding:7px 10px}
+  #pf-cart .pf-cart__discountrow{display:flex;gap:8px;margin:0 0 14px}
+  #pf-cart .pf-cart__discountrow .pf-input{flex:1;padding:11px 12px;font-size:13px}
+  #pf-cart .pf-cart__discapply{width:auto;padding:11px 16px;font-size:13px;white-space:nowrap}
   #pf-cart .pf-cart__subtotal{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:800;color:var(--pf-text);margin:0 0 12px}
   #pf-cart .pf-cart__checkout{margin:0 0 12px}
   #pf-cart .pf-cart__pays{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 12px}
@@ -75,6 +84,9 @@
   var subtotalEl=document.getElementById('pf-cart-subtotal');
   var checkoutEl=document.getElementById('pf-cart-checkout');
   var hdCount=document.getElementById('pf-hd-cart-count');
+  var discountsEl=document.getElementById('pf-cart-discounts');
+  var discountInput=document.getElementById('pf-cart-discount-input');
+  var discountApply=document.getElementById('pf-cart-discount-apply');
 
   function money(cents){return (cents/100).toFixed(2).replace('.', ',')+' zł';}
 
@@ -88,6 +100,14 @@
     if(hdCount){hdCount.textContent=cart.item_count;hdCount.hidden=cart.item_count===0;}
     subtotalEl.textContent=money(cart.total_price);
     checkoutEl.textContent='Przejdź do kasy • '+money(cart.total_price);
+    var discounts=cart.cart_level_discount_applications||[];
+    if(discounts.length>0){
+      var dhtml='<div class="pf-cart__discount"><span>Zastosowane rabaty ('+discounts.length+')</span></div>';
+      discounts.forEach(function(d){
+        dhtml+='<div class="pf-cart__discount"><span>'+esc(d.title)+'</span><span>-'+money(d.total_allocated_amount)+'</span></div>';
+      });
+      discountsEl.innerHTML=dhtml;discountsEl.hidden=false;
+    }else{discountsEl.innerHTML='';discountsEl.hidden=true;}
     if(cart.item_count===0){emptyMsg.hidden=false;itemsWrap.innerHTML='';footEl.hidden=true;return;}
     emptyMsg.hidden=true;footEl.hidden=false;
     var html='';
@@ -144,6 +164,18 @@
   document.getElementById('pf-cart-overlay').addEventListener('click',closeDrawer);
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
 
+  function applyDiscount(){
+    var code=(discountInput.value||'').trim();
+    if(!code)return;
+    discountApply.setAttribute('aria-busy','true');
+    try{sessionStorage.setItem('pf-cart-reopen','1');}catch(e){}
+    window.location.href=root+'discount/'+encodeURIComponent(code)+'?redirect='+encodeURIComponent(window.location.pathname+window.location.search);
+  }
+  if(discountApply){
+    discountApply.addEventListener('click',applyDiscount);
+    discountInput.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();applyDiscount();}});
+  }
+
   document.addEventListener('click',function(e){
     var opener=e.target.closest('[data-cart-drawer-toggle]');
     if(!opener)return;
@@ -164,6 +196,8 @@
     tick();setInterval(tick,1000);
   }
 
-  fetchCart();
+  var reopen=false;
+  try{if(sessionStorage.getItem('pf-cart-reopen')){reopen=true;sessionStorage.removeItem('pf-cart-reopen');}}catch(e){}
+  fetchCart().then(function(){if(reopen)openDrawer();});
 })();
 </script>
