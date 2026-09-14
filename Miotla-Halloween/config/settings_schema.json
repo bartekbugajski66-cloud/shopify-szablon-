@@ -12,5 +12,11 @@
     "settings": [
       { "type": "checkbox", "id": "skip_cart", "label": "Pomiń koszyk — po „Dodaj do koszyka” przejdź od razu do kasy", "default": false }
     ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Ikona karty przeglądarki", "info": "Najlepiej kwadratowy obrazek, min. 32×32 px" }
+    ]
   }
 ]
