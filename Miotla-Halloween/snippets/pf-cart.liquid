@@ -19,6 +19,7 @@
         <input type="text" id="pf-cart-discount-input" class="pf-input" placeholder="Kod rabatowy">
         <button type="button" class="pf-btn pf-cart__discapply" id="pf-cart-discount-apply">Zastosuj</button>
       </div>
+      <p class="pf-cart__discerr" id="pf-cart-discount-err" hidden></p>
       <div class="pf-cart__subtotal">
         <span>Suma</span>
         <span id="pf-cart-subtotal">0,00 zł</span>
@@ -36,7 +37,7 @@
   #pf-cart{position:fixed;inset:0;z-index:200;visibility:hidden;pointer-events:none}
   #pf-cart.is-open{visibility:visible;pointer-events:auto}
   #pf-cart .pf-cart__overlay{position:absolute;inset:0;background:transparent}
-  #pf-cart .pf-cart__panel{position:absolute;top:0;right:0;height:100%;width:100%;max-width:420px;background:var(--pf-bg);border-left:1px solid var(--pf-line);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s ease}
+  #pf-cart .pf-cart__panel{position:absolute;top:0;right:0;height:100%;width:100%;max-width:420px;background:var(--pf-bg);border-left:1px solid var(--pf-line);box-shadow:-24px 0 48px rgba(0,0,0,.55);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s ease}
   #pf-cart.is-open .pf-cart__panel{transform:translateX(0)}
   #pf-cart .pf-cart__head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--pf-line);flex:none}
   #pf-cart .pf-cart__title{margin:0;font-size:18px;font-weight:800;color:var(--pf-text)}
@@ -66,6 +67,7 @@
   #pf-cart .pf-cart__discountrow{display:flex;gap:8px;margin:0 0 14px}
   #pf-cart .pf-cart__discountrow .pf-input{flex:1;padding:11px 12px;font-size:13px}
   #pf-cart .pf-cart__discapply{width:auto;padding:11px 16px;font-size:13px;white-space:nowrap}
+  #pf-cart .pf-cart__discerr{color:var(--pf-red);font-size:12px;margin:-8px 0 14px;text-align:center}
   #pf-cart .pf-cart__subtotal{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:800;color:var(--pf-text);margin:0 0 12px}
   #pf-cart .pf-cart__checkout{margin:0 0 12px}
   #pf-cart .pf-cart__pays{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 12px}
@@ -87,6 +89,7 @@
   var discountsEl=document.getElementById('pf-cart-discounts');
   var discountInput=document.getElementById('pf-cart-discount-input');
   var discountApply=document.getElementById('pf-cart-discount-apply');
+  var discountErr=document.getElementById('pf-cart-discount-err');
 
   function money(cents){return (cents/100).toFixed(2).replace('.', ',')+' zł';}
 
@@ -167,13 +170,18 @@
   function applyDiscount(){
     var code=(discountInput.value||'').trim();
     if(!code)return;
+    discountErr.hidden=true;
     discountApply.setAttribute('aria-busy','true');
-    try{sessionStorage.setItem('pf-cart-reopen','1');}catch(e){}
+    try{
+      sessionStorage.setItem('pf-cart-reopen','1');
+      sessionStorage.setItem('pf-cart-discount-code',code);
+    }catch(e){}
     window.location.href=root+'discount/'+encodeURIComponent(code)+'?redirect='+encodeURIComponent(window.location.pathname+window.location.search);
   }
   if(discountApply){
     discountApply.addEventListener('click',applyDiscount);
     discountInput.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();applyDiscount();}});
+    discountInput.addEventListener('input',function(){discountErr.hidden=true;});
   }
 
   document.addEventListener('click',function(e){
@@ -196,8 +204,23 @@
     tick();setInterval(tick,1000);
   }
 
-  var reopen=false;
-  try{if(sessionStorage.getItem('pf-cart-reopen')){reopen=true;sessionStorage.removeItem('pf-cart-reopen');}}catch(e){}
-  fetchCart().then(function(){if(reopen)openDrawer();});
+  var reopen=false,pendingCode=null;
+  try{
+    if(sessionStorage.getItem('pf-cart-reopen')){reopen=true;sessionStorage.removeItem('pf-cart-reopen');}
+    pendingCode=sessionStorage.getItem('pf-cart-discount-code');
+    if(pendingCode)sessionStorage.removeItem('pf-cart-discount-code');
+  }catch(e){}
+  fetchCart().then(function(cart){
+    if(reopen)openDrawer();
+    if(pendingCode){
+      var applied=(cart.cart_level_discount_applications||[]).some(function(d){
+        return (d.title||'').toLowerCase()===pendingCode.toLowerCase();
+      });
+      if(!applied){
+        discountErr.textContent='Kod „'+pendingCode+'” nie istnieje lub wygasł.';
+        discountErr.hidden=false;
+      }
+    }
+  });
 })();
 </script>
