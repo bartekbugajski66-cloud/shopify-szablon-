@@ -267,7 +267,7 @@
 
 {% schema %}
 {
-  "name": "Miotła Halloween • Buy-box",
+  "name": "MH — Buy-box",
   "settings": [
     { "type": "text", "id": "fallback_title", "label": "Tytuł zastępczy (gdy brak tytułu produktu)", "default": "Miotła Halloween™" },
     { "type": "checkbox", "id": "show_rating", "label": "Pokaż ocenę", "default": true },
@@ -282,7 +282,7 @@
     { "type": "select", "id": "after_add", "label": "Po dodaniu", "default": "cart", "options": [ {"value":"cart","label":"Koszyk"}, {"value":"checkout","label":"Kasa"} ] }
   ],
   "blocks": [
-    { "type": "highlight", "name": "Wyróżnik (ikona + 2 linie)", "settings": [
+    { "type": "highlight", "name": "Wyróżnik", "settings": [
       { "type": "text", "id": "icon", "label": "Emoji", "default": "✨" },
       { "type": "text", "id": "title", "label": "Tytuł", "default": "Wygląda jak żywa" },
       { "type": "text", "id": "text", "label": "Opis", "default": "Realistyczny ruch i poświata" }
@@ -319,6 +319,6 @@
       { "type": "textarea", "id": "answer", "label": "Odpowiedź", "default": "Tak — zdjęcia i wideo pokazują dokładnie to, co zobaczysz po rozpakowaniu." }
     ] }
   ],
-  "presets": [ { "name": "Miotła Halloween • Buy-box" } ]
+  "presets": [ { "name": "MH — Buy-box" } ]
 }
 {% endschema %}
