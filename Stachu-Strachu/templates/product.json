@@ -1,0 +1,548 @@
+{
+  "sections": {
+    "pf-buy": {
+      "type": "pf-buy",
+      "settings": {
+        "fallback_title": "Stachu Strachu™",
+        "show_rating": true,
+        "rating_value": "4,8",
+        "rating_count": "263 opinie",
+        "badge_text": "WYPRZEDAŻ | OGRANICZONA ILOŚĆ",
+        "countdown_label": "Pośpiesz się! Oferta wygasa za",
+        "countdown_minutes": 15,
+        "cta_text": "DODAJ DO KOSZYKA",
+        "after_add": "cart",
+        "show_delivery": true,
+        "ready_start": 1,
+        "ready_end": 2,
+        "delivered_start": 8,
+        "delivered_end": 10
+      },
+      "blocks": {
+        "h1": {
+          "type": "highlight",
+          "settings": {
+            "icon": "👁️",
+            "title": "Świecące oczy",
+            "text": "Czerwona, upiorna poświata widoczna nawet z daleka"
+          }
+        },
+        "h2": {
+          "type": "highlight",
+          "settings": {
+            "icon": "🔊",
+            "title": "Upiorne dźwięki",
+            "text": "Przerażający śmiech i jęki po wykryciu ruchu"
+          }
+        },
+        "h3": {
+          "type": "highlight",
+          "settings": {
+            "icon": "📡",
+            "title": "Aktywacja ruchem",
+            "text": "Sam się uruchamia, gdy ktoś podejdzie zbyt blisko"
+          }
+        },
+        "pk1": {
+          "type": "package",
+          "settings": {
+            "title": "1 SZTUKA",
+            "price": "79,99 zł",
+            "compare_price": "149,99 zł",
+            "savings_text": "Oszczędzasz 70 zł na tym zamówieniu",
+            "quantity": 1,
+            "preselect": false,
+            "bonus1_text": "Instrukcja PL",
+            "bonus2_text": "Zapasowe baterie AA",
+            "bonus2_compare": "14,99 zł"
+          }
+        },
+        "pk2": {
+          "type": "package",
+          "settings": {
+            "title": "2 SZTUKI",
+            "badge": "OSZCZĘDZASZ 50%",
+            "price": "129,90 zł",
+            "compare_price": "299,98 zł",
+            "savings_text": "Oszczędzasz 170,08 zł na tym zamówieniu",
+            "quantity": 2,
+            "highlight": true,
+            "preselect": true,
+            "bonus1_text": "Instrukcja PL",
+            "bonus2_text": "Zapasowe baterie AA",
+            "bonus2_compare": "14,99 zł",
+            "bonus3_text": "Torba na prezent",
+            "bonus3_compare": "19,99 zł"
+          }
+        },
+        "pk3": {
+          "type": "package",
+          "settings": {
+            "title": "3 SZTUKI",
+            "badge": "OSZCZĘDZASZ 55%",
+            "price": "169,90 zł",
+            "compare_price": "449,97 zł",
+            "savings_text": "Oszczędzasz 280,07 zł na tym zamówieniu",
+            "quantity": 3,
+            "preselect": false,
+            "bonus1_text": "Instrukcja PL",
+            "bonus2_text": "Torba na prezent",
+            "bonus2_compare": "19,99 zł",
+            "bonus3_text": "Zapasowe baterie AA",
+            "bonus3_compare": "14,99 zł"
+          }
+        },
+        "ad1": {
+          "type": "addon",
+          "settings": {
+            "icon": "📦",
+            "title": "Ochrona przesyłki",
+            "price_text": "+16,00 zł",
+            "default_checked": false
+          }
+        },
+        "ad2": {
+          "type": "addon",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Gwarancja 30 dni",
+            "price_text": "+16,00 zł",
+            "default_checked": false
+          }
+        },
+        "tr1": {
+          "type": "trust",
+          "settings": {
+            "icon": "🛡️",
+            "title": "30-dniowa gwarancja zwrotu"
+          }
+        },
+        "tr2": {
+          "type": "trust",
+          "settings": {
+            "icon": "🚚",
+            "title": "Darmowa wysyłka"
+          }
+        },
+        "tr3": {
+          "type": "trust",
+          "settings": {
+            "icon": "🔒",
+            "title": "Bezpieczne zamówienia"
+          }
+        },
+        "mr1": {
+          "type": "mini_review",
+          "settings": {
+            "name": "Karolina M.",
+            "text": "Dużo lepszy niż te tandetne dekoracje, które widać, że są sztuczne już z 5 metrów. Naprawdę straszy — mój mąż i dzieciaki go uwielbiają."
+          }
+        },
+        "mr2": {
+          "type": "mini_review",
+          "settings": {
+            "name": "Tomek R.",
+            "text": "Sąsiedzi pytali, gdzie kupiłem. Czujnik ruchu działa świetnie, a dźwięk naprawdę straszy."
+          }
+        },
+        "mr3": {
+          "type": "mini_review",
+          "settings": {
+            "name": "Ania W.",
+            "text": "Ustawienie zajęło dosłownie 2 minuty. Najlepszy zakup na ten Halloween."
+          }
+        },
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy naprawdę wygląda tak dobrze na żywo?",
+            "answer": "Tak — zdjęcia i wideo pokazują dokładnie to, co zobaczysz po rozpakowaniu. Świecące, czerwone oczy są widoczne nawet z drugiej strony ulicy."
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy muszę coś jeszcze dokupić, żeby zacząć?",
+            "answer": "Potrzebujesz tylko 3 baterii AA (nie są dołączone do zestawu) — reszta jest gotowa do użycia od razu."
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy działa na zewnątrz?",
+            "answer": "Tak, nadaje się zarówno do użytku wewnątrz, jak i na zewnątrz. Zalecamy jednak chronić go przed silnym deszczem."
+          }
+        },
+        "f4": {
+          "type": "faq",
+          "settings": {
+            "question": "Jak go uruchomić?",
+            "answer": "Włóż baterie, ustaw przełącznik z tyłu — Stachu aktywuje się automatycznie, gdy wykryje ruch w pobliżu."
+          }
+        },
+        "f5": {
+          "type": "faq",
+          "settings": {
+            "question": "Jakiej jest wielkości?",
+            "answer": "Około 90 cm (35,43 cala) — idealny rozmiar na ganek, drzwi wejściowe lub ogród."
+          }
+        },
+        "f6": {
+          "type": "faq",
+          "settings": {
+            "question": "Kiedy dostanę zamówienie i czy mogę zwrócić?",
+            "answer": "Wysyłka 1–3 dni robocze. Masz 30 dni na test — jeśli nie zachwyci, zwrócimy pieniądze."
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3",
+        "pk1",
+        "pk2",
+        "pk3",
+        "ad1",
+        "ad2",
+        "tr1",
+        "tr2",
+        "tr3",
+        "mr1",
+        "mr2",
+        "mr3",
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ]
+    },
+    "pf-split": {
+      "type": "pf-split",
+      "settings": {
+        "heading_before": "Jedyna dekoracja, która przeraża",
+        "heading_accent": "całą ulicę po zmroku.",
+        "text": "Stachu Strachu™ czołga się, świeci oczami i wydaje upiorne odgłosy, gdy ktoś podejdzie zbyt blisko.",
+        "cta_text": "KUPUJĘ TERAZ"
+      },
+      "blocks": {
+        "b1": {
+          "type": "bullet",
+          "settings": {
+            "text": "Aktywacja ruchem — włącza się sam"
+          }
+        },
+        "b2": {
+          "type": "bullet",
+          "settings": {
+            "text": "Realistyczny ruch pełzania i świecące oczy"
+          }
+        },
+        "b3": {
+          "type": "bullet",
+          "settings": {
+            "text": "Do użytku wewnątrz i na zewnątrz"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "pf-grid": {
+      "type": "pf-grid",
+      "settings": {
+        "heading_before": "Dekorowanie ganku zajęło Ci cały dzień.",
+        "heading_accent": "To zajmuje trzy minuty.",
+        "subheading": "Cztery efekty w jednej dekoracji — bez narzędzi i bez godzin przygotowań.",
+        "cta_text": "KUPUJĘ TERAZ",
+        "cta_note": "30 dni gwarancji zwrotu pieniędzy"
+      },
+      "blocks": {
+        "t1": {
+          "type": "feature",
+          "settings": {
+            "title": "Świecące oczy",
+            "text": "Czerwona poświata w mroku widoczna z drugiej strony ulicy."
+          }
+        },
+        "t2": {
+          "type": "feature",
+          "settings": {
+            "badge": "DŹWIĘK",
+            "title": "Upiorne odgłosy",
+            "text": "Wbudowany efekt dźwiękowy włącza się przy wykryciu ruchu."
+          }
+        },
+        "t3": {
+          "type": "feature",
+          "settings": {
+            "title": "Realistyczny ruch",
+            "text": "Stachu rusza się, jakby naprawdę czołgał się po ganku."
+          }
+        },
+        "t4": {
+          "type": "feature",
+          "settings": {
+            "badge": "CZUJNIK RUCHU",
+            "title": "Aktywacja ruchem",
+            "text": "Sam się uruchamia, gdy ktoś podejdzie zbyt blisko."
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ]
+    },
+    "pf-before": {
+      "type": "pf-before",
+      "settings": {
+        "heading_before": "Te same drzwi.",
+        "heading_accent": "Zupełnie inny Halloween.",
+        "subheading": "Jedna dekoracja robi różnicę, którą widać z drugiej strony ulicy.",
+        "before_label": "PRZED",
+        "after_label": "ZE STACHU STRACHU™"
+      }
+    },
+    "pf-compare": {
+      "type": "pf-compare",
+      "settings": {
+        "heading_before": "Wszystko inne na ganku",
+        "heading_accent": "wygląda jak zabawka.",
+        "subheading": "Zobacz, dlaczego zwykłe dekoracje przegrywają ze Stachu Strachu™.",
+        "left_title": "Zwykłe dekoracje",
+        "right_title": "Stachu Strachu™",
+        "cta_text": "KUPUJĘ TERAZ",
+        "cta_note": "30 dni gwarancji zwrotu pieniędzy"
+      },
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "text": "Świecące oczy w ciemności"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "text": "Aktywacja czujnikiem ruchu"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "text": "Przeraźliwe dźwięki"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "text": "Realistyczny ruch pełzania"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "text": "Robi wrażenie na sąsiadach"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ]
+    },
+    "pf-steps": {
+      "type": "pf-steps",
+      "settings": {
+        "heading": "Gotowy do postawienia w 3 minuty",
+        "subheading": "Bez narzędzi i skomplikowanego montażu."
+      },
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "USTAW GO",
+            "text": "Postaw Stachu na ganku, w ogrodzie lub w domu — gotowy w kilka sekund."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "WŁÓŻ BATERIE",
+            "text": "3 x AA (nie w zestawie) — otwórz komorę i włóż baterie."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "WŁĄCZ CZUJNIK",
+            "text": "Jeden przełącznik uruchamia ruch, dźwięk i świecące oczy."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    "pf-reviews": {
+      "type": "pf-reviews",
+      "settings": {
+        "rating_value": "4,8",
+        "rating_count": "263 opinie",
+        "count_5": 221,
+        "count_4": 33,
+        "count_3": 9,
+        "count_2": 0,
+        "count_1": 0,
+        "write_review_enable": true,
+        "write_review_heading": "Podziel się opinią",
+        "write_review_cta": "Napisz opinię"
+      },
+      "blocks": {
+        "rv1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Karolina M.",
+            "text": "Dużo lepszy niż te tandetne dekoracje, które widać, że są sztuczne już z 5 metrów. Naprawdę straszy — mój mąż i dzieciaki go uwielbiają.",
+            "date": "26 lip 2026"
+          }
+        },
+        "rv2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Tomek R.",
+            "text": "Sąsiedzi pytali, gdzie kupiłem. Czerwone oczy widoczne z drugiej strony ulicy, a dźwięk naprawdę straszy.",
+            "date": "27 lip 2026"
+          }
+        },
+        "rv3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Ania W.",
+            "text": "Ustawienie zajęło dosłownie 2 minuty. Czujnik ruchu działa świetnie nawet w dzień.",
+            "date": "28 lip 2026"
+          }
+        },
+        "rv4": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "name": "Marek Sz.",
+            "text": "Bardzo dobra jakość jak na tę cenę. Jedyny minus — baterie trzeba dokupić osobno.",
+            "date": "29 lip 2026"
+          }
+        },
+        "rv5": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Kasia D.",
+            "text": "Dzieci z całej ulicy przychodzą zobaczyć, jak Stachu się rusza i wydaje dźwięki. Najlepszy zakup na Halloween.",
+            "date": "30 lip 2026"
+          }
+        },
+        "rv6": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Tomek W.",
+            "text": "Wygląda dokładnie jak na zdjęciach — świeci mocno i naprawdę robi wrażenie po zmroku.",
+            "date": "31 lip 2026"
+          }
+        },
+        "rv7": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Ola J.",
+            "text": "Kupiłam dwie sztuki — jedną na drzwi, drugą do ogrodu. Obie działają bez zarzutu.",
+            "date": "1 sie 2026"
+          }
+        },
+        "rv8": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Bartek K.",
+            "text": "Najlepsza dekoracja Halloweenowa, jaką miałem. Ruch pełzania robi niesamowite wrażenie.",
+            "date": "2 sie 2026"
+          }
+        },
+        "rv9": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "name": "Magda T.",
+            "text": "Solidne wykonanie, dźwięk głośniejszy niż się spodziewałam — w pozytywnym sensie.",
+            "date": "3 sie 2026"
+          }
+        },
+        "rv10": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Piotr N.",
+            "text": "Przesyłka szybka, a jakość zaskoczyła mnie pozytywnie. Polecam każdemu, kto lubi Halloween.",
+            "date": "4 sie 2026"
+          }
+        },
+        "rv11": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Ewa L.",
+            "text": "Genialna niespodzianka dla dzieci. Same pytały, czy Stachu jest prawdziwy.",
+            "date": "5 sie 2026"
+          }
+        },
+        "rv12": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Damian F.",
+            "text": "Świetna zabawa dla całej rodziny — montaż banalny, efekt piorunujący.",
+            "date": "6 sie 2026"
+          }
+        }
+      },
+      "block_order": [
+        "rv1",
+        "rv2",
+        "rv3",
+        "rv4",
+        "rv5",
+        "rv6",
+        "rv7",
+        "rv8",
+        "rv9",
+        "rv10",
+        "rv11",
+        "rv12"
+      ]
+    }
+  },
+  "order": [
+    "pf-buy",
+    "pf-split",
+    "pf-grid",
+    "pf-before",
+    "pf-compare",
+    "pf-steps",
+    "pf-reviews"
+  ]
+}

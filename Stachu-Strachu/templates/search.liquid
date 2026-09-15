@@ -1,0 +1,50 @@
+<div class="pf pf-search pf-sec">
+  <div class="pf-container">
+    <h1 class="pf-h2">Wyszukiwanie</h1>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="pf-search__form">
+      <input class="pf-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Czego szukasz?" aria-label="Szukaj">
+      <button type="submit" class="pf-btn pf-search__btn">Szukaj</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- paginate search.results by 24 -%}
+        <p class="pf-search__count">Wyniki dla „{{ search.terms | escape }}": {{ search.results_count }}</p>
+        <div class="pf-search__grid">
+          {%- for item in search.results -%}
+            <a href="{{ item.url }}" class="pf-search__card">
+              {%- if item.featured_image -%}
+                {{ item.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'pf-search__img', alt: item.title | escape }}
+              {%- elsif item.image -%}
+                {{ item.image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'pf-search__img', alt: item.title | escape }}
+              {%- else -%}
+                <div class="pf-search__ph"></div>
+              {%- endif -%}
+              <div class="pf-search__title">{{ item.title }}</div>
+              {%- if item.price -%}<div class="pf-search__price">{{ item.price | money }}</div>{%- endif -%}
+            </a>
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="pf-search__pages" aria-label="Paginacja">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">‹ Poprzednia</a>{%- endif -%}
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Następna ›</a>{%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</div>
+<style>
+  .pf-search__form{display:flex;gap:10px;max-width:520px;margin:0 0 28px}
+  .pf-search__form .pf-input{flex:1}
+  .pf-search__btn{width:auto;padding:14px 24px;white-space:nowrap}
+  .pf-search__count{color:var(--pf-text-dim);font-size:14px;margin:0 0 20px}
+  .pf-search__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .pf-search__card{text-decoration:none;color:inherit;display:block;background:var(--pf-bg-card);border:1px solid var(--pf-line);border-radius:14px;overflow:hidden}
+  .pf-search__img,.pf-search__ph{width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--pf-bg-alt);display:block}
+  .pf-search__title{font-size:13.5px;font-weight:600;color:var(--pf-text);margin:10px 12px 2px}
+  .pf-search__price{font-size:13.5px;font-weight:700;color:var(--pf-accent);margin:0 12px 12px}
+  .pf-search__pages{display:flex;justify-content:center;gap:16px;margin-top:32px}
+  .pf-search__pages a{color:var(--pf-accent);text-decoration:none;font-weight:700;font-size:14px}
+  @media(min-width:750px){.pf-search__grid{grid-template-columns:repeat(4,1fr);gap:20px}}
+</style>

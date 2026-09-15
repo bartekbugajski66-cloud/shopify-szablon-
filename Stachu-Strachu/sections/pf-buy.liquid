@@ -1,0 +1,390 @@
+{%- comment -%} Stachu Strachu — Buy-box (styl panefright): galeria, odliczanie, pakiety z bonusami, zaufanie, mini-opinia, FAQ {%- endcomment -%}
+{%- liquid
+  assign pf_go = section.settings.after_add | default: 'cart'
+  if settings.skip_cart
+    assign pf_go = 'checkout'
+  endif
+-%}
+<section class="pf pf-buy" id="pf-buy" data-section-id="{{ section.id }}" data-after-add="{{ pf_go }}">
+  <div class="pf-container pf-buy__grid">
+
+    <!-- LEWA: galeria -->
+    <div class="pf-buy__media">
+      <div class="pf-buy__main">
+        {%- if product.featured_media -%}
+          <img id="pf-main-img-{{ section.id }}" class="pf-buy__img" src="{{ product.featured_media | image_url: width: 1200 }}" alt="{{ product.title | escape }}" loading="eager" fetchpriority="high" width="{{ product.featured_media.width }}" height="{{ product.featured_media.height }}">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'pf-buy__img' }}
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="pf-buy__thumbs" id="pf-thumbs-{{ section.id }}">
+          {%- for media in product.media limit: 8 -%}
+            {%- if media.media_type == 'image' -%}
+              <button type="button" class="pf-buy__thumb{% if forloop.first %} is-active{% endif %}" data-full="{{ media | image_url: width: 1200 }}" aria-label="Pokaż zdjęcie {{ forloop.index }}">
+                <img src="{{ media | image_url: width: 200 }}" loading="lazy" width="200" height="200" alt="{{ product.title | escape }} — {{ forloop.index }}">
+              </button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- PRAWA: zakup -->
+    <div class="pf-buy__col">
+      <h1 class="pf-buy__title">{{ product.title | default: section.settings.fallback_title }}</h1>
+      {%- if section.settings.show_rating -%}
+        <div class="pf-buy__rating"><span class="pf-star-row" aria-hidden="true">★★★★★</span> <strong>{{ section.settings.rating_value }}</strong> <span>({{ section.settings.rating_count }})</span></div>
+      {%- endif -%}
+
+      <ul class="pf-buy__highlights">
+        {%- for block in section.blocks -%}{%- if block.type == 'highlight' -%}
+          <li {{ block.shopify_attributes }}>
+            <span class="pf-buy__hlico" aria-hidden="true">{{ block.settings.icon }}</span>
+            <span><strong>{{ block.settings.title }}</strong><span>{{ block.settings.text }}</span></span>
+          </li>
+        {%- endif -%}{%- endfor -%}
+      </ul>
+
+      {%- if section.settings.badge_text != blank -%}<div class="pf-buy__badge">{{ section.settings.badge_text }}</div>{%- endif -%}
+
+      {%- if section.settings.countdown_label != blank -%}
+        <div class="pf-buy__countdown">
+          {{ section.settings.countdown_label }} <strong id="pf-cd-{{ section.id }}" data-minutes="{{ section.settings.countdown_minutes }}">--:--</strong> <span aria-hidden="true">⏳</span>
+        </div>
+      {%- endif -%}
+
+      <form class="pf-buy__form" id="pf-buy-form-{{ section.id }}">
+        <fieldset class="pf-buy__packs">
+          <legend class="visually-hidden">Wybierz zestaw</legend>
+          {%- for block in section.blocks -%}{%- if block.type == 'package' -%}
+            {%- assign vid = block.settings.variant_id | default: product.selected_or_first_available_variant.id -%}
+            <label class="pf-buy__pack{% if block.settings.highlight %} is-pop{% endif %}" {{ block.shopify_attributes }}>
+              {%- if block.settings.badge != blank -%}<span class="pf-buy__packbadge">{{ block.settings.badge }}</span>{%- endif -%}
+              <div class="pf-buy__packtop">
+                <input type="radio" name="pf-pack" class="pf-buy__radio" value="{{ vid }}"
+                  data-qty="{{ block.settings.quantity | default: 1 }}" data-price="{{ block.settings.price }}" data-compare="{{ block.settings.compare_price }}" data-savings="{{ block.settings.savings_text }}"
+                  {% if block.settings.preselect %}checked{% endif %}>
+                <span class="pf-buy__dot" aria-hidden="true"></span>
+                <span class="pf-buy__packtitle">{{ block.settings.title }}</span>
+                <span class="pf-buy__packprice">
+                  <span class="pf-buy__packnow">{{ block.settings.price }}</span>
+                  {%- if block.settings.compare_price != blank -%}<s class="pf-buy__packold">{{ block.settings.compare_price }}</s>{%- endif -%}
+                </span>
+              </div>
+              {%- if block.settings.bonus1_text != blank or block.settings.bonus2_text != blank or block.settings.bonus3_text != blank -%}
+                <ul class="pf-buy__bonuses">
+                  {%- if block.settings.bonus1_text != blank -%}<li><span>+ {{ block.settings.bonus1_text }}</span>{%- if block.settings.bonus1_compare != blank -%}<s>{{ block.settings.bonus1_compare }}</s>{%- endif -%}</li>{%- endif -%}
+                  {%- if block.settings.bonus2_text != blank -%}<li><span>+ {{ block.settings.bonus2_text }}</span>{%- if block.settings.bonus2_compare != blank -%}<s>{{ block.settings.bonus2_compare }}</s>{%- endif -%}</li>{%- endif -%}
+                  {%- if block.settings.bonus3_text != blank -%}<li><span>+ {{ block.settings.bonus3_text }}</span>{%- if block.settings.bonus3_compare != blank -%}<s>{{ block.settings.bonus3_compare }}</s>{%- endif -%}</li>{%- endif -%}
+                </ul>
+              {%- endif -%}
+            </label>
+          {%- endif -%}{%- endfor -%}
+        </fieldset>
+
+        {%- assign addons = section.blocks | where: 'type', 'addon' -%}
+        {%- if addons.size > 0 -%}
+          <div class="pf-buy__addons">
+            {%- for block in addons -%}
+              <label class="pf-buy__addon" {{ block.shopify_attributes }}>
+                <input type="checkbox" class="pf-buy__addoncheck" data-variant="{{ block.settings.variant_id }}" {% if block.settings.default_checked %}checked{% endif %}>
+                <span class="pf-buy__addonico" aria-hidden="true">{{ block.settings.icon }}</span>
+                <span class="pf-buy__addontitle">{{ block.settings.title }}</span>
+                <span class="pf-buy__addonprice">{{ block.settings.price_text }}</span>
+              </label>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="pf-buy__savings" id="pf-savings-{{ section.id }}"></div>
+
+        <button type="submit" class="pf-btn" id="pf-cta-{{ section.id }}">
+          <span class="pf-buy__ctatext">{{ section.settings.cta_text }}</span>
+          <span class="pf-buy__spin" aria-hidden="true"></span>
+        </button>
+        <p class="pf-buy__err" id="pf-err-{{ section.id }}" role="alert" hidden></p>
+
+        {%- if section.settings.show_delivery -%}
+          <div class="pf-buy__delivery">
+            <div class="pf-buy__delstep">
+              <span class="pf-buy__delico" aria-hidden="true">🛒</span>
+              <span class="pf-buy__deldate">{% render 'pf-pldate', days: 0 %}</span>
+              <span class="pf-buy__dellabel">Zamówienie</span>
+            </div>
+            <span class="pf-buy__delline" aria-hidden="true"></span>
+            <div class="pf-buy__delstep">
+              <span class="pf-buy__delico" aria-hidden="true">📦</span>
+              <span class="pf-buy__deldate">{% render 'pf-pldate', days: section.settings.ready_start %}–{% render 'pf-pldate', days: section.settings.ready_end %}</span>
+              <span class="pf-buy__dellabel">Gotowe do wysyłki</span>
+            </div>
+            <span class="pf-buy__delline" aria-hidden="true"></span>
+            <div class="pf-buy__delstep">
+              <span class="pf-buy__delico" aria-hidden="true">🎁</span>
+              <span class="pf-buy__deldate">{% render 'pf-pldate', days: section.settings.delivered_start %}–{% render 'pf-pldate', days: section.settings.delivered_end %}</span>
+              <span class="pf-buy__dellabel">Dostarczone</span>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <ul class="pf-buy__trust">
+          {%- for block in section.blocks -%}{%- if block.type == 'trust' -%}
+            <li {{ block.shopify_attributes }}>
+              <span aria-hidden="true">{{ block.settings.icon }}</span>
+              <span>{{ block.settings.title }}</span>
+            </li>
+          {%- endif -%}{%- endfor -%}
+        </ul>
+      </form>
+
+      {%- assign reviews = section.blocks | where: 'type', 'mini_review' -%}
+      {%- if reviews.size > 0 -%}
+        <div class="pf-buy__reviewbox" id="pf-mrev-{{ section.id }}">
+          <button type="button" class="pf-buy__revarrow" data-dir="-1" aria-label="Poprzednia opinia">‹</button>
+          <div class="pf-buy__revtrack">
+            {%- for block in reviews -%}
+              <div class="pf-buy__revcard{% if forloop.first %} is-active{% endif %}" {{ block.shopify_attributes }}>
+                {%- if block.settings.avatar != blank -%}
+                  {{ block.settings.avatar | image_url: width: 80 | image_tag: loading: 'lazy', class: 'pf-buy__revava', alt: block.settings.name | escape }}
+                {%- else -%}<span class="pf-buy__revava pf-buy__revava--ph" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>{%- endif -%}
+                <div>
+                  <p class="pf-buy__revtext">{{ block.settings.text }}</p>
+                  <span class="pf-buy__revname">{{ block.settings.name }} <span class="pf-star-row" aria-hidden="true">★★★★★</span></span>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          <button type="button" class="pf-buy__revarrow" data-dir="1" aria-label="Następna opinia">›</button>
+        </div>
+      {%- endif -%}
+
+      {%- assign faqs = section.blocks | where: 'type', 'faq' -%}
+      {%- if faqs.size > 0 -%}
+        <div class="pf-buy__faq">
+          {%- for block in faqs -%}
+            <details class="pf-acc__item pf-acc" {{ block.shopify_attributes }}>
+              <summary class="pf-acc__q"><span>{{ block.settings.question }}</span><span class="pf-acc__sign" aria-hidden="true"></span></summary>
+              <div class="pf-acc__a">{{ block.settings.answer }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- style -%}
+  #pf-buy{padding:24px 0 36px}
+  #pf-buy .pf-buy__grid{display:grid;grid-template-columns:1fr;gap:26px}
+  #pf-buy .pf-buy__main{border-radius:20px;overflow:hidden;background:var(--pf-bg-card)}
+  #pf-buy .pf-buy__img{width:100%;border-radius:20px;display:block}
+  #pf-buy .pf-buy__thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none}
+  #pf-buy .pf-buy__thumbs::-webkit-scrollbar{display:none}
+  #pf-buy .pf-buy__thumb{flex:0 0 62px;width:62px;height:62px;padding:0;border:2px solid var(--pf-line);border-radius:10px;overflow:hidden;background:var(--pf-bg-card);cursor:pointer}
+  #pf-buy .pf-buy__thumb.is-active{border-color:var(--pf-accent)}
+  #pf-buy .pf-buy__thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  #pf-buy .pf-buy__title{font-size:clamp(22px,5.5vw,30px);font-weight:800;line-height:1.18;margin:0 0 8px}
+  #pf-buy .pf-buy__rating{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--pf-text-dim);margin:0 0 16px}
+  #pf-buy .pf-buy__highlights{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:12px}
+  #pf-buy .pf-buy__highlights li{display:flex;align-items:flex-start;gap:11px}
+  #pf-buy .pf-buy__hlico{flex:none;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:rgba(220,38,38,.14);font-size:15px}
+  #pf-buy .pf-buy__highlights strong{display:block;font-size:13.5px;font-weight:700}
+  #pf-buy .pf-buy__highlights li span span{display:block;font-size:12px;color:var(--pf-text-dim);margin-top:1px}
+  #pf-buy .pf-buy__badge{font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;text-align:center;color:var(--pf-text-dim);border:1px solid var(--pf-line);border-radius:8px;padding:8px;margin:0 0 10px}
+  #pf-buy .pf-buy__countdown{text-align:center;background:rgba(220,38,38,.10);border:1px solid rgba(220,38,38,.35);color:var(--pf-accent);font-size:13px;font-weight:700;border-radius:10px;padding:9px;margin:0 0 16px}
+  #pf-buy .pf-buy__countdown strong{font-variant-numeric:tabular-nums}
+  #pf-buy .pf-buy__packs{border:0;padding:0;margin:0 0 6px;display:flex;flex-direction:column;gap:10px}
+  #pf-buy .pf-buy__pack{position:relative;display:block;background:var(--pf-bg-card);border:2px solid var(--pf-line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+  #pf-buy .pf-buy__pack:has(.pf-buy__radio:checked){border-color:var(--pf-accent);box-shadow:0 8px 22px rgba(220,38,38,.14);background:rgba(220,38,38,.06)}
+  #pf-buy .pf-buy__packbadge{position:absolute;top:-11px;left:14px;background:var(--pf-accent);color:var(--pf-accent-text);font-size:10.5px;font-weight:800;padding:3px 10px;border-radius:999px}
+  #pf-buy .pf-buy__packtop{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px}
+  #pf-buy .pf-buy__radio{position:absolute;opacity:0;pointer-events:none}
+  #pf-buy .pf-buy__dot{width:18px;height:18px;border-radius:50%;border:2px solid #4b5150;position:relative;flex:none}
+  #pf-buy .pf-buy__pack:has(.pf-buy__radio:checked) .pf-buy__dot{border-color:var(--pf-accent)}
+  #pf-buy .pf-buy__pack:has(.pf-buy__radio:checked) .pf-buy__dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--pf-accent)}
+  #pf-buy .pf-buy__packtitle{font-size:14px;font-weight:700}
+  #pf-buy .pf-buy__packprice{text-align:right}
+  #pf-buy .pf-buy__packnow{display:block;font-weight:800;font-size:15px;color:var(--pf-accent)}
+  #pf-buy .pf-buy__packold{font-size:11.5px;color:var(--pf-text-dim)}
+  #pf-buy .pf-buy__bonuses{list-style:none;margin:10px 0 0;padding:10px 0 0;border-top:1px dashed var(--pf-line);display:flex;flex-direction:column;gap:5px}
+  #pf-buy .pf-buy__bonuses li{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--pf-text-dim)}
+  #pf-buy .pf-buy__bonuses s{color:#5a615f}
+  #pf-buy .pf-buy__addons{display:flex;flex-direction:column;gap:8px;margin:12px 0 0}
+  #pf-buy .pf-buy__addon{display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:10px;background:var(--pf-bg-card);border:1px solid var(--pf-line);border-radius:12px;padding:11px 14px;cursor:pointer}
+  #pf-buy .pf-buy__addoncheck{width:17px;height:17px;accent-color:var(--pf-accent)}
+  #pf-buy .pf-buy__addonico{font-size:16px}
+  #pf-buy .pf-buy__addontitle{font-size:13px;font-weight:700}
+  #pf-buy .pf-buy__addonprice{font-size:12.5px;font-weight:700;color:var(--pf-accent)}
+  #pf-buy .pf-buy__delivery{display:flex;align-items:flex-start;justify-content:space-between;gap:2px;background:var(--pf-bg-card);border:1px solid var(--pf-line);border-radius:14px;padding:16px 10px;margin:14px 0}
+  #pf-buy .pf-buy__delstep{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;text-align:center}
+  #pf-buy .pf-buy__delico{font-size:18px}
+  #pf-buy .pf-buy__deldate{font-size:11.5px;font-weight:800;color:var(--pf-text)}
+  #pf-buy .pf-buy__dellabel{font-size:10px;color:var(--pf-text-dim)}
+  #pf-buy .pf-buy__delline{flex:none;width:100%;max-width:34px;height:2px;background:var(--pf-line);margin-top:9px}
+  #pf-buy .pf-buy__savings{display:none;align-items:center;gap:8px;background:rgba(220,38,38,.10);border:1px solid rgba(220,38,38,.3);color:var(--pf-accent);font-size:13px;font-weight:700;border-radius:10px;padding:10px 14px;margin:12px 0}
+  #pf-buy .pf-buy__savings.is-visible{display:flex}
+  #pf-buy .pf-buy__spin{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:var(--pf-accent-text);border-radius:50%;animation:pfSpin .7s linear infinite}
+  #pf-buy .pf-btn[aria-busy="true"] .pf-buy__spin{display:inline-block}
+  #pf-buy .pf-btn[aria-busy="true"]{opacity:.85;pointer-events:none}
+  @keyframes pfSpin{to{transform:rotate(360deg)}}
+  #pf-buy .pf-buy__err{color:var(--pf-red);font-size:13px;text-align:center;margin:10px 0 0}
+  #pf-buy .pf-buy__trust{list-style:none;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin:16px 0 0;padding:0}
+  #pf-buy .pf-buy__trust li{font-size:11px;font-weight:700;color:var(--pf-text-dim);display:flex;flex-direction:column;align-items:center;gap:4px;max-width:90px;text-align:center}
+  #pf-buy .pf-buy__trust li span:first-child{font-size:20px}
+  #pf-buy .pf-buy__reviewbox{margin-top:22px;display:flex;align-items:center;gap:8px}
+  #pf-buy .pf-buy__revtrack{flex:1;overflow:hidden;position:relative;min-height:64px}
+  #pf-buy .pf-buy__revcard{display:none;gap:12px;background:var(--pf-bg-card);border:1px solid var(--pf-line);border-radius:14px;padding:14px}
+  #pf-buy .pf-buy__revcard.is-active{display:flex}
+  #pf-buy .pf-buy__revava{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none}
+  #pf-buy .pf-buy__revava--ph{display:grid;place-items:center;background:var(--pf-accent);color:var(--pf-accent-text);font-weight:800}
+  #pf-buy .pf-buy__revtext{margin:0 0 6px;font-size:12.5px;color:var(--pf-text-dim);line-height:1.5}
+  #pf-buy .pf-buy__revname{font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px}
+  #pf-buy .pf-buy__revarrow{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--pf-line);background:var(--pf-bg-card);color:var(--pf-text);cursor:pointer;font-size:16px}
+  #pf-buy .pf-buy__faq{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+  @media(min-width:900px){
+    #pf-buy{padding:40px 0 56px}
+    #pf-buy .pf-buy__grid{grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+    #pf-buy .pf-buy__media{position:sticky;top:16px}
+  }
+{%- endstyle -%}
+
+<script>
+(function(){
+  var form=document.getElementById('pf-buy-form-{{ section.id }}');if(!form)return;
+  var sec=document.getElementById('pf-buy');
+  var cta=document.getElementById('pf-cta-{{ section.id }}');
+  var err=document.getElementById('pf-err-{{ section.id }}');
+  var savings=document.getElementById('pf-savings-{{ section.id }}');
+  var after=sec.getAttribute('data-after-add')||'cart';
+
+  var mainImg=document.getElementById('pf-main-img-{{ section.id }}');
+  var thumbs=document.getElementById('pf-thumbs-{{ section.id }}');
+  if(mainImg&&thumbs){thumbs.querySelectorAll('.pf-buy__thumb').forEach(function(btn){btn.addEventListener('click',function(){
+    var f=btn.getAttribute('data-full');if(f){mainImg.removeAttribute('srcset');mainImg.src=f;}
+    thumbs.querySelectorAll('.pf-buy__thumb').forEach(function(b){b.classList.remove('is-active')});btn.classList.add('is-active');
+  })});}
+
+  function sync(){var r=form.querySelector('input[name="pf-pack"]:checked');if(!r)return;
+    var s=r.getAttribute('data-savings')||'';
+    if(s){savings.textContent='→ '+s;savings.classList.add('is-visible');}else{savings.classList.remove('is-visible');}
+  }
+  form.querySelectorAll('input[name="pf-pack"]').forEach(function(r){r.addEventListener('change',sync)});sync();
+
+  function addToCart(){err.hidden=true;
+    var r=form.querySelector('input[name="pf-pack"]:checked');
+    if(!r||!r.value){err.textContent='Wybierz zestaw, aby kontynuować.';err.hidden=false;sec.scrollIntoView({behavior:'smooth'});return;}
+    var items=[{id:parseInt(r.value,10),quantity:parseInt(r.getAttribute('data-qty')||'1',10)}];
+    form.querySelectorAll('.pf-buy__addoncheck:checked').forEach(function(a){
+      var vid=parseInt(a.getAttribute('data-variant'),10);
+      if(vid)items.push({id:vid,quantity:1});
+    });
+    cta.setAttribute('aria-busy','true');
+    var root=(window.Shopify&&window.Shopify.routes)?window.Shopify.routes.root:'/';
+    fetch(root+'cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:items})})
+      .then(function(res){return res.json().then(function(d){return{ok:res.ok,d:d}})})
+      .then(function(r2){if(!r2.ok)throw new Error(r2.d&&r2.d.description?r2.d.description:'Nie udało się dodać do koszyka.');
+        if(after==='checkout'){window.location.href='/checkout';}
+        else{cta.removeAttribute('aria-busy');document.dispatchEvent(new CustomEvent('cart:refresh'));}})
+      .catch(function(e2){cta.removeAttribute('aria-busy');err.textContent=e2.message||'Wystąpił błąd.';err.hidden=false;});
+  }
+  form.addEventListener('submit',function(e){e.preventDefault();addToCart();});
+
+  /* mini-opinie karuzela */
+  var mrev=document.getElementById('pf-mrev-{{ section.id }}');
+  if(mrev){
+    var cards=mrev.querySelectorAll('.pf-buy__revcard');var idx=0;
+    mrev.querySelectorAll('.pf-buy__revarrow').forEach(function(b){b.addEventListener('click',function(){
+      cards[idx].classList.remove('is-active');
+      idx=(idx+parseInt(b.getAttribute('data-dir'),10)+cards.length)%cards.length;
+      cards[idx].classList.add('is-active');
+    })});
+  }
+
+  /* odliczanie */
+  var cd=document.getElementById('pf-cd-{{ section.id }}');
+  if(cd){
+    var mins=parseFloat(cd.getAttribute('data-minutes'))||15;
+    var total=Math.round(mins*60);
+    var remaining=total;
+    function tick(){
+      var m=Math.floor(remaining/60),s=remaining%60;
+      cd.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+      remaining--;
+      if(remaining<0)remaining=total;
+    }
+    tick();
+    setInterval(tick,1000);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "SS — Buy-box",
+  "settings": [
+    { "type": "text", "id": "fallback_title", "label": "Tytuł zastępczy", "default": "Stachu Strachu™" },
+    { "type": "checkbox", "id": "show_rating", "label": "Pokaż ocenę", "default": true },
+    { "type": "text", "id": "rating_value", "label": "Ocena", "default": "4,8" },
+    { "type": "text", "id": "rating_count", "label": "Liczba opinii", "default": "263 opinie" },
+    { "type": "header", "content": "Pilność" },
+    { "type": "text", "id": "badge_text", "label": "Plakietka", "default": "WYPRZEDAŻ | OGRANICZONA ILOŚĆ" },
+    { "type": "text", "id": "countdown_label", "label": "Tekst przed odliczaniem", "default": "Pośpiesz się! Oferta wygasa za" },
+    { "type": "number", "id": "countdown_minutes", "label": "Czas odliczania (minuty)", "default": 15 },
+    { "type": "header", "content": "Koszyk" },
+    { "type": "text", "id": "cta_text", "label": "Tekst CTA", "default": "DODAJ DO KOSZYKA" },
+    { "type": "select", "id": "after_add", "label": "Po dodaniu", "default": "cart", "options": [ {"value":"cart","label":"Koszyk"}, {"value":"checkout","label":"Kasa"} ] },
+    { "type": "header", "content": "Dostawa" },
+    { "type": "checkbox", "id": "show_delivery", "label": "Pokaż terminarz dostawy", "default": true },
+    { "type": "number", "id": "ready_start", "label": "Gotowe od (dni)", "default": 1 },
+    { "type": "number", "id": "ready_end", "label": "Gotowe do (dni)", "default": 2 },
+    { "type": "number", "id": "delivered_start", "label": "Dostawa od (dni)", "default": 8 },
+    { "type": "number", "id": "delivered_end", "label": "Dostawa do (dni)", "default": 10 }
+  ],
+  "blocks": [
+    { "type": "highlight", "name": "Wyróżnik", "settings": [
+      { "type": "text", "id": "icon", "label": "Emoji", "default": "✨" },
+      { "type": "text", "id": "title", "label": "Tytuł", "default": "Wygląda jak żywa" },
+      { "type": "text", "id": "text", "label": "Opis", "default": "Realistyczny ruch i poświata" }
+    ] },
+    { "type": "package", "name": "Pakiet", "settings": [
+      { "type": "text", "id": "title", "label": "Tytuł", "default": "1 SZTUKA" },
+      { "type": "text", "id": "badge", "label": "Plakietka pakietu" },
+      { "type": "text", "id": "price", "label": "Cena teraz", "default": "69,99 zł" },
+      { "type": "text", "id": "compare_price", "label": "Cena przekreślona", "default": "129,99 zł" },
+      { "type": "text", "id": "savings_text", "label": "Tekst oszczędności", "default": "Oszczędzasz 60 zł na tym zamówieniu" },
+      { "type": "text", "id": "variant_id", "label": "ID wariantu Shopify" },
+      { "type": "number", "id": "quantity", "label": "Ilość sztuk", "default": 1 },
+      { "type": "checkbox", "id": "highlight", "label": "Wyróżnij ramką", "default": false },
+      { "type": "checkbox", "id": "preselect", "label": "Zaznacz domyślnie", "default": false },
+      { "type": "header", "content": "Bonusy w tym pakiecie" },
+      { "type": "text", "id": "bonus1_text", "label": "Bonus 1 — nazwa" },
+      { "type": "text", "id": "bonus1_compare", "label": "Bonus 1 — cena przed" },
+      { "type": "text", "id": "bonus2_text", "label": "Bonus 2 — nazwa" },
+      { "type": "text", "id": "bonus2_compare", "label": "Bonus 2 — cena przed" },
+      { "type": "text", "id": "bonus3_text", "label": "Bonus 3 — nazwa" },
+      { "type": "text", "id": "bonus3_compare", "label": "Bonus 3 — cena przed" }
+    ] },
+    { "type": "addon", "name": "Dodatek", "settings": [
+      { "type": "text", "id": "icon", "label": "Emoji", "default": "🛡️" },
+      { "type": "text", "id": "title", "label": "Tytuł", "default": "Ochrona przesyłki" },
+      { "type": "text", "id": "price_text", "label": "Cena", "default": "+16,00 zł" },
+      { "type": "text", "id": "variant_id", "label": "ID wariantu Shopify" },
+      { "type": "checkbox", "id": "default_checked", "label": "Domyślnie zaznaczony", "default": false }
+    ] },
+    { "type": "trust", "name": "Ikona zaufania", "settings": [
+      { "type": "text", "id": "icon", "label": "Emoji", "default": "🛡️" },
+      { "type": "text", "id": "title", "label": "Tekst", "default": "30-dniowa gwarancja zwrotu" }
+    ] },
+    { "type": "mini_review", "name": "Mini-opinia (karuzela)", "settings": [
+      { "type": "image_picker", "id": "avatar", "label": "Zdjęcie autora" },
+      { "type": "text", "id": "name", "label": "Autor", "default": "Karolina M." },
+      { "type": "textarea", "id": "text", "label": "Treść", "default": "Dużo lepsza niż tandetne dekoracje, które widać, że są sztuczne już z daleka." }
+    ] },
+    { "type": "faq", "name": "Pytanie FAQ", "settings": [
+      { "type": "text", "id": "question", "label": "Pytanie", "default": "Czy naprawdę wygląda tak dobrze na żywo?" },
+      { "type": "textarea", "id": "answer", "label": "Odpowiedź", "default": "Tak — zdjęcia i wideo pokazują dokładnie to, co zobaczysz po rozpakowaniu." }
+    ] }
+  ],
+  "presets": [ { "name": "SS — Buy-box" } ]
+}
+{% endschema %}

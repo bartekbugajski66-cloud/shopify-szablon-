@@ -1,0 +1,55 @@
+{%- comment -%} Stachu Strachu — 3 kroki (styl panefright) {%- endcomment -%}
+<section class="pf pf-steps pf-sec" id="pf-steps-{{ section.id }}">
+  <div class="pf-container pf-center">
+    <h2 class="pf-h2">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}<p class="pf-lead">{{ section.settings.subheading }}</p>{%- endif -%}
+  </div>
+  <div class="pf-container pf-steps__grid">
+    {%- assign n = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- assign n = n | plus: 1 -%}
+      <div class="pf-steps__card pf-card" {{ block.shopify_attributes }}>
+        <span class="pf-steps__num">{{ n }}</span>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', class: 'pf-steps__img', alt: block.settings.title | escape }}
+        {%- else -%}<span class="pf-steps__ph"></span>{%- endif -%}
+        <div class="pf-steps__body">
+          <h3 class="pf-steps__title">{{ block.settings.title }}</h3>
+          <p class="pf-steps__desc">{{ block.settings.text }}</p>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+{%- style -%}
+  #pf-steps-{{ section.id }} .pf-steps__grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:30px}
+  #pf-steps-{{ section.id }} .pf-steps__card{position:relative;overflow:hidden}
+  #pf-steps-{{ section.id }} .pf-steps__num{position:absolute;top:12px;left:12px;z-index:2;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--pf-accent);color:var(--pf-accent-text);font-weight:800;font-size:14px}
+  #pf-steps-{{ section.id }} .pf-steps__img,#pf-steps-{{ section.id }} .pf-steps__ph{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--pf-bg-alt);display:block}
+  #pf-steps-{{ section.id }} .pf-steps__body{padding:16px 18px}
+  #pf-steps-{{ section.id }} .pf-steps__title{margin:0 0 6px;font-size:15px;font-weight:800}
+  #pf-steps-{{ section.id }} .pf-steps__desc{margin:0;font-size:13px;color:var(--pf-text-dim);line-height:1.5}
+  @media(min-width:900px){#pf-steps-{{ section.id }} .pf-steps__grid{grid-template-columns:repeat(3,1fr);gap:20px}}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "SS — 3 kroki",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Pełna dekoracja gotowa w 3 minuty" },
+    { "type": "textarea", "id": "subheading", "label": "Podnagłówek" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Krok", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+      { "type": "text", "id": "title", "label": "Tytuł", "default": "USTAW GO" },
+      { "type": "textarea", "id": "text", "label": "Opis", "default": "Postaw Stachu na ganku, w ogrodzie lub w domu — gotowy w kilka sekund." }
+    ] }
+  ],
+  "max_blocks": 3,
+  "presets": [ { "name": "SS — 3 kroki", "blocks": [
+    { "type": "step", "settings": { "title": "USTAW GO", "text": "Postaw Stachu na ganku, w ogrodzie lub w domu — gotowy w kilka sekund." } },
+    { "type": "step", "settings": { "title": "WŁÓŻ BATERIE", "text": "3 x AA (nie w zestawie) — otwórz komorę i włóż baterie." } },
+    { "type": "step", "settings": { "title": "WŁĄCZ CZUJNIK", "text": "Jeden przełącznik uruchamia ruch, dźwięk i świecące oczy." } }
+  ] } ]
+}
+{% endschema %}

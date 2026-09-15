@@ -1,0 +1,22 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Stachu Strachu by WMXR",
+    "theme_version": "1.0.0",
+    "theme_author": "WMXR",
+    "theme_documentation_url": "https://shopify.dev/docs/themes",
+    "theme_support_url": "https://shopify.dev/docs/themes"
+  },
+  {
+    "name": "Koszyk / Kasa",
+    "settings": [
+      { "type": "checkbox", "id": "skip_cart", "label": "Pomiń koszyk — po „Dodaj do koszyka” przejdź od razu do kasy", "default": false }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Ikona karty przeglądarki", "info": "Najlepiej kwadratowy obrazek, min. 32×32 px" }
+    ]
+  }
+]

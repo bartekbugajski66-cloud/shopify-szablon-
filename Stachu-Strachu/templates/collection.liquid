@@ -1,0 +1,39 @@
+<div class="drip-page page-width">
+  <h1>{{ collection.title }}</h1>
+  {%- if collection.description != blank -%}<div>{{ collection.description }}</div>{%- endif -%}
+
+  {%- paginate collection.products by 24 -%}
+    {%- if collection.products.size == 0 -%}
+      <p>Brak produktów w tej kolekcji.</p>
+    {%- else -%}
+      <div class="drip-grid-products" style="margin-top:20px;">
+        {%- for product in collection.products -%}
+          <a href="{{ product.url }}" class="drip-card">
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'drip-card__img', alt: product.title | escape }}
+            {%- else -%}
+              <div class="drip-card__placeholder"></div>
+            {%- endif -%}
+            <div class="drip-card__title">{{ product.title }}</div>
+            <div class="drip-card__price">
+              {{ product.price | money }}
+              {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="drip-pagination" aria-label="Paginacja">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">‹</a>{%- endif -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+          {%- elsif part.title == paginate.current_page -%}<span class="current">{{ part.title }}</span>
+          {%- else -%}<span>{{ part.title }}</span>{%- endif -%}
+        {%- endfor -%}
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}">›</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>

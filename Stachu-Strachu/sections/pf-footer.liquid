@@ -1,0 +1,64 @@
+{%- comment -%} Stachu Strachu — Stopka: fala + newsletter + płatności (styl panefright) {%- endcomment -%}
+<div class="pf-wave" aria-hidden="true" style="background:var(--pf-bg)">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,70 900,-10 1200,30 L1200,60 L0,60 Z" fill="var(--pf-accent)"></path></svg>
+</div>
+<footer class="pf pf-ft" id="pf-ft-{{ section.id }}">
+  <div class="pf-container pf-ft__inner">
+    {%- if section.settings.newsletter_enable -%}
+      <div class="pf-ft__news">
+        <h3 class="pf-ft__newstitle">{{ section.settings.newsletter_title }}</h3>
+        {%- if section.settings.newsletter_text != blank -%}<p class="pf-ft__newstext">{{ section.settings.newsletter_text }}</p>{%- endif -%}
+        {%- form 'customer', id: 'pf-newsletter-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="pf-ft__newsrow">
+            <input class="pf-input" type="email" name="contact[email]" placeholder="Twój adres e-mail" required aria-label="E-mail">
+            <button type="submit" class="pf-btn pf-ft__newsbtn">{{ section.settings.newsletter_cta | default: 'Zapisz się' }}</button>
+          </div>
+          {%- if form.posted_successfully? -%}<p class="pf-ft__newsmsg">Dziękujemy za zapisanie się!</p>{%- endif -%}
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+
+    <nav class="pf-ft__links">
+      {%- for link in section.settings.menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+    </nav>
+
+    <div class="pf-ft__pays">
+      {%- assign pays = section.settings.payments | split: ',' -%}
+      {%- for p in pays -%}<span class="pf-ft__pay">{{ p | strip }}</span>{%- endfor -%}
+    </div>
+
+    <div class="pf-ft__bottom">© {{ 'now' | date: '%Y' }} {{ section.settings.brand_name }}. Wszelkie prawa zastrzeżone.</div>
+  </div>
+</footer>
+{%- style -%}
+  #pf-ft-{{ section.id }}{background:var(--pf-bg);padding:0 0 30px}
+  #pf-ft-{{ section.id }} .pf-ft__inner{padding-top:8px}
+  #pf-ft-{{ section.id }} .pf-ft__news{max-width:460px;margin:0 auto 30px;text-align:center}
+  #pf-ft-{{ section.id }} .pf-ft__newstitle{font-size:19px;font-weight:800;margin:0 0 8px}
+  #pf-ft-{{ section.id }} .pf-ft__newstext{font-size:13.5px;color:var(--pf-text-dim);margin:0 0 16px}
+  #pf-ft-{{ section.id }} .pf-ft__newsrow{display:flex;flex-direction:column;gap:10px}
+  #pf-ft-{{ section.id }} .pf-ft__newsbtn{width:auto;padding:13px 24px;white-space:nowrap}
+  #pf-ft-{{ section.id }} .pf-ft__newsmsg{font-size:12.5px;color:var(--pf-accent);margin:10px 0 0}
+  #pf-ft-{{ section.id }} .pf-ft__links{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin:0 0 22px}
+  #pf-ft-{{ section.id }} .pf-ft__links a{color:var(--pf-text-dim);text-decoration:none;font-size:13px}
+  #pf-ft-{{ section.id }} .pf-ft__links a:hover{color:var(--pf-text)}
+  #pf-ft-{{ section.id }} .pf-ft__pays{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 18px}
+  #pf-ft-{{ section.id }} .pf-ft__pay{background:var(--pf-bg-card);border:1px solid var(--pf-line);color:var(--pf-text-dim);font-size:11px;font-weight:800;padding:6px 10px;border-radius:6px}
+  #pf-ft-{{ section.id }} .pf-ft__bottom{text-align:center;font-size:12px;color:var(--pf-text-dim);border-top:1px solid var(--pf-line);padding-top:18px}
+  @media(min-width:600px){#pf-ft-{{ section.id }} .pf-ft__newsrow{flex-direction:row}#pf-ft-{{ section.id }} .pf-ft__newsrow .pf-input{flex:1}}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "SS — Stopka",
+  "settings": [
+    { "type": "checkbox", "id": "newsletter_enable", "label": "Pokaż newsletter", "default": true },
+    { "type": "text", "id": "newsletter_title", "label": "Tytuł newslettera", "default": "Zapisz się do naszego newslettera" },
+    { "type": "textarea", "id": "newsletter_text", "label": "Tekst", "default": "Otrzymaj 10% zniżki na pierwsze zamówienie i bądź na bieżąco z nowościami na Halloween." },
+    { "type": "text", "id": "newsletter_cta", "label": "Tekst przycisku", "default": "Zapisz się" },
+    { "type": "link_list", "id": "menu", "label": "Linki", "default": "footer" },
+    { "type": "text", "id": "brand_name", "label": "Marka w stopce", "default": "STACHU STRACHU™" },
+    { "type": "text", "id": "payments", "label": "Płatności (po przecinku)", "default": "BLIK, Przelew, VISA, MasterCard, ApplePay" }
+  ]
+}
+{% endschema %}
