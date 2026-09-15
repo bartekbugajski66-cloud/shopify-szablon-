@@ -1,0 +1,226 @@
+{%- comment -%} Projektor Strachu — wysuwany koszyk (drawer), styl panefright {%- endcomment -%}
+<div class="pf pf-cart" id="pf-cart" aria-hidden="true">
+  <div class="pf-cart__overlay" id="pf-cart-overlay"></div>
+  <div class="pf-cart__panel" role="dialog" aria-modal="true" aria-label="Koszyk">
+    <div class="pf-cart__head">
+      <h2 class="pf-cart__title">Koszyk <span id="pf-cart-count">• 0</span></h2>
+      <button type="button" class="pf-cart__close" id="pf-cart-close" aria-label="Zamknij koszyk">✕</button>
+    </div>
+    <div class="pf-cart__urgency">
+      Twój koszyk wygaśnie za <strong id="pf-cart-timer">--:--</strong> <span aria-hidden="true">⏳</span>
+    </div>
+    <div class="pf-cart__body">
+      <p class="pf-cart__empty" id="pf-cart-empty" hidden>Twój koszyk jest pusty.</p>
+      <div class="pf-cart__items" id="pf-cart-items"></div>
+    </div>
+    <div class="pf-cart__foot" id="pf-cart-foot" hidden>
+      <div class="pf-cart__discounts" id="pf-cart-discounts" hidden></div>
+      <div class="pf-cart__discountrow">
+        <input type="text" id="pf-cart-discount-input" class="pf-input" placeholder="Kod rabatowy">
+        <button type="button" class="pf-btn pf-cart__discapply" id="pf-cart-discount-apply">Zastosuj</button>
+      </div>
+      <p class="pf-cart__discerr" id="pf-cart-discount-err" hidden></p>
+      <div class="pf-cart__subtotal">
+        <span>Suma</span>
+        <span id="pf-cart-subtotal">0,00 zł</span>
+      </div>
+      <a href="/checkout" class="pf-btn pf-cart__checkout" id="pf-cart-checkout">Przejdź do kasy</a>
+      <div class="pf-cart__pays">
+        <span>VISA</span><span>Mastercard</span><span>BLIK</span><span>ApplePay</span><span>GPay</span>
+      </div>
+      <button type="button" class="pf-cart__continue" id="pf-cart-continue">← Kontynuuj zakupy</button>
+    </div>
+  </div>
+</div>
+{%- style -%}
+  html.pf-cart-lock{overflow:hidden}
+  #pf-cart{position:fixed;inset:0;z-index:200;visibility:hidden;pointer-events:none;background:transparent}
+  #pf-cart.is-open{visibility:visible;pointer-events:auto}
+  #pf-cart .pf-cart__overlay{position:absolute;inset:0;background:transparent}
+  #pf-cart .pf-cart__panel{position:absolute;top:0;right:0;height:100%;width:100%;max-width:420px;background:var(--pf-bg);border-left:1px solid var(--pf-line);box-shadow:-24px 0 48px rgba(0,0,0,.55);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s ease}
+  #pf-cart.is-open .pf-cart__panel{transform:translateX(0)}
+  #pf-cart .pf-cart__head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--pf-line);flex:none}
+  #pf-cart .pf-cart__title{margin:0;font-size:18px;font-weight:800;color:var(--pf-text)}
+  #pf-cart .pf-cart__title span{color:var(--pf-text-dim);font-weight:600}
+  #pf-cart .pf-cart__close{background:none;border:0;color:var(--pf-text);font-size:18px;cursor:pointer;padding:6px;line-height:1}
+  #pf-cart .pf-cart__urgency{flex:none;text-align:center;background:rgba(249,115,22,.12);color:var(--pf-accent);font-size:12.5px;font-weight:700;padding:9px;border-bottom:1px solid var(--pf-line)}
+  #pf-cart .pf-cart__urgency strong{font-variant-numeric:tabular-nums}
+  #pf-cart .pf-cart__body{flex:1;overflow-y:auto;padding:6px 20px}
+  #pf-cart .pf-cart__empty{color:var(--pf-text-dim);font-size:14px;text-align:center;padding:40px 0}
+  #pf-cart .pf-cart__item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;padding:16px 0;border-bottom:1px solid var(--pf-line)}
+  #pf-cart .pf-cart__itemimg{width:64px;height:64px;border-radius:10px;overflow:hidden;background:var(--pf-bg-card);display:block}
+  #pf-cart .pf-cart__itemimg img{width:100%;height:100%;object-fit:cover;display:block}
+  #pf-cart .pf-cart__itembody{display:flex;flex-direction:column;gap:6px;min-width:0}
+  #pf-cart .pf-cart__itemtitle{color:var(--pf-text);text-decoration:none;font-size:13.5px;font-weight:700;line-height:1.35}
+  #pf-cart .pf-cart__itemvariant{font-size:11.5px;color:var(--pf-text-dim)}
+  #pf-cart .pf-cart__itemqty{display:flex;align-items:center;gap:8px;margin-top:2px}
+  #pf-cart .pf-cart__qtybtn{width:24px;height:24px;border-radius:7px;border:1px solid var(--pf-line);background:var(--pf-bg-card);color:var(--pf-text);cursor:pointer;font-size:14px;line-height:1;display:grid;place-items:center}
+  #pf-cart .pf-cart__qtyval{min-width:16px;text-align:center;font-size:12.5px;font-weight:700}
+  #pf-cart .pf-cart__remove{margin-left:6px;background:none;border:0;color:var(--pf-text-dim);cursor:pointer;font-size:14px}
+  #pf-cart .pf-cart__itemprice{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:4px;font-size:13px}
+  #pf-cart .pf-cart__itemprice s{color:var(--pf-text-dim);font-size:11.5px}
+  #pf-cart .pf-cart__itemprice span:not(.pf-cart__save){font-weight:800;color:var(--pf-text)}
+  #pf-cart .pf-cart__save{font-size:10px;font-weight:800;color:var(--pf-accent-text);background:var(--pf-accent);padding:2px 8px;border-radius:999px;white-space:nowrap}
+  #pf-cart .pf-cart__foot{flex:none;padding:16px 20px 20px;border-top:1px solid var(--pf-line)}
+  #pf-cart .pf-cart__discounts{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  #pf-cart .pf-cart__discount{display:flex;align-items:center;justify-content:space-between;gap:8px;background:rgba(249,115,22,.10);border:1px solid rgba(249,115,22,.3);color:var(--pf-accent);font-size:12px;font-weight:700;border-radius:8px;padding:7px 10px}
+  #pf-cart .pf-cart__discountrow{display:flex;gap:8px;margin:0 0 14px}
+  #pf-cart .pf-cart__discountrow .pf-input{flex:1;padding:11px 12px;font-size:13px}
+  #pf-cart .pf-cart__discapply{width:auto;padding:11px 16px;font-size:13px;white-space:nowrap}
+  #pf-cart .pf-cart__discerr{color:var(--pf-red);font-size:12px;margin:-8px 0 14px;text-align:center}
+  #pf-cart .pf-cart__subtotal{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:800;color:var(--pf-text);margin:0 0 12px}
+  #pf-cart .pf-cart__checkout{margin:0 0 12px}
+  #pf-cart .pf-cart__pays{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 12px}
+  #pf-cart .pf-cart__pays span{font-size:10px;font-weight:800;color:var(--pf-text-dim);background:var(--pf-bg-card);border:1px solid var(--pf-line);padding:4px 8px;border-radius:6px}
+  #pf-cart .pf-cart__continue{display:block;width:100%;background:none;border:0;color:var(--pf-text-dim);font-size:12.5px;cursor:pointer;text-align:center;padding:4px}
+{%- endstyle -%}
+<script>
+(function(){
+  var root=(window.Shopify&&window.Shopify.routes)?window.Shopify.routes.root:'/';
+  var drawer=document.getElementById('pf-cart');
+  if(!drawer)return;
+  var itemsWrap=document.getElementById('pf-cart-items');
+  var emptyMsg=document.getElementById('pf-cart-empty');
+  var footEl=document.getElementById('pf-cart-foot');
+  var countEl=document.getElementById('pf-cart-count');
+  var subtotalEl=document.getElementById('pf-cart-subtotal');
+  var checkoutEl=document.getElementById('pf-cart-checkout');
+  var hdCount=document.getElementById('pf-hd-cart-count');
+  var discountsEl=document.getElementById('pf-cart-discounts');
+  var discountInput=document.getElementById('pf-cart-discount-input');
+  var discountApply=document.getElementById('pf-cart-discount-apply');
+  var discountErr=document.getElementById('pf-cart-discount-err');
+
+  function money(cents){return (cents/100).toFixed(2).replace('.', ',')+' zł';}
+
+  function openDrawer(){drawer.classList.add('is-open');drawer.setAttribute('aria-hidden','false');document.documentElement.classList.add('pf-cart-lock');}
+  function closeDrawer(){drawer.classList.remove('is-open');drawer.setAttribute('aria-hidden','true');document.documentElement.classList.remove('pf-cart-lock');}
+
+  function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  function renderCart(cart){
+    countEl.textContent='• '+cart.item_count;
+    if(hdCount){hdCount.textContent=cart.item_count;hdCount.hidden=cart.item_count===0;}
+    subtotalEl.textContent=money(cart.total_price);
+    checkoutEl.textContent='Przejdź do kasy • '+money(cart.total_price);
+    var discounts=cart.cart_level_discount_applications||[];
+    if(discounts.length>0){
+      var dhtml='<div class="pf-cart__discount"><span>Zastosowane rabaty ('+discounts.length+')</span></div>';
+      discounts.forEach(function(d){
+        dhtml+='<div class="pf-cart__discount"><span>'+esc(d.title)+'</span><span>-'+money(d.total_allocated_amount)+'</span></div>';
+      });
+      discountsEl.innerHTML=dhtml;discountsEl.hidden=false;
+    }else{discountsEl.innerHTML='';discountsEl.hidden=true;}
+    if(cart.item_count===0){emptyMsg.hidden=false;itemsWrap.innerHTML='';footEl.hidden=true;return;}
+    emptyMsg.hidden=true;footEl.hidden=false;
+    var html='';
+    cart.items.forEach(function(item){
+      var save=item.original_line_price-item.final_line_price;
+      var img=item.image?item.image.replace(/(\.[a-zA-Z]{3,4})(\?|$)/,'_160x160$1$2'):'';
+      html+='<div class="pf-cart__item" data-key="'+item.key+'">'
+        +'<a href="'+item.url+'" class="pf-cart__itemimg">'+(img?'<img src="'+img+'" alt="" loading="lazy">':'')+'</a>'
+        +'<div class="pf-cart__itembody">'
+        +'<a href="'+item.url+'" class="pf-cart__itemtitle">'+esc(item.product_title)+'</a>'
+        +(item.variant_title&&item.variant_title!=='Default Title'?'<span class="pf-cart__itemvariant">'+esc(item.variant_title)+'</span>':'')
+        +'<div class="pf-cart__itemqty">'
+        +'<button type="button" class="pf-cart__qtybtn" data-action="dec" aria-label="Zmniejsz ilość">−</button>'
+        +'<span class="pf-cart__qtyval">'+item.quantity+'</span>'
+        +'<button type="button" class="pf-cart__qtybtn" data-action="inc" aria-label="Zwiększ ilość">+</button>'
+        +'<button type="button" class="pf-cart__remove" data-action="remove" aria-label="Usuń produkt">🗑</button>'
+        +'</div></div>'
+        +'<div class="pf-cart__itemprice">'
+        +(save>0?'<s>'+money(item.original_line_price)+'</s>':'')
+        +'<span>'+money(item.final_line_price)+'</span>'
+        +(save>0?'<span class="pf-cart__save">-'+money(save)+'</span>':'')
+        +'</div></div>';
+    });
+    itemsWrap.innerHTML=html;
+  }
+
+  function fetchCart(){
+    return fetch(root+'cart.js',{headers:{'Accept':'application/json'}})
+      .then(function(r){return r.json();})
+      .then(function(cart){renderCart(cart);return cart;});
+  }
+
+  function changeLine(key,qty){
+    return fetch(root+'cart/change.js',{
+      method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({id:key,quantity:qty})
+    }).then(function(r){return r.json();}).then(function(cart){renderCart(cart);return cart;});
+  }
+
+  itemsWrap.addEventListener('click',function(e){
+    var btn=e.target.closest('[data-action]');
+    if(!btn)return;
+    var row=btn.closest('.pf-cart__item');
+    var key=row.getAttribute('data-key');
+    var qty=parseInt(row.querySelector('.pf-cart__qtyval').textContent,10)||1;
+    var action=btn.getAttribute('data-action');
+    if(action==='inc')changeLine(key,qty+1);
+    else if(action==='dec')changeLine(key,Math.max(0,qty-1));
+    else if(action==='remove')changeLine(key,0);
+  });
+
+  document.getElementById('pf-cart-close').addEventListener('click',closeDrawer);
+  document.getElementById('pf-cart-continue').addEventListener('click',closeDrawer);
+  document.getElementById('pf-cart-overlay').addEventListener('click',closeDrawer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
+
+  function applyDiscount(){
+    var code=(discountInput.value||'').trim();
+    if(!code)return;
+    discountErr.hidden=true;
+    discountApply.setAttribute('aria-busy','true');
+    try{
+      sessionStorage.setItem('pf-cart-reopen','1');
+      sessionStorage.setItem('pf-cart-discount-code',code);
+    }catch(e){}
+    window.location.href=root+'discount/'+encodeURIComponent(code)+'?redirect='+encodeURIComponent(window.location.pathname+window.location.search);
+  }
+  if(discountApply){
+    discountApply.addEventListener('click',applyDiscount);
+    discountInput.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();applyDiscount();}});
+    discountInput.addEventListener('input',function(){discountErr.hidden=true;});
+  }
+
+  document.addEventListener('click',function(e){
+    var opener=e.target.closest('[data-cart-drawer-toggle]');
+    if(!opener)return;
+    e.preventDefault();
+    fetchCart().then(openDrawer);
+  });
+
+  document.addEventListener('cart:refresh',function(){fetchCart().then(openDrawer);});
+
+  var timerEl=document.getElementById('pf-cart-timer');
+  if(timerEl){
+    var total=10*60,remaining=total;
+    function tick(){
+      var m=Math.floor(remaining/60),s=remaining%60;
+      timerEl.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+      remaining--;if(remaining<0)remaining=total;
+    }
+    tick();setInterval(tick,1000);
+  }
+
+  var reopen=false,pendingCode=null;
+  try{
+    if(sessionStorage.getItem('pf-cart-reopen')){reopen=true;sessionStorage.removeItem('pf-cart-reopen');}
+    pendingCode=sessionStorage.getItem('pf-cart-discount-code');
+    if(pendingCode)sessionStorage.removeItem('pf-cart-discount-code');
+  }catch(e){}
+  fetchCart().then(function(cart){
+    if(reopen)openDrawer();
+    if(pendingCode){
+      var applied=(cart.cart_level_discount_applications||[]).some(function(d){
+        return (d.title||'').toLowerCase()===pendingCode.toLowerCase();
+      });
+      if(!applied){
+        discountErr.textContent='Kod „'+pendingCode+'” nie istnieje lub wygasł.';
+        discountErr.hidden=false;
+      }
+    }
+  });
+})();
+</script>

@@ -1,0 +1,106 @@
+{%- comment -%} Projektor Strachu — wysuwane wyszukiwanie (od góry), styl panefright {%- endcomment -%}
+<div class="pf-srch" id="pf-search" aria-hidden="true">
+  <div class="pf-srch__overlay" id="pf-search-overlay"></div>
+  <div class="pf-srch__panel" role="dialog" aria-modal="true" aria-label="Szukaj">
+    <div class="pf-container pf-srch__inner">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="pf-srch__form" id="pf-search-form">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" name="q" id="pf-search-input" class="pf-srch__input" placeholder="Czego szukasz?" autocomplete="off" aria-label="Szukaj">
+        <button type="button" class="pf-srch__close" id="pf-search-close" aria-label="Zamknij wyszukiwanie">✕</button>
+      </form>
+
+      <div class="pf-srch__results" id="pf-search-results" hidden></div>
+    </div>
+  </div>
+</div>
+{%- style -%}
+  #pf-search{position:fixed;inset:0;z-index:210;visibility:hidden;pointer-events:none;background:transparent}
+  #pf-search.is-open{visibility:visible;pointer-events:auto}
+  #pf-search .pf-srch__overlay{position:absolute;inset:0;background:transparent}
+  #pf-search .pf-srch__panel{position:absolute;top:0;left:0;right:0;max-height:100%;overflow-y:auto;background:var(--pf-bg);border-bottom:1px solid var(--pf-line);box-shadow:0 24px 48px rgba(0,0,0,.55);transform:translateY(-100%);transition:transform .3s ease}
+  #pf-search.is-open .pf-srch__panel{transform:translateY(0)}
+  #pf-search .pf-srch__inner{padding:20px 16px}
+  #pf-search .pf-srch__form{display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--pf-line);padding:0 0 14px}
+  #pf-search .pf-srch__form svg{flex:none;color:var(--pf-text-dim)}
+  #pf-search .pf-srch__input{flex:1;background:none;border:0;outline:0;color:var(--pf-text);font-size:20px;font-family:inherit}
+  #pf-search .pf-srch__input::placeholder{color:var(--pf-text-dim)}
+  #pf-search .pf-srch__close{flex:none;background:none;border:0;color:var(--pf-text);font-size:18px;cursor:pointer;padding:6px}
+  #pf-search .pf-srch__results{margin-top:18px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  #pf-search .pf-srch__card{text-decoration:none;color:inherit;display:block;background:var(--pf-bg-card);border:1px solid var(--pf-line);border-radius:12px;overflow:hidden}
+  #pf-search .pf-srch__img,#pf-search .pf-srch__ph{width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--pf-bg-alt);display:block}
+  #pf-search .pf-srch__title{font-size:12.5px;font-weight:600;color:var(--pf-text);margin:8px 10px 2px}
+  #pf-search .pf-srch__price{font-size:12.5px;font-weight:700;color:var(--pf-accent);margin:0 10px 10px}
+  #pf-search .pf-srch__empty{color:var(--pf-text-dim);font-size:13.5px;padding:8px 2px}
+  #pf-search .pf-srch__viewall{grid-column:1/-1;text-align:center;color:var(--pf-accent);text-decoration:none;font-weight:700;font-size:13.5px;padding:10px 0 2px}
+  @media(min-width:750px){
+    #pf-search .pf-srch__inner{padding:32px 24px}
+    #pf-search .pf-srch__input{font-size:24px}
+    #pf-search .pf-srch__results{grid-template-columns:repeat(4,1fr);gap:16px}
+  }
+{%- endstyle -%}
+<script>
+(function(){
+  var root=(window.Shopify&&window.Shopify.routes)?window.Shopify.routes.root:'/';
+  var box=document.getElementById('pf-search');
+  if(!box)return;
+  var input=document.getElementById('pf-search-input');
+  var resultsEl=document.getElementById('pf-search-results');
+  var form=document.getElementById('pf-search-form');
+
+  function openSearch(){
+    box.classList.add('is-open');box.setAttribute('aria-hidden','false');
+    document.documentElement.classList.add('pf-cart-lock');
+    setTimeout(function(){input.focus();},200);
+  }
+  function closeSearch(){
+    box.classList.remove('is-open');box.setAttribute('aria-hidden','true');
+    document.documentElement.classList.remove('pf-cart-lock');
+  }
+
+  function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  var debounceId;
+  input.addEventListener('input',function(){
+    clearTimeout(debounceId);
+    var term=input.value.trim();
+    if(!term){resultsEl.hidden=true;resultsEl.innerHTML='';return;}
+    debounceId=setTimeout(function(){runSearch(term);},280);
+  });
+
+  function runSearch(term){
+    fetch(root+'search/suggest.json?q='+encodeURIComponent(term)+'&resources[type]=product&resources[limit]=8&resources[options][fields]=title,product_type,vendor')
+      .then(function(r){return r.json();})
+      .then(function(data){
+        var products=(data.resources&&data.resources.results&&data.resources.results.products)||[];
+        resultsEl.hidden=false;
+        if(products.length===0){
+          resultsEl.innerHTML='<p class="pf-srch__empty">Brak wyników dla „'+esc(term)+'”.</p>';
+          return;
+        }
+        var html='';
+        products.forEach(function(p){
+          var img=(p.featured_image&&p.featured_image.url)||(p.image&&p.image.url)||'';
+          html+='<a href="'+p.url+'" class="pf-srch__card">'
+            +(img?'<img src="'+img+'" class="pf-srch__img" alt="" loading="lazy">':'<span class="pf-srch__ph"></span>')
+            +'<div class="pf-srch__title">'+esc(p.title)+'</div>'
+            +(p.price?'<div class="pf-srch__price">'+p.price+'</div>':'')
+            +'</a>';
+        });
+        html+='<a href="'+root+'search?q='+encodeURIComponent(term)+'" class="pf-srch__viewall">Zobacz wszystkie wyniki →</a>';
+        resultsEl.innerHTML=html;
+      })
+      .catch(function(){});
+  }
+
+  document.getElementById('pf-search-close').addEventListener('click',closeSearch);
+  document.getElementById('pf-search-overlay').addEventListener('click',closeSearch);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+
+  document.addEventListener('click',function(e){
+    var opener=e.target.closest('[data-search-drawer-toggle]');
+    if(!opener)return;
+    e.preventDefault();
+    openSearch();
+  });
+})();
+</script>

@@ -1,0 +1,281 @@
+{
+  "sections": {
+    "pf-buy": {
+      "type": "pf-buy",
+      "settings": {
+        "fallback_title": "Projektor Strachu™",
+        "show_rating": true,
+        "rating_value": "4,8",
+        "rating_count": "348 opinii",
+        "badge_text": "WYPRZEDAŻ | OGRANICZONA ILOŚĆ",
+        "countdown_label": "Pośpiesz się! Oferta wygasa za",
+        "countdown_minutes": 15,
+        "cta_text": "DODAJ DO KOSZYKA",
+        "after_add": "cart",
+        "packs_heading": "KUP WIĘCEJ I OSZCZĘDŹ",
+        "show_delivery": true,
+        "ready_start": 1,
+        "ready_end": 2,
+        "delivered_start": 8,
+        "delivered_end": 10
+      },
+      "blocks": {
+        "h1": {
+          "type": "highlight",
+          "settings": {
+            "icon": "🎬",
+            "title": "Straszące animacje",
+            "text": "Duchy, dynie i widma na ścianie lub oknie"
+          }
+        },
+        "h2": {
+          "type": "highlight",
+          "settings": {
+            "icon": "📡",
+            "title": "Pilot w zestawie",
+            "text": "Zmieniasz pokaz bez wstawania z kanapy"
+          }
+        },
+        "h3": {
+          "type": "highlight",
+          "settings": {
+            "icon": "⚡",
+            "title": "Gotowy w 30 sekund",
+            "text": "Podłącz, skieruj na ścianę i włącz pokaz"
+          }
+        },
+        "pk1": {
+          "type": "package",
+          "settings": {
+            "title": "1 SZTUKA",
+            "badge": "OSZCZĘDZASZ 40%",
+            "price": "149,99 zł",
+            "compare_price": "249,99 zł",
+            "savings_text": "Oszczędzasz 100 zł na tym zamówieniu",
+            "quantity": 1,
+            "preselect": false,
+            "free_shipping": true,
+            "bonus1_text": "Instrukcja PL"
+          }
+        },
+        "pk2": {
+          "type": "package",
+          "settings": {
+            "title": "2 SZTUKI",
+            "badge": "OSZCZĘDZASZ 49%",
+            "price": "254,90 zł",
+            "compare_price": "499,98 zł",
+            "savings_text": "Oszczędzasz 245,08 zł na tym zamówieniu",
+            "quantity": 2,
+            "highlight": true,
+            "preselect": true,
+            "free_shipping": true,
+            "bonus1_text": "Instrukcja PL",
+            "bonus2_text": "Kabel USB zapasowy",
+            "bonus2_compare": "24,99 zł"
+          }
+        },
+        "pk3": {
+          "type": "package",
+          "settings": {
+            "title": "3 SZTUKI",
+            "badge": "OSZCZĘDZASZ 56%",
+            "price": "329,90 zł",
+            "compare_price": "749,97 zł",
+            "savings_text": "Oszczędzasz 420,07 zł na tym zamówieniu",
+            "quantity": 3,
+            "preselect": false,
+            "free_shipping": true,
+            "bonus1_text": "Instrukcja PL",
+            "bonus2_text": "Kabel USB zapasowy",
+            "bonus2_compare": "24,99 zł",
+            "bonus3_text": "Pilot zapasowy",
+            "bonus3_compare": "39,99 zł"
+          }
+        },
+        "ad1": {
+          "type": "addon",
+          "settings": {
+            "icon": "📦",
+            "title": "Ochrona przesyłki",
+            "price_text": "+16,00 zł",
+            "default_checked": true
+          }
+        },
+        "ad2": {
+          "type": "addon",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Gwarancja 30 dni",
+            "price_text": "+16,00 zł",
+            "default_checked": true
+          }
+        },
+        "tr1": {
+          "type": "trust",
+          "settings": {
+            "icon": "🛡️",
+            "title": "30-dniowa gwarancja zwrotu"
+          }
+        },
+        "tr2": {
+          "type": "trust",
+          "settings": {
+            "icon": "🚚",
+            "title": "Darmowa wysyłka"
+          }
+        },
+        "tr3": {
+          "type": "trust",
+          "settings": {
+            "icon": "🔒",
+            "title": "Bezpieczne zamówienia"
+          }
+        },
+        "mr1": {
+          "type": "mini_review",
+          "settings": {
+            "name": "Ola K.",
+            "text": "Robi niesamowite wrażenie na oknie — sąsiedzi zatrzymują się i pytają, gdzie to kupiłam."
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3",
+        "pk1",
+        "pk2",
+        "pk3",
+        "ad1",
+        "ad2",
+        "tr1",
+        "tr2",
+        "tr3",
+        "mr1"
+      ]
+    },
+    "pf-community": {
+      "type": "pf-community",
+      "settings": {
+        "heading": "Zdjęcia od klientów"
+      },
+      "blocks": {
+        "p1": { "type": "photo", "settings": {} },
+        "p2": { "type": "photo", "settings": {} },
+        "p3": { "type": "photo", "settings": {} },
+        "p4": { "type": "photo", "settings": {} }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
+    },
+    "pf-faq": {
+      "type": "pf-faq",
+      "settings": {
+        "heading": "Najczęstsze pytania"
+      },
+      "blocks": {
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "question": "Jak długo trwa wysyłka?",
+            "answer": "Wysyłka trwa zwykle 1–3 dni robocze. Otrzymasz numer śledzenia od razu po wysłaniu paczki."
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "question": "Jak podłączyć projektor?",
+            "answer": "Wystarczy kabel USB w zestawie — podłącz do gniazdka lub powerbanku, skieruj na ścianę i włącz pilotem."
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "question": "Co jest w zestawie?",
+            "answer": "Otrzymujesz projektor, pilota zdalnego sterowania oraz kabel USB."
+          }
+        },
+        "f4": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy działa w ciągu dnia?",
+            "answer": "Najlepszy efekt uzyskasz po zmroku lub w zaciemnionym pomieszczeniu."
+          }
+        },
+        "f5": {
+          "type": "faq",
+          "settings": {
+            "question": "Z jakiej odległości ustawić?",
+            "answer": "Optymalny efekt uzyskasz z odległości 1–3 metrów od ściany lub okna."
+          }
+        },
+        "f6": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy mogę zwrócić zamówienie?",
+            "answer": "Masz 30 dni na test — jeśli nie zachwyci, zwrócimy pieniądze."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ]
+    },
+    "pf-testimonials": {
+      "type": "pf-testimonials",
+      "settings": {
+        "heading": "Opinie klientów"
+      },
+      "blocks": {
+        "t1": {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "title": "PRZERAZIŁ CAŁĄ ULICĘ",
+            "text": "Szczerze wątpiłem, czy zwykły projektor zrobi takie wrażenie. Ustawiłem go w oknie salonu i sąsiedzi zaczęli się zatrzymywać już pierwszego wieczoru.",
+            "name": "Michał K."
+          }
+        },
+        "t2": {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "title": "NAJLEPSZY ZAKUP NA HALLOWEEN",
+            "text": "Byłam pewna, że instalacja zajmie mi cały wieczór. Podłączenie zajęło dosłownie minutę, a animacje wyglądają rewelacyjnie.",
+            "name": "Kasia R."
+          }
+        },
+        "t3": {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "title": "JAKOŚĆ ROBI WRAŻENIE",
+            "text": "Nie spodziewałam się tak solidnego wykonania za tę cenę. Pilot działa bez zarzutu, a obraz jest wyraźny nawet z daleka.",
+            "name": "Bartek Sz."
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ]
+    }
+  },
+  "order": [
+    "pf-buy",
+    "pf-community",
+    "pf-faq",
+    "pf-testimonials"
+  ]
+}

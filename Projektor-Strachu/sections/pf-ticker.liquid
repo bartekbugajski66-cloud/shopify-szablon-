@@ -1,0 +1,37 @@
+{%- comment -%} Projektor Strachu — pasek-wstęga (marquee) na górze strony {%- endcomment -%}
+<div class="pf pf-ticker" id="pf-ticker-{{ section.id }}" style="--pf-speed:{{ section.settings.speed }}s">
+  <div class="pf-ticker__track">
+    {%- for i in (1..2) -%}
+      {%- for block in section.blocks -%}
+        <span class="pf-ticker__item" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %} aria-hidden="{% if i == 2 %}true{% else %}false{% endif %}">
+          {%- if block.settings.icon != blank -%}<span aria-hidden="true">{{ block.settings.icon }}</span>{%- endif -%}
+          {{ block.settings.text }}
+        </span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- style -%}
+  #pf-ticker-{{ section.id }} .pf-ticker__track{animation-duration:var(--pf-speed)}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "PS — Wstęga",
+  "settings": [
+    { "type": "range", "id": "speed", "label": "Szybkość przewijania (s)", "min": 10, "max": 60, "step": 2, "default": 26 }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Element", "settings": [
+      { "type": "text", "id": "icon", "label": "Emoji", "default": "⚡" },
+      { "type": "text", "id": "text", "label": "Tekst", "default": "OGRANICZONA ILOŚĆ" }
+    ] }
+  ],
+  "max_blocks": 8,
+  "presets": [ { "name": "PS — Wstęga", "blocks": [
+    { "type": "item", "settings": { "icon": "⚡", "text": "WYPRZEDAŻ — OGRANICZONA ILOŚĆ" } },
+    { "type": "item", "settings": { "icon": "🚚", "text": "DARMOWA WYSYŁKA" } },
+    { "type": "item", "settings": { "icon": "🎃", "text": "WYPRZEDAŻ — OGRANICZONA ILOŚĆ" } },
+    { "type": "item", "settings": { "icon": "🚚", "text": "DARMOWA WYSYŁKA" } }
+  ] } ]
+}
+{% endschema %}

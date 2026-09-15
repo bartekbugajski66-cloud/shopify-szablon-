@@ -1,0 +1,34 @@
+{%- comment -%} Data „dziś + N dni” po polsku, np. „17 wrz”. Użycie: {% render 'pf-pldate', days: 2 %} {%- endcomment -%}
+{%- liquid
+  assign ts = 'now' | date: '%s' | plus: 0
+  assign offset = days | times: 86400
+  assign ts = ts | plus: offset
+  assign day = ts | date: '%-d'
+  assign monthnum = ts | date: '%-m'
+  case monthnum
+    when '1'
+      assign mon = 'sty'
+    when '2'
+      assign mon = 'lut'
+    when '3'
+      assign mon = 'mar'
+    when '4'
+      assign mon = 'kwi'
+    when '5'
+      assign mon = 'maj'
+    when '6'
+      assign mon = 'cze'
+    when '7'
+      assign mon = 'lip'
+    when '8'
+      assign mon = 'sie'
+    when '9'
+      assign mon = 'wrz'
+    when '10'
+      assign mon = 'paź'
+    when '11'
+      assign mon = 'lis'
+    when '12'
+      assign mon = 'gru'
+  endcase
+-%}{{ day }} {{ mon }}

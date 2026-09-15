@@ -1,0 +1,44 @@
+{%- comment -%} Projektor Strachu — Przed / Po (styl panefright) {%- endcomment -%}
+<section class="pf pf-ba pf-sec" id="pf-ba-{{ section.id }}">
+  <div class="pf-container pf-center">
+    <h2 class="pf-h2">{{ section.settings.heading_before }} <span>{{ section.settings.heading_accent }}</span></h2>
+    {%- if section.settings.subheading != blank -%}<p class="pf-lead">{{ section.settings.subheading }}</p>{%- endif -%}
+  </div>
+  <div class="pf-container pf-ba__grid">
+    <figure class="pf-ba__cell">
+      {%- if section.settings.before_image != blank -%}
+        {{ section.settings.before_image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'pf-ba__img', alt: section.settings.before_label | escape }}
+      {%- else -%}<span class="pf-ba__ph"></span>{%- endif -%}
+      <figcaption class="pf-ba__cap">{{ section.settings.before_label }}</figcaption>
+    </figure>
+    <figure class="pf-ba__cell">
+      {%- if section.settings.after_image != blank -%}
+        {{ section.settings.after_image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'pf-ba__img', alt: section.settings.after_label | escape }}
+      {%- else -%}<span class="pf-ba__ph"></span>{%- endif -%}
+      <figcaption class="pf-ba__cap pf-ba__cap--accent">{{ section.settings.after_label }}</figcaption>
+    </figure>
+  </div>
+</section>
+{%- style -%}
+  #pf-ba-{{ section.id }} .pf-ba__grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+  #pf-ba-{{ section.id }} .pf-ba__cell{position:relative;margin:0;border-radius:var(--pf-radius);overflow:hidden;background:var(--pf-bg-card)}
+  #pf-ba-{{ section.id }} .pf-ba__img,#pf-ba-{{ section.id }} .pf-ba__ph{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+  #pf-ba-{{ section.id }} .pf-ba__cap{position:absolute;left:12px;bottom:12px;background:rgba(10,10,12,.75);color:var(--pf-text-dim);font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:6px 12px;border-radius:8px}
+  #pf-ba-{{ section.id }} .pf-ba__cap--accent{background:var(--pf-accent);color:var(--pf-accent-text)}
+  @media(min-width:700px){#pf-ba-{{ section.id }} .pf-ba__grid{gap:20px}}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "PS — Przed/Po",
+  "settings": [
+    { "type": "text", "id": "heading_before", "label": "Nagłówek", "default": "Te same drzwi." },
+    { "type": "text", "id": "heading_accent", "label": "Nagłówek (akcent)", "default": "Zupełnie inny Halloween." },
+    { "type": "textarea", "id": "subheading", "label": "Podnagłówek", "default": "Jedna dekoracja robi różnicę, którą widać z drugiej strony ulicy." },
+    { "type": "image_picker", "id": "before_image", "label": "Zdjęcie — przed" },
+    { "type": "text", "id": "before_label", "label": "Podpis — przed", "default": "PRZED" },
+    { "type": "image_picker", "id": "after_image", "label": "Zdjęcie — po" },
+    { "type": "text", "id": "after_label", "label": "Podpis — po", "default": "Z PROJEKTOREM STRACHU™" }
+  ],
+  "presets": [ { "name": "PS — Przed/Po" } ]
+}
+{% endschema %}

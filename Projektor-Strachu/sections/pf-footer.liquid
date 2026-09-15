@@ -1,0 +1,96 @@
+{%- comment -%} Projektor Strachu — Stopka: fala + logo + newsletter + płatności {%- endcomment -%}
+<div class="pf-wave" aria-hidden="true" style="background:var(--pf-bg)">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,70 900,-10 1200,30 L1200,60 L0,60 Z" fill="var(--pf-accent-dark)"></path></svg>
+</div>
+<footer class="pf pf-ft" id="pf-ft-{{ section.id }}">
+  <div class="pf-container pf-ft__grid">
+    <div class="pf-ft__brandcol">
+      <div class="pf-ft__badge">
+        {%- if section.settings.logo_image != blank -%}
+          {{ section.settings.logo_image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'pf-ft__badgeimg', alt: section.settings.brand_name | escape }}
+        {%- else -%}
+          <span class="pf-ft__badgeico" aria-hidden="true">💀</span>
+        {%- endif -%}
+        <span class="pf-ft__badgetext">{{ section.settings.brand_name }}</span>
+      </div>
+    </div>
+
+    <div class="pf-ft__col">
+      <h4 class="pf-ft__colhead">{{ section.settings.links_heading }}</h4>
+      <nav class="pf-ft__links">
+        {%- for link in section.settings.menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+      </nav>
+    </div>
+
+    {%- if section.settings.newsletter_enable -%}
+      <div class="pf-ft__col pf-ft__col--news">
+        <h4 class="pf-ft__colhead">{{ section.settings.newsletter_title }}</h4>
+        {%- if section.settings.newsletter_text != blank -%}<p class="pf-ft__newstext">{{ section.settings.newsletter_text }}</p>{%- endif -%}
+        {%- form 'customer', id: 'pf-newsletter-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="pf-ft__newsrow">
+            <input class="pf-input pf-ft__newsinput" type="email" name="contact[email]" placeholder="Twój adres e-mail" required aria-label="E-mail">
+            <button type="submit" class="pf-btn pf-ft__newsbtn">{{ section.settings.newsletter_cta | default: 'Zapisz się' }}</button>
+          </div>
+          {%- if form.posted_successfully? -%}<p class="pf-ft__newsmsg">Dziękujemy za zapisanie się!</p>{%- endif -%}
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="pf-container">
+    <div class="pf-ft__pays">
+      {%- assign pays = section.settings.payments | split: ',' -%}
+      {%- for p in pays -%}<span class="pf-ft__pay">{{ p | strip }}</span>{%- endfor -%}
+    </div>
+    <div class="pf-ft__bottom">© {{ 'now' | date: '%Y' }} {{ section.settings.brand_name }}. Wszelkie prawa zastrzeżone.</div>
+  </div>
+</footer>
+{%- style -%}
+  #pf-ft-{{ section.id }}{background:var(--pf-accent-dark);padding:36px 0 24px;color:#fff}
+  #pf-ft-{{ section.id }} .pf-ft__grid{display:grid;grid-template-columns:1fr;gap:28px;margin-bottom:26px}
+  #pf-ft-{{ section.id }} .pf-ft__brandcol{display:flex;justify-content:center}
+  #pf-ft-{{ section.id }} .pf-ft__badge{display:flex;flex-direction:column;align-items:center;gap:8px;width:108px;height:108px;border-radius:50%;border:2px solid rgba(255,255,255,.5);justify-content:center;padding:10px;text-align:center}
+  #pf-ft-{{ section.id }} .pf-ft__badgeimg{width:56px;height:56px;border-radius:50%;object-fit:cover}
+  #pf-ft-{{ section.id }} .pf-ft__badgeico{font-size:34px;line-height:1}
+  #pf-ft-{{ section.id }} .pf-ft__badgetext{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;line-height:1.3}
+  #pf-ft-{{ section.id }} .pf-ft__col{text-align:center}
+  #pf-ft-{{ section.id }} .pf-ft__colhead{font-size:14px;font-weight:800;margin:0 0 12px;color:#fff}
+  #pf-ft-{{ section.id }} .pf-ft__links{display:flex;flex-direction:column;align-items:center;gap:9px}
+  #pf-ft-{{ section.id }} .pf-ft__links a{color:rgba(255,255,255,.78);text-decoration:none;font-size:13px}
+  #pf-ft-{{ section.id }} .pf-ft__links a:hover{color:#fff}
+  #pf-ft-{{ section.id }} .pf-ft__newstext{font-size:13px;color:rgba(255,255,255,.78);margin:0 0 14px}
+  #pf-ft-{{ section.id }} .pf-ft__newsrow{display:flex;flex-direction:column;gap:10px;max-width:340px;margin:0 auto}
+  #pf-ft-{{ section.id }} .pf-ft__newsinput{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3);color:#fff}
+  #pf-ft-{{ section.id }} .pf-ft__newsinput::placeholder{color:rgba(255,255,255,.6)}
+  #pf-ft-{{ section.id }} .pf-ft__newsbtn{width:auto;padding:13px 24px;white-space:nowrap;background:#e7e9e7;color:#111}
+  #pf-ft-{{ section.id }} .pf-ft__newsmsg{font-size:12.5px;color:#fff;margin:10px 0 0}
+  #pf-ft-{{ section.id }} .pf-ft__pays{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 18px}
+  #pf-ft-{{ section.id }} .pf-ft__pay{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.85);font-size:11px;font-weight:800;padding:6px 10px;border-radius:6px}
+  #pf-ft-{{ section.id }} .pf-ft__bottom{text-align:center;font-size:12px;color:rgba(255,255,255,.7);border-top:1px solid rgba(255,255,255,.2);padding-top:18px}
+  @media(min-width:750px){
+    #pf-ft-{{ section.id }} .pf-ft__grid{grid-template-columns:auto 1fr 1fr;align-items:start;text-align:left}
+    #pf-ft-{{ section.id }} .pf-ft__brandcol{justify-content:flex-start}
+    #pf-ft-{{ section.id }} .pf-ft__col{text-align:left}
+    #pf-ft-{{ section.id }} .pf-ft__links{align-items:flex-start}
+    #pf-ft-{{ section.id }} .pf-ft__newsrow{margin:0}
+    #pf-ft-{{ section.id }} .pf-ft__newsrow{flex-direction:row}
+    #pf-ft-{{ section.id }} .pf-ft__newsrow .pf-ft__newsinput{flex:1}
+  }
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "PS — Stopka",
+  "settings": [
+    { "type": "image_picker", "id": "logo_image", "label": "Logo w kółku (obrazek)" },
+    { "type": "text", "id": "brand_name", "label": "Marka w stopce", "default": "PROJEKTOR STRACHU™" },
+    { "type": "text", "id": "links_heading", "label": "Nagłówek linków", "default": "Przydatne linki" },
+    { "type": "link_list", "id": "menu", "label": "Linki", "default": "footer" },
+    { "type": "checkbox", "id": "newsletter_enable", "label": "Pokaż newsletter", "default": true },
+    { "type": "text", "id": "newsletter_title", "label": "Tytuł newslettera", "default": "Zapisz się do newslettera" },
+    { "type": "textarea", "id": "newsletter_text", "label": "Tekst", "default": "Otrzymaj 10% zniżki na pierwsze zamówienie i bądź na bieżąco z nowościami." },
+    { "type": "text", "id": "newsletter_cta", "label": "Tekst przycisku", "default": "Zapisz się" },
+    { "type": "text", "id": "payments", "label": "Płatności (po przecinku)", "default": "BLIK, Przelew, VISA, MasterCard, ApplePay" }
+  ]
+}
+{% endschema %}

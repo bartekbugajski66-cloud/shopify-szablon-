@@ -1,0 +1,53 @@
+{%- comment -%} Projektor Strachu — treść + zdjęcie, lista + CTA (styl panefright) {%- endcomment -%}
+<section class="pf pf-split" id="pf-split-{{ section.id }}">
+  <div class="pf-container pf-split__grid">
+    <div class="pf-split__col">
+      <h2 class="pf-h2">{{ section.settings.heading_before }} <span>{{ section.settings.heading_accent }}</span></h2>
+      {%- if section.settings.text != blank -%}<p class="pf-lead">{{ section.settings.text }}</p>{%- endif -%}
+      <ul class="pf-split__list">
+        {%- for block in section.blocks -%}{%- if block.type == 'bullet' -%}
+          <li {{ block.shopify_attributes }}><span aria-hidden="true">✓</span>{{ block.settings.text }}</li>
+        {%- endif -%}{%- endfor -%}
+      </ul>
+      {%- if section.settings.cta_text != blank -%}
+        <a href="{{ section.settings.cta_link | default: '#pf-buy' }}" class="pf-btn pf-split__cta">{{ section.settings.cta_text }}</a>
+      {%- endif -%}
+    </div>
+    <div class="pf-split__col pf-split__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'pf-split__img', alt: section.settings.heading_before | escape }}
+      {%- else -%}<span class="pf-split__ph"></span>{%- endif -%}
+    </div>
+  </div>
+</section>
+{%- style -%}
+  #pf-split-{{ section.id }} .pf-split__grid{display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+  #pf-split-{{ section.id }} .pf-split__list{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:10px}
+  #pf-split-{{ section.id }} .pf-split__list li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;color:var(--pf-text-dim)}
+  #pf-split-{{ section.id }} .pf-split__list li span{flex:none;width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:var(--pf-accent);color:var(--pf-accent-text);font-size:11px;font-weight:800}
+  #pf-split-{{ section.id }} .pf-split__cta{width:auto;padding:15px 28px}
+  #pf-split-{{ section.id }} .pf-split__img,#pf-split-{{ section.id }} .pf-split__ph{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--pf-radius);background:var(--pf-bg-card);display:block}
+  @media(min-width:900px){#pf-split-{{ section.id }} .pf-split__grid{grid-template-columns:1fr 1fr;gap:56px}}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "PS — Treść+zdjęcie",
+  "settings": [
+    { "type": "text", "id": "heading_before", "label": "Nagłówek", "default": "Jedyna dekoracja, która przeraża" },
+    { "type": "text", "id": "heading_accent", "label": "Nagłówek (akcent)", "default": "całą ulicę po zmroku." },
+    { "type": "textarea", "id": "text", "label": "Tekst", "default": "Projektor Strachu™ wyświetla straszące animacje na ścianie lub oknie i zmienia Twój dom w atrakcję całej ulicy." },
+    { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+    { "type": "text", "id": "cta_text", "label": "Tekst CTA", "default": "KUPUJĘ TERAZ" },
+    { "type": "url", "id": "cta_link", "label": "Link CTA", "info": "Puste = do #pf-buy" }
+  ],
+  "blocks": [
+    { "type": "bullet", "name": "Punkt listy", "settings": [ { "type": "text", "id": "text", "label": "Tekst", "default": "Pilot zdalnego sterowania w zestawie" } ] }
+  ],
+  "max_blocks": 5,
+  "presets": [ { "name": "PS — Treść+zdjęcie", "blocks": [
+    { "type": "bullet", "settings": { "text": "Gotowy do pokazu w 30 sekund" } },
+    { "type": "bullet", "settings": { "text": "Regulowany kąt i pilot zdalnego sterowania" } },
+    { "type": "bullet", "settings": { "text": "Do użytku wewnątrz i na zewnątrz" } }
+  ] } ]
+}
+{% endschema %}

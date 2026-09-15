@@ -1,0 +1,69 @@
+{%- comment -%} Projektor Strachu — siatka 4 cech + CTA (styl panefright) {%- endcomment -%}
+<section class="pf pf-fg pf-sec pf-sec--alt" id="pf-fg-{{ section.id }}">
+  <div class="pf-container pf-center">
+    <h2 class="pf-h2">{{ section.settings.heading_before }} <span>{{ section.settings.heading_accent }}</span></h2>
+    {%- if section.settings.subheading != blank -%}<p class="pf-lead">{{ section.settings.subheading }}</p>{%- endif -%}
+  </div>
+  <div class="pf-container pf-fg__grid">
+    {%- for block in section.blocks -%}
+      <div class="pf-fg__card pf-card" {{ block.shopify_attributes }}>
+        {%- if block.settings.badge != blank -%}<span class="pf-badge pf-fg__badge">{{ block.settings.badge }}</span>{%- endif -%}
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', class: 'pf-fg__img', alt: block.settings.title | escape }}
+        {%- else -%}<span class="pf-fg__ph"></span>{%- endif -%}
+        <div class="pf-fg__body">
+          <h3 class="pf-fg__title">{{ block.settings.title }}</h3>
+          <p class="pf-fg__desc">{{ block.settings.text }}</p>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+  {%- if section.settings.cta_text != blank -%}
+    <div class="pf-container pf-center pf-fg__ctawrap">
+      <a href="{{ section.settings.cta_link | default: '#pf-buy' }}" class="pf-btn pf-fg__cta">{{ section.settings.cta_text }}</a>
+      {%- if section.settings.cta_note != blank -%}<p class="pf-fg__note">{{ section.settings.cta_note }}</p>{%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+{%- style -%}
+  #pf-fg-{{ section.id }} .pf-fg__grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:30px}
+  #pf-fg-{{ section.id }} .pf-fg__card{position:relative;overflow:hidden}
+  #pf-fg-{{ section.id }} .pf-fg__badge{position:absolute;top:12px;left:12px;z-index:2}
+  #pf-fg-{{ section.id }} .pf-fg__img,#pf-fg-{{ section.id }} .pf-fg__ph{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--pf-bg-alt);display:block}
+  #pf-fg-{{ section.id }} .pf-fg__body{padding:16px 18px}
+  #pf-fg-{{ section.id }} .pf-fg__title{margin:0 0 6px;font-size:15px;font-weight:800}
+  #pf-fg-{{ section.id }} .pf-fg__desc{margin:0;font-size:13px;color:var(--pf-text-dim);line-height:1.5}
+  #pf-fg-{{ section.id }} .pf-fg__ctawrap{margin-top:32px}
+  #pf-fg-{{ section.id }} .pf-fg__cta{width:auto;padding:15px 30px}
+  #pf-fg-{{ section.id }} .pf-fg__note{font-size:12px;color:var(--pf-text-dim);margin:12px 0 0}
+  @media(min-width:700px){#pf-fg-{{ section.id }} .pf-fg__grid{grid-template-columns:repeat(2,1fr);gap:18px}}
+  @media(min-width:1000px){#pf-fg-{{ section.id }} .pf-fg__grid{grid-template-columns:repeat(4,1fr)}}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "PS — Siatka cech",
+  "settings": [
+    { "type": "text", "id": "heading_before", "label": "Nagłówek", "default": "Dekorowanie ganku zajęło Ci cały dzień." },
+    { "type": "text", "id": "heading_accent", "label": "Nagłówek (akcent)", "default": "To zajmuje trzy minuty." },
+    { "type": "textarea", "id": "subheading", "label": "Podnagłówek", "default": "Cztery efekty w jednej dekoracji — bez narzędzi i bez godzin przygotowań." },
+    { "type": "text", "id": "cta_text", "label": "Tekst CTA", "default": "KUPUJĘ TERAZ" },
+    { "type": "url", "id": "cta_link", "label": "Link CTA" },
+    { "type": "text", "id": "cta_note", "label": "Tekst pod przyciskiem", "default": "30 dni gwarancji zwrotu pieniędzy" }
+  ],
+  "blocks": [
+    { "type": "feature", "name": "Cecha", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+      { "type": "text", "id": "badge", "label": "Plakietka" },
+      { "type": "text", "id": "title", "label": "Tytuł", "default": "Animacje na ścianie" },
+      { "type": "textarea", "id": "text", "label": "Opis", "default": "Straszące obrazy widoczne z drugiej strony ulicy." }
+    ] }
+  ],
+  "max_blocks": 4,
+  "presets": [ { "name": "PS — Siatka cech", "blocks": [
+    { "type": "feature", "settings": { "title": "Animacje na ścianie", "text": "Straszące obrazy widoczne z drugiej strony ulicy." } },
+    { "type": "feature", "settings": { "badge": "PILOT", "title": "Zdalne sterowanie", "text": "Zmieniasz pokaz jednym kliknięciem, bez wstawania z kanapy." } },
+    { "type": "feature", "settings": { "title": "Gotowy w 30 sekund", "text": "Postaw, włącz i skieruj na ścianę lub okno." } },
+    { "type": "feature", "settings": { "badge": "REGULACJA", "title": "Obrotowa podstawa", "text": "Ustawisz kąt projekcji dokładnie tak, jak chcesz." } }
+  ] } ]
+}
+{% endschema %}

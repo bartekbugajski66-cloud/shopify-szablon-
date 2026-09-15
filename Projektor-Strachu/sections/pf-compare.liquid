@@ -1,0 +1,70 @@
+{%- comment -%} Projektor Strachu — Tabela porównania (styl panefright) {%- endcomment -%}
+<section class="pf pf-cmp pf-sec pf-sec--alt" id="pf-cmp-{{ section.id }}">
+  <div class="pf-container pf-center">
+    <h2 class="pf-h2">{{ section.settings.heading_before }} <span>{{ section.settings.heading_accent }}</span></h2>
+    {%- if section.settings.subheading != blank -%}<p class="pf-lead">{{ section.settings.subheading }}</p>{%- endif -%}
+  </div>
+  <div class="pf-container">
+    <div class="pf-cmp__table">
+      <div class="pf-cmp__row pf-cmp__row--head">
+        <span></span>
+        <span>{{ section.settings.left_title }}</span>
+        <span class="pf-cmp__headright">{{ section.settings.right_title }}</span>
+      </div>
+      {%- for block in section.blocks -%}
+        <div class="pf-cmp__row" {{ block.shopify_attributes }}>
+          <span class="pf-cmp__label">{{ block.settings.text }}</span>
+          <span class="pf-cmp__x" aria-hidden="true">✕</span>
+          <span class="pf-cmp__v" aria-hidden="true">✓</span>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.cta_text != blank -%}
+      <div class="pf-center pf-cmp__ctawrap">
+        <a href="{{ section.settings.cta_link | default: '#pf-buy' }}" class="pf-btn pf-cmp__cta">{{ section.settings.cta_text }}</a>
+        {%- if section.settings.cta_note != blank -%}<p class="pf-cmp__note">{{ section.settings.cta_note }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{%- style -%}
+  #pf-cmp-{{ section.id }} .pf-cmp__table{max-width:720px;margin:30px auto 0;background:var(--pf-bg-card);border:1px solid var(--pf-line);border-radius:var(--pf-radius);overflow:hidden}
+  #pf-cmp-{{ section.id }} .pf-cmp__row{display:grid;grid-template-columns:1fr 60px 60px;align-items:center;gap:8px;padding:13px 16px;border-top:1px solid var(--pf-line)}
+  #pf-cmp-{{ section.id }} .pf-cmp__row:first-child{border-top:0}
+  #pf-cmp-{{ section.id }} .pf-cmp__row--head{background:var(--pf-bg-alt);font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--pf-text-dim);text-align:center}
+  #pf-cmp-{{ section.id }} .pf-cmp__row--head span:first-child{text-align:left}
+  #pf-cmp-{{ section.id }} .pf-cmp__headright{color:var(--pf-accent)}
+  #pf-cmp-{{ section.id }} .pf-cmp__label{font-size:13.5px}
+  #pf-cmp-{{ section.id }} .pf-cmp__x,#pf-cmp-{{ section.id }} .pf-cmp__v{justify-self:center;width:24px;height:24px;display:grid;place-items:center;border-radius:50%;font-size:12px;font-weight:800}
+  #pf-cmp-{{ section.id }} .pf-cmp__x{background:rgba(255,255,255,.08);color:var(--pf-text-dim)}
+  #pf-cmp-{{ section.id }} .pf-cmp__v{background:var(--pf-accent);color:var(--pf-accent-text)}
+  #pf-cmp-{{ section.id }} .pf-cmp__ctawrap{margin-top:30px}
+  #pf-cmp-{{ section.id }} .pf-cmp__cta{width:auto;padding:15px 30px}
+  #pf-cmp-{{ section.id }} .pf-cmp__note{font-size:12px;color:var(--pf-text-dim);margin:12px 0 0}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "PS — Porównanie",
+  "settings": [
+    { "type": "text", "id": "heading_before", "label": "Nagłówek", "default": "Wszystko inne na ganku" },
+    { "type": "text", "id": "heading_accent", "label": "Nagłówek (akcent)", "default": "wygląda jak plastik." },
+    { "type": "textarea", "id": "subheading", "label": "Podnagłówek", "default": "Zobacz, dlaczego zwykłe dekoracje przegrywają z Projektorem Strachu™." },
+    { "type": "text", "id": "left_title", "label": "Nagłówek — lewa kolumna", "default": "Zwykłe dekoracje" },
+    { "type": "text", "id": "right_title", "label": "Nagłówek — prawa kolumna", "default": "Projektor Strachu™" },
+    { "type": "text", "id": "cta_text", "label": "Tekst CTA", "default": "KUPUJĘ TERAZ" },
+    { "type": "url", "id": "cta_link", "label": "Link CTA" },
+    { "type": "text", "id": "cta_note", "label": "Tekst pod przyciskiem", "default": "30 dni gwarancji zwrotu pieniędzy" }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Wiersz", "settings": [ { "type": "text", "id": "text", "label": "Cecha", "default": "Widoczna z ulicy" } ] }
+  ],
+  "max_blocks": 8,
+  "presets": [ { "name": "PS — Porównanie", "blocks": [
+    { "type": "row", "settings": { "text": "Widoczna z ulicy po zmroku" } },
+    { "type": "row", "settings": { "text": "Zmienia pokaz pilotem" } },
+    { "type": "row", "settings": { "text": "Gotowy w 30 sekund" } },
+    { "type": "row", "settings": { "text": "Wytrzymuje na dworze" } },
+    { "type": "row", "settings": { "text": "Robi wrażenie na sąsiadach" } }
+  ] } ]
+}
+{% endschema %}
