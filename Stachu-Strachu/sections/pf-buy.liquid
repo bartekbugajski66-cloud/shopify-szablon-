@@ -55,6 +55,7 @@
       {%- endif -%}
 
       <form class="pf-buy__form" id="pf-buy-form-{{ section.id }}">
+        {%- if section.settings.packs_heading != blank -%}<p class="pf-buy__packshead">{{ section.settings.packs_heading }}</p>{%- endif -%}
         <fieldset class="pf-buy__packs">
           <legend class="visually-hidden">Wybierz zestaw</legend>
           {%- for block in section.blocks -%}{%- if block.type == 'package' -%}
@@ -78,6 +79,9 @@
                   {%- if block.settings.bonus2_text != blank -%}<li><span>+ {{ block.settings.bonus2_text }}</span>{%- if block.settings.bonus2_compare != blank -%}<s>{{ block.settings.bonus2_compare }}</s>{%- endif -%}</li>{%- endif -%}
                   {%- if block.settings.bonus3_text != blank -%}<li><span>+ {{ block.settings.bonus3_text }}</span>{%- if block.settings.bonus3_compare != blank -%}<s>{{ block.settings.bonus3_compare }}</s>{%- endif -%}</li>{%- endif -%}
                 </ul>
+              {%- endif -%}
+              {%- if block.settings.free_shipping -%}
+                <span class="pf-buy__packship" aria-hidden="false">🚚 Darmowa wysyłka</span>
               {%- endif -%}
             </label>
           {%- endif -%}{%- endfor -%}
@@ -173,6 +177,21 @@
   </div>
 </section>
 
+<div class="pf pf-buy__stickybar" id="pf-sticky-{{ section.id }}" aria-hidden="true">
+  <div class="pf-container pf-buy__stickyinner">
+    <div class="pf-buy__stickymedia">
+      {%- if product.featured_media -%}
+        <img src="{{ product.featured_media | image_url: width: 100 }}" alt="" width="44" height="44">
+      {%- endif -%}
+    </div>
+    <div class="pf-buy__stickyinfo">
+      <span class="pf-buy__stickytitle">{{ product.title | default: section.settings.fallback_title }}</span>
+      <span class="pf-buy__stickyprice" id="pf-sticky-price-{{ section.id }}"></span>
+    </div>
+    <button type="button" class="pf-btn pf-buy__stickybtn" id="pf-sticky-cta-{{ section.id }}">{{ section.settings.cta_text }}</button>
+  </div>
+</div>
+
 {%- style -%}
   #pf-buy{padding:24px 0 36px}
   #pf-buy .pf-buy__grid{display:grid;grid-template-columns:1fr;gap:26px}
@@ -193,6 +212,7 @@
   #pf-buy .pf-buy__badge{font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;text-align:center;color:var(--pf-text-dim);border:1px solid var(--pf-line);border-radius:8px;padding:8px;margin:0 0 10px}
   #pf-buy .pf-buy__countdown{text-align:center;background:rgba(220,38,38,.10);border:1px solid rgba(220,38,38,.35);color:var(--pf-accent);font-size:13px;font-weight:700;border-radius:10px;padding:9px;margin:0 0 16px}
   #pf-buy .pf-buy__countdown strong{font-variant-numeric:tabular-nums}
+  #pf-buy .pf-buy__packshead{text-align:center;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--pf-text-dim);margin:0 0 10px}
   #pf-buy .pf-buy__packs{border:0;padding:0;margin:0 0 6px;display:flex;flex-direction:column;gap:10px}
   #pf-buy .pf-buy__pack{position:relative;display:block;background:var(--pf-bg-card);border:2px solid var(--pf-line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
   #pf-buy .pf-buy__pack:has(.pf-buy__radio:checked){border-color:var(--pf-accent);box-shadow:0 8px 22px rgba(220,38,38,.14);background:rgba(220,38,38,.06)}
@@ -209,6 +229,7 @@
   #pf-buy .pf-buy__bonuses{list-style:none;margin:10px 0 0;padding:10px 0 0;border-top:1px dashed var(--pf-line);display:flex;flex-direction:column;gap:5px}
   #pf-buy .pf-buy__bonuses li{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--pf-text-dim)}
   #pf-buy .pf-buy__bonuses s{color:#5a615f}
+  #pf-buy .pf-buy__packship{display:block;margin-top:8px;font-size:11.5px;font-weight:700;color:var(--pf-text-dim)}
   #pf-buy .pf-buy__addons{display:flex;flex-direction:column;gap:8px;margin:12px 0 0}
   #pf-buy .pf-buy__addon{display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:10px;background:var(--pf-bg-card);border:1px solid var(--pf-line);border-radius:12px;padding:11px 14px;cursor:pointer}
   #pf-buy .pf-buy__addoncheck{width:17px;height:17px;accent-color:var(--pf-accent)}
@@ -246,6 +267,15 @@
     #pf-buy .pf-buy__grid{grid-template-columns:1fr 1fr;gap:48px;align-items:start}
     #pf-buy .pf-buy__media{position:sticky;top:16px}
   }
+  #pf-sticky-{{ section.id }}{position:fixed;left:0;right:0;bottom:0;z-index:120;background:var(--pf-bg-card);border-top:1px solid var(--pf-line);box-shadow:0 -8px 24px rgba(0,0,0,.35);transform:translateY(100%);transition:transform .25s ease;padding-bottom:env(safe-area-inset-bottom,0px)}
+  #pf-sticky-{{ section.id }}.is-visible{transform:translateY(0)}
+  #pf-sticky-{{ section.id }} .pf-buy__stickyinner{display:flex;align-items:center;gap:10px;padding:8px 16px}
+  #pf-sticky-{{ section.id }} .pf-buy__stickymedia img{width:40px;height:40px;border-radius:8px;object-fit:cover;display:block}
+  #pf-sticky-{{ section.id }} .pf-buy__stickyinfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+  #pf-sticky-{{ section.id }} .pf-buy__stickytitle{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #pf-sticky-{{ section.id }} .pf-buy__stickyprice{font-size:12.5px;font-weight:800;color:var(--pf-accent)}
+  #pf-sticky-{{ section.id }} .pf-buy__stickybtn{width:auto;padding:11px 18px;font-size:13px;flex:none}
+  @media(min-width:900px){#pf-sticky-{{ section.id }}{display:none}}
 {%- endstyle -%}
 
 <script>
@@ -264,9 +294,11 @@
     thumbs.querySelectorAll('.pf-buy__thumb').forEach(function(b){b.classList.remove('is-active')});btn.classList.add('is-active');
   })});}
 
+  var stickyPrice=document.getElementById('pf-sticky-price-{{ section.id }}');
   function sync(){var r=form.querySelector('input[name="pf-pack"]:checked');if(!r)return;
     var s=r.getAttribute('data-savings')||'';
     if(s){savings.textContent='→ '+s;savings.classList.add('is-visible');}else{savings.classList.remove('is-visible');}
+    if(stickyPrice)stickyPrice.textContent=r.getAttribute('data-price')||'';
   }
   form.querySelectorAll('input[name="pf-pack"]').forEach(function(r){r.addEventListener('change',sync)});sync();
 
@@ -288,6 +320,19 @@
       .catch(function(e2){cta.removeAttribute('aria-busy');err.textContent=e2.message||'Wystąpił błąd.';err.hidden=false;});
   }
   form.addEventListener('submit',function(e){e.preventDefault();addToCart();});
+
+  /* sticky pasek zakupu (mobile) */
+  var stickyBar=document.getElementById('pf-sticky-{{ section.id }}');
+  var stickyCta=document.getElementById('pf-sticky-cta-{{ section.id }}');
+  if(stickyBar&&stickyCta&&'IntersectionObserver' in window){
+    stickyCta.addEventListener('click',addToCart);
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        stickyBar.classList.toggle('is-visible',!entry.isIntersecting);
+      });
+    },{threshold:0});
+    io.observe(cta);
+  }
 
   /* mini-opinie karuzela */
   var mrev=document.getElementById('pf-mrev-{{ section.id }}');
@@ -333,6 +378,7 @@
     { "type": "header", "content": "Koszyk" },
     { "type": "text", "id": "cta_text", "label": "Tekst CTA", "default": "DODAJ DO KOSZYKA" },
     { "type": "select", "id": "after_add", "label": "Po dodaniu", "default": "cart", "options": [ {"value":"cart","label":"Koszyk"}, {"value":"checkout","label":"Kasa"} ] },
+    { "type": "text", "id": "packs_heading", "label": "Nagłówek nad pakietami", "default": "KUP WIĘCEJ I OSZCZĘDŹ" },
     { "type": "header", "content": "Dostawa" },
     { "type": "checkbox", "id": "show_delivery", "label": "Pokaż terminarz dostawy", "default": true },
     { "type": "number", "id": "ready_start", "label": "Gotowe od (dni)", "default": 1 },
@@ -356,6 +402,7 @@
       { "type": "number", "id": "quantity", "label": "Ilość sztuk", "default": 1 },
       { "type": "checkbox", "id": "highlight", "label": "Wyróżnij ramką", "default": false },
       { "type": "checkbox", "id": "preselect", "label": "Zaznacz domyślnie", "default": false },
+      { "type": "checkbox", "id": "free_shipping", "label": "Pokaż „Darmowa wysyłka”", "default": true },
       { "type": "header", "content": "Bonusy w tym pakiecie" },
       { "type": "text", "id": "bonus1_text", "label": "Bonus 1 — nazwa" },
       { "type": "text", "id": "bonus1_compare", "label": "Bonus 1 — cena przed" },

@@ -1,0 +1,46 @@
+{%- comment -%} Stachu Strachu — Testimonials (3 karty z cytatem) {%- endcomment -%}
+<section class="pf pf-tst pf-sec" id="pf-tst-{{ section.id }}">
+  <div class="pf-container pf-center">
+    <h2 class="pf-h2">{{ section.settings.heading }}</h2>
+  </div>
+  <div class="pf-container pf-tst__grid">
+    {%- for block in section.blocks -%}
+      <div class="pf-tst__card pf-card" {{ block.shopify_attributes }}>
+        <span class="pf-tst__badge" aria-hidden="true">”</span>
+        {%- assign pf_empty = 5 | minus: block.settings.rating -%}
+        <span class="pf-star-row pf-tst__stars" aria-hidden="true">{% for i in (1..block.settings.rating) %}★{% endfor %}{% if pf_empty > 0 %}{% for i in (1..pf_empty) %}☆{% endfor %}{% endif %}</span>
+        <h3 class="pf-tst__title">{{ block.settings.title }}</h3>
+        <p class="pf-tst__text">{{ block.settings.text }}</p>
+        <span class="pf-tst__name">{{ block.settings.name }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+{%- style -%}
+  #pf-tst-{{ section.id }} .pf-tst__grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:30px}
+  #pf-tst-{{ section.id }} .pf-tst__card{position:relative;padding:22px 20px;text-align:center}
+  #pf-tst-{{ section.id }} .pf-tst__badge{position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:50%;background:var(--pf-accent);color:var(--pf-accent-text);font-size:15px;font-weight:800;display:grid;place-items:center;line-height:1}
+  #pf-tst-{{ section.id }} .pf-tst__stars{display:block;margin:0 0 12px;font-size:15px}
+  #pf-tst-{{ section.id }} .pf-tst__title{font-size:13.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;margin:0 0 10px}
+  #pf-tst-{{ section.id }} .pf-tst__text{font-size:13px;color:var(--pf-text-dim);line-height:1.6;margin:0 0 14px}
+  #pf-tst-{{ section.id }} .pf-tst__name{font-size:12px;font-weight:700;color:var(--pf-text-dim)}
+  @media(min-width:900px){#pf-tst-{{ section.id }} .pf-tst__grid{grid-template-columns:repeat(3,1fr);gap:20px}}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "SS — Testimonials",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Opinie klientów" }
+  ],
+  "blocks": [
+    { "type": "quote", "name": "Cytat", "settings": [
+      { "type": "range", "id": "rating", "label": "Ocena", "min": 1, "max": 5, "default": 5 },
+      { "type": "text", "id": "title", "label": "Tytuł cytatu", "default": "PRZERAZIŁ CAŁĄ ULICĘ" },
+      { "type": "textarea", "id": "text", "label": "Treść", "default": "Szczerze wątpiłam, że ten produkt spełni oczekiwania. Byłam w błędzie." },
+      { "type": "text", "id": "name", "label": "Autor", "default": "Ola W." }
+    ] }
+  ],
+  "max_blocks": 6,
+  "presets": [ { "name": "SS — Testimonials" } ]
+}
+{% endschema %}

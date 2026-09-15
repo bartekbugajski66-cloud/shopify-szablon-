@@ -1,0 +1,33 @@
+{%- comment -%} Stachu Strachu — samodzielna sekcja FAQ {%- endcomment -%}
+<section class="pf pf-fq pf-sec pf-sec--alt" id="pf-fq-{{ section.id }}">
+  <div class="pf-container pf-center">
+    <h2 class="pf-h2">{{ section.settings.heading }}</h2>
+  </div>
+  <div class="pf-container pf-fq__list">
+    {%- for block in section.blocks -%}
+      <details class="pf-acc__item pf-acc" {{ block.shopify_attributes }}>
+        <summary class="pf-acc__q"><span>{{ block.settings.question }}</span><span class="pf-acc__sign" aria-hidden="true"></span></summary>
+        <div class="pf-acc__a">{{ block.settings.answer }}</div>
+      </details>
+    {%- endfor -%}
+  </div>
+</section>
+{%- style -%}
+  #pf-fq-{{ section.id }} .pf-fq__list{max-width:720px;margin:26px auto 0;display:flex;flex-direction:column;gap:8px}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "SS — FAQ",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Najczęstsze pytania" }
+  ],
+  "blocks": [
+    { "type": "faq", "name": "Pytanie", "settings": [
+      { "type": "text", "id": "question", "label": "Pytanie", "default": "Jak długo trwa wysyłka?" },
+      { "type": "textarea", "id": "answer", "label": "Odpowiedź", "default": "Wysyłka trwa zwykle 1–3 dni robocze." }
+    ] }
+  ],
+  "max_blocks": 10,
+  "presets": [ { "name": "SS — FAQ" } ]
+}
+{% endschema %}
