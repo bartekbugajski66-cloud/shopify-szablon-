@@ -1,0 +1,875 @@
+{
+  "sections": {
+    "announcement": {
+      "type": "zavia-announcement",
+      "blocks": {
+        "a1": {
+          "type": "item",
+          "settings": {
+            "icon": "🚀",
+            "text": "Szybka wysyłka"
+          }
+        },
+        "a2": {
+          "type": "item",
+          "settings": {
+            "icon": "🛡️",
+            "text": "30 dni gwarancji"
+          }
+        },
+        "a3": {
+          "type": "item",
+          "settings": {
+            "icon": "🎁",
+            "text": "Idealny prezent na Mikołajki i Święta"
+          }
+        },
+        "a4": {
+          "type": "item",
+          "settings": {
+            "icon": "💖",
+            "text": "-20% przy zakupie 3 szt."
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4"
+      ]
+    },
+    "sprinkles": {
+      "type": "zavia-sprinkles",
+      "settings": {
+        "enable": true,
+        "emojis": "🌈,✨,💖,🦄,⭐,💅,🍭,🎀,🌸,🍬",
+        "count": 18,
+        "count_mobile": 10,
+        "opacity": 75
+      }
+    },
+    "product": {
+      "type": "zavia-product",
+      "blocks": {
+        "p1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "💅",
+            "text": "Kolorowe wzorki na paznokciach w kilka chwil — bez pędzelka"
+          }
+        },
+        "p2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🌈",
+            "text": "Serduszka, kwiatki, motylki, gwiazdki — zmieniasz wzór, kiedy chcesz"
+          }
+        },
+        "p3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "♻️",
+            "text": "Płytki ze wzorami wielokrotnego użytku — zabawa na długo"
+          }
+        },
+        "p4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🧸",
+            "text": "Tak prosta, że dzieci uwielbiają robić to same"
+          }
+        },
+        "p5": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🎁",
+            "text": "Prezent, który naprawdę wywołuje „WOW”"
+          }
+        },
+        "p6": {
+          "type": "package",
+          "settings": {
+            "emoji": "💅",
+            "title": "1 × Zavia",
+            "desc": "na dobry początek",
+            "quantity": 1,
+            "discount_percent": 0,
+            "variant_id": "57373997597050"
+          }
+        },
+        "p7": {
+          "type": "package",
+          "settings": {
+            "emoji": "💖",
+            "title": "2 × Zavia",
+            "desc": "dla rodzeństwa lub przyjaciółki",
+            "quantity": 2,
+            "discount_percent": 10,
+            "badge": "Najczęściej wybierany · -10%",
+            "highlight": true,
+            "preselect": true,
+            "variant_id": "57373997629818"
+          }
+        },
+        "p8": {
+          "type": "package",
+          "settings": {
+            "emoji": "🦄",
+            "title": "3 × Zavia",
+            "desc": "zapas prezentów na cały rok",
+            "quantity": 3,
+            "discount_percent": 20,
+            "badge": "Najlepsza oferta · -20%",
+            "variant_id": "57373997662586"
+          }
+        },
+        "p9": {
+          "type": "trust",
+          "settings": {
+            "icon": "🚀",
+            "text": "Szybka wysyłka"
+          }
+        },
+        "p10": {
+          "type": "trust",
+          "settings": {
+            "icon": "🛡️",
+            "text": "30 dni gwarancji"
+          }
+        },
+        "p11": {
+          "type": "trust",
+          "settings": {
+            "icon": "🔒",
+            "text": "Bezpieczne płatności"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6",
+        "p7",
+        "p8",
+        "p9",
+        "p10",
+        "p11"
+      ],
+      "settings": {
+        "product": "zavia-drukarka-wzorkow-na-paznokcie"
+      }
+    },
+    "ribbon": {
+      "type": "zavia-ribbon"
+    },
+    "steps": {
+      "type": "zavia-steps",
+      "settings": {
+        "eyebrow": "✨ Jak to działa",
+        "heading": "Trzy kroki do",
+        "heading_accent": "wzorków jak z salonu",
+        "subheading": "Bez pędzelka, bez rozmazań i bez cierpliwości stylistki. Zavia robi całą trudną robotę.",
+        "bg": "pink"
+      },
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "icon": "🌸",
+            "title": "Wybierz wzorek",
+            "text": "Włóż płytkę i wybierz motyw, który dziś skradnie serce — serduszka, kwiatki, a może gwiazdki?"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "icon": "🖨️",
+            "title": "Przesuń i odbij",
+            "text": "Jedno przesunięcie — i wzorek przenosi się na odbijak. Proste jak zabawa!"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "icon": "💅",
+            "title": "Gotowe — WOW!",
+            "text": "Dociśnij do paznokcia i podziwiaj. Mini salon piękności w Twoim domu."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    "duo": {
+      "type": "zavia-duo",
+      "settings": {
+        "eyebrow": "👩‍👧 Dla całej rodziny",
+        "heading": "Rodzic mówi „wow”.",
+        "heading_accent": "Dziecko mówi „jeeej!”",
+        "subheading": "Zavia to nie kolejna plastikowa zabawka do szuflady — to prezent, do którego wraca się codziennie.",
+        "bg": "none",
+        "parent_emoji": "😍",
+        "parent_quote": "„Wow, to naprawdę działa!”",
+        "parent_label": "Dla rodzica",
+        "kid_emoji": "🤩",
+        "kid_quote": "„Mamo, jeszcze jeden wzorek!”",
+        "kid_label": "Dla dziecka"
+      },
+      "blocks": {
+        "d1": {
+          "type": "parent",
+          "settings": {
+            "icon": "✅",
+            "text": "Kreatywna zabawa bez ekranu — zamiast tabletu"
+          }
+        },
+        "d2": {
+          "type": "parent",
+          "settings": {
+            "icon": "✅",
+            "text": "Mniej bałaganu niż malowanie pędzelkiem"
+          }
+        },
+        "d3": {
+          "type": "parent",
+          "settings": {
+            "icon": "✅",
+            "text": "Przemyślane, solidne wykonanie — wygląda i działa porządnie"
+          }
+        },
+        "d4": {
+          "type": "parent",
+          "settings": {
+            "icon": "✅",
+            "text": "Wspólny czas: mama, córka i domowy salon"
+          }
+        },
+        "d5": {
+          "type": "kid",
+          "settings": {
+            "icon": "🌈",
+            "text": "Wzorki jak u prawdziwej stylistki!"
+          }
+        },
+        "d6": {
+          "type": "kid",
+          "settings": {
+            "icon": "🦄",
+            "text": "Codziennie inny motyw — serduszka, kwiatki, gwiazdki"
+          }
+        },
+        "d7": {
+          "type": "kid",
+          "settings": {
+            "icon": "🎉",
+            "text": "Można robić wzorki koleżankom i mamie"
+          }
+        },
+        "d8": {
+          "type": "kid",
+          "settings": {
+            "icon": "💖",
+            "text": "Kolorowa, słodka i tylko moja!"
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2",
+        "d3",
+        "d4",
+        "d5",
+        "d6",
+        "d7",
+        "d8"
+      ]
+    },
+    "features": {
+      "type": "zavia-features",
+      "settings": {
+        "eyebrow": "💖 Dlaczego Zavia",
+        "heading": "Słodka z wyglądu,",
+        "heading_accent": "mądra w środku",
+        "bg": "lilac"
+      },
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "🎨",
+            "title": "Własne wzorki",
+            "text": "Mnóstwo motywów do wyboru i łączenia — każdy dzień może wyglądać inaczej."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "♻️",
+            "title": "Płytki wielokrotnego użytku",
+            "text": "Przetrzyj i odbijaj dalej. Zabawa, która się nie kończy."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "👜",
+            "title": "Kompaktowa",
+            "text": "Mała i poręczna — zabierzesz ją do babci, na wakacje czy nocowanie."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "icon": "⚡",
+            "title": "Szybki efekt",
+            "text": "Od wyboru wzorku do gotowego paznokcia — w kilka chwil."
+          }
+        },
+        "f5": {
+          "type": "feature",
+          "settings": {
+            "icon": "🧼",
+            "title": "Łatwa w czyszczeniu",
+            "text": "Wystarczy przetrzeć płytkę i odbijak — gotowe do kolejnego wzorku."
+          }
+        },
+        "f6": {
+          "type": "feature",
+          "settings": {
+            "icon": "🎁",
+            "title": "Gotowa na prezent",
+            "text": "Wygląda pięknie już po wyjęciu z paczki. Trafiony prezent gwarantowany."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ]
+    },
+    "gallery": {
+      "type": "zavia-gallery",
+      "settings": {
+        "eyebrow": "📸 Zobacz efekty",
+        "heading": "Małe paznokcie,",
+        "heading_accent": "wielkie uśmiechy",
+        "bg": "none"
+      },
+      "blocks": {
+        "g1": {
+          "type": "photo",
+          "settings": {
+            "caption": "Serduszka 💖"
+          }
+        },
+        "g2": {
+          "type": "photo",
+          "settings": {
+            "caption": "Pierwszy manicure 🥹"
+          }
+        },
+        "g3": {
+          "type": "photo",
+          "settings": {
+            "caption": "Wspólna zabawa 👭"
+          }
+        },
+        "g4": {
+          "type": "photo",
+          "settings": {
+            "caption": "Gotowe! ✨"
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4"
+      ]
+    },
+    "gift": {
+      "type": "zavia-gift",
+      "settings": {
+        "eyebrow": "🎁 Idealny prezent",
+        "heading": "Prezent, który",
+        "heading_accent": "zostanie zapamiętany",
+        "subheading": "Szukasz prezentu, który nie wyląduje w szufladzie po dwóch dniach? Zavia to kreatywna zabawa, do której dzieci wracają codziennie. A przy 3 sztukach masz prezenty z głowy na cały rok — taniej o 20%.",
+        "bg": "sun",
+        "timer_label": "Do Mikołajek zostało:",
+        "timer_end": "2026-12-06 00:00",
+        "box_emoji": "🎅",
+        "box_text": "Zamów wcześniej i miej prezent z głowy 💖"
+      }
+    },
+    "box": {
+      "type": "zavia-box",
+      "settings": {
+        "eyebrow": "📦 Co dostajesz",
+        "heading": "Wszystko w",
+        "heading_accent": "jednym pudełku",
+        "bg": "mint"
+      },
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "icon": "💅",
+            "title": "Drukarka Zavia",
+            "text": "Kolorowa, poręczna i gotowa do zabawy od pierwszej minuty."
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "icon": "🌸",
+            "title": "Płytki ze wzorami",
+            "text": "Serduszka, kwiatki, motylki i inne motywy — wielokrotnego użytku."
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "icon": "📖",
+            "title": "Instrukcja krok po kroku",
+            "text": "Prosta i obrazkowa — dziecko szybko załapie, o co chodzi."
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "icon": "🛡️",
+            "title": "30 dni gwarancji",
+            "tag": "W CENIE",
+            "text": "Kupujesz bez ryzyka — jesteśmy z Tobą także po zakupie."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "guarantee": {
+      "type": "zavia-guarantee",
+      "settings": {
+        "eyebrow": "🛡️ Kupujesz bez ryzyka",
+        "heading": "30 dni gwarancji",
+        "heading_accent": "satysfakcji",
+        "subheading": "Jesteśmy pewni, że Zavia wywoła uśmiech. Jeśli coś będzie nie tak — napisz do nas, a pomożemy. Bez kruczków i bez stresu.",
+        "bg": "none",
+        "days": "30"
+      }
+    },
+    "faq": {
+      "type": "zavia-faq",
+      "settings": {
+        "eyebrow": "❓ Pytania",
+        "heading": "Najczęstsze",
+        "heading_accent": "pytania",
+        "bg": "sky"
+      },
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy to trudne w obsłudze?",
+            "answer": "<p>Nie! Wybierasz wzorek, przesuwasz głowicę i dociskasz do paznokcia. Dzieci łapią to po pierwszym razie — a mamy zwykle też chcą spróbować 😉</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Dla kogo jest Zavia?",
+            "answer": "<p>Dla dzieci, które kochają kolory i „robienie paznokci” — i dla rodziców, którzy szukają kreatywnej zabawy bez ekranu. Młodsze dzieci najlepiej bawią się razem z rodzicem.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Jaki lakier najlepiej się sprawdza?",
+            "answer": "<p>Najwyraźniejszy wzorek dają gęste, mocno kryjące lakiery (tzw. lakiery do stempli). Im bardziej kryjący lakier, tym ładniejszy efekt.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy płytki można używać wiele razy?",
+            "answer": "<p>Tak. Po każdym wzorku wystarczy przetrzeć płytkę i odbijak — i można odbijać dalej.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy nadaje się na prezent?",
+            "answer": "<p>Jak najbardziej! To jeden z najczęściej wybieranych prezentów na urodziny, Mikołajki i Święta. Przy 2 lub 3 sztukach płacisz mniej za każdą.</p>"
+          }
+        },
+        "q6": {
+          "type": "faq",
+          "settings": {
+            "question": "Co jeśli produkt mi się nie spodoba?",
+            "answer": "<p>Masz 30 dni gwarancji satysfakcji. Napisz do nas — znajdziemy rozwiązanie.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ]
+    },
+    "reviews": {
+      "type": "zavia-fb-reviews",
+      "settings": {
+        "eyebrow": "💬 Opinie z Facebooka",
+        "heading": "Co mówią",
+        "heading_accent": "rodzice?",
+        "bg": "lilac",
+        "page_name": "Zavia",
+        "visible": 4
+      },
+      "blocks": {
+        "r1": {
+          "type": "comment",
+          "settings": {
+            "name": "Imię Nazwisko",
+            "text": "Wklej tutaj prawdziwy komentarz klienta z Facebooka. Pod komentarzem możesz dodać zdjęcie od klienta (np. zadowolone dziecko z Zavią).",
+            "time": "1 tydz.",
+            "likes": 0,
+            "reaction": "love",
+            "reply_text": "Dziękujemy! Uwielbiamy takie zdjęcia 💖"
+          }
+        },
+        "r2": {
+          "type": "comment",
+          "settings": {
+            "name": "Imię Nazwisko",
+            "text": "Wklej tutaj prawdziwy komentarz klienta z Facebooka. Pod komentarzem możesz dodać zdjęcie od klienta (np. zadowolone dziecko z Zavią).",
+            "time": "2 tyg.",
+            "likes": 0,
+            "reaction": "like"
+          }
+        },
+        "r3": {
+          "type": "comment",
+          "settings": {
+            "name": "Imię Nazwisko",
+            "text": "Wklej tutaj prawdziwy komentarz klienta z Facebooka. Pod komentarzem możesz dodać zdjęcie od klienta (np. zadowolone dziecko z Zavią).",
+            "time": "3 tyg.",
+            "likes": 0,
+            "reaction": "mix"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ]
+    },
+    "final": {
+      "type": "zavia-final-cta",
+      "settings": {
+        "bg": "none"
+      }
+    },
+    "problems": {
+      "type": "zavia-problems",
+      "settings": {
+        "eyebrow": "🤔 Brzmi znajomo?",
+        "heading": "Znasz to",
+        "heading_accent": "z własnego domu?",
+        "bg": "none",
+        "answer": "Właśnie dlatego powstała Zavia ✨"
+      },
+      "blocks": {
+        "pr1": {
+          "type": "problem",
+          "settings": {
+            "icon": "🌧️",
+            "title": "Pada, a dziecko się nudzi",
+            "text": "Kolejne popołudnie w domu i to samo pytanie: „Mamo, co mam robić?”"
+          }
+        },
+        "pr2": {
+          "type": "problem",
+          "settings": {
+            "icon": "📱",
+            "title": "Tablet znowu wygrywa",
+            "text": "Chcesz kreatywnej zabawy bez ekranu, ale mało co wciąga na dłużej niż 10 minut."
+          }
+        },
+        "pr3": {
+          "type": "problem",
+          "settings": {
+            "icon": "🖌️",
+            "title": "Lakier wszędzie, tylko nie na paznokciu",
+            "text": "Malowanie pędzelkiem z dzieckiem kończy się plamami na palcach, stole i ubraniu."
+          }
+        },
+        "pr4": {
+          "type": "problem",
+          "settings": {
+            "icon": "🎁",
+            "title": "Prezent, który ląduje w szufladzie",
+            "text": "Kupujesz zabawkę, która po dwóch dniach przestaje być ciekawa."
+          }
+        }
+      },
+      "block_order": [
+        "pr1",
+        "pr2",
+        "pr3",
+        "pr4"
+      ]
+    },
+    "video": {
+      "type": "zavia-video",
+      "settings": {
+        "eyebrow": "🎬 Zavia w akcji",
+        "heading": "Zobacz, jak",
+        "heading_accent": "powstaje wzorek",
+        "subheading": "Kilka sekund, jedno przesunięcie i gotowe. Zobacz to na własne oczy.",
+        "bg": "lilac"
+      },
+      "blocks": {
+        "v1": {
+          "type": "video",
+          "settings": {
+            "caption": "Zobacz, jak to działa ✨"
+          }
+        },
+        "v2": {
+          "type": "video",
+          "settings": {
+            "caption": "Pierwszy wzorek 💖"
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "caption": "Efekt WOW 🤩"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "compare": {
+      "type": "zavia-compare",
+      "settings": {
+        "eyebrow": "⚖️ Porównanie",
+        "heading": "Pędzelek kontra",
+        "heading_accent": "Zavia",
+        "subheading": "Zobacz różnicę, którą widać od pierwszego wzorku.",
+        "bg": "none",
+        "left_title": "Zwykły pędzelek",
+        "left_emoji": "😖",
+        "right_title": "Zavia",
+        "right_emoji": "🤩"
+      },
+      "blocks": {
+        "c1": {
+          "type": "left",
+          "settings": {
+            "text": "Rozmazane plamy na palcach i stole"
+          }
+        },
+        "c2": {
+          "type": "left",
+          "settings": {
+            "text": "Wymaga cierpliwości i wprawy"
+          }
+        },
+        "c3": {
+          "type": "left",
+          "settings": {
+            "text": "Wzorki wychodzą krzywo"
+          }
+        },
+        "c4": {
+          "type": "left",
+          "settings": {
+            "text": "Dziecko szybko się zniechęca"
+          }
+        },
+        "c5": {
+          "type": "right",
+          "settings": {
+            "text": "Równe, wyraźne wzorki za każdym razem"
+          }
+        },
+        "c6": {
+          "type": "right",
+          "settings": {
+            "text": "Tak proste, że dziecko zrobi to samo"
+          }
+        },
+        "c7": {
+          "type": "right",
+          "settings": {
+            "text": "Mnóstwo motywów do wyboru"
+          }
+        },
+        "c8": {
+          "type": "right",
+          "settings": {
+            "text": "Frajda, do której chce się wracać"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ]
+    },
+    "usecases": {
+      "type": "zavia-usecases",
+      "settings": {
+        "eyebrow": "🎉 Kiedy się przyda",
+        "heading": "Na każdą",
+        "heading_accent": "okazję",
+        "bg": "pink"
+      },
+      "blocks": {
+        "u1": {
+          "type": "usecase",
+          "settings": {
+            "icon": "🎂",
+            "title": "Na urodziny?",
+            "text": "Prezent, który robi furorę na imprezie — każdy gość wychodzi z wzorkiem na paznokciach."
+          }
+        },
+        "u2": {
+          "type": "usecase",
+          "settings": {
+            "icon": "🛌",
+            "title": "Na nocowanie u koleżanki?",
+            "text": "Mini salon piękności w piżamach. Zavia jest mała i zmieści się w plecaku."
+          }
+        },
+        "u3": {
+          "type": "usecase",
+          "settings": {
+            "icon": "🌧️",
+            "title": "Na deszczowe popołudnie?",
+            "text": "Zamiast tabletu — kreatywna zabawa, którą możecie robić razem."
+          }
+        }
+      },
+      "block_order": [
+        "u1",
+        "u2",
+        "u3"
+      ]
+    },
+    "specs": {
+      "type": "zavia-specs",
+      "settings": {
+        "eyebrow": "📋 Specyfikacja",
+        "heading": "Zavia",
+        "heading_accent": "w szczegółach",
+        "bg": "none"
+      },
+      "blocks": {
+        "sp1": {
+          "type": "spec",
+          "settings": {
+            "key": "Produkt",
+            "value": "Drukarka do wzorków na paznokcie"
+          }
+        },
+        "sp2": {
+          "type": "spec",
+          "settings": {
+            "key": "Kolor",
+            "value": "Liliowo-różowy"
+          }
+        },
+        "sp3": {
+          "type": "spec",
+          "settings": {
+            "key": "Płytki ze wzorami",
+            "value": "Wielokrotnego użytku"
+          }
+        },
+        "sp4": {
+          "type": "spec",
+          "settings": {
+            "key": "Obsługa",
+            "value": "Wybierz wzorek · przesuń · odbij"
+          }
+        },
+        "sp5": {
+          "type": "spec",
+          "settings": {
+            "key": "Rozmiar",
+            "value": "Kompaktowy, poręczny"
+          }
+        },
+        "sp6": {
+          "type": "spec",
+          "settings": {
+            "key": "Gwarancja",
+            "value": "30 dni"
+          }
+        }
+      },
+      "block_order": [
+        "sp1",
+        "sp2",
+        "sp3",
+        "sp4",
+        "sp5",
+        "sp6"
+      ]
+    }
+  },
+  "order": [
+    "announcement",
+    "sprinkles",
+    "product",
+    "ribbon",
+    "problems",
+    "steps",
+    "video",
+    "duo",
+    "compare",
+    "features",
+    "usecases",
+    "gallery",
+    "gift",
+    "box",
+    "specs",
+    "guarantee",
+    "faq",
+    "reviews",
+    "final"
+  ]
+}

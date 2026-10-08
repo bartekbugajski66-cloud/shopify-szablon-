@@ -14,7 +14,7 @@
     </a>
     <div class="zv-header__right">
       {%- if section.settings.cta_text != blank -%}
-        <a href="{% if template.name == 'product' %}#kup{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="zv-btn zv-header__cta">{{ section.settings.cta_text }}</a>
+        <a href="{% if template.name == 'product' or template.name == 'index' %}#kup{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="zv-btn zv-header__cta">{{ section.settings.cta_text }}</a>
       {%- endif -%}
       <a href="{{ routes.cart_url }}" class="zv-header__cart" aria-label="Koszyk ({{ cart.item_count }})">
         🛍️{%- if cart.item_count > 0 -%}<span class="zv-header__count">{{ cart.item_count }}</span>{%- endif -%}

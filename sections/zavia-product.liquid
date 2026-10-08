@@ -7,6 +7,16 @@
   ALBO wpisz w pakiecie ID wariantu, którego cena = cena całego pakietu (wtedy do koszyka trafia 1 szt. tego wariantu).
 {%- endcomment -%}
 {%- liquid
+  if section.settings.product != blank
+    assign product = section.settings.product
+  elsif product == blank
+    assign product = collections.all.products.first
+  endif
+-%}
+{%- if product == blank -%}
+  <section class="zv-buy"><div class="zv-container"><p class="zv-buy__note"><span aria-hidden="true">🛍️</span>Wybierz produkt w ustawieniach sekcji „Zavia — produkt i zakup” albo opublikuj produkt w kanale „Sklep online”.</p></div></section>
+{%- else -%}
+{%- liquid
   assign base_variant = product.selected_or_first_available_variant
   assign base_price = base_variant.price
   assign base_compare = base_variant.compare_at_price | default: 0
@@ -316,10 +326,13 @@
 })();
 </script>
 
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Zavia — produkt i zakup",
   "settings": [
+    { "type": "product", "id": "product", "label": "Produkt", "info": "Na stronie produktu zostaw puste. Na stronie głównej wybierz Zavię." },
     { "type": "header", "content": "Zdjęcia" },
     { "type": "text", "id": "sticker_1", "label": "Naklejka na zdjęciu 1", "default": "🎁 Hit na prezent" },
     { "type": "text", "id": "sticker_2", "label": "Naklejka na zdjęciu 2", "default": "-20% przy 3 szt." },
