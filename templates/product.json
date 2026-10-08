@@ -583,6 +583,266 @@
       "settings": {
         "bg": "none"
       }
+    },
+    "problems": {
+      "type": "zavia-problems",
+      "settings": {
+        "eyebrow": "🤔 Brzmi znajomo?",
+        "heading": "Znasz to",
+        "heading_accent": "z własnego domu?",
+        "bg": "none",
+        "answer": "Właśnie dlatego powstała Zavia ✨"
+      },
+      "blocks": {
+        "pr1": {
+          "type": "problem",
+          "settings": {
+            "icon": "🌧️",
+            "title": "Pada, a dziecko się nudzi",
+            "text": "Kolejne popołudnie w domu i to samo pytanie: „Mamo, co mam robić?”"
+          }
+        },
+        "pr2": {
+          "type": "problem",
+          "settings": {
+            "icon": "📱",
+            "title": "Tablet znowu wygrywa",
+            "text": "Chcesz kreatywnej zabawy bez ekranu, ale mało co wciąga na dłużej niż 10 minut."
+          }
+        },
+        "pr3": {
+          "type": "problem",
+          "settings": {
+            "icon": "🖌️",
+            "title": "Lakier wszędzie, tylko nie na paznokciu",
+            "text": "Malowanie pędzelkiem z dzieckiem kończy się plamami na palcach, stole i ubraniu."
+          }
+        },
+        "pr4": {
+          "type": "problem",
+          "settings": {
+            "icon": "🎁",
+            "title": "Prezent, który ląduje w szufladzie",
+            "text": "Kupujesz zabawkę, która po dwóch dniach przestaje być ciekawa."
+          }
+        }
+      },
+      "block_order": [
+        "pr1",
+        "pr2",
+        "pr3",
+        "pr4"
+      ]
+    },
+    "video": {
+      "type": "zavia-video",
+      "settings": {
+        "eyebrow": "🎬 Zavia w akcji",
+        "heading": "Zobacz, jak",
+        "heading_accent": "powstaje wzorek",
+        "subheading": "Kilka sekund, jedno przesunięcie i gotowe. Zobacz to na własne oczy.",
+        "bg": "lilac"
+      },
+      "blocks": {
+        "v1": {
+          "type": "video",
+          "settings": {
+            "caption": "Zobacz, jak to działa ✨"
+          }
+        },
+        "v2": {
+          "type": "video",
+          "settings": {
+            "caption": "Pierwszy wzorek 💖"
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "caption": "Efekt WOW 🤩"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "compare": {
+      "type": "zavia-compare",
+      "settings": {
+        "eyebrow": "⚖️ Porównanie",
+        "heading": "Pędzelek kontra",
+        "heading_accent": "Zavia",
+        "subheading": "Zobacz różnicę, którą widać od pierwszego wzorku.",
+        "bg": "none",
+        "left_title": "Zwykły pędzelek",
+        "left_emoji": "😖",
+        "right_title": "Zavia",
+        "right_emoji": "🤩"
+      },
+      "blocks": {
+        "c1": {
+          "type": "left",
+          "settings": {
+            "text": "Rozmazane plamy na palcach i stole"
+          }
+        },
+        "c2": {
+          "type": "left",
+          "settings": {
+            "text": "Wymaga cierpliwości i wprawy"
+          }
+        },
+        "c3": {
+          "type": "left",
+          "settings": {
+            "text": "Wzorki wychodzą krzywo"
+          }
+        },
+        "c4": {
+          "type": "left",
+          "settings": {
+            "text": "Dziecko szybko się zniechęca"
+          }
+        },
+        "c5": {
+          "type": "right",
+          "settings": {
+            "text": "Równe, wyraźne wzorki za każdym razem"
+          }
+        },
+        "c6": {
+          "type": "right",
+          "settings": {
+            "text": "Tak proste, że dziecko zrobi to samo"
+          }
+        },
+        "c7": {
+          "type": "right",
+          "settings": {
+            "text": "Mnóstwo motywów do wyboru"
+          }
+        },
+        "c8": {
+          "type": "right",
+          "settings": {
+            "text": "Frajda, do której chce się wracać"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ]
+    },
+    "usecases": {
+      "type": "zavia-usecases",
+      "settings": {
+        "eyebrow": "🎉 Kiedy się przyda",
+        "heading": "Na każdą",
+        "heading_accent": "okazję",
+        "bg": "pink"
+      },
+      "blocks": {
+        "u1": {
+          "type": "usecase",
+          "settings": {
+            "icon": "🎂",
+            "title": "Na urodziny?",
+            "text": "Prezent, który robi furorę na imprezie — każdy gość wychodzi z wzorkiem na paznokciach."
+          }
+        },
+        "u2": {
+          "type": "usecase",
+          "settings": {
+            "icon": "🛌",
+            "title": "Na nocowanie u koleżanki?",
+            "text": "Mini salon piękności w piżamach. Zavia jest mała i zmieści się w plecaku."
+          }
+        },
+        "u3": {
+          "type": "usecase",
+          "settings": {
+            "icon": "🌧️",
+            "title": "Na deszczowe popołudnie?",
+            "text": "Zamiast tabletu — kreatywna zabawa, którą możecie robić razem."
+          }
+        }
+      },
+      "block_order": [
+        "u1",
+        "u2",
+        "u3"
+      ]
+    },
+    "specs": {
+      "type": "zavia-specs",
+      "settings": {
+        "eyebrow": "📋 Specyfikacja",
+        "heading": "Zavia",
+        "heading_accent": "w szczegółach",
+        "bg": "none"
+      },
+      "blocks": {
+        "sp1": {
+          "type": "spec",
+          "settings": {
+            "key": "Produkt",
+            "value": "Drukarka do wzorków na paznokcie"
+          }
+        },
+        "sp2": {
+          "type": "spec",
+          "settings": {
+            "key": "Kolor",
+            "value": "Liliowo-różowy"
+          }
+        },
+        "sp3": {
+          "type": "spec",
+          "settings": {
+            "key": "Płytki ze wzorami",
+            "value": "Wielokrotnego użytku"
+          }
+        },
+        "sp4": {
+          "type": "spec",
+          "settings": {
+            "key": "Obsługa",
+            "value": "Wybierz wzorek · przesuń · odbij"
+          }
+        },
+        "sp5": {
+          "type": "spec",
+          "settings": {
+            "key": "Rozmiar",
+            "value": "Kompaktowy, poręczny"
+          }
+        },
+        "sp6": {
+          "type": "spec",
+          "settings": {
+            "key": "Gwarancja",
+            "value": "30 dni"
+          }
+        }
+      },
+      "block_order": [
+        "sp1",
+        "sp2",
+        "sp3",
+        "sp4",
+        "sp5",
+        "sp6"
+      ]
     }
   },
   "order": [
@@ -590,12 +850,17 @@
     "sprinkles",
     "product",
     "ribbon",
+    "problems",
     "steps",
+    "video",
     "duo",
+    "compare",
     "features",
+    "usecases",
     "gallery",
     "gift",
     "box",
+    "specs",
     "guarantee",
     "faq",
     "reviews",

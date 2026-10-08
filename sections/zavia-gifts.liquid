@@ -1,0 +1,42 @@
+{%- comment -%} ZAVIA — baner z gratisami (odpowiednik „Baner • 2 gratisy”) {%- endcomment -%}
+<section class="zv-gifts-wrap">
+  <div class="zv-container">
+    <div class="zv-gifts">
+      {%- if section.settings.eyebrow != blank -%}<span class="zv-gifts__eye"><span class="zv-pulse" aria-hidden="true"></span>{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="zv-gifts__title">{{ section.settings.title_before }} <span>{{ section.settings.title_accent }}</span></h2>
+      <div class="zv-gifts__row">
+        {%- for block in section.blocks -%}
+          <div class="zv-gifts__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'zv-gifts__img', alt: '' }}
+            {%- else -%}<span class="zv-gifts__ico" aria-hidden="true">{{ block.settings.icon }}</span>{%- endif -%}
+            <span class="zv-gifts__name">{{ block.settings.title }}</span>
+            {%- if block.settings.value != blank -%}<span class="zv-gifts__val">{{ block.settings.value }}</span>{%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.note != blank -%}<p class="zv-gifts__note">{{ section.settings.note }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Zavia — gratisy",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł (pulsująca kropka)", "default": "TYLKO TERAZ" },
+    { "type": "text", "id": "title_before", "label": "Tytuł", "default": "Do zamówienia dostajesz" },
+    { "type": "text", "id": "title_accent", "label": "Tytuł — wyróżnienie", "default": "gratisy! 🎁" },
+    { "type": "textarea", "id": "note", "label": "Dopisek", "default": "Gratisy dodajemy automatycznie do zamówienia." }
+  ],
+  "blocks": [
+    { "type": "gift", "name": "Gratis", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Zdjęcie (opcjonalnie)" },
+      { "type": "text", "id": "icon", "label": "Emotka", "default": "🎀" },
+      { "type": "text", "id": "title", "label": "Nazwa", "default": "Nazwa gratisu" },
+      { "type": "text", "id": "value", "label": "Etykieta", "default": "GRATIS" }
+    ]}
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Zavia — gratisy", "blocks": [{ "type": "gift" }, { "type": "gift", "settings": { "icon": "💅" } }] }]
+}
+{% endschema %}

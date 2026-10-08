@@ -1,0 +1,42 @@
+{%- comment -%} ZAVIA — okazje / zastosowania ze zdjęciami {%- endcomment -%}
+<section class="zv-sec zv-sec--{{ section.settings.bg }}">
+  <div class="zv-container">
+    {%- render 'zv-head', s: section.settings -%}
+    <div class="zv-uses">
+      {%- for block in section.blocks -%}
+        <div class="zv-use" {{ block.shopify_attributes }}>
+          <div class="zv-use__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 860px) 33vw, 100vw' }}
+            {%- else -%}<span aria-hidden="true">{{ block.settings.icon }}</span>{%- endif -%}
+          </div>
+          <div class="zv-use__body"><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Zavia — zastosowania",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł" },
+    { "type": "text", "id": "heading", "label": "Tytuł" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — tęczowa część" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "white", "options": [
+      { "value": "white", "label": "Białe" }, { "value": "pink", "label": "Różowe" }, { "value": "lilac", "label": "Liliowe" },
+      { "value": "mint", "label": "Miętowe" }, { "value": "sky", "label": "Błękitne" }, { "value": "sun", "label": "Słoneczne" }, { "value": "none", "label": "Brak" } ]}
+  ],
+  "blocks": [
+    { "type": "usecase", "name": "Zastosowanie", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+      { "type": "text", "id": "icon", "label": "Emotka (gdy brak zdjęcia)", "default": "🎉" },
+      { "type": "text", "id": "title", "label": "Tytuł", "default": "Na urodziny?" },
+      { "type": "textarea", "id": "text", "label": "Opis" }
+    ]}
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Zavia — zastosowania" }]
+}
+{% endschema %}
