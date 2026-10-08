@@ -50,7 +50,8 @@
               </div>
               {%- if block.settings.photo != blank -%}
                 <div class="zv-fb__photo">
-                  {{ block.settings.photo | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '260px', alt: block.settings.photo.alt | default: 'Zdjęcie od klienta' }}
+                  {%- assign photo_alt = block.settings.photo.alt | default: 'Zdjęcie od klienta' -%}
+                  {{ block.settings.photo | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '260px', alt: photo_alt }}
                 </div>
               {%- endif -%}
               <div class="zv-fb__meta">

@@ -4,7 +4,7 @@
     {%- for collection in collections -%}
       <a href="{{ collection.url }}" class="drip-card">
         {%- if collection.featured_image -%}
-          {{ collection.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'drip-card__img', alt: collection.title | escape }}
+          {{ collection.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'drip-card__img', alt: collection.title }}
         {%- else -%}
           <div class="drip-card__placeholder"></div>
         {%- endif -%}

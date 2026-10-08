@@ -147,7 +147,8 @@
         "product": "zavia-drukarka-wzorkow-na-paznokcie",
         "timer_label": "Promocja startowa kończy się za:",
         "packs_label": "Wybierz swój zestaw 👇",
-        "fomo_text": ""
+        "fomo_text": "",
+        "timer_end": "2026-10-31 23:59"
       }
     },
     "ribbon": {

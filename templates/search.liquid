@@ -12,9 +12,9 @@
         {%- for item in search.results -%}
           <a href="{{ item.url }}" class="drip-card">
             {%- if item.featured_image -%}
-              {{ item.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'drip-card__img', alt: item.title | escape }}
+              {{ item.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'drip-card__img', alt: item.title }}
             {%- elsif item.image -%}
-              {{ item.image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'drip-card__img', alt: item.title | escape }}
+              {{ item.image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'drip-card__img', alt: item.title }}
             {%- else -%}
               <div class="drip-card__placeholder"></div>
             {%- endif -%}

@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "main": { "type": "zavia-cart" }
+  },
+  "order": ["main"]
+}
