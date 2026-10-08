@@ -94,7 +94,8 @@
             "title": "1 × Zavia",
             "desc": "na dobry początek",
             "quantity": 1,
-            "discount_percent": 0
+            "discount_percent": 0,
+            "variant_id": "57373997597050"
           }
         },
         "p7": {
@@ -107,7 +108,8 @@
             "discount_percent": 10,
             "badge": "Najczęściej wybierany · -10%",
             "highlight": true,
-            "preselect": true
+            "preselect": true,
+            "variant_id": "57373997629818"
           }
         },
         "p8": {
@@ -118,7 +120,8 @@
             "desc": "zapas prezentów na cały rok",
             "quantity": 3,
             "discount_percent": 20,
-            "badge": "Najlepsza oferta · -20%"
+            "badge": "Najlepsza oferta · -20%",
+            "variant_id": "57373997662586"
           }
         },
         "p9": {
