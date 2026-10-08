@@ -36,8 +36,9 @@
     {%- comment -%} ===== GALERIA ===== {%- endcomment -%}
     <div class="zv-buy__media">
       <div class="zv-buy__stage">
-        {%- if section.settings.sticker_1 != blank -%}<span class="zv-buy__sticker">{{ section.settings.sticker_1 }}</span>{%- endif -%}
-        {%- if section.settings.sticker_2 != blank -%}<span class="zv-buy__sticker zv-buy__sticker--alt">{{ section.settings.sticker_2 }}</span>{%- endif -%}
+        {%- if section.settings.sticker_1 != blank -%}<span class="zv-buy__sticker zv-buy__sticker--1">{{ section.settings.sticker_1 }}</span>{%- endif -%}
+        {%- if section.settings.sticker_2 != blank -%}<span class="zv-buy__sticker zv-buy__sticker--2">{{ section.settings.sticker_2 }}</span>{%- endif -%}
+        {%- if section.settings.sticker_3 != blank -%}<span class="zv-buy__sticker zv-buy__sticker--3">{{ section.settings.sticker_3 }}</span>{%- endif -%}
         {%- if product.featured_media -%}
           <img id="zv-main-{{ section.id }}" src="{{ product.featured_media | image_url: width: 1200 }}"
             srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1200 }} 1200w"
@@ -257,6 +258,7 @@
       main.removeAttribute('srcset'); main.src = b.getAttribute('data-full');
       thumbs.querySelectorAll('.zv-buy__thumb').forEach(function(x){ x.classList.remove('is-active'); });
       b.classList.add('is-active');
+      main.parentNode.classList.toggle('is-alt', b !== thumbs.querySelector('.zv-buy__thumb'));
     });
   });
 
@@ -341,8 +343,9 @@
   "settings": [
     { "type": "product", "id": "product", "label": "Produkt", "info": "Na stronie produktu zostaw puste. Na stronie głównej wybierz Zavię." },
     { "type": "header", "content": "Zdjęcia" },
-    { "type": "text", "id": "sticker_1", "label": "Naklejka na zdjęciu 1", "default": "🎁 Hit na prezent" },
-    { "type": "text", "id": "sticker_2", "label": "Naklejka na zdjęciu 2", "default": "-20% przy 3 szt." },
+    { "type": "text", "id": "sticker_1", "label": "Naklejka — lewy górny róg (różowa)", "default": "Własne wzorki! 🎨" },
+    { "type": "text", "id": "sticker_2", "label": "Naklejka — prawa strona (fioletowa)", "default": "Płytki wielokrotne ✨" },
+    { "type": "text", "id": "sticker_3", "label": "Naklejka — lewy dolny róg (żółta)", "default": "Hit na prezent 🎁" },
     { "type": "header", "content": "Nagłówek" },
     { "type": "text", "id": "chip_hot", "label": "Etykieta „gorąca”", "default": "🔥 HIT SEZONU" },
     { "type": "checkbox", "id": "show_rating", "label": "Pokaż ocenę", "default": false, "info": "Włącz, gdy masz prawdziwe opinie klientów." },

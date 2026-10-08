@@ -348,34 +348,34 @@
     "gallery": {
       "type": "zavia-gallery",
       "settings": {
-        "eyebrow": "📸 Zobacz efekty",
-        "heading": "Małe paznokcie,",
-        "heading_accent": "wielkie uśmiechy",
+        "eyebrow": "📸 Zobacz z bliska",
+        "heading": "Zavia",
+        "heading_accent": "w akcji",
         "bg": "none"
       },
       "blocks": {
         "g1": {
           "type": "photo",
           "settings": {
-            "caption": "Serduszka 💖"
+            "image": "shopify://shop_images/zavia-v2-mama-i-corka.jpg"
           }
         },
         "g2": {
           "type": "photo",
           "settings": {
-            "caption": "Pierwszy manicure 🥹"
+            "image": "shopify://shop_images/zavia-v2-funkcje.jpg"
           }
         },
         "g3": {
           "type": "photo",
           "settings": {
-            "caption": "Wspólna zabawa 👭"
+            "image": "shopify://shop_images/zavia-v2-jak-to-dziala.jpg"
           }
         },
         "g4": {
           "type": "photo",
           "settings": {
-            "caption": "Gotowe! ✨"
+            "image": "shopify://shop_images/zavia-v2-prezent.jpg"
           }
         }
       },
@@ -747,7 +747,8 @@
         "eyebrow": "📋 Specyfikacja",
         "heading": "Zavia",
         "heading_accent": "w szczegółach",
-        "bg": "none"
+        "bg": "none",
+        "image": "shopify://shop_images/zavia-v2-produkt.jpg"
       },
       "blocks": {
         "sp1": {

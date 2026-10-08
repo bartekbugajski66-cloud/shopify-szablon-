@@ -113,13 +113,18 @@ h1,h2,h3,h4{font-family:var(--zv-font-head);line-height:1.15;margin:0;color:var(
 .zv-buy{padding:22px 0 56px;background:radial-gradient(1200px 500px at 10% -10%,#ffe3f0 0%,transparent 60%),radial-gradient(900px 500px at 100% 0%,#efe8ff 0%,transparent 60%),var(--zv-bg)}
 .zv-buy__grid{display:grid;gap:26px}
 @media(min-width:960px){.zv-buy__grid{grid-template-columns:1.05fr 1fr;gap:48px;align-items:start}.zv-buy__media{position:sticky;top:90px}}
-.zv-buy__stage{position:relative;border-radius:30px;background:linear-gradient(160deg,#fff 0%,#fff1f8 55%,#f1ebff 100%);box-shadow:var(--zv-shadow);overflow:hidden;aspect-ratio:1/1}
-.zv-buy__stage img,.zv-buy__stage svg{width:100%;height:100%;object-fit:cover}
-.zv-buy__sticker{position:absolute;top:14px;left:14px;z-index:2;background:var(--zv-sun);color:var(--zv-ink);font-family:var(--zv-font-head);font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;transform:rotate(-5deg);box-shadow:0 8px 20px -8px rgba(0,0,0,.25)}
-.zv-buy__sticker--alt{left:auto;right:14px;background:var(--zv-mint);transform:rotate(5deg)}
+.zv-buy__stage{position:relative;border-radius:32px;border:6px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#ff5fa2,#ffcf4a,#4fd8b7,#6cc2ff,#a98bff) border-box;box-shadow:0 22px 50px -26px rgba(122,90,224,.7);overflow:hidden;aspect-ratio:1/1;max-width:100%}
+.zv-buy__stage img,.zv-buy__stage svg{width:100%;height:100%;object-fit:cover;border-radius:26px}
+.zv-buy__sticker{position:absolute;z-index:2;font-family:var(--zv-font-head);font-weight:700;font-size:15px;line-height:1.2;padding:9px 16px;border-radius:999px;color:#fff;box-shadow:0 10px 20px -10px rgba(59,35,82,.5);max-width:60%}
+.zv-buy__sticker--1{top:14px;left:14px;background:var(--zv-pink)}
+.zv-buy__sticker--2{top:30%;right:12px;background:#8b5cf6}
+.zv-buy__sticker--3{bottom:14px;left:14px;background:var(--zv-sun);color:var(--zv-ink);border-radius:18px;padding:12px 18px;text-align:center}
+/* naklejki tylko na pierwszym zdjęciu */
+.zv-buy__stage.is-alt .zv-buy__sticker{display:none}
+@media(min-width:960px){.zv-buy__sticker{font-size:17px;padding:10px 18px}}
 .zv-buy__thumbs{display:flex;gap:10px;margin-top:12px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none}
 .zv-buy__thumbs::-webkit-scrollbar{display:none}
-.zv-buy__thumb{flex:0 0 70px;height:70px;border-radius:16px;border:3px solid transparent;padding:0;background:#fff;overflow:hidden;box-shadow:0 6px 14px -8px rgba(122,90,224,.5)}
+.zv-buy__thumb{flex:0 0 72px;height:72px;border-radius:18px;border:3px solid #f1e4f4;padding:0;background:#fff;overflow:hidden;box-shadow:0 6px 14px -8px rgba(122,90,224,.5)}
 .zv-buy__thumb img{width:100%;height:100%;object-fit:cover}
 .zv-buy__thumb.is-active{border-color:var(--zv-pink)}
 
@@ -265,9 +270,9 @@ h1,h2,h3,h4{font-family:var(--zv-font-head);line-height:1.15;margin:0;color:var(
    ========================================================= */
 .zv-gal{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 @media(min-width:860px){.zv-gal{grid-template-columns:repeat(4,1fr);gap:18px}}
-.zv-gal__item{position:relative;border-radius:22px;overflow:hidden;background:#fff;box-shadow:var(--zv-shadow);aspect-ratio:3/4;margin:0}
+.zv-gal__item{position:relative;border-radius:24px;overflow:hidden;background:#fff;box-shadow:var(--zv-shadow);aspect-ratio:1/1;max-width:100%;margin:0;border:5px solid #fff}
 .zv-gal__item:nth-child(odd){transform:rotate(-1.4deg)}
-.zv-gal__item:nth-child(even){transform:rotate(1.4deg) translateY(10px)}
+.zv-gal__item:nth-child(even){transform:rotate(1.4deg)}
 .zv-gal__item img,.zv-gal__item svg{width:100%;height:100%;object-fit:cover}
 .zv-gal__cap{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(255,255,255,.92);border-radius:12px;padding:7px 10px;font-weight:800;font-size:13px;text-align:center}
 
