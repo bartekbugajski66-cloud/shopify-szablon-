@@ -1,0 +1,6 @@
+{%- comment -%} Nagłówek sekcji: render 'zv-head', s: section.settings {%- endcomment -%}
+<div class="zv-center">
+  {%- if s.eyebrow != blank -%}<span class="zv-eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
+  {%- if s.heading != blank -%}<h2 class="zv-h2">{{ s.heading }}{% if s.heading_accent != blank %} <span class="zv-rainbow-text">{{ s.heading_accent }}</span>{% endif %}</h2>{%- endif -%}
+  {%- if s.subheading != blank -%}<p class="zv-lead">{{ s.subheading }}</p>{%- endif -%}
+</div>

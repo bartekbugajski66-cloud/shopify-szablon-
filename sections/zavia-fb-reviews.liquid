@@ -1,0 +1,136 @@
+{%- comment -%}
+  ZAVIA — opinie w wyglądzie komentarzy z Facebooka (z możliwością dodania zdjęcia pod komentarzem i odpowiedzi sklepu).
+  Wklejaj tu prawdziwe komentarze klientów.
+{%- endcomment -%}
+<section class="zv-sec zv-sec--{{ section.settings.bg }}" id="opinie">
+  <div class="zv-container">
+    {%- render 'zv-head', s: section.settings -%}
+    <div class="zv-fb">
+      <div class="zv-fb__head">
+        <span class="zv-fb__brand"><span class="zv-fb__logo" aria-hidden="true">f</span>{{ section.settings.page_name }}</span>
+        <span class="zv-fb__sort">{{ section.settings.sort_label }} ▾</span>
+      </div>
+      {%- if section.settings.reactions_total != blank -%}
+        <div class="zv-fb__stats">
+          <span class="zv-fb__reacts"><span><span class="zv-fb__r zv-fb__r--like">👍</span><span class="zv-fb__r zv-fb__r--love">❤️</span><span class="zv-fb__r zv-fb__r--wow">😮</span></span> {{ section.settings.reactions_total }}</span>
+          <span>{{ section.settings.comments_label }}</span>
+        </div>
+      {%- endif -%}
+
+      <div class="zv-fb__list" id="zv-fb-{{ section.id }}">
+        {%- assign shown = section.settings.visible | default: 4 -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign initial = block.settings.name | strip | slice: 0 | upcase
+            assign colors = '#f7b1d2,#b9a5ff,#7fd9c4,#ffcf73,#8cc8ff,#ff9f9f' | split: ','
+            assign ci = forloop.index0 | modulo: 6
+          -%}
+          <div class="zv-fb__c"{% if forloop.index > shown %} hidden data-more{% endif %} {{ block.shopify_attributes }}>
+            <div class="zv-fb__av" style="background:{{ colors[ci] }}">
+              {%- if block.settings.avatar != blank -%}
+                {{ block.settings.avatar | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+              {%- else -%}{{ initial }}{%- endif -%}
+            </div>
+            <div class="zv-fb__body">
+              <div class="zv-fb__bubble">
+                <span class="zv-fb__name">{{ block.settings.name }}</span>
+                {%- if block.settings.badge != blank -%}<span class="zv-fb__badge">{{ block.settings.badge }}</span>{%- endif -%}
+                <p class="zv-fb__text">{{ block.settings.text }}</p>
+                {%- if block.settings.likes > 0 -%}
+                  <span class="zv-fb__count">
+                    {%- case block.settings.reaction -%}
+                      {%- when 'love' -%}<span class="zv-fb__r zv-fb__r--love">❤️</span>
+                      {%- when 'wow' -%}<span class="zv-fb__r zv-fb__r--wow">😮</span>
+                      {%- when 'mix' -%}<span class="zv-fb__r zv-fb__r--like">👍</span><span class="zv-fb__r zv-fb__r--love">❤️</span>
+                      {%- else -%}<span class="zv-fb__r zv-fb__r--like">👍</span>
+                    {%- endcase -%}
+                    <span data-n>{{ block.settings.likes }}</span>
+                  </span>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.photo != blank -%}
+                <div class="zv-fb__photo">
+                  {{ block.settings.photo | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '260px', alt: block.settings.photo.alt | default: 'Zdjęcie od klienta' }}
+                </div>
+              {%- endif -%}
+              <div class="zv-fb__meta">
+                <span>{{ block.settings.time }}</span>
+                <button type="button" class="zv-fb__like">Lubię to!</button>
+                <span>Odpowiedz</span>
+              </div>
+              {%- if block.settings.reply_text != blank -%}
+                <div class="zv-fb__reply">
+                  <div class="zv-fb__av" aria-hidden="true">{{ section.settings.page_emoji }}</div>
+                  <div class="zv-fb__body">
+                    <div class="zv-fb__bubble">
+                      <span class="zv-fb__name">{{ section.settings.page_name }} <span class="zv-fb__verified" aria-label="Autor">✓</span></span>
+                      <p class="zv-fb__text">{{ block.settings.reply_text }}</p>
+                    </div>
+                    <div class="zv-fb__meta"><span>{{ block.settings.time }}</span><button type="button" class="zv-fb__like">Lubię to!</button></div>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      {%- if section.blocks.size > shown -%}
+        <button type="button" class="zv-fb__more" id="zv-fbmore-{{ section.id }}">Wyświetl więcej komentarzy ({{ section.blocks.size | minus: shown }})</button>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.disclaimer != blank -%}<p class="zv-fb__disc">{{ section.settings.disclaimer }}</p>{%- endif -%}
+  </div>
+</section>
+<script>
+(function(){
+  var list = document.getElementById('zv-fb-{{ section.id }}'); if (!list) return;
+  list.addEventListener('click', function(e){
+    var b = e.target.closest('.zv-fb__like'); if (!b) return;
+    var liked = b.classList.toggle('is-liked');
+    var bubble = b.closest('.zv-fb__body').querySelector('.zv-fb__count [data-n]');
+    if (bubble) bubble.textContent = parseInt(bubble.textContent, 10) + (liked ? 1 : -1);
+    if (liked && window.zaviaBurst) { var r = b.getBoundingClientRect(); window.zaviaBurst(r.left + r.width / 2, r.top, 6); }
+  });
+  var more = document.getElementById('zv-fbmore-{{ section.id }}');
+  if (more) more.addEventListener('click', function(){
+    list.querySelectorAll('[data-more]').forEach(function(c){ c.hidden = false; });
+    more.remove();
+  });
+})();
+</script>
+{% schema %}
+{
+  "name": "Zavia — opinie (Facebook)",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł", "default": "💬 Opinie z Facebooka" },
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "Co mówią rodzice?" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — tęczowa część" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "lilac", "options": [
+      { "value": "white", "label": "Białe" }, { "value": "pink", "label": "Różowe" }, { "value": "lilac", "label": "Liliowe" },
+      { "value": "mint", "label": "Miętowe" }, { "value": "sky", "label": "Błękitne" }, { "value": "sun", "label": "Słoneczne" }, { "value": "none", "label": "Brak" } ]},
+    { "type": "text", "id": "page_name", "label": "Nazwa strony (odpowiedzi sklepu)", "default": "Zavia" },
+    { "type": "text", "id": "page_emoji", "label": "Avatar sklepu (emotka)", "default": "💅" },
+    { "type": "text", "id": "sort_label", "label": "Sortowanie", "default": "Najtrafniejsze" },
+    { "type": "text", "id": "reactions_total", "label": "Liczba reakcji pod postem", "info": "Puste = ukryj pasek reakcji." },
+    { "type": "text", "id": "comments_label", "label": "Tekst „komentarze”", "default": "Komentarze klientów" },
+    { "type": "range", "id": "visible", "label": "Ile komentarzy pokazać od razu", "min": 1, "max": 12, "step": 1, "default": 4 },
+    { "type": "textarea", "id": "disclaimer", "label": "Dopisek pod opiniami", "default": "Opinie pochodzą z komentarzy naszych klientów w mediach społecznościowych. Mogą być skrócone." }
+  ],
+  "blocks": [
+    { "type": "comment", "name": "Komentarz", "settings": [
+      { "type": "text", "id": "name", "label": "Imię i nazwisko", "default": "Imię Nazwisko" },
+      { "type": "image_picker", "id": "avatar", "label": "Zdjęcie profilowe (opcjonalnie)" },
+      { "type": "text", "id": "badge", "label": "Plakietka pod imieniem", "info": "Np. „Najlepszy fan”." },
+      { "type": "textarea", "id": "text", "label": "Treść komentarza", "default": "Wklej tutaj prawdziwy komentarz klienta." },
+      { "type": "image_picker", "id": "photo", "label": "Zdjęcie pod komentarzem (opcjonalnie)" },
+      { "type": "text", "id": "time", "label": "Kiedy", "default": "1 tydz." },
+      { "type": "range", "id": "likes", "label": "Liczba reakcji", "min": 0, "max": 300, "step": 1, "default": 0 },
+      { "type": "select", "id": "reaction", "label": "Rodzaj reakcji", "default": "like", "options": [
+        { "value": "like", "label": "👍 Lubię to" }, { "value": "love", "label": "❤️ Super" }, { "value": "wow", "label": "😮 Wow" }, { "value": "mix", "label": "👍❤️ Mieszane" } ]},
+      { "type": "textarea", "id": "reply_text", "label": "Odpowiedź sklepu (opcjonalnie)" }
+    ]}
+  ],
+  "presets": [{ "name": "Zavia — opinie (Facebook)" }]
+}
+{% endschema %}

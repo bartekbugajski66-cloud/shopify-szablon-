@@ -1,0 +1,52 @@
+<div class="drip-page page-width">
+  <h1>Koszyk</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <p>Twój koszyk jest pusty.</p>
+    <a href="{{ routes.all_products_collection_url }}" class="drip-btn">Wróć do zakupów</a>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      <table class="drip-cart-table">
+        <thead>
+          <tr>
+            <th>Produkt</th>
+            <th>Ilość</th>
+            <th>Suma</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for item in cart.items -%}
+            <tr>
+              <td>
+                <div class="drip-cart-item">
+                  {%- if item.image -%}
+                    {{ item.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: item.title | escape }}
+                  {%- endif -%}
+                  <div>
+                    <strong>{{ item.product.title }}</strong>
+                    {%- unless item.product.has_only_default_variant -%}<br><small>{{ item.variant.title }}</small>{%- endunless -%}
+                    <br><small>{{ item.final_price | money }}</small>
+                    <br><a class="drip-cart-remove" href="{{ item.url_to_remove }}">Usuń</a>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <input class="drip-input drip-cart-qty" type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Ilość: {{ item.product.title | escape }}">
+              </td>
+              <td><strong>{{ item.final_line_price | money }}</strong></td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+
+      <div class="drip-cart-footer">
+        <span class="drip-cart-total">Razem: {{ cart.total_price | money }}</span>
+        <small>Podatki i koszty dostawy obliczane przy finalizacji zamówienia.</small>
+        <div>
+          <button type="submit" name="update" class="drip-btn drip-btn--ghost">Przelicz koszyk</button>
+          <button type="submit" name="checkout" class="drip-btn">Przejdź do kasy</button>
+        </div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>

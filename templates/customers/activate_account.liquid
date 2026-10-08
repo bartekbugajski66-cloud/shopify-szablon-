@@ -1,0 +1,12 @@
+<div class="drip-page page-width" style="max-width:480px;">
+  <h1>Aktywacja konta</h1>
+  {%- form 'activate_customer_password' -%}
+    {{ form.errors | default_errors }}
+    <label class="drip-label" for="ActPassword">Hasło</label>
+    <input class="drip-input" type="password" name="customer[password]" id="ActPassword" autocomplete="new-password" required>
+    <label class="drip-label" for="ActPasswordConfirm">Powtórz hasło</label>
+    <input class="drip-input" type="password" name="customer[password_confirmation]" id="ActPasswordConfirm" autocomplete="new-password" required>
+    <button type="submit" class="drip-btn" style="margin-top:16px; width:100%;">Aktywuj konto</button>
+    <button type="submit" name="decline" class="drip-btn drip-btn--ghost" style="margin-top:10px; width:100%;">Odrzuć zaproszenie</button>
+  {%- endform -%}
+</div>

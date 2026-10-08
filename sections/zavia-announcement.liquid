@@ -1,0 +1,28 @@
+{%- comment -%} ZAVIA — przewijany pasek ogłoszeń {%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+<div class="zv-ann" role="region" aria-label="Ogłoszenia">
+  <div class="zv-ann__track">
+    {%- for i in (1..2) -%}
+      {%- for block in section.blocks -%}
+        <span class="zv-ann__item" {{ block.shopify_attributes }}{% if i == 2 %} aria-hidden="true"{% endif %}>{{ block.settings.icon }} {{ block.settings.text }}</span>
+      {%- endfor -%}
+      {%- for block in section.blocks -%}
+        <span class="zv-ann__item" aria-hidden="true">{{ block.settings.icon }} {{ block.settings.text }}</span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Zavia — pasek ogłoszeń",
+  "blocks": [
+    { "type": "item", "name": "Komunikat", "settings": [
+      { "type": "text", "id": "icon", "label": "Emotka", "default": "✨" },
+      { "type": "text", "id": "text", "label": "Tekst", "default": "Szybka wysyłka" }
+    ]}
+  ],
+  "presets": [{ "name": "Zavia — pasek ogłoszeń" }]
+}
+{% endschema %}

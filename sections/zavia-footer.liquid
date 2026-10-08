@@ -1,0 +1,72 @@
+{%- comment -%} ZAVIA — stopka {%- endcomment -%}
+<footer class="zv-footer">
+  <div class="zv-footer__rainbow" aria-hidden="true"></div>
+  <div class="zv-container zv-footer__inner">
+    <div>
+      <span class="zv-logo"><span class="zv-logo__mark" aria-hidden="true">{{ section.settings.logo_emoji }}</span><span class="zv-logo__text">{{ section.settings.brand_name }}</span></span>
+      <p class="zv-footer__desc">{{ section.settings.brand_text }}</p>
+      <div class="zv-footer__badges">
+        {%- if section.settings.badge_1 != blank -%}<span class="zv-footer__badge">{{ section.settings.badge_1 }}</span>{%- endif -%}
+        {%- if section.settings.badge_2 != blank -%}<span class="zv-footer__badge">{{ section.settings.badge_2 }}</span>{%- endif -%}
+      </div>
+    </div>
+
+    <div>
+      <h3 class="zv-footer__head">{{ section.settings.col1_title }}</h3>
+      <nav class="zv-footer__links">
+        {%- if section.settings.menu1.links.size > 0 -%}
+          {%- for link in section.settings.menu1.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        {%- else -%}
+          {%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}
+        {%- endif -%}
+      </nav>
+    </div>
+
+    <div>
+      <h3 class="zv-footer__head">{{ section.settings.col2_title }}</h3>
+      <nav class="zv-footer__links">
+        {%- if section.settings.menu2.links.size > 0 -%}
+          {%- for link in section.settings.menu2.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        {%- else -%}
+          <a href="{{ routes.cart_url }}">Koszyk</a><a href="{{ routes.account_url }}">Moje konto</a>{%- if section.settings.email != blank -%}<a href="mailto:{{ section.settings.email }}">Napisz do nas</a>{%- endif -%}
+        {%- endif -%}
+      </nav>
+    </div>
+
+    <div>
+      <h3 class="zv-footer__head">{{ section.settings.contact_title }}</h3>
+      <div class="zv-footer__links">
+        {%- if section.settings.email != blank -%}<a class="zv-footer__line" href="mailto:{{ section.settings.email }}">💌 {{ section.settings.email }}</a>{%- endif -%}
+        {%- if section.settings.hours != blank -%}<span class="zv-footer__line">🕒 {{ section.settings.hours }}</span>{%- endif -%}
+      </div>
+      {%- if section.settings.payments != blank -%}
+        <div class="zv-footer__pays">
+          {%- assign pays = section.settings.payments | split: ',' -%}
+          {%- for p in pays -%}<span class="zv-footer__pay">{{ p | strip }}</span>{%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="zv-footer__bottom">© {{ 'now' | date: '%Y' }} {{ section.settings.brand_name }}. Wszelkie prawa zastrzeżone. 💖</div>
+</footer>
+
+{% schema %}
+{
+  "name": "Zavia — stopka",
+  "settings": [
+    { "type": "text", "id": "logo_emoji", "label": "Emotka w logo", "default": "💅" },
+    { "type": "text", "id": "brand_name", "label": "Nazwa marki", "default": "Zavia" },
+    { "type": "textarea", "id": "brand_text", "label": "Opis marki", "default": "Zavia zamienia zwykłe popołudnie w domowy salon piękności. Kolorowe wzorki na paznokciach w kilka chwil — bez pędzelków, bez stresu, z mnóstwem frajdy." },
+    { "type": "text", "id": "badge_1", "label": "Odznaka 1", "default": "🚀 Szybka wysyłka" },
+    { "type": "text", "id": "badge_2", "label": "Odznaka 2", "default": "🛡️ 30 dni gwarancji" },
+    { "type": "text", "id": "col1_title", "label": "Kolumna 1 — tytuł", "default": "Informacje" },
+    { "type": "link_list", "id": "menu1", "label": "Kolumna 1 — menu", "info": "Puste = automatycznie linki do regulaminów sklepu." },
+    { "type": "text", "id": "col2_title", "label": "Kolumna 2 — tytuł", "default": "Pomoc" },
+    { "type": "link_list", "id": "menu2", "label": "Kolumna 2 — menu" },
+    { "type": "text", "id": "contact_title", "label": "Kontakt — tytuł", "default": "Kontakt" },
+    { "type": "text", "id": "email", "label": "E-mail", "info": "Wpisz swój adres kontaktowy." },
+    { "type": "text", "id": "hours", "label": "Godziny", "default": "Pn–Pt: 9:00–17:00" },
+    { "type": "text", "id": "payments", "label": "Płatności (po przecinku)", "default": "BLIK, Przelewy24, VISA, Mastercard, Apple Pay, Google Pay" }
+  ]
+}
+{% endschema %}
