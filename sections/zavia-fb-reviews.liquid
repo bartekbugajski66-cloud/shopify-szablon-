@@ -89,7 +89,6 @@
     var liked = b.classList.toggle('is-liked');
     var bubble = b.closest('.zv-fb__body').querySelector('.zv-fb__count [data-n]');
     if (bubble) bubble.textContent = parseInt(bubble.textContent, 10) + (liked ? 1 : -1);
-    if (liked && window.zaviaBurst) { var r = b.getBoundingClientRect(); window.zaviaBurst(r.left + r.width / 2, r.top, 6); }
   });
   var more = document.getElementById('zv-fbmore-{{ section.id }}');
   if (more) more.addEventListener('click', function(){

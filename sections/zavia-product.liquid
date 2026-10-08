@@ -91,11 +91,11 @@
           endif
         endif
       -%}
-      {%- if section.settings.timer_enable or show_stock or section.settings.fomo_text != blank -%}
+      {%- if section.settings.timer_enable or show_stock -%}
         <div class="zv-fomo">
           {%- if section.settings.timer_enable and section.settings.timer_end != blank -%}
             <div class="zv-fomo__row" id="zv-timer-wrap-{{ section.id }}" data-end="{{ section.settings.timer_end | escape }}" hidden>
-              <span class="zv-fomo__label"><span class="zv-pulse" aria-hidden="true"></span>{{ section.settings.timer_label }}</span>
+              <span class="zv-fomo__label"><span aria-hidden="true">⏰</span> {{ section.settings.timer_label }}</span>
               <div class="zv-timer" aria-live="off">
                 <span class="zv-timer__box"><span data-d>00</span><small>dni</small></span>
                 <span class="zv-timer__box"><span data-h>00</span><small>godz</small></span>
@@ -109,7 +109,7 @@
               <div class="zv-stock__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ stock_pct }}" aria-label="Pozostały zapas"><div class="zv-stock__fill" style="width:{{ stock_pct }}%"></div></div>
               <div class="zv-stock__text">🔥 {{ section.settings.stock_text | replace: '[ilosc]', base_variant.inventory_quantity }}</div>
             </div>
-          {%- elsif section.settings.fomo_text != blank -%}
+          {%- elsif section.settings.fomo_text != blank and section.settings.timer_enable == false -%}
             <div class="zv-fomo__label">🔥 {{ section.settings.fomo_text }}</div>
           {%- endif -%}
         </div>
@@ -160,6 +160,10 @@
               assign pack_compare = base_compare | times: qty
               assign pack_save = pack_compare | minus: pack_price
               assign per_unit = pack_price | divided_by: qty
+              assign save_pct = pct
+              if save_pct == 0 and pack_save > 0
+                assign save_pct = pack_save | times: 100.0 | divided_by: pack_compare | round
+              endif
               assign checked = false
               if block.settings.preselect
                 assign checked = true
@@ -172,28 +176,34 @@
                 data-qty="{{ send_qty }}"
                 data-price="{{ pack_price | money | escape }}"
                 data-compare="{% if pack_save > 0 %}{{ pack_compare | money | escape }}{% endif %}"
+                data-save="{% if pack_save > 0 %}Oszczędzasz {{ pack_save | money | escape }} (-{{ save_pct }}%){% endif %}"
                 {% if checked %}checked{% endif %}{% unless pack_available %} disabled{% endunless %}>
               <span class="zv-pack__box">
                 <span class="zv-pack__radio" aria-hidden="true"></span>
-                <span>
-                  <span class="zv-pack__title"><span class="zv-pack__emoji" aria-hidden="true">{{ block.settings.emoji }}</span>{{ block.settings.title }}</span>
-                  <span class="zv-pack__unit">{{ per_unit | money }} / szt.{% if block.settings.desc != blank %} · {{ block.settings.desc }}{% endif %}</span>
-                  {%- if pack_save > 0 -%}<br><span class="zv-pack__save">Oszczędzasz {{ pack_save | money }}</span>{%- endif -%}
-                  {%- unless pack_available -%}<br><span class="zv-pack__save" style="background:#ffe4ea;color:#b4123c">Chwilowo wyprzedane</span>{%- endunless -%}
+                <span class="zv-pack__emoji" aria-hidden="true">{{ block.settings.emoji }}</span>
+                <span class="zv-pack__text">
+                  <span class="zv-pack__title">{{ block.settings.title }}</span>
+                  <span class="zv-pack__unit">
+                    {%- if block.settings.desc != blank -%}{{ block.settings.desc }}{%- endif -%}
+                    {%- if qty > 1 -%}{% if block.settings.desc != blank %} · {% endif %}{{ per_unit | money }} / szt.{%- endif -%}
+                  </span>
+                  {%- if pack_save > 0 -%}<span class="zv-pack__save">Oszczędzasz {{ pack_save | money }} (-{{ save_pct }}%)</span>{%- endif -%}
+                  {%- unless pack_available -%}<span class="zv-pack__save zv-pack__save--out">Chwilowo wyprzedane</span>{%- endunless -%}
                 </span>
                 <span class="zv-pack__prices">
                   <span class="zv-pack__price">{{ pack_price | money }}</span>
                   {%- if pack_save > 0 -%}<span class="zv-pack__compare">{{ pack_compare | money }}</span>{%- endif -%}
                 </span>
               </span>
-              {%- if block.settings.badge != blank -%}<span class="zv-pack__badge">{{ block.settings.badge }}</span>{%- endif -%}
+              {%- if block.settings.badge != blank -%}<span class="zv-pack__badge zv-pack__badge--{{ block.settings.badge_style }}">{{ block.settings.badge }}</span>{%- endif -%}
             </label>
           {%- endfor -%}
         </fieldset>
 
         <div class="zv-buy__total">
-          <span>Razem:</span>
-          <span><span class="zv-buy__total-price" id="zv-price-{{ section.id }}"></span><span class="zv-buy__total-old" id="zv-old-{{ section.id }}"></span></span>
+          <span class="zv-buy__total-price" id="zv-price-{{ section.id }}"></span>
+          <span class="zv-buy__total-old" id="zv-old-{{ section.id }}"></span>
+          <span class="zv-buy__total-save" id="zv-save-{{ section.id }}" hidden></span>
         </div>
 
         <button type="submit" class="zv-btn zv-btn--block" id="zv-cta-{{ section.id }}"{% unless product.available %} disabled{% endunless %}>
@@ -255,12 +265,11 @@
     var r = form.querySelector('input[name="zv-pack"]:checked'); if (!r) return;
     pEl.textContent = r.getAttribute('data-price'); if (sbPrice) sbPrice.textContent = r.getAttribute('data-price');
     oEl.textContent = r.getAttribute('data-compare') || '';
+    var sv = document.getElementById('zv-save-' + id), st = r.getAttribute('data-save') || '';
+    if (sv) { sv.textContent = st; sv.hidden = !st; }
   }
   form.querySelectorAll('input[name="zv-pack"]').forEach(function(r){
     r.addEventListener('change', sync);
-    r.closest('label').addEventListener('click', function(e){
-      if (window.zaviaBurst && e.clientX) window.zaviaBurst(e.clientX, e.clientY, 10);
-    });
   });
   sync();
 
@@ -287,7 +296,7 @@
   }
 
   /* dodawanie do koszyka */
-  function addToCart(ev){
+  function addToCart(){
     err.hidden = true;
     var r = form.querySelector('input[name="zv-pack"]:checked');
     if (!r) { err.textContent = 'Wybierz zestaw, aby kontynuować.'; err.hidden = false; return; }
@@ -300,17 +309,15 @@
     .then(function(res){ return res.json().then(function(d){ return { ok: res.ok, d: d }; }); })
     .then(function(x){
       if (!x.ok) throw new Error((x.d && (x.d.description || x.d.message)) || 'Nie udało się dodać do koszyka.');
-      var rect = (ev && ev.currentTarget && ev.currentTarget.getBoundingClientRect) ? ev.currentTarget.getBoundingClientRect() : cta.getBoundingClientRect();
-      if (window.zaviaBurst) window.zaviaBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 22);
-      setTimeout(function(){ window.location.href = after === 'checkout' ? root + 'checkout' : root + 'cart'; }, 550);
+      window.location.href = after === 'checkout' ? root + 'checkout' : root + 'cart';
     })
     .catch(function(e){ cta.removeAttribute('aria-busy'); err.textContent = e.message || 'Wystąpił błąd.'; err.hidden = false; });
   }
-  form.addEventListener('submit', function(e){ e.preventDefault(); addToCart(e.submitter ? { currentTarget: e.submitter } : null); });
+  form.addEventListener('submit', function(e){ e.preventDefault(); addToCart(); });
 
   /* przyklejony pasek */
   var sbar = document.getElementById('zv-sbar-' + id), sbcta = document.getElementById('zv-sbcta-' + id);
-  if (sbcta) sbcta.addEventListener('click', addToCart);
+  if (sbcta) sbcta.addEventListener('click', function(){ addToCart(); });
   if (sbar) {
     var ticking = false;
     var upd = function(){
@@ -345,14 +352,14 @@
     { "type": "textarea", "id": "subheading", "label": "Opis", "default": "Wybierz wzorek, odbij i gotowe! Zavia zamienia zwykłe popołudnie w domowy salon piękności — kolorowe serduszka, kwiatki i gwiazdki na paznokciach w kilka chwil, bez pędzelka i bez rozmazań." },
     { "type": "header", "content": "FOMO" },
     { "type": "checkbox", "id": "timer_enable", "label": "Pokaż odliczanie", "default": true },
-    { "type": "text", "id": "timer_label", "label": "Tekst przy odliczaniu", "default": "Promocja prezentowa kończy się za:" },
+    { "type": "text", "id": "timer_label", "label": "Tekst przy odliczaniu", "default": "Promocja startowa kończy się za:" },
     { "type": "text", "id": "timer_end", "label": "Koniec promocji (RRRR-MM-DD GG:MM)", "default": "2026-12-06 23:59", "info": "Po tej dacie licznik sam się ukryje. Ustaw prawdziwy koniec promocji." },
     { "type": "checkbox", "id": "stock_enable", "label": "Pokaż pasek „zostało X szt.”", "default": true, "info": "Używa prawdziwego stanu magazynu z Shopify (śledzenie zapasów musi być włączone)." },
     { "type": "range", "id": "stock_max", "label": "Pokazuj pasek, gdy zostało mniej niż", "min": 10, "max": 300, "step": 10, "default": 100 },
     { "type": "text", "id": "stock_text", "label": "Tekst przy pasku", "default": "Zostało tylko [ilosc] szt. z tej dostawy!", "info": "[ilosc] zostanie zamienione na stan magazynu." },
     { "type": "text", "id": "fomo_text", "label": "Tekst FOMO (gdy brak paska zapasu)", "default": "Przed świętami znika najszybciej — zamów, zanim zabraknie!" },
     { "type": "header", "content": "Zakup" },
-    { "type": "text", "id": "packs_label", "label": "Nagłówek pakietów", "default": "🎀 Wybierz swój zestaw:" },
+    { "type": "text", "id": "packs_label", "label": "Nagłówek pakietów", "default": "Wybierz swój zestaw 👇" },
     { "type": "text", "id": "cta_text", "label": "Przycisk", "default": "Tak! Chcę Zavię 💖" },
     { "type": "text", "id": "sticky_cta", "label": "Przycisk w pasku przyklejonym", "default": "Kupuję 💖" },
     { "type": "text", "id": "note_icon", "label": "Ramka — emotka", "default": "🦄" },
@@ -370,6 +377,8 @@
       { "type": "range", "id": "quantity", "label": "Ilość sztuk", "min": 1, "max": 10, "step": 1, "default": 1 },
       { "type": "range", "id": "discount_percent", "label": "Rabat (%)", "min": 0, "max": 60, "step": 1, "unit": "%", "default": 0, "info": "Cena = cena produktu × ilość − rabat. Ustaw taki sam rabat automatyczny w Shopify (Rabaty)." },
       { "type": "text", "id": "badge", "label": "Plakietka" },
+      { "type": "select", "id": "badge_style", "label": "Kolor plakietki", "default": "purple", "options": [
+        { "value": "purple", "label": "Fioletowa" }, { "value": "teal", "label": "Turkusowa" }, { "value": "pink", "label": "Różowa" } ]},
       { "type": "checkbox", "id": "highlight", "label": "Wyróżnij", "default": false },
       { "type": "checkbox", "id": "preselect", "label": "Zaznaczony domyślnie", "default": false },
       { "type": "text", "id": "variant_id", "label": "ID wariantu (opcjonalnie)", "info": "Zostaw puste. Wpisz tylko, jeśli masz osobny wariant z ceną całego pakietu — wtedy do koszyka trafi 1 szt. tego wariantu." }

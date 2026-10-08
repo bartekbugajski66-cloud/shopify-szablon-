@@ -39,16 +39,6 @@
         "a4"
       ]
     },
-    "sprinkles": {
-      "type": "zavia-sprinkles",
-      "settings": {
-        "enable": true,
-        "emojis": "🌈,✨,💖,🦄,⭐,💅,🍭,🎀,🌸,🍬",
-        "count": 18,
-        "count_mobile": 10,
-        "opacity": 75
-      }
-    },
     "product": {
       "type": "zavia-product",
       "blocks": {
@@ -56,35 +46,28 @@
           "type": "benefit",
           "settings": {
             "icon": "💅",
-            "text": "Kolorowe wzorki na paznokciach w kilka chwil — bez pędzelka"
+            "text": "Wzorki w kilka chwil"
           }
         },
         "p2": {
           "type": "benefit",
           "settings": {
             "icon": "🌈",
-            "text": "Serduszka, kwiatki, motylki, gwiazdki — zmieniasz wzór, kiedy chcesz"
+            "text": "Serduszka, kwiatki, gwiazdki"
           }
         },
         "p3": {
           "type": "benefit",
           "settings": {
             "icon": "♻️",
-            "text": "Płytki ze wzorami wielokrotnego użytku — zabawa na długo"
+            "text": "Płytki wielokrotnego użytku"
           }
         },
         "p4": {
           "type": "benefit",
           "settings": {
             "icon": "🧸",
-            "text": "Tak prosta, że dzieci uwielbiają robić to same"
-          }
-        },
-        "p5": {
-          "type": "benefit",
-          "settings": {
-            "icon": "🎁",
-            "text": "Prezent, który naprawdę wywołuje „WOW”"
+            "text": "Proste nawet dla dzieci"
           }
         },
         "p6": {
@@ -92,7 +75,7 @@
           "settings": {
             "emoji": "💅",
             "title": "1 × Zavia",
-            "desc": "na dobry początek",
+            "desc": "na dobry start",
             "quantity": 1,
             "discount_percent": 0,
             "variant_id": "57373997597050"
@@ -103,13 +86,14 @@
           "settings": {
             "emoji": "💖",
             "title": "2 × Zavia",
-            "desc": "dla rodzeństwa lub przyjaciółki",
+            "desc": "dla rodzeństwa",
             "quantity": 2,
             "discount_percent": 10,
-            "badge": "Najczęściej wybierany · -10%",
+            "badge": "⭐ Najczęściej wybierany",
             "highlight": true,
             "preselect": true,
-            "variant_id": "57373997629818"
+            "variant_id": "57373997629818",
+            "badge_style": "purple"
           }
         },
         "p8": {
@@ -117,11 +101,12 @@
           "settings": {
             "emoji": "🦄",
             "title": "3 × Zavia",
-            "desc": "zapas prezentów na cały rok",
+            "desc": "dla całej ekipy",
             "quantity": 3,
             "discount_percent": 20,
-            "badge": "Najlepsza oferta · -20%",
-            "variant_id": "57373997662586"
+            "badge": "🔥 Najlepsza cena",
+            "variant_id": "57373997662586",
+            "badge_style": "teal"
           }
         },
         "p9": {
@@ -151,7 +136,6 @@
         "p2",
         "p3",
         "p4",
-        "p5",
         "p6",
         "p7",
         "p8",
@@ -160,7 +144,10 @@
         "p11"
       ],
       "settings": {
-        "product": "zavia-drukarka-wzorkow-na-paznokcie"
+        "product": "zavia-drukarka-wzorkow-na-paznokcie",
+        "timer_label": "Promocja startowa kończy się za:",
+        "packs_label": "Wybierz swój zestaw 👇",
+        "fomo_text": ""
       }
     },
     "ribbon": {
@@ -640,41 +627,6 @@
         "pr4"
       ]
     },
-    "video": {
-      "type": "zavia-video",
-      "settings": {
-        "eyebrow": "🎬 Zavia w akcji",
-        "heading": "Zobacz, jak",
-        "heading_accent": "powstaje wzorek",
-        "subheading": "Kilka sekund, jedno przesunięcie i gotowe. Zobacz to na własne oczy.",
-        "bg": "lilac"
-      },
-      "blocks": {
-        "v1": {
-          "type": "video",
-          "settings": {
-            "caption": "Zobacz, jak to działa ✨"
-          }
-        },
-        "v2": {
-          "type": "video",
-          "settings": {
-            "caption": "Pierwszy wzorek 💖"
-          }
-        },
-        "v3": {
-          "type": "video",
-          "settings": {
-            "caption": "Efekt WOW 🤩"
-          }
-        }
-      },
-      "block_order": [
-        "v1",
-        "v2",
-        "v3"
-      ]
-    },
     "compare": {
       "type": "zavia-compare",
       "settings": {
@@ -853,17 +805,15 @@
   },
   "order": [
     "announcement",
-    "sprinkles",
     "product",
+    "gallery",
     "ribbon",
     "problems",
     "steps",
-    "video",
     "duo",
     "compare",
     "features",
     "usecases",
-    "gallery",
     "gift",
     "box",
     "specs",
