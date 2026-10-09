@@ -1,0 +1,6 @@
+{%- comment -%} Nagłówek sekcji: render 'lx-head', s: section.settings {%- endcomment -%}
+<div class="lx-center">
+  {%- if s.eyebrow != blank -%}<span class="lx-eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
+  {%- if s.heading != blank -%}<h2 class="lx-h2">{{ s.heading }}{% if s.heading_accent != blank %} <span class="lx-rainbow-text">{{ s.heading_accent }}</span>{% endif %}</h2>{%- endif -%}
+  {%- if s.subheading != blank -%}<p class="lx-lead">{{ s.subheading }}</p>{%- endif -%}
+</div>

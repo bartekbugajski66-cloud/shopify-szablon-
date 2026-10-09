@@ -1,0 +1,37 @@
+{%- comment -%} LASERIX — siatka cech {%- endcomment -%}
+<section class="lx-sec lx-sec--{{ section.settings.bg }}">
+  <div class="lx-container">
+    {%- render 'lx-head', s: section.settings -%}
+    <div class="lx-feats">
+      {%- for block in section.blocks -%}
+        <div class="lx-feat" {{ block.shopify_attributes }}>
+          <div class="lx-feat__ico" aria-hidden="true">{{ block.settings.icon }}</div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Laserix — cechy",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł" },
+    { "type": "text", "id": "heading", "label": "Tytuł" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — neonowa część" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "white", "options": [
+      { "value": "white", "label": "Panel (ciemny granat)" }, { "value": "pink", "label": "Czerwona poświata" }, { "value": "lilac", "label": "Fioletowa poświata" },
+      { "value": "mint", "label": "Zielona poświata" }, { "value": "sky", "label": "Niebieska poświata" }, { "value": "sun", "label": "Żółta poświata" }, { "value": "none", "label": "Brak" } ]}
+  ],
+  "blocks": [
+    { "type": "feature", "name": "Cecha", "settings": [
+      { "type": "text", "id": "icon", "label": "Emotka", "default": "✨" },
+      { "type": "text", "id": "title", "label": "Tytuł", "default": "Cecha" },
+      { "type": "textarea", "id": "text", "label": "Tekst" }
+    ]}
+  ],
+  "presets": [{ "name": "Laserix — cechy" }]
+}
+{% endschema %}

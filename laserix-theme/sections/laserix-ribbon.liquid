@@ -1,0 +1,16 @@
+{%- comment -%} LASERIX — przewijana wstążka z hasłami {%- endcomment -%}
+{%- assign items = section.settings.items | split: ',' -%}
+<div class="lx-ribbon-wrap" aria-hidden="true"><div class="lx-ribbon">
+  <div class="lx-ribbon__track">
+    {%- for i in (1..4) -%}{%- for t in items -%}<span>{{ t | strip }}</span>{%- endfor -%}{%- endfor -%}
+  </div>
+</div></div>
+{% schema %}
+{
+  "name": "Laserix — wstążka",
+  "settings": [
+    { "type": "textarea", "id": "items", "label": "Hasła (po przecinku)", "default": "⚡ 4 graczy naraz, 🎯 Zasięg do 20 m, 🔊 Dźwięki i wibracje, 🛡️ Bezpieczna podczerwień, 🏠 Dom i ogród, 🎁 Prezent nr 1" }
+  ],
+  "presets": [{ "name": "Laserix — wstążka" }]
+}
+{% endschema %}

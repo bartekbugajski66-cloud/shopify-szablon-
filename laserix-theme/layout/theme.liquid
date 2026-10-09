@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#05070f">
+  <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;1,700&family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+  {{ 'laserix.css' | asset_url | stylesheet_tag }}
+  {{ content_for_header }}
+</head>
+<body class="lx-body">
+  <a class="lx-skip" href="#MainContent">Przejdź do treści</a>
+  {% section 'laserix-header' %}
+  <main id="MainContent">
+    {{ content_for_layout }}
+  </main>
+  {% section 'laserix-footer' %}
+</body>
+</html>

@@ -1,0 +1,183 @@
+{%- comment -%}
+  LASERIX — koszyk: karty produktów z +/−, „ulepsz zestaw”, podsumowanie z oszczędnością, duży przycisk do kasy.
+{%- endcomment -%}
+{%- liquid
+  assign compare_total = 0
+  for item in cart.items
+    assign unit_compare = item.variant.compare_at_price | default: 0
+    if unit_compare < item.final_price
+      assign unit_compare = item.original_price
+    endif
+    assign line_compare = unit_compare | times: item.quantity
+    assign compare_total = compare_total | plus: line_compare
+  endfor
+  assign cart_saving = compare_total | minus: cart.total_price
+  if cart_saving < 0
+    assign cart_saving = 0
+  endif
+-%}
+<section class="lx-cart" id="lx-cart">
+  <div class="lx-container">
+    <div class="lx-cart__head">
+      <h1 class="lx-cart__title">{{ section.settings.heading }} <span aria-hidden="true">🛍️</span></h1>
+      {%- if cart.item_count > 0 -%}
+        <span class="lx-cart__count">{{ cart.item_count }} {% if cart.item_count == 1 %}produkt{% elsif cart.item_count < 5 %}produkty{% else %}produktów{% endif %}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="lx-cart__empty">
+        <div class="lx-cart__empty-emoji" aria-hidden="true">🎯</div>
+        <h2>{{ section.settings.empty_title }}</h2>
+        <p>{{ section.settings.empty_text }}</p>
+        {%- assign first_product = collections.all.products.first -%}
+        <a href="{% if first_product %}{{ first_product.url }}{% else %}{{ routes.root_url }}{% endif %}" class="lx-btn">{{ section.settings.empty_cta }}</a>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="lx-cart__grid" id="lx-cart-form">
+        <div class="lx-cart__items">
+          {%- for item in cart.items -%}
+            {%- liquid
+              assign v_index = 0
+              for v in item.product.variants
+                if v.id == item.variant.id
+                  assign v_index = forloop.index
+                endif
+              endfor
+              assign next_variant = nil
+              if v_index > 0 and v_index < item.product.variants.size
+                assign next_variant = item.product.variants[v_index]
+              endif
+              assign unit_compare = item.variant.compare_at_price | default: 0
+            -%}
+            <div class="lx-ci">
+              <a href="{{ item.url }}" class="lx-ci__img">
+                {%- if item.image -%}
+                  {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.product.title }}
+                {%- else -%}<span aria-hidden="true">🔫</span>{%- endif -%}
+              </a>
+              <div class="lx-ci__body">
+                <a href="{{ item.url }}" class="lx-ci__name">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}<span class="lx-ci__variant">{{ item.variant.title }}</span>{%- endunless -%}
+                <div class="lx-ci__row">
+                  <div class="lx-qty" data-line="{{ forloop.index }}">
+                    <button type="button" class="lx-qty__btn" data-step="-1" aria-label="Zmniejsz ilość">−</button>
+                    <input class="lx-qty__input" type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Ilość: {{ item.product.title | escape }}">
+                    <button type="button" class="lx-qty__btn" data-step="1" aria-label="Zwiększ ilość">+</button>
+                  </div>
+                  <div class="lx-ci__prices">
+                    <span class="lx-ci__price">{{ item.final_line_price | money }}</span>
+                    {%- if unit_compare > item.final_price -%}<s class="lx-ci__compare">{{ unit_compare | times: item.quantity | money }}</s>{%- endif -%}
+                  </div>
+                </div>
+                <a class="lx-ci__remove" href="{{ item.url_to_remove }}" aria-label="Usuń {{ item.product.title | escape }}">🗑️ Usuń</a>
+              </div>
+              {%- if section.settings.upsell_enable and next_variant and next_variant.available -%}
+                {%- assign diff = next_variant.price | minus: item.final_price -%}
+                <div class="lx-ci__upsell">
+                  <span class="lx-ci__upsell-txt"><b>{{ section.settings.upsell_label }}</b> {{ next_variant.title }} — tylko <b>+{{ diff | money }}</b></span>
+                  <button type="button" class="lx-ci__upsell-btn" data-line="{{ forloop.index }}" data-qty="{{ item.quantity }}" data-variant="{{ next_variant.id }}">{{ section.settings.upsell_cta }}</button>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+          <a href="{{ cart.items.first.url | default: routes.root_url }}" class="lx-cart__back">← {{ section.settings.back_text }}</a>
+        </div>
+
+        <aside class="lx-sum">
+          <h2 class="lx-sum__title">{{ section.settings.summary_title }}</h2>
+          <dl class="lx-sum__rows">
+            {%- if cart_saving > 0 -%}
+              <div><dt>Wartość produktów</dt><dd><s>{{ compare_total | money }}</s></dd></div>
+              <div class="lx-sum__save"><dt>Oszczędzasz 🎉</dt><dd>−{{ cart_saving | money }}</dd></div>
+            {%- endif -%}
+            {%- for discount in cart.cart_level_discount_applications -%}
+              <div class="lx-sum__save"><dt>{{ discount.title }}</dt><dd>−{{ discount.total_allocated_amount | money }}</dd></div>
+            {%- endfor -%}
+            <div class="lx-sum__total"><dt>Razem</dt><dd>{{ cart.total_price | money }}</dd></div>
+          </dl>
+          {%- if section.settings.note != blank -%}<p class="lx-sum__note">{{ section.settings.note }}</p>{%- endif -%}
+          <button type="submit" name="checkout" class="lx-btn lx-btn--block lx-sum__cta">{{ section.settings.checkout_text }}</button>
+          <noscript><button type="submit" name="update" class="lx-btn lx-btn--ghost lx-btn--block" style="margin-top:10px">Przelicz koszyk</button></noscript>
+          <ul class="lx-sum__trust">
+            <li><span aria-hidden="true">🚀</span>Szybka wysyłka</li>
+            <li><span aria-hidden="true">🛡️</span>30 dni gwarancji</li>
+            <li><span aria-hidden="true">🔒</span>Bezpieczne płatności</li>
+          </ul>
+          {%- if section.settings.payments != blank -%}
+            <div class="lx-sum__pays">
+              {%- assign pays = section.settings.payments | split: ',' -%}
+              {%- for p in pays -%}<span>{{ p | strip }}</span>{%- endfor -%}
+            </div>
+          {%- endif -%}
+        </aside>
+      </form>
+
+      <div class="lx-cart__bar" aria-hidden="true">
+        <div><span class="lx-cart__bar-label">Razem</span><span class="lx-cart__bar-price">{{ cart.total_price | money }}</span></div>
+        <button type="submit" form="lx-cart-form" name="checkout" class="lx-btn" tabindex="-1">Do kasy 🔒</button>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+(function(){
+  var form = document.getElementById('lx-cart-form'); if (!form) return;
+  var root = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
+  function busy(){ form.classList.add('is-busy'); }
+  function change(line, qty){
+    busy();
+    return fetch(root + 'cart/change.js', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ line: line, quantity: qty }) });
+  }
+  form.querySelectorAll('.lx-qty').forEach(function(box){
+    var input = box.querySelector('input'), line = parseInt(box.getAttribute('data-line'), 10), t;
+    function commit(){ var q = Math.max(0, parseInt(input.value, 10) || 0); change(line, q).then(function(){ location.reload(); }); }
+    box.querySelectorAll('.lx-qty__btn').forEach(function(b){
+      b.addEventListener('click', function(){
+        input.value = Math.max(0, (parseInt(input.value, 10) || 0) + parseInt(b.getAttribute('data-step'), 10));
+        clearTimeout(t); t = setTimeout(commit, 350);
+      });
+    });
+    input.addEventListener('change', commit);
+  });
+  form.querySelectorAll('.lx-ci__upsell-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var line = parseInt(b.getAttribute('data-line'), 10), qty = parseInt(b.getAttribute('data-qty'), 10) || 1;
+      change(line, 0)
+        .then(function(){ return fetch(root + 'cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ items: [{ id: parseInt(b.getAttribute('data-variant'), 10), quantity: qty }] }) }); })
+        .then(function(){ location.reload(); });
+    });
+  });
+  var bar = document.querySelector('.lx-cart__bar'), cta = document.querySelector('.lx-sum__cta');
+  if (bar && cta && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(e){
+      var show = !e[0].isIntersecting && e[0].boundingClientRect.top > 0;
+      bar.classList.toggle('is-visible', show);
+      bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+      bar.querySelector('button').tabIndex = show ? 0 : -1;
+    }).observe(cta);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Laserix — koszyk",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "Twój koszyk" },
+    { "type": "text", "id": "summary_title", "label": "Tytuł podsumowania", "default": "Podsumowanie" },
+    { "type": "text", "id": "checkout_text", "label": "Przycisk do kasy", "default": "Przechodzę do kasy 🔒" },
+    { "type": "text", "id": "note", "label": "Dopisek pod sumą", "default": "Podatki wliczone w cenę. Dostawę wybierzesz w kasie." },
+    { "type": "text", "id": "back_text", "label": "Link powrotu", "default": "Wróć do zakupów" },
+    { "type": "checkbox", "id": "upsell_enable", "label": "Pokaż „Ulepsz zestaw”", "default": true, "info": "Proponuje kolejny wariant produktu (np. 1 szt. → 2 szt.)." },
+    { "type": "text", "id": "upsell_label", "label": "„Ulepsz” — tekst", "default": "💡 Weź więcej i oszczędź:" },
+    { "type": "text", "id": "upsell_cta", "label": "„Ulepsz” — przycisk", "default": "Zmieniam ✨" },
+    { "type": "text", "id": "payments", "label": "Płatności (po przecinku)", "default": "BLIK, Przelewy24, VISA, Mastercard, Apple Pay, Google Pay" },
+    { "type": "header", "content": "Pusty koszyk" },
+    { "type": "text", "id": "empty_title", "label": "Tytuł", "default": "Twój koszyk jest pusty" },
+    { "type": "text", "id": "empty_text", "label": "Tekst", "default": "Zajrzyj do zestawów Laserix — arena laserowa czeka! ⚡" },
+    { "type": "text", "id": "empty_cta", "label": "Przycisk", "default": "Wybieram zestaw ⚡" }
+  ]
+}
+{% endschema %}

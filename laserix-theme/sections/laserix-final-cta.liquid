@@ -1,0 +1,30 @@
+{%- comment -%} LASERIX — końcowe wezwanie do zakupu {%- endcomment -%}
+<section class="lx-sec lx-sec--{{ section.settings.bg }}">
+  <div class="lx-container">
+    <div class="lx-final">
+      <span class="lx-final__floaty" style="top:16px;left:18px" aria-hidden="true">⚡</span>
+      <span class="lx-final__floaty" style="top:24px;right:22px;animation-delay:.6s" aria-hidden="true">🎯</span>
+      <span class="lx-final__floaty" style="bottom:18px;left:12%;animation-delay:1.2s;font-size:30px" aria-hidden="true">🔫</span>
+      <span class="lx-final__floaty" style="bottom:22px;right:10%;animation-delay:.3s;font-size:30px" aria-hidden="true">✨</span>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subheading }}</p>
+      <a href="#kup" class="lx-btn">{{ section.settings.cta }}</a>
+      {%- assign chips = section.settings.chips | split: ',' -%}
+      <div class="lx-final__chips">{%- for c in chips -%}<span>{{ c | strip }}</span>{%- endfor -%}</div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Laserix — końcowe CTA",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "Podaruj jej odrobinę magii ✨" },
+    { "type": "textarea", "id": "subheading", "label": "Tekst", "default": "Pierwsze trafienie, pierwszy okrzyk radości — i wieczór bez telefonu. Zamów Laserix dziś." },
+    { "type": "text", "id": "cta", "label": "Przycisk", "default": "Wybieram zestaw ⚡" },
+    { "type": "text", "id": "chips", "label": "Plakietki (po przecinku)", "default": "🚀 Szybka wysyłka, 🛡️ 30 dni gwarancji, 🔒 Bezpieczne płatności" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "white", "options": [
+      { "value": "white", "label": "Panel (ciemny granat)" }, { "value": "pink", "label": "Czerwona poświata" }, { "value": "lilac", "label": "Fioletowa poświata" }, { "value": "none", "label": "Brak" } ]}
+  ],
+  "presets": [{ "name": "Laserix — końcowe CTA" }]
+}
+{% endschema %}

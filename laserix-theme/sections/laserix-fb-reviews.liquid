@@ -1,0 +1,153 @@
+{%- comment -%}
+  LASERIX — opinie w wyglądzie komentarzy z Facebooka (z możliwością dodania zdjęcia pod komentarzem i odpowiedzi sklepu).
+  Wklejaj tu prawdziwe komentarze klientów.
+{%- endcomment -%}
+<section class="lx-sec lx-sec--{{ section.settings.bg }}" id="opinie">
+  <div class="lx-container">
+    {%- render 'lx-head', s: section.settings -%}
+    {%- if section.settings.summary_enable -%}
+      <div class="lx-rsum">
+        <div class="lx-rsum__score"><b>{{ section.settings.score }}</b><span class="lx-rsum__stars" aria-hidden="true">★★★★★</span><small>{{ section.settings.count_text }}</small></div>
+        <div class="lx-rsum__bars">
+          {%- assign bars = section.settings.bars | split: ',' -%}
+          {%- for p in bars limit: 5 -%}
+            {%- assign stars = 6 | minus: forloop.index -%}
+            <div class="lx-rsum__row"><span>{{ stars }}★</span><span class="lx-rsum__bar"><i style="width:{{ p | strip }}%"></i></span><span>{{ p | strip }}%</span></div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+    <div class="lx-fb">
+      <div class="lx-fb__head">
+        <span class="lx-fb__brand"><span class="lx-fb__logo" aria-hidden="true">f</span>{{ section.settings.page_name }}</span>
+        <span class="lx-fb__sort">{{ section.settings.sort_label }} ▾</span>
+      </div>
+      {%- if section.settings.reactions_total != blank -%}
+        <div class="lx-fb__stats">
+          <span class="lx-fb__reacts"><span><span class="lx-fb__r lx-fb__r--like">👍</span><span class="lx-fb__r lx-fb__r--love">❤️</span><span class="lx-fb__r lx-fb__r--wow">😮</span></span> {{ section.settings.reactions_total }}</span>
+          <span>{{ section.settings.comments_label }}</span>
+        </div>
+      {%- endif -%}
+
+      <div class="lx-fb__list" id="lx-fb-{{ section.id }}">
+        {%- assign shown = section.settings.visible | default: 4 -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign initial = block.settings.name | strip | slice: 0 | upcase
+            assign colors = '#22d3ff,#ff2e63,#3dff9a,#ffd83d,#a855f7,#ff5a36' | split: ','
+            assign ci = forloop.index0 | modulo: 6
+          -%}
+          <div class="lx-fb__c"{% if forloop.index > shown %} hidden data-more{% endif %} {{ block.shopify_attributes }}>
+            <div class="lx-fb__av" style="background:{{ colors[ci] }}">
+              {%- if block.settings.avatar != blank -%}
+                {{ block.settings.avatar | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+              {%- else -%}{{ initial }}{%- endif -%}
+            </div>
+            <div class="lx-fb__body">
+              <div class="lx-fb__bubble">
+                <span class="lx-fb__name">{{ block.settings.name }}</span>
+                {%- if block.settings.badge != blank -%}<span class="lx-fb__badge">{{ block.settings.badge }}</span>{%- endif -%}
+                <p class="lx-fb__text">{{ block.settings.text }}</p>
+                {%- if block.settings.likes > 0 -%}
+                  <span class="lx-fb__count">
+                    {%- case block.settings.reaction -%}
+                      {%- when 'love' -%}<span class="lx-fb__r lx-fb__r--love">❤️</span>
+                      {%- when 'wow' -%}<span class="lx-fb__r lx-fb__r--wow">😮</span>
+                      {%- when 'mix' -%}<span class="lx-fb__r lx-fb__r--like">👍</span><span class="lx-fb__r lx-fb__r--love">❤️</span>
+                      {%- else -%}<span class="lx-fb__r lx-fb__r--like">👍</span>
+                    {%- endcase -%}
+                    <span data-n>{{ block.settings.likes }}</span>
+                  </span>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.photo != blank -%}
+                <div class="lx-fb__photo">
+                  {%- assign photo_alt = block.settings.photo.alt | default: 'Zdjęcie od klienta' -%}
+                  {{ block.settings.photo | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '260px', alt: photo_alt }}
+                </div>
+              {%- endif -%}
+              <div class="lx-fb__meta">
+                <span>{{ block.settings.time }}</span>
+                <button type="button" class="lx-fb__like">Lubię to!</button>
+                <span>Odpowiedz</span>
+              </div>
+              {%- if block.settings.reply_text != blank -%}
+                <div class="lx-fb__reply">
+                  <div class="lx-fb__av" aria-hidden="true">{{ section.settings.page_emoji }}</div>
+                  <div class="lx-fb__body">
+                    <div class="lx-fb__bubble">
+                      <span class="lx-fb__name">{{ section.settings.page_name }} <span class="lx-fb__verified" aria-label="Autor">✓</span></span>
+                      <p class="lx-fb__text">{{ block.settings.reply_text }}</p>
+                    </div>
+                    <div class="lx-fb__meta"><span>{{ block.settings.time }}</span><button type="button" class="lx-fb__like">Lubię to!</button></div>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      {%- if section.blocks.size > shown -%}
+        <button type="button" class="lx-fb__more" id="lx-fbmore-{{ section.id }}">Wyświetl więcej komentarzy ({{ section.blocks.size | minus: shown }})</button>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.disclaimer != blank -%}<p class="lx-fb__disc">{{ section.settings.disclaimer }}</p>{%- endif -%}
+  </div>
+</section>
+<script>
+(function(){
+  var list = document.getElementById('lx-fb-{{ section.id }}'); if (!list) return;
+  list.addEventListener('click', function(e){
+    var b = e.target.closest('.lx-fb__like'); if (!b) return;
+    var liked = b.classList.toggle('is-liked');
+    var bubble = b.closest('.lx-fb__body').querySelector('.lx-fb__count [data-n]');
+    if (bubble) bubble.textContent = parseInt(bubble.textContent, 10) + (liked ? 1 : -1);
+  });
+  var more = document.getElementById('lx-fbmore-{{ section.id }}');
+  if (more) more.addEventListener('click', function(){
+    list.querySelectorAll('[data-more]').forEach(function(c){ c.hidden = false; });
+    more.remove();
+  });
+})();
+</script>
+{% schema %}
+{
+  "name": "Laserix — opinie (Facebook)",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł", "default": "💬 Opinie z Facebooka" },
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "Co mówią rodzice?" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — neonowa część" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "lilac", "options": [
+      { "value": "white", "label": "Panel (ciemny granat)" }, { "value": "pink", "label": "Czerwona poświata" }, { "value": "lilac", "label": "Fioletowa poświata" },
+      { "value": "mint", "label": "Zielona poświata" }, { "value": "sky", "label": "Niebieska poświata" }, { "value": "sun", "label": "Żółta poświata" }, { "value": "none", "label": "Brak" } ]},
+    { "type": "header", "content": "Podsumowanie ocen" },
+    { "type": "checkbox", "id": "summary_enable", "label": "Pokaż podsumowanie ocen", "default": false, "info": "Wpisuj tylko prawdziwe dane z Twoich opinii." },
+    { "type": "text", "id": "score", "label": "Średnia ocena", "default": "4,9" },
+    { "type": "text", "id": "count_text", "label": "Podpis", "default": "na podstawie opinii klientów" },
+    { "type": "text", "id": "bars", "label": "Procent ocen 5★,4★,3★,2★,1★ (po przecinku)", "default": "92,6,2,0,0" },
+    { "type": "text", "id": "page_name", "label": "Nazwa strony (odpowiedzi sklepu)", "default": "Laserix" },
+    { "type": "text", "id": "page_emoji", "label": "Avatar sklepu (emotka)", "default": "🎯" },
+    { "type": "text", "id": "sort_label", "label": "Sortowanie", "default": "Najtrafniejsze" },
+    { "type": "text", "id": "reactions_total", "label": "Liczba reakcji pod postem", "info": "Puste = ukryj pasek reakcji." },
+    { "type": "text", "id": "comments_label", "label": "Tekst „komentarze”", "default": "Komentarze klientów" },
+    { "type": "range", "id": "visible", "label": "Ile komentarzy pokazać od razu", "min": 1, "max": 12, "step": 1, "default": 4 },
+    { "type": "textarea", "id": "disclaimer", "label": "Dopisek pod opiniami", "default": "Opinie pochodzą z komentarzy naszych klientów w mediach społecznościowych. Mogą być skrócone." }
+  ],
+  "blocks": [
+    { "type": "comment", "name": "Komentarz", "settings": [
+      { "type": "text", "id": "name", "label": "Imię i nazwisko", "default": "Imię Nazwisko" },
+      { "type": "image_picker", "id": "avatar", "label": "Zdjęcie profilowe (opcjonalnie)" },
+      { "type": "text", "id": "badge", "label": "Plakietka pod imieniem", "info": "Np. „Najlepszy fan”." },
+      { "type": "textarea", "id": "text", "label": "Treść komentarza", "default": "Wklej tutaj prawdziwy komentarz klienta." },
+      { "type": "image_picker", "id": "photo", "label": "Zdjęcie pod komentarzem (opcjonalnie)" },
+      { "type": "text", "id": "time", "label": "Kiedy", "default": "1 tydz." },
+      { "type": "number", "id": "likes", "label": "Liczba reakcji", "default": 0 },
+      { "type": "select", "id": "reaction", "label": "Rodzaj reakcji", "default": "like", "options": [
+        { "value": "like", "label": "👍 Lubię to" }, { "value": "love", "label": "❤️ Super" }, { "value": "wow", "label": "😮 Wow" }, { "value": "mix", "label": "👍❤️ Mieszane" } ]},
+      { "type": "textarea", "id": "reply_text", "label": "Odpowiedź sklepu (opcjonalnie)" }
+    ]}
+  ],
+  "presets": [{ "name": "Laserix — opinie (Facebook)" }]
+}
+{% endschema %}

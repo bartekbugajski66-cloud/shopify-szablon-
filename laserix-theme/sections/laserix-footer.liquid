@@ -1,0 +1,71 @@
+{%- comment -%} LASERIX — stopka {%- endcomment -%}
+<footer class="lx-footer">
+  <div class="lx-footer__rainbow" aria-hidden="true"></div>
+  <div class="lx-container lx-footer__inner">
+    <div>
+      <span class="lx-logo"><span class="lx-logo__mark">{% render 'lx-logo-mark' %}</span><span class="lx-logo__text">{{ section.settings.brand_name }}</span></span>
+      <p class="lx-footer__desc">{{ section.settings.brand_text }}</p>
+      <div class="lx-footer__badges">
+        {%- if section.settings.badge_1 != blank -%}<span class="lx-footer__badge">{{ section.settings.badge_1 }}</span>{%- endif -%}
+        {%- if section.settings.badge_2 != blank -%}<span class="lx-footer__badge">{{ section.settings.badge_2 }}</span>{%- endif -%}
+      </div>
+    </div>
+
+    <div>
+      <h3 class="lx-footer__head">{{ section.settings.col1_title }}</h3>
+      <nav class="lx-footer__links">
+        {%- if section.settings.menu1.links.size > 0 -%}
+          {%- for link in section.settings.menu1.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        {%- else -%}
+          {%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}
+        {%- endif -%}
+      </nav>
+    </div>
+
+    <div>
+      <h3 class="lx-footer__head">{{ section.settings.col2_title }}</h3>
+      <nav class="lx-footer__links">
+        {%- if section.settings.menu2.links.size > 0 -%}
+          {%- for link in section.settings.menu2.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        {%- else -%}
+          <a href="{{ routes.cart_url }}">Koszyk</a><a href="{{ routes.account_url }}">Moje konto</a>{%- if section.settings.email != blank -%}<a href="mailto:{{ section.settings.email }}">Napisz do nas</a>{%- endif -%}
+        {%- endif -%}
+      </nav>
+    </div>
+
+    <div>
+      <h3 class="lx-footer__head">{{ section.settings.contact_title }}</h3>
+      <div class="lx-footer__links">
+        {%- if section.settings.email != blank -%}<a class="lx-footer__line" href="mailto:{{ section.settings.email }}">💌 {{ section.settings.email }}</a>{%- endif -%}
+        {%- if section.settings.hours != blank -%}<span class="lx-footer__line">🕒 {{ section.settings.hours }}</span>{%- endif -%}
+      </div>
+      {%- if section.settings.payments != blank -%}
+        <div class="lx-footer__pays">
+          {%- assign pays = section.settings.payments | split: ',' -%}
+          {%- for p in pays -%}<span class="lx-footer__pay">{{ p | strip }}</span>{%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="lx-footer__bottom">© {{ 'now' | date: '%Y' }} {{ section.settings.brand_name }}. Wszelkie prawa zastrzeżone. ⚡</div>
+</footer>
+
+{% schema %}
+{
+  "name": "Laserix — stopka",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Nazwa marki", "default": "Laserix" },
+    { "type": "textarea", "id": "brand_text", "label": "Opis marki", "default": "Laserix to laser tag dla całej rodziny. Bezpieczna podczerwień, prawdziwe emocje i ruch zamiast ekranu — w domu, w ogrodzie i na urodzinach." },
+    { "type": "text", "id": "badge_1", "label": "Odznaka 1", "default": "🚀 Szybka wysyłka" },
+    { "type": "text", "id": "badge_2", "label": "Odznaka 2", "default": "🛡️ 30 dni na zwrot" },
+    { "type": "text", "id": "col1_title", "label": "Kolumna 1 — tytuł", "default": "Informacje" },
+    { "type": "link_list", "id": "menu1", "label": "Kolumna 1 — menu", "info": "Puste = automatycznie linki do regulaminów sklepu." },
+    { "type": "text", "id": "col2_title", "label": "Kolumna 2 — tytuł", "default": "Pomoc" },
+    { "type": "link_list", "id": "menu2", "label": "Kolumna 2 — menu" },
+    { "type": "text", "id": "contact_title", "label": "Kontakt — tytuł", "default": "Kontakt" },
+    { "type": "text", "id": "email", "label": "E-mail", "info": "Wpisz swój adres kontaktowy." },
+    { "type": "text", "id": "hours", "label": "Godziny", "default": "Pn–Pt: 9:00–17:00" },
+    { "type": "text", "id": "payments", "label": "Płatności (po przecinku)", "default": "BLIK, Przelewy24, VISA, Mastercard, Apple Pay, Google Pay" }
+  ]
+}
+{% endschema %}

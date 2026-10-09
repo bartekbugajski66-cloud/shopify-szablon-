@@ -1,0 +1,35 @@
+<div class="drip-page page-width" style="max-width:640px;">
+  <h1>Moje adresy</h1>
+  <p><a href="{{ routes.account_url }}">‹ Wróć do konta</a></p>
+
+  {%- paginate customer.addresses by 10 -%}
+    {%- for address in customer.addresses -%}
+      <div style="border:1px solid #eef1f6; border-radius:14px; padding:16px; margin-bottom:12px;">
+        {%- if address == customer.default_address -%}<strong>Adres domyślny</strong><br>{%- endif -%}
+        {{ address.first_name }} {{ address.last_name }}<br>
+        {{ address.address1 }}{% if address.address2 != blank %}, {{ address.address2 }}{% endif %}<br>
+        {{ address.zip }} {{ address.city }}<br>
+        {{ address.country }}
+      </div>
+    {%- endfor -%}
+  {%- endpaginate -%}
+
+  <h2 style="font-size:20px; font-weight:800; margin-top:28px;">Dodaj nowy adres</h2>
+  {%- form 'customer_address', customer.new_address -%}
+    <label class="drip-label" for="AddrFirst">Imię</label>
+    <input class="drip-input" type="text" name="address[first_name]" id="AddrFirst" autocomplete="given-name">
+    <label class="drip-label" for="AddrLast">Nazwisko</label>
+    <input class="drip-input" type="text" name="address[last_name]" id="AddrLast" autocomplete="family-name">
+    <label class="drip-label" for="AddrLine1">Ulica i numer</label>
+    <input class="drip-input" type="text" name="address[address1]" id="AddrLine1" autocomplete="address-line1">
+    <label class="drip-label" for="AddrCity">Miasto</label>
+    <input class="drip-input" type="text" name="address[city]" id="AddrCity" autocomplete="address-level2">
+    <label class="drip-label" for="AddrZip">Kod pocztowy</label>
+    <input class="drip-input" type="text" name="address[zip]" id="AddrZip" autocomplete="postal-code">
+    <label class="drip-label" for="AddrCountry">Kraj</label>
+    <select class="drip-select" name="address[country]" id="AddrCountry" autocomplete="country">
+      {{ all_country_option_tags }}
+    </select>
+    <button type="submit" class="drip-btn" style="margin-top:16px;">Zapisz adres</button>
+  {%- endform -%}
+</div>

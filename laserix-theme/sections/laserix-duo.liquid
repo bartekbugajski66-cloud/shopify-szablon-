@@ -1,0 +1,59 @@
+{%- comment -%} LASERIX — „Rodzic mówi WOW / Dziecko mówi JEJ!” {%- endcomment -%}
+<section class="lx-sec lx-sec--{{ section.settings.bg }}">
+  <div class="lx-container">
+    {%- render 'lx-head', s: section.settings -%}
+    <div class="lx-duo">
+      <div class="lx-duo__card lx-duo__card--parent">
+        <div class="lx-duo__face" aria-hidden="true">{{ section.settings.parent_emoji }}</div>
+        <p class="lx-duo__quote">{{ section.settings.parent_quote }}</p>
+        <h3>{{ section.settings.parent_label }}</h3>
+        <ul class="lx-duo__list">
+          {%- for block in section.blocks -%}{%- if block.type == 'parent' -%}
+            <li {{ block.shopify_attributes }}><span aria-hidden="true">{{ block.settings.icon }}</span>{{ block.settings.text }}</li>
+          {%- endif -%}{%- endfor -%}
+        </ul>
+      </div>
+      <div class="lx-duo__card lx-duo__card--kid">
+        <div class="lx-duo__face" aria-hidden="true">{{ section.settings.kid_emoji }}</div>
+        <p class="lx-duo__quote">{{ section.settings.kid_quote }}</p>
+        <h3>{{ section.settings.kid_label }}</h3>
+        <ul class="lx-duo__list">
+          {%- for block in section.blocks -%}{%- if block.type == 'kid' -%}
+            <li {{ block.shopify_attributes }}><span aria-hidden="true">{{ block.settings.icon }}</span>{{ block.settings.text }}</li>
+          {%- endif -%}{%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Laserix — rodzic i dziecko",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł" },
+    { "type": "text", "id": "heading", "label": "Tytuł" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — neonowa część" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "white", "options": [
+      { "value": "white", "label": "Panel (ciemny granat)" }, { "value": "pink", "label": "Czerwona poświata" }, { "value": "lilac", "label": "Fioletowa poświata" },
+      { "value": "mint", "label": "Zielona poświata" }, { "value": "sky", "label": "Niebieska poświata" }, { "value": "sun", "label": "Żółta poświata" }, { "value": "none", "label": "Brak" } ]},
+    { "type": "text", "id": "parent_emoji", "label": "Rodzic — emotka", "default": "😍" },
+    { "type": "text", "id": "parent_quote", "label": "Rodzic — cytat", "default": "„Wow, to naprawdę działa!”" },
+    { "type": "text", "id": "parent_label", "label": "Rodzic — podpis", "default": "Dla rodzica" },
+    { "type": "text", "id": "kid_emoji", "label": "Dziecko — emotka", "default": "🤩" },
+    { "type": "text", "id": "kid_quote", "label": "Dziecko — cytat", "default": "„Tato, jeszcze jedna runda!”" },
+    { "type": "text", "id": "kid_label", "label": "Dziecko — podpis", "default": "Dla dziecka" }
+  ],
+  "blocks": [
+    { "type": "parent", "name": "Punkt — rodzic", "settings": [
+      { "type": "text", "id": "icon", "label": "Emotka", "default": "✅" },
+      { "type": "text", "id": "text", "label": "Tekst" }
+    ]},
+    { "type": "kid", "name": "Punkt — dziecko", "settings": [
+      { "type": "text", "id": "icon", "label": "Emotka", "default": "⚡" },
+      { "type": "text", "id": "text", "label": "Tekst" }
+    ]}
+  ],
+  "presets": [{ "name": "Laserix — rodzic i dziecko" }]
+}
+{% endschema %}

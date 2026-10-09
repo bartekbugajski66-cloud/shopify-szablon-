@@ -1,0 +1,402 @@
+{%- comment -%}
+  LASERIX — główna sekcja zakupu: galeria, korzyści, FOMO (odliczanie + stan magazynu), 3 pakiety, dodawanie do koszyka, przyklejony pasek.
+
+  Ceny pakietów liczone są automatycznie od ceny produktu w Shopify:
+  cena pakietu = cena produktu × ilość × (100 − rabat%) / 100.
+  Aby kasa naliczyła tę samą kwotę, ustaw w Shopify rabaty automatyczne (np. „min. 2 szt. → −10%”, „min. 3 szt. → −20%”)
+  ALBO wpisz w pakiecie ID wariantu, którego cena = cena całego pakietu (wtedy do koszyka trafia 1 szt. tego wariantu).
+{%- endcomment -%}
+{%- liquid
+  if section.settings.product != blank
+    assign product = section.settings.product
+  elsif product == blank
+    assign product = collections.all.products.first
+  endif
+-%}
+{%- if product == blank -%}
+  <section class="lx-buy"><div class="lx-container"><p class="lx-buy__note"><span aria-hidden="true">🛍️</span>Wybierz produkt w ustawieniach sekcji „Laserix — produkt i zakup” albo opublikuj produkt w kanale „Sklep online”.</p></div></section>
+{%- else -%}
+{%- liquid
+  assign base_variant = product.selected_or_first_available_variant
+  assign base_price = base_variant.price
+  assign base_compare = base_variant.compare_at_price | default: 0
+  if base_compare < base_price
+    assign base_compare = base_price
+  endif
+  assign form_id = 'lx-form-' | append: section.id
+  if settings.skip_cart
+    assign after_add = 'checkout'
+  else
+    assign after_add = 'cart'
+  endif
+-%}
+<section class="lx-buy" id="kup" data-section="{{ section.id }}">
+  <div class="lx-container lx-buy__grid">
+
+    {%- comment -%} ===== GALERIA ===== {%- endcomment -%}
+    <div class="lx-buy__media">
+      <div class="lx-buy__stage">
+        {%- if section.settings.sticker_1 != blank -%}<span class="lx-buy__sticker">{{ section.settings.sticker_1 }}</span>{%- endif -%}
+        {%- if section.settings.sticker_2 != blank -%}<span class="lx-buy__sticker lx-buy__sticker--alt">{{ section.settings.sticker_2 }}</span>{%- endif -%}
+        {%- if product.featured_media -%}
+          <img id="lx-main-{{ section.id }}" src="{{ product.featured_media | image_url: width: 1200 }}"
+            srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1200 }} 1200w"
+            sizes="(min-width: 960px) 560px, 100vw"
+            alt="{{ product.featured_media.alt | default: product.title | escape }}" width="1200" height="1200" loading="eager" fetchpriority="high">
+        {%- elsif section.settings.fallback_image != blank -%}
+          <img id="lx-main-{{ section.id }}" src="{{ section.settings.fallback_image | asset_url }}" alt="{{ product.title | escape }}" width="900" height="900" loading="eager">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+      {%- assign imgs = product.media | where: 'media_type', 'image' -%}
+      {%- if imgs.size > 1 -%}
+        <div class="lx-buy__thumbs" id="lx-thumbs-{{ section.id }}">
+          {%- for m in imgs limit: 10 -%}
+            <button type="button" class="lx-buy__thumb{% if forloop.first %} is-active{% endif %}" data-full="{{ m | image_url: width: 1200 }}" aria-label="Zdjęcie {{ forloop.index }}">
+              <img src="{{ m | image_url: width: 160 }}" alt="" width="70" height="70" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ===== INFORMACJE I ZAKUP ===== {%- endcomment -%}
+    <div class="lx-buy__info">
+      <div class="lx-buy__chips">
+        {%- if section.settings.chip_hot != blank -%}<span class="lx-chip lx-chip--hot">{{ section.settings.chip_hot }}</span>{%- endif -%}
+        {%- if section.settings.show_rating and section.settings.rating_text != blank -%}
+          <span class="lx-chip lx-chip--rating"><b>★★★★★</b> {{ section.settings.rating_text }}</span>
+        {%- endif -%}
+      </div>
+
+      <h1 class="lx-buy__title">{{ section.settings.heading | default: product.title }} <span class="lx-rainbow-text">{{ section.settings.heading_accent }}</span></h1>
+      {%- if section.settings.subheading != blank -%}<p class="lx-buy__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+
+      {%- assign benefits = section.blocks | where: 'type', 'benefit' -%}
+      {%- if benefits.size > 0 -%}
+        <ul class="lx-benefits">
+          {%- for block in benefits -%}
+            <li {{ block.shopify_attributes }}><span class="lx-benefits__ico" aria-hidden="true">{{ block.settings.icon }}</span><span>{{ block.settings.text }}</span></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- comment -%} ===== FOMO ===== {%- endcomment -%}
+      {%- liquid
+        assign show_stock = false
+        if section.settings.stock_enable and base_variant.inventory_management == 'shopify' and base_variant.inventory_quantity > 0 and base_variant.inventory_quantity <= section.settings.stock_max
+          assign show_stock = true
+          assign stock_pct = base_variant.inventory_quantity | times: 100 | divided_by: section.settings.stock_max
+          if stock_pct < 8
+            assign stock_pct = 8
+          endif
+        endif
+      -%}
+      {%- if section.settings.timer_enable or show_stock -%}
+        <div class="lx-fomo">
+          {%- if section.settings.timer_enable and section.settings.timer_end != blank -%}
+            <div class="lx-fomo__row" id="lx-timer-wrap-{{ section.id }}" data-end="{{ section.settings.timer_end | escape }}" hidden>
+              <span class="lx-fomo__label"><span aria-hidden="true">⏰</span> {{ section.settings.timer_label }}</span>
+              <div class="lx-timer" aria-live="off">
+                <span class="lx-timer__box"><span data-d>00</span><small>dni</small></span>
+                <span class="lx-timer__box"><span data-h>00</span><small>godz</small></span>
+                <span class="lx-timer__box"><span data-m>00</span><small>min</small></span>
+                <span class="lx-timer__box"><span data-s>00</span><small>sek</small></span>
+              </div>
+            </div>
+          {%- endif -%}
+          {%- if show_stock -%}
+            <div>
+              <div class="lx-stock__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ stock_pct }}" aria-label="Pozostały zapas"><div class="lx-stock__fill" style="width:{{ stock_pct }}%"></div></div>
+              <div class="lx-stock__text">🔥 {{ section.settings.stock_text | replace: '[ilosc]', base_variant.inventory_quantity }}</div>
+            </div>
+          {%- elsif section.settings.fomo_text != blank and section.settings.timer_enable == false -%}
+            <div class="lx-fomo__label">🔥 {{ section.settings.fomo_text }}</div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} ===== PAKIETY ===== {%- endcomment -%}
+      {%- form 'product', product, id: form_id, class: 'lx-buy__form', novalidate: 'novalidate' -%}
+        <input type="hidden" name="id" value="{{ base_variant.id }}">
+        <p class="lx-packs__label">{{ section.settings.packs_label }}</p>
+        <fieldset class="lx-packs">
+          <legend class="lx-skip">{{ section.settings.packs_label }}</legend>
+          {%- assign packs = section.blocks | where: 'type', 'package' -%}
+          {%- liquid
+            assign any_pre = false
+            for b in packs
+              if b.settings.preselect
+                assign any_pre = true
+              endif
+            endfor
+          -%}
+          {%- for block in packs -%}
+            {%- liquid
+              assign qty = block.settings.quantity | default: 1
+              assign pct = block.settings.discount_percent | default: 0
+              assign send_id = base_variant.id
+              assign send_qty = qty
+              assign pack_available = base_variant.available
+              assign found_v = nil
+              assign vid = block.settings.variant_id | strip
+              if vid != blank
+                for v in product.variants
+                  assign v_id = v.id | append: ''
+                  if v_id == vid
+                    assign found_v = v
+                  endif
+                endfor
+              endif
+              if vid != blank and found_v
+                assign send_id = found_v.id
+                assign send_qty = 1
+                assign pack_price = found_v.price
+                assign pack_available = found_v.available
+              else
+                assign pack_full = base_price | times: qty
+                assign pct_keep = 100 | minus: pct
+                assign pack_price = pack_full | times: pct_keep | divided_by: 100.0 | round
+              endif
+              assign pack_compare = base_compare | times: qty
+              assign pack_save = pack_compare | minus: pack_price
+              assign per_unit = pack_price | divided_by: qty
+              assign save_pct = pct
+              if save_pct == 0 and pack_save > 0
+                assign save_pct = pack_save | times: 100.0 | divided_by: pack_compare | round
+              endif
+              assign checked = false
+              if block.settings.preselect
+                assign checked = true
+              elsif any_pre == false and forloop.first
+                assign checked = true
+              endif
+            -%}
+            <label class="lx-pack{% if block.settings.highlight %} lx-pack--hl{% endif %}" {{ block.shopify_attributes }}>
+              <input type="radio" name="lx-pack" value="{{ send_id }}"
+                data-qty="{{ send_qty }}"
+                data-price="{{ pack_price | money | escape }}"
+                data-compare="{% if pack_save > 0 %}{{ pack_compare | money | escape }}{% endif %}"
+                data-save="{% if pack_save > 0 %}Oszczędzasz {{ pack_save | money | escape }} (-{{ save_pct }}%){% endif %}"
+                {% if checked %}checked{% endif %}{% unless pack_available %} disabled{% endunless %}>
+              <span class="lx-pack__box">
+                <span class="lx-pack__radio" aria-hidden="true"></span>
+                <span class="lx-pack__emoji" aria-hidden="true">{{ block.settings.emoji }}</span>
+                <span class="lx-pack__text">
+                  <span class="lx-pack__title">{{ block.settings.title }}</span>
+                  {%- if block.settings.pistols > 0 -%}
+                    <span class="lx-pack__guns" aria-label="{{ block.settings.pistols }} pistoletów">
+                      {%- for i in (1..block.settings.pistols) -%}<span class="lx-pack__gun">{% render 'lx-gun' %}</span>{%- endfor -%}
+                    </span>
+                  {%- endif -%}
+                  <span class="lx-pack__unit">
+                    {%- if block.settings.desc != blank -%}{{ block.settings.desc }}{%- endif -%}
+                    {%- if qty > 1 -%}{% if block.settings.desc != blank %} · {% endif %}{{ per_unit | money }} / {{ section.settings.unit_label }}{%- endif -%}
+                  </span>
+                  {%- if pack_save > 0 -%}<span class="lx-pack__save">Oszczędzasz {{ pack_save | money }} (-{{ save_pct }}%)</span>{%- endif -%}
+                  {%- unless pack_available -%}<span class="lx-pack__save lx-pack__save--out">Chwilowo wyprzedane</span>{%- endunless -%}
+                </span>
+                <span class="lx-pack__prices">
+                  <span class="lx-pack__price">{{ pack_price | money }}</span>
+                  {%- if pack_save > 0 -%}<span class="lx-pack__compare">{{ pack_compare | money }}</span>{%- endif -%}
+                </span>
+              </span>
+              {%- if block.settings.badge != blank -%}<span class="lx-pack__badge lx-pack__badge--{{ block.settings.badge_style }}">{{ block.settings.badge }}</span>{%- endif -%}
+            </label>
+          {%- endfor -%}
+        </fieldset>
+
+        <div class="lx-buy__total">
+          <span class="lx-buy__total-price" id="lx-price-{{ section.id }}"></span>
+          <span class="lx-buy__total-old" id="lx-old-{{ section.id }}"></span>
+          <span class="lx-buy__total-save" id="lx-save-{{ section.id }}" hidden></span>
+        </div>
+
+        <button type="submit" class="lx-btn lx-btn--block" id="lx-cta-{{ section.id }}"{% unless product.available %} disabled{% endunless %}>
+          {%- if product.available -%}{{ section.settings.cta_text }}{%- else -%}Chwilowo wyprzedane{%- endif -%}
+        </button>
+        <p class="lx-buy__err" id="lx-err-{{ section.id }}" role="alert" hidden></p>
+      {%- endform -%}
+
+      {%- assign trusts = section.blocks | where: 'type', 'trust' -%}
+      {%- if trusts.size > 0 -%}
+        <div class="lx-trust">
+          {%- for block in trusts -%}
+            <div class="lx-trust__item" {{ block.shopify_attributes }}><span aria-hidden="true">{{ block.settings.icon }}</span>{{ block.settings.text }}</div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.note_text != blank -%}
+        <div class="lx-buy__note"><span aria-hidden="true">{{ section.settings.note_icon }}</span><div>{{ section.settings.note_text }}</div></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ===== PRZYKLEJONY PASEK ===== {%- endcomment -%}
+<div class="lx-sbar" id="lx-sbar-{{ section.id }}" aria-hidden="true">
+  <div class="lx-sbar__inner">
+    <div class="lx-sbar__info">
+      <span class="lx-sbar__name">{{ section.settings.heading | default: product.title }}</span>
+      <span class="lx-sbar__price" id="lx-sbprice-{{ section.id }}"></span>
+    </div>
+    <button type="button" class="lx-btn" id="lx-sbcta-{{ section.id }}" tabindex="-1">{{ section.settings.sticky_cta }}</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var id = '{{ section.id }}';
+  var form = document.getElementById('lx-form-' + id); if (!form) return;
+  var cta = document.getElementById('lx-cta-' + id);
+  var err = document.getElementById('lx-err-' + id);
+  var pEl = document.getElementById('lx-price-' + id), oEl = document.getElementById('lx-old-' + id);
+  var sbPrice = document.getElementById('lx-sbprice-' + id);
+  var after = '{{ after_add }}';
+  var root = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
+
+  /* galeria */
+  var main = document.getElementById('lx-main-' + id), thumbs = document.getElementById('lx-thumbs-' + id);
+  if (main && thumbs) thumbs.querySelectorAll('.lx-buy__thumb').forEach(function(b){
+    b.addEventListener('click', function(){
+      main.removeAttribute('srcset'); main.src = b.getAttribute('data-full');
+      thumbs.querySelectorAll('.lx-buy__thumb').forEach(function(x){ x.classList.remove('is-active'); });
+      b.classList.add('is-active');
+    });
+  });
+
+  /* pakiety */
+  function sync(){
+    var r = form.querySelector('input[name="lx-pack"]:checked'); if (!r) return;
+    pEl.textContent = r.getAttribute('data-price'); if (sbPrice) sbPrice.textContent = r.getAttribute('data-price');
+    oEl.textContent = r.getAttribute('data-compare') || '';
+    var sv = document.getElementById('lx-save-' + id), st = r.getAttribute('data-save') || '';
+    if (sv) { sv.textContent = st; sv.hidden = !st; }
+  }
+  form.querySelectorAll('input[name="lx-pack"]').forEach(function(r){
+    r.addEventListener('change', sync);
+  });
+  sync();
+
+  /* odliczanie */
+  var tw = document.getElementById('lx-timer-wrap-' + id);
+  if (tw) {
+    var raw = tw.getAttribute('data-end').trim().replace(' ', 'T');
+    var end = new Date(raw).getTime();
+    if (!isNaN(end)) {
+      var q = function(s){ return tw.querySelector(s); };
+      var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+      var tick = function(){
+        var d = Math.max(0, end - Date.now());
+        if (d <= 0) { tw.hidden = true; return false; }
+        tw.hidden = false;
+        q('[data-d]').textContent = pad(Math.floor(d / 864e5));
+        q('[data-h]').textContent = pad(Math.floor(d / 36e5) % 24);
+        q('[data-m]').textContent = pad(Math.floor(d / 6e4) % 60);
+        q('[data-s]').textContent = pad(Math.floor(d / 1e3) % 60);
+        return true;
+      };
+      if (tick()) setInterval(tick, 1000);
+    }
+  }
+
+  /* dodawanie do koszyka */
+  function addToCart(){
+    err.hidden = true;
+    var r = form.querySelector('input[name="lx-pack"]:checked');
+    if (!r) { err.textContent = 'Wybierz zestaw, aby kontynuować.'; err.hidden = false; return; }
+    cta.setAttribute('aria-busy', 'true');
+    fetch(root + 'cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ items: [{ id: parseInt(r.value, 10), quantity: parseInt(r.getAttribute('data-qty') || '1', 10) }] })
+    })
+    .then(function(res){ return res.json().then(function(d){ return { ok: res.ok, d: d }; }); })
+    .then(function(x){
+      if (!x.ok) throw new Error((x.d && (x.d.description || x.d.message)) || 'Nie udało się dodać do koszyka.');
+      window.location.href = after === 'checkout' ? root + 'checkout' : root + 'cart';
+    })
+    .catch(function(e){ cta.removeAttribute('aria-busy'); err.textContent = e.message || 'Wystąpił błąd.'; err.hidden = false; });
+  }
+  form.addEventListener('submit', function(e){ e.preventDefault(); addToCart(); });
+
+  /* przyklejony pasek */
+  var sbar = document.getElementById('lx-sbar-' + id), sbcta = document.getElementById('lx-sbcta-' + id);
+  if (sbcta) sbcta.addEventListener('click', function(){ addToCart(); });
+  if (sbar) {
+    var ticking = false;
+    var upd = function(){
+      var show = form.getBoundingClientRect().bottom < 60;
+      sbar.classList.toggle('is-visible', show);
+      sbar.setAttribute('aria-hidden', show ? 'false' : 'true');
+      sbcta.tabIndex = show ? 0 : -1;
+      ticking = false;
+    };
+    window.addEventListener('scroll', function(){ if (!ticking) { requestAnimationFrame(upd); ticking = true; } }, { passive: true });
+    upd();
+  }
+})();
+</script>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Laserix — produkt i zakup",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produkt", "info": "Na stronie produktu zostaw puste. Na stronie głównej wybierz zestaw Laserix." },
+    { "type": "header", "content": "Zdjęcia" },
+    { "type": "text", "id": "fallback_image", "label": "Zdjęcie zastępcze (plik z Zasobów motywu)", "default": "lx-hero.jpg", "info": "Pokazywane tylko, gdy produkt nie ma zdjęć." },
+    { "type": "text", "id": "sticker_1", "label": "Naklejka na zdjęciu 1", "default": "🎁 Hit na prezent" },
+    { "type": "text", "id": "sticker_2", "label": "Naklejka na zdjęciu 2", "default": "-20% przy 3 szt." },
+    { "type": "header", "content": "Nagłówek" },
+    { "type": "text", "id": "chip_hot", "label": "Etykieta „gorąca”", "default": "🔥 HIT SEZONU" },
+    { "type": "checkbox", "id": "show_rating", "label": "Pokaż ocenę", "default": false, "info": "Włącz, gdy masz prawdziwe opinie klientów." },
+    { "type": "text", "id": "rating_text", "label": "Tekst oceny", "default": "4,9/5 · opinie rodziców" },
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "Laserix" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — neonowa część", "default": "zestaw laser tag dla 4 graczy ⚡" },
+    { "type": "textarea", "id": "subheading", "label": "Opis", "default": "Prawdziwa gra laserowa w Twoim domu i ogrodzie. Bezpieczna podczerwień, światła, dźwięki i wibracje przy trafieniu — dzieci odkładają telefony i biegają ze śmiechem." },
+    { "type": "header", "content": "FOMO" },
+    { "type": "checkbox", "id": "timer_enable", "label": "Pokaż odliczanie", "default": true },
+    { "type": "text", "id": "timer_label", "label": "Tekst przy odliczaniu", "default": "Promocja startowa kończy się za:" },
+    { "type": "text", "id": "timer_end", "label": "Koniec promocji (RRRR-MM-DD GG:MM)", "default": "2026-10-31 23:59", "info": "Po tej dacie licznik sam się ukryje. Ustaw prawdziwy koniec promocji." },
+    { "type": "checkbox", "id": "stock_enable", "label": "Pokaż pasek „zostało X szt.”", "default": true, "info": "Używa prawdziwego stanu magazynu z Shopify (śledzenie zapasów musi być włączone)." },
+    { "type": "range", "id": "stock_max", "label": "Pokazuj pasek, gdy zostało mniej niż", "min": 10, "max": 300, "step": 10, "default": 100 },
+    { "type": "text", "id": "stock_text", "label": "Tekst przy pasku", "default": "Zostało tylko [ilosc] szt. z tej dostawy!", "info": "[ilosc] zostanie zamienione na stan magazynu." },
+    { "type": "text", "id": "fomo_text", "label": "Tekst FOMO (gdy brak paska zapasu)", "default": "Przed świętami znika najszybciej — zamów, zanim zabraknie!" },
+    { "type": "header", "content": "Zakup" },
+    { "type": "text", "id": "packs_label", "label": "Nagłówek pakietów", "default": "Wybierz swój zestaw 👇" },
+    { "type": "text", "id": "unit_label", "label": "Jednostka ceny w pakiecie", "default": "zestaw" },
+    { "type": "text", "id": "cta_text", "label": "Przycisk", "default": "Zamawiam Laserix ⚡" },
+    { "type": "text", "id": "sticky_cta", "label": "Przycisk w pasku przyklejonym", "default": "Zamawiam ⚡" },
+    { "type": "text", "id": "note_icon", "label": "Ramka — emotka", "default": "🎯" },
+    { "type": "textarea", "id": "note_text", "label": "Ramka pod przyciskiem", "default": "Każdy zestaw przychodzi w kolorowym pudełku — gotowy do wręczenia jako prezent. Polska obsługa klienta, która naprawdę odpisuje." }
+  ],
+  "blocks": [
+    { "type": "benefit", "name": "Korzyść", "settings": [
+      { "type": "text", "id": "icon", "label": "Emotka", "default": "✨" },
+      { "type": "text", "id": "text", "label": "Tekst", "default": "Korzyść" }
+    ]},
+    { "type": "package", "name": "Pakiet", "limit": 4, "settings": [
+      { "type": "text", "id": "emoji", "label": "Emotka", "default": "⚡" },
+      { "type": "text", "id": "title", "label": "Nazwa", "default": "1 szt." },
+      { "type": "text", "id": "desc", "label": "Dopisek" },
+      { "type": "range", "id": "quantity", "label": "Ilość sztuk", "min": 1, "max": 10, "step": 1, "default": 1 },
+      { "type": "range", "id": "pistols", "label": "Liczba pistoletów (ikonki)", "min": 0, "max": 24, "step": 1, "default": 4 },
+      { "type": "range", "id": "discount_percent", "label": "Rabat (%)", "min": 0, "max": 60, "step": 1, "unit": "%", "default": 0, "info": "Cena = cena produktu × ilość − rabat. Ustaw taki sam rabat automatyczny w Shopify (Rabaty)." },
+      { "type": "text", "id": "badge", "label": "Plakietka" },
+      { "type": "select", "id": "badge_style", "label": "Kolor plakietki", "default": "purple", "options": [
+        { "value": "purple", "label": "Czerwona" }, { "value": "teal", "label": "Niebieska" }, { "value": "pink", "label": "Fioletowa" } ]},
+      { "type": "checkbox", "id": "highlight", "label": "Wyróżnij", "default": false },
+      { "type": "checkbox", "id": "preselect", "label": "Zaznaczony domyślnie", "default": false },
+      { "type": "text", "id": "variant_id", "label": "ID wariantu (opcjonalnie)", "info": "Zostaw puste. Wpisz tylko, jeśli masz osobny wariant z ceną całego pakietu — wtedy do koszyka trafi 1 szt. tego wariantu." }
+    ]},
+    { "type": "trust", "name": "Zaufanie", "limit": 3, "settings": [
+      { "type": "text", "id": "icon", "label": "Emotka", "default": "🚀" },
+      { "type": "text", "id": "text", "label": "Tekst", "default": "Szybka wysyłka" }
+    ]}
+  ]
+}
+{% endschema %}

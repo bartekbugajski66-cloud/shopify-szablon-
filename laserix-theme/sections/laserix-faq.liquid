@@ -1,0 +1,35 @@
+{%- comment -%} LASERIX — FAQ {%- endcomment -%}
+<section class="lx-sec lx-sec--{{ section.settings.bg }}" id="faq">
+  <div class="lx-container">
+    {%- render 'lx-head', s: section.settings -%}
+    <div class="lx-faq">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}{% if forloop.first %} open{% endif %}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="lx-faq__a">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Laserix — FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł" },
+    { "type": "text", "id": "heading", "label": "Tytuł" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — neonowa część" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "white", "options": [
+      { "value": "white", "label": "Panel (ciemny granat)" }, { "value": "pink", "label": "Czerwona poświata" }, { "value": "lilac", "label": "Fioletowa poświata" },
+      { "value": "mint", "label": "Zielona poświata" }, { "value": "sky", "label": "Niebieska poświata" }, { "value": "sun", "label": "Żółta poświata" }, { "value": "none", "label": "Brak" } ]}
+  ],
+  "blocks": [
+    { "type": "faq", "name": "Pytanie", "settings": [
+      { "type": "text", "id": "question", "label": "Pytanie", "default": "Pytanie?" },
+      { "type": "richtext", "id": "answer", "label": "Odpowiedź", "default": "<p>Odpowiedź.</p>" }
+    ]}
+  ],
+  "presets": [{ "name": "Laserix — FAQ" }]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+{%- comment -%} LASERIX — pasek z odliczaniem + nagłówek z logo na środku {%- endcomment -%}
+{%- if section.settings.timer_enable and section.settings.timer_end != blank -%}
+<div class="lx-topbar" id="lx-topbar-{{ section.id }}" data-end="{{ section.settings.timer_end | escape }}" hidden>
+  <div class="lx-container lx-topbar__inner">
+    <span class="lx-topbar__text"><span class="lx-pulse" aria-hidden="true"></span>{{ section.settings.timer_text }}</span>
+    <div class="lx-timer" aria-live="off">
+      <span class="lx-timer__box"><span data-d>00</span><small>dni</small></span>
+      <span class="lx-timer__box"><span data-h>00</span><small>godz</small></span>
+      <span class="lx-timer__box"><span data-m>00</span><small>min</small></span>
+      <span class="lx-timer__box"><span data-s>00</span><small>sek</small></span>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var t = document.getElementById('lx-topbar-{{ section.id }}'); if (!t) return;
+  var end = new Date(t.getAttribute('data-end').trim().replace(' ', 'T')).getTime();
+  if (isNaN(end)) return;
+  var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+  var q = function(s){ return t.querySelector(s); };
+  function tick(){
+    var d = end - Date.now();
+    if (d <= 0) { t.hidden = true; return false; }
+    t.hidden = false;
+    q('[data-d]').textContent = pad(Math.floor(d / 864e5));
+    q('[data-h]').textContent = pad(Math.floor(d / 36e5) % 24);
+    q('[data-m]').textContent = pad(Math.floor(d / 6e4) % 60);
+    q('[data-s]').textContent = pad(Math.floor(d / 1e3) % 60);
+    return true;
+  }
+  if (tick()) setInterval(tick, 1000);
+})();
+</script>
+{%- endif -%}
+<header class="lx-header">
+  <div class="lx-container lx-header__inner">
+    <div class="lx-header__left">
+      <nav class="lx-header__nav" aria-label="Menu">
+        {%- if section.settings.menu.links.size > 0 -%}
+          {%- for link in section.settings.menu.links limit: 4 -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        {%- else -%}
+          <a href="{% if template.name != 'index' and template.name != 'product' %}{{ routes.root_url }}{% endif %}#kup">Zestawy</a>
+          <a href="{% if template.name != 'index' and template.name != 'product' %}{{ routes.root_url }}{% endif %}#opinie">Opinie</a>
+          <a href="{% if template.name != 'index' and template.name != 'product' %}{{ routes.root_url }}{% endif %}#faq">FAQ</a>
+        {%- endif -%}
+      </nav>
+    </div>
+    <a href="{{ routes.root_url }}" class="lx-logo" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name }}
+      {%- else -%}
+        <span class="lx-logo__mark">{% render 'lx-logo-mark' %}</span>
+        <span>
+          <span class="lx-logo__text">{{ section.settings.logo_text }}</span>
+          {%- if section.settings.tagline != blank -%}<span class="lx-logo__tag">{{ section.settings.tagline }}</span>{%- endif -%}
+        </span>
+      {%- endif -%}
+    </a>
+    <div class="lx-header__right">
+      {%- if section.settings.cta_text != blank -%}
+        <a href="{% if template.name == 'product' or template.name == 'index' %}#kup{% else %}{{ routes.root_url }}#kup{% endif %}" class="lx-btn lx-header__cta">{{ section.settings.cta_text }}</a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="lx-header__cart" aria-label="Koszyk ({{ cart.item_count }})">
+        🛒{%- if cart.item_count > 0 -%}<span class="lx-header__count">{{ cart.item_count }}</span>{%- endif -%}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Laserix — nagłówek",
+  "settings": [
+    { "type": "header", "content": "Pasek z odliczaniem (na samej górze)" },
+    { "type": "checkbox", "id": "timer_enable", "label": "Pokaż odliczanie", "default": true },
+    { "type": "text", "id": "timer_text", "label": "Tekst", "default": "Promocja startowa: <b>-20%</b> kończy się za" },
+    { "type": "text", "id": "timer_end", "label": "Koniec promocji (RRRR-MM-DD GG:MM)", "default": "2026-10-31 23:59", "info": "Po tej dacie pasek sam znika. Ustaw prawdziwy koniec promocji." },
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo", "label": "Logo (opcjonalnie)", "info": "Puste = neonowe logo tekstowe." },
+    { "type": "text", "id": "logo_text", "label": "Nazwa", "default": "Laserix" },
+    { "type": "text", "id": "tagline", "label": "Podpis pod nazwą", "default": "Laser Tag" },
+    { "type": "link_list", "id": "menu", "label": "Menu po lewej (komputer)", "info": "Puste = Zestawy / Opinie / FAQ." },
+    { "type": "text", "id": "cta_text", "label": "Przycisk w nagłówku", "default": "Zamów teraz" }
+  ]
+}
+{% endschema %}
