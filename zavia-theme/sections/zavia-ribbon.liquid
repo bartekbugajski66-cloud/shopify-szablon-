@@ -1,0 +1,16 @@
+{%- comment -%} ZAVIA — przewijana wstążka z hasłami {%- endcomment -%}
+{%- assign items = section.settings.items | split: ',' -%}
+<div class="zv-ribbon-wrap" aria-hidden="true"><div class="zv-ribbon">
+  <div class="zv-ribbon__track">
+    {%- for i in (1..4) -%}{%- for t in items -%}<span>{{ t | strip }}</span>{%- endfor -%}{%- endfor -%}
+  </div>
+</div></div>
+{% schema %}
+{
+  "name": "Zavia — wstążka",
+  "settings": [
+    { "type": "textarea", "id": "items", "label": "Hasła (po przecinku)", "default": "💅 Wzorki w kilka chwil, 🌈 Mnóstwo frajdy, 🎁 Idealny prezent, ♻️ Płytki wielokrotnego użytku, 🦄 Bez pędzelka i rozmazań, ✨ Efekt jak z salonu" }
+  ],
+  "presets": [{ "name": "Zavia — wstążka" }]
+}
+{% endschema %}

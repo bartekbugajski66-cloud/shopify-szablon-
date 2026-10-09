@@ -1,0 +1,9 @@
+{
+  "current": {
+    "skip_cart": false,
+    "sections": {
+      "zavia-header": { "type": "zavia-header", "settings": { "logo_emoji": "💅", "logo_text": "Zavia", "tagline": "Paznokcie jak z bajki", "cta_text": "Chcę Zavię ✨" } },
+      "zavia-footer": { "type": "zavia-footer", "settings": { "brand_name": "Zavia", "email": "" } }
+    }
+  }
+}

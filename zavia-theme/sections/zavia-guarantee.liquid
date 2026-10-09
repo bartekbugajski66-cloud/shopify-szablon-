@@ -1,0 +1,32 @@
+{%- comment -%} ZAVIA — gwarancja {%- endcomment -%}
+<section class="zv-sec zv-sec--{{ section.settings.bg }}">
+  <div class="zv-container">
+    <div class="zv-guar">
+      <div class="zv-guar__seal" aria-hidden="true"><div class="zv-guar__seal-in"><div><b>{{ section.settings.days }}</b><small>dni gwarancji</small></div></div></div>
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<span class="zv-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2 class="zv-h2">{{ section.settings.heading }} <span class="zv-rainbow-text">{{ section.settings.heading_accent }}</span></h2>
+        <p class="zv-lead" style="margin-bottom:0">{{ section.settings.subheading }}</p>
+        {%- assign pts = section.settings.points | split: ',' -%}
+        <ul class="zv-guar__points">{%- for p in pts -%}<li>{{ p | strip }}</li>{%- endfor -%}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Zavia — gwarancja",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł" },
+    { "type": "text", "id": "heading", "label": "Tytuł" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — tęczowa część" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "white", "options": [
+      { "value": "white", "label": "Białe" }, { "value": "pink", "label": "Różowe" }, { "value": "lilac", "label": "Liliowe" },
+      { "value": "mint", "label": "Miętowe" }, { "value": "sky", "label": "Błękitne" }, { "value": "sun", "label": "Słoneczne" }, { "value": "none", "label": "Brak" } ]},
+    { "type": "text", "id": "days", "label": "Liczba dni", "default": "30" },
+    { "type": "text", "id": "points", "label": "Punkty (po przecinku)", "default": "🛡️ 30 dni gwarancji, 🚀 Szybka wysyłka, 🔒 Bezpieczne płatności, 💌 Pomocna obsługa" }
+  ],
+  "presets": [{ "name": "Zavia — gwarancja" }]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+{%- comment -%} ZAVIA — nagłówek {%- endcomment -%}
+<header class="zv-header">
+  <div class="zv-container zv-header__inner">
+    <a href="{{ routes.root_url }}" class="zv-logo" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, style: 'max-height:44px;width:auto' }}
+      {%- else -%}
+        <span class="zv-logo__mark" aria-hidden="true">{{ section.settings.logo_emoji }}</span>
+        <span>
+          <span class="zv-logo__text">{{ section.settings.logo_text }}</span>
+          {%- if section.settings.tagline != blank -%}<span class="zv-logo__tag">{{ section.settings.tagline }}</span>{%- endif -%}
+        </span>
+      {%- endif -%}
+    </a>
+    <div class="zv-header__right">
+      {%- if section.settings.cta_text != blank -%}
+        <a href="{% if template.name == 'product' or template.name == 'index' %}#kup{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="zv-btn zv-header__cta">{{ section.settings.cta_text }}</a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="zv-header__cart" aria-label="Koszyk ({{ cart.item_count }})">
+        🛍️{%- if cart.item_count > 0 -%}<span class="zv-header__count">{{ cart.item_count }}</span>{%- endif -%}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Zavia — nagłówek",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (opcjonalnie)", "info": "Puste = logo tekstowe poniżej." },
+    { "type": "text", "id": "logo_emoji", "label": "Emotka w logo", "default": "💅" },
+    { "type": "text", "id": "logo_text", "label": "Nazwa", "default": "Zavia" },
+    { "type": "text", "id": "tagline", "label": "Podpis pod nazwą", "default": "Paznokcie jak z bajki" },
+    { "type": "text", "id": "cta_text", "label": "Przycisk w nagłówku", "default": "Chcę Zavię ✨" }
+  ]
+}
+{% endschema %}

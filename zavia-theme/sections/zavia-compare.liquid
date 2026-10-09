@@ -1,0 +1,48 @@
+{%- comment -%} ZAVIA — porównanie (zwykły sposób vs Zavia) {%- endcomment -%}
+<section class="zv-sec zv-sec--{{ section.settings.bg }}">
+  <div class="zv-container">
+    {%- render 'zv-head', s: section.settings -%}
+    <div class="zv-cmp">
+      <div class="zv-cmp__col zv-cmp__col--bad">
+        {%- if section.settings.left_image != blank -%}
+          {{ section.settings.left_image | image_url: width: 700 | image_tag: class: 'zv-cmp__img', loading: 'lazy', sizes: '(min-width: 800px) 45vw, 100vw' }}
+        {%- else -%}<div class="zv-cmp__emoji" aria-hidden="true">{{ section.settings.left_emoji }}</div>{%- endif -%}
+        <h3>{{ section.settings.left_title }}</h3>
+        <ul>{%- for block in section.blocks -%}{%- if block.type == 'left' -%}<li {{ block.shopify_attributes }}><span aria-hidden="true">✖</span>{{ block.settings.text }}</li>{%- endif -%}{%- endfor -%}</ul>
+      </div>
+      <span class="zv-cmp__vs" aria-hidden="true">VS</span>
+      <div class="zv-cmp__col zv-cmp__col--good">
+        {%- if section.settings.right_image != blank -%}
+          {{ section.settings.right_image | image_url: width: 700 | image_tag: class: 'zv-cmp__img', loading: 'lazy', sizes: '(min-width: 800px) 45vw, 100vw' }}
+        {%- else -%}<div class="zv-cmp__emoji" aria-hidden="true">{{ section.settings.right_emoji }}</div>{%- endif -%}
+        <h3>{{ section.settings.right_title }}</h3>
+        <ul>{%- for block in section.blocks -%}{%- if block.type == 'right' -%}<li {{ block.shopify_attributes }}><span aria-hidden="true">✔</span>{{ block.settings.text }}</li>{%- endif -%}{%- endfor -%}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Zavia — porównanie",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł" },
+    { "type": "text", "id": "heading", "label": "Tytuł" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — tęczowa część" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "white", "options": [
+      { "value": "white", "label": "Białe" }, { "value": "pink", "label": "Różowe" }, { "value": "lilac", "label": "Liliowe" },
+      { "value": "mint", "label": "Miętowe" }, { "value": "sky", "label": "Błękitne" }, { "value": "sun", "label": "Słoneczne" }, { "value": "none", "label": "Brak" } ]},
+    { "type": "text", "id": "left_title", "label": "Lewa — tytuł", "default": "Zwykły pędzelek" },
+    { "type": "text", "id": "left_emoji", "label": "Lewa — emotka (gdy brak zdjęcia)", "default": "😖" },
+    { "type": "image_picker", "id": "left_image", "label": "Lewa — zdjęcie" },
+    { "type": "text", "id": "right_title", "label": "Prawa — tytuł", "default": "Zavia" },
+    { "type": "text", "id": "right_emoji", "label": "Prawa — emotka (gdy brak zdjęcia)", "default": "🤩" },
+    { "type": "image_picker", "id": "right_image", "label": "Prawa — zdjęcie" }
+  ],
+  "blocks": [
+    { "type": "left", "name": "Wada (lewa)", "settings": [ { "type": "text", "id": "text", "label": "Tekst", "default": "Wada" } ] },
+    { "type": "right", "name": "Zaleta (prawa)", "settings": [ { "type": "text", "id": "text", "label": "Tekst", "default": "Zaleta" } ] }
+  ],
+  "presets": [{ "name": "Zavia — porównanie" }]
+}
+{% endschema %}

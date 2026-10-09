@@ -1,0 +1,60 @@
+{%- comment -%} ZAVIA — idealny prezent + odliczanie do okazji {%- endcomment -%}
+<section class="zv-sec zv-sec--{{ section.settings.bg }}">
+  <div class="zv-container zv-gift">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<span class="zv-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="zv-h2">{{ section.settings.heading }} <span class="zv-rainbow-text">{{ section.settings.heading_accent }}</span></h2>
+      <p class="zv-lead">{{ section.settings.subheading }}</p>
+      {%- assign occ = section.settings.occasions | split: ',' -%}
+      <ul class="zv-gift__occ">{%- for o in occ -%}<li>{{ o | strip }}</li>{%- endfor -%}</ul>
+      <a href="#kup" class="zv-btn">{{ section.settings.cta }}</a>
+    </div>
+    <div class="zv-gift__box">
+      <span class="zv-gift__emoji" aria-hidden="true">{{ section.settings.box_emoji }}</span>
+      <p class="zv-gift__label">{{ section.settings.timer_label }}</p>
+      <div class="zv-timer" id="zv-gt-{{ section.id }}" data-end="{{ section.settings.timer_end | escape }}">
+        <span class="zv-timer__box"><span data-d>00</span><small>dni</small></span>
+        <span class="zv-timer__box"><span data-h>00</span><small>godz</small></span>
+        <span class="zv-timer__box"><span data-m>00</span><small>min</small></span>
+      </div>
+      <p style="margin:0;color:var(--zv-ink-soft);font-weight:700">{{ section.settings.box_text }}</p>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var t = document.getElementById('zv-gt-{{ section.id }}'); if (!t) return;
+  var end = new Date(t.getAttribute('data-end').trim().replace(' ', 'T')).getTime();
+  if (isNaN(end)) { t.hidden = true; return; }
+  var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+  function tick(){
+    var d = Math.max(0, end - Date.now());
+    if (d <= 0) { t.closest('.zv-gift__box').hidden = true; return; }
+    t.querySelector('[data-d]').textContent = pad(Math.floor(d / 864e5));
+    t.querySelector('[data-h]').textContent = pad(Math.floor(d / 36e5) % 24);
+    t.querySelector('[data-m]').textContent = pad(Math.floor(d / 6e4) % 60);
+  }
+  tick(); setInterval(tick, 30000);
+})();
+</script>
+{% schema %}
+{
+  "name": "Zavia — prezent",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł" },
+    { "type": "text", "id": "heading", "label": "Tytuł" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł — tęczowa część" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" },
+    { "type": "select", "id": "bg", "label": "Tło", "default": "white", "options": [
+      { "value": "white", "label": "Białe" }, { "value": "pink", "label": "Różowe" }, { "value": "lilac", "label": "Liliowe" },
+      { "value": "mint", "label": "Miętowe" }, { "value": "sky", "label": "Błękitne" }, { "value": "sun", "label": "Słoneczne" }, { "value": "none", "label": "Brak" } ]},
+    { "type": "text", "id": "occasions", "label": "Okazje (po przecinku)", "default": "🎂 Urodziny, 🎅 Mikołajki, 🎄 Święta, 🧸 Dzień Dziecka, 💝 Bez okazji" },
+    { "type": "text", "id": "cta", "label": "Przycisk", "default": "Zamawiam prezent 🎁" },
+    { "type": "text", "id": "box_emoji", "label": "Emotka w ramce", "default": "🎅" },
+    { "type": "text", "id": "timer_label", "label": "Tekst odliczania", "default": "Do Mikołajek zostało:" },
+    { "type": "text", "id": "timer_end", "label": "Data okazji (RRRR-MM-DD GG:MM)", "default": "2026-12-06 00:00", "info": "Po tej dacie ramka sama się ukryje — zmień na kolejną okazję." },
+    { "type": "text", "id": "box_text", "label": "Tekst pod odliczaniem", "default": "Zamów wcześniej i miej prezent z głowy 💖" }
+  ],
+  "presets": [{ "name": "Zavia — prezent" }]
+}
+{% endschema %}
