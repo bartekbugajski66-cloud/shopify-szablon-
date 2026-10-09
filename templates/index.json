@@ -6,8 +6,8 @@
         "a1": {
           "type": "item",
           "settings": {
-            "icon": "🚀",
-            "text": "Szybka wysyłka"
+            "icon": "🚚",
+            "text": "Darmowa wysyłka"
           }
         },
         "a2": {
@@ -112,8 +112,8 @@
         "p9": {
           "type": "trust",
           "settings": {
-            "icon": "🚀",
-            "text": "Szybka wysyłka"
+            "icon": "🚚",
+            "text": "Darmowa wysyłka"
           }
         },
         "p10": {

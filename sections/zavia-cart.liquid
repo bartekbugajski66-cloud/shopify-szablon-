@@ -94,13 +94,14 @@
             {%- for discount in cart.cart_level_discount_applications -%}
               <div class="zv-sum__save"><dt>{{ discount.title }}</dt><dd>−{{ discount.total_allocated_amount | money }}</dd></div>
             {%- endfor -%}
+            <div class="zv-sum__ship"><dt>Dostawa 🚚</dt><dd>Darmowa</dd></div>
             <div class="zv-sum__total"><dt>Razem</dt><dd>{{ cart.total_price | money }}</dd></div>
           </dl>
           {%- if section.settings.note != blank -%}<p class="zv-sum__note">{{ section.settings.note }}</p>{%- endif -%}
           <button type="submit" name="checkout" class="zv-btn zv-btn--block zv-sum__cta">{{ section.settings.checkout_text }}</button>
           <noscript><button type="submit" name="update" class="zv-btn zv-btn--ghost zv-btn--block" style="margin-top:10px">Przelicz koszyk</button></noscript>
           <ul class="zv-sum__trust">
-            <li><span aria-hidden="true">🚀</span>Szybka wysyłka</li>
+            <li><span aria-hidden="true">🚚</span>Darmowa wysyłka</li>
             <li><span aria-hidden="true">🛡️</span>30 dni gwarancji</li>
             <li><span aria-hidden="true">🔒</span>Bezpieczne płatności</li>
           </ul>
@@ -168,7 +169,7 @@
     { "type": "text", "id": "heading", "label": "Tytuł", "default": "Twój koszyk" },
     { "type": "text", "id": "summary_title", "label": "Tytuł podsumowania", "default": "Podsumowanie" },
     { "type": "text", "id": "checkout_text", "label": "Przycisk do kasy", "default": "Przechodzę do kasy 🔒" },
-    { "type": "text", "id": "note", "label": "Dopisek pod sumą", "default": "Podatki wliczone w cenę. Dostawę wybierzesz w kasie." },
+    { "type": "text", "id": "note", "label": "Dopisek pod sumą", "default": "Podatki wliczone w cenę." },
     { "type": "text", "id": "back_text", "label": "Link powrotu", "default": "Wróć do zakupów" },
     { "type": "checkbox", "id": "upsell_enable", "label": "Pokaż „Ulepsz zestaw”", "default": true, "info": "Proponuje kolejny wariant produktu (np. 1 szt. → 2 szt.)." },
     { "type": "text", "id": "upsell_label", "label": "„Ulepsz” — tekst", "default": "💡 Weź więcej i oszczędź:" },

@@ -584,3 +584,4 @@ h1,h2,h3,h4{font-family:var(--zv-font-head);line-height:1.15;margin:0;color:var(
 .zv-cart__bar-price{font-family:var(--zv-font-head);font-weight:700;font-size:22px;color:var(--zv-pink)}
 .zv-cart__bar .zv-btn{padding:13px 22px;font-size:16px}
 @media(min-width:900px){.zv-cart__bar{display:none}}
+.zv-sum__ship dd{color:#0b8b6b;font-weight:900}
