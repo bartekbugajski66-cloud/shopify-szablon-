@@ -10,6 +10,7 @@
           "timer_end": "2026-10-31 23:59",
           "logo_text": "Laserix",
           "tagline": "Laser Tag",
+          "menu": "",
           "cta_text": "Zamów teraz"
         }
       },
@@ -17,10 +18,20 @@
         "type": "laserix-footer",
         "settings": {
           "brand_name": "Laserix",
+          "brand_text": "Laserix to laser tag dla całej rodziny. Bezpieczna podczerwień, prawdziwe emocje i ruch zamiast ekranu — w domu, w ogrodzie i na urodzinach.",
+          "badge_1": "🚚 Darmowa dostawa",
+          "badge_2": "🛡️ 30 dni na zwrot",
+          "col1_title": "Informacje",
+          "menu1": "informacje",
+          "col2_title": "Pomoc",
+          "menu2": "",
+          "contact_title": "Kontakt",
           "email": "bartekbugajski66@gmail.com",
-          "menu1": "informacje"
+          "hours": "Pn–Pt: 9:00–17:00",
+          "payments": "BLIK, Przelewy24, VISA, Mastercard, Apple Pay, Google Pay"
         }
       }
-    }
+    },
+    "content_for_index": []
   }
 }

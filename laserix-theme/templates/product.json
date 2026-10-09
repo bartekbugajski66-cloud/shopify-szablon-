@@ -45,34 +45,11 @@
         "a3",
         "a4",
         "a5"
-      ]
+      ],
+      "settings": {}
     },
     "product": {
       "type": "laserix-product",
-      "settings": {
-        "fallback_image": "lx-zestaw-4-graczy.jpg",
-        "sticker_1": "🎁 Hit na prezent",
-        "sticker_2": "4 graczy",
-        "chip_hot": "🔥 HIT SEZONU",
-        "show_rating": false,
-        "rating_text": "4,9/5 · opinie rodziców",
-        "heading": "Laserix",
-        "heading_accent": "laser tag dla całej ekipy ⚡",
-        "subheading": "Przenieś walkę do domu! Pistolety na bezpieczną podczerwień, kamizelki z czujnikami trafień i świecące efekty w 4 kolorach. Ładujesz przez USB — bez kupowania baterii.",
-        "timer_enable": true,
-        "timer_label": "Promocja kończy się za:",
-        "timer_end": "2026-10-31 23:59",
-        "stock_enable": true,
-        "stock_max": 100,
-        "stock_text": "Zostało tylko [ilosc] szt. z tej dostawy!",
-        "fomo_text": "Przed świętami znika najszybciej — zamów, zanim zabraknie!",
-        "packs_label": "Wybierz swój zestaw 👇",
-        "unit_label": "zestaw",
-        "cta_text": "Zamawiam Laserix ⚡",
-        "sticky_cta": "Zamawiam ⚡",
-        "note_icon": "🎯",
-        "note_text": "🚚 Darmowa dostawa w całej Polsce. Ładowanie przez USB — nie musisz kupować baterii."
-      },
       "blocks": {
         "p1": {
           "type": "benefit",
@@ -108,12 +85,12 @@
             "emoji": "⚡",
             "title": "1 zestaw",
             "desc": "4 pistolety + 4 kamizelki",
-            "pistols": 4,
             "quantity": 1,
+            "pistols": 4,
             "discount_percent": 0,
-            "variant_id": "59419437007196",
             "badge": "",
-            "badge_style": "teal"
+            "badge_style": "teal",
+            "variant_id": "59419437007196"
           }
         },
         "k2": {
@@ -122,14 +99,14 @@
             "emoji": "🔥",
             "title": "2 zestawy",
             "desc": "8 pistoletów + 8 kamizelek",
-            "pistols": 8,
             "quantity": 2,
+            "pistols": 8,
             "discount_percent": 10,
-            "variant_id": "59419437039964",
             "badge": "⭐ Najczęściej wybierany",
             "badge_style": "purple",
             "highlight": true,
-            "preselect": true
+            "preselect": true,
+            "variant_id": "59419437039964"
           }
         },
         "k3": {
@@ -138,19 +115,19 @@
             "emoji": "🏆",
             "title": "3 zestawy",
             "desc": "12 pistoletów + 12 kamizelek",
-            "pistols": 12,
             "quantity": 3,
+            "pistols": 12,
             "discount_percent": 20,
-            "variant_id": "59419437072732",
             "badge": "💎 Najlepsza cena",
-            "badge_style": "teal"
+            "badge_style": "teal",
+            "variant_id": "59419437072732"
           }
         },
         "t1": {
           "type": "trust",
           "settings": {
             "icon": "🚚",
-            "text": "Darmowa dostawa w całej Polsce"
+            "text": "Darmowa dostawa"
           }
         },
         "t2": {
@@ -179,7 +156,31 @@
         "t1",
         "t2",
         "t3"
-      ]
+      ],
+      "settings": {
+        "fallback_image": "lx-zestaw-4-graczy.jpg",
+        "sticker_1": "🎁 Hit na prezent",
+        "sticker_2": "4 graczy",
+        "chip_hot": "🔥 HIT SEZONU",
+        "show_rating": false,
+        "rating_text": "4,9/5 · opinie rodziców",
+        "heading": "Laserix",
+        "heading_accent": "laser tag dla całej ekipy ⚡",
+        "subheading": "Przenieś walkę do domu! Pistolety na bezpieczną podczerwień, kamizelki z czujnikami trafień i świecące efekty w 4 kolorach. Ładujesz przez USB — bez kupowania baterii.",
+        "timer_enable": true,
+        "timer_label": "Promocja kończy się za:",
+        "timer_end": "2026-10-31 23:59",
+        "stock_enable": true,
+        "stock_max": 100,
+        "stock_text": "Zostało tylko [ilosc] szt. z tej dostawy!",
+        "fomo_text": "Przed świętami znika najszybciej — zamów, zanim zabraknie!",
+        "packs_label": "Wybierz swój zestaw 👇",
+        "unit_label": "zestaw",
+        "cta_text": "Zamawiam Laserix ⚡",
+        "sticky_cta": "Zamawiam ⚡",
+        "note_icon": "🎯",
+        "note_text": "🚚 Darmowa dostawa w całej Polsce. Ładowanie przez USB — nie musisz kupować baterii."
+      }
     },
     "ribbon": {
       "type": "laserix-ribbon",
@@ -189,13 +190,6 @@
     },
     "gallery": {
       "type": "laserix-gallery",
-      "settings": {
-        "eyebrow": "📸 Zobacz w akcji",
-        "heading": "Tak wygląda",
-        "heading_accent": "domowa arena",
-        "subheading": "Kliknij zdjęcie, żeby je powiększyć.",
-        "bg": "none"
-      },
       "blocks": {
         "g1": {
           "type": "photo",
@@ -231,23 +225,17 @@
         "g2",
         "g3",
         "g4"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "📸 Zobacz w akcji",
+        "heading": "Tak wygląda",
+        "heading_accent": "domowa arena",
+        "subheading": "Kliknij zdjęcie, żeby je powiększyć.",
+        "bg": "none"
+      }
     },
     "duo": {
       "type": "laserix-duo",
-      "settings": {
-        "eyebrow": "👨‍👩‍👦 Dla całej rodziny",
-        "heading": "Rodzic mówi „wow”.",
-        "heading_accent": "Dziecko krzyczy „JESZCZE!”",
-        "subheading": "Laserix to nie kolejna plastikowa zabawka do szuflady. To zabawa, w którą wciągają się wszyscy — łącznie z rodzicami.",
-        "bg": "none",
-        "parent_emoji": "😌",
-        "parent_quote": "„Wreszcie odłożył telefon!”",
-        "parent_label": "Dla rodzica",
-        "kid_emoji": "🤩",
-        "kid_quote": "„Tato, jeszcze jedna runda!”",
-        "kid_label": "Dla dziecka"
-      },
       "blocks": {
         "d1": {
           "type": "parent",
@@ -315,16 +303,23 @@
         "d6",
         "d7",
         "d8"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "👨‍👩‍👦 Dla całej rodziny",
+        "heading": "Rodzic mówi „wow”.",
+        "heading_accent": "Dziecko krzyczy „JESZCZE!”",
+        "subheading": "Laserix to nie kolejna plastikowa zabawka do szuflady. To zabawa, w którą wciągają się wszyscy — łącznie z rodzicami.",
+        "bg": "none",
+        "parent_emoji": "😌",
+        "parent_quote": "„Wreszcie odłożył telefon!”",
+        "parent_label": "Dla rodzica",
+        "kid_emoji": "🤩",
+        "kid_quote": "„Tato, jeszcze jedna runda!”",
+        "kid_label": "Dla dziecka"
+      }
     },
     "features": {
       "type": "laserix-features",
-      "settings": {
-        "eyebrow": "💥 Dlaczego Laserix",
-        "heading": "Wygląda jak z gry,",
-        "heading_accent": "działa naprawdę",
-        "bg": "lilac"
-      },
       "blocks": {
         "f1": {
           "type": "feature",
@@ -382,27 +377,16 @@
         "f4",
         "f5",
         "f6"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "💥 Dlaczego Laserix",
+        "heading": "Wygląda jak z gry,",
+        "heading_accent": "działa naprawdę",
+        "bg": "lilac"
+      }
     },
     "reviews": {
       "type": "laserix-fb-reviews",
-      "settings": {
-        "eyebrow": "💬 Opinie klientów",
-        "heading": "Co mówią",
-        "heading_accent": "rodzice?",
-        "bg": "none",
-        "summary_enable": true,
-        "score": "4,9",
-        "count_text": "średnia ocen klientów",
-        "bars": "91,7,2,0,0",
-        "page_name": "Laserix",
-        "page_emoji": "🎯",
-        "sort_label": "Najtrafniejsze",
-        "reactions_total": "1,2 tys.",
-        "comments_label": "Komentarze klientów",
-        "visible": 5,
-        "disclaimer": "Opinie pochodzą od naszych klientów. Mogą być skrócone."
-      },
       "blocks": {
         "v1": {
           "type": "comment",
@@ -486,16 +470,27 @@
         "v5",
         "v6",
         "v7"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "💬 Opinie klientów",
+        "heading": "Co mówią",
+        "heading_accent": "rodzice?",
+        "bg": "none",
+        "summary_enable": true,
+        "score": "4,9",
+        "count_text": "średnia ocen klientów",
+        "bars": "91,7,2,0,0",
+        "page_name": "Laserix",
+        "page_emoji": "🎯",
+        "sort_label": "Najtrafniejsze",
+        "reactions_total": "1,2 tys.",
+        "comments_label": "Komentarze klientów",
+        "visible": 5,
+        "disclaimer": "Opinie pochodzą od naszych klientów. Mogą być skrócone."
+      }
     },
     "faq": {
       "type": "laserix-faq",
-      "settings": {
-        "eyebrow": "❓ Pytania",
-        "heading": "Najczęściej",
-        "heading_accent": "zadawane pytania",
-        "bg": "none"
-      },
       "blocks": {
         "q1": {
           "type": "faq",
@@ -536,7 +531,7 @@
           "type": "faq",
           "settings": {
             "question": "Ile kosztuje i ile trwa dostawa?",
-            "answer": "<p>Dostawa standardowa na terenie Polski jest darmowa. Zamówienia wysyłamy najszybciej, jak to możliwe, a dokładny czas dostawy zobaczysz przy kasie.</p>"
+            "answer": "<p>Dostawa jest darmowa — 0 zł za każde zamówienie. Zamówienia wysyłamy najszybciej, jak to możliwe. Szczegóły znajdziesz na stronie <a href=\"/pages/dostawa\">Dostawa</a>.</p>"
           }
         }
       },
@@ -547,7 +542,13 @@
         "q4",
         "q5",
         "q6"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "❓ Pytania",
+        "heading": "Najczęściej",
+        "heading_accent": "zadawane pytania",
+        "bg": "none"
+      }
     },
     "final": {
       "type": "laserix-final-cta",
