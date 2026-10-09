@@ -2,8 +2,25 @@
   "current": {
     "skip_cart": false,
     "sections": {
-      "laserix-header": { "type": "laserix-header", "settings": { "timer_enable": true, "timer_text": "Promocja startowa: <b>-20%</b> kończy się za", "timer_end": "2026-10-31 23:59", "logo_text": "Laserix", "tagline": "Laser Tag", "cta_text": "Zamów teraz" } },
-      "laserix-footer": { "type": "laserix-footer", "settings": { "brand_name": "Laserix", "email": "" } }
+      "laserix-header": {
+        "type": "laserix-header",
+        "settings": {
+          "timer_enable": true,
+          "timer_text": "Promocja startowa: <b>-20%</b> kończy się za",
+          "timer_end": "2026-10-31 23:59",
+          "logo_text": "Laserix",
+          "tagline": "Laser Tag",
+          "cta_text": "Zamów teraz"
+        }
+      },
+      "laserix-footer": {
+        "type": "laserix-footer",
+        "settings": {
+          "brand_name": "Laserix",
+          "email": "bartekbugajski66@gmail.com",
+          "menu1": "informacje"
+        }
+      }
     }
   }
 }

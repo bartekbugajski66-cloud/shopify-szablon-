@@ -633,3 +633,9 @@ h1,h2,h3,h4{font-family:var(--lx-font-head);line-height:1.12;margin:0;color:var(
 @media(max-width:640px){.lx-lb{grid-template-columns:1fr;padding:60px 8px 60px}.lx-lb__nav{position:absolute;bottom:6px;width:46px;height:46px;z-index:2}.lx-lb__nav--prev{left:12px}.lx-lb__nav--next{right:12px}.lx-lb__tip{display:none}.lx-lb__bar{bottom:18px}}
 @media (prefers-reduced-motion:reduce){.lx-gal__item,.lx-gal__item img,.lx-buy__img,.lx-lb__img{transition:none}}
 .lx-lb[hidden]{display:none}
+/* strony z treścią (regulamin, polityki) */
+.drip-page h2{font-size:clamp(22px,4vw,28px);margin:30px 0 12px}
+.drip-page h3{font-size:19px;margin:26px 0 8px;color:var(--lx-blue)}
+.drip-page p,.drip-page li{color:var(--lx-ink-soft)}
+.drip-page strong{color:var(--lx-ink)}
+.drip-page ol,.drip-page ul{padding-left:22px;display:grid;gap:6px}
