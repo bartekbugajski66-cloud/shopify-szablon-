@@ -7,7 +7,7 @@
           "type": "item",
           "settings": {
             "icon": "🚚",
-            "text": "Szybka wysyłka"
+            "text": "Darmowa dostawa w całej Polsce"
           }
         },
         "a2": {
@@ -71,7 +71,7 @@
         "cta_text": "Zamawiam Laserix ⚡",
         "sticky_cta": "Zamawiam ⚡",
         "note_icon": "🎯",
-        "note_text": "Ładowanie przez USB — nie musisz kupować baterii. Każdy zestaw jest gotowy do wręczenia jako prezent."
+        "note_text": "🚚 Darmowa dostawa w całej Polsce. Ładowanie przez USB — nie musisz kupować baterii."
       },
       "blocks": {
         "p1": {
@@ -150,7 +150,7 @@
           "type": "trust",
           "settings": {
             "icon": "🚚",
-            "text": "Szybka wysyłka"
+            "text": "Darmowa dostawa w całej Polsce"
           }
         },
         "t2": {
@@ -184,7 +184,7 @@
     "ribbon": {
       "type": "laserix-ribbon",
       "settings": {
-        "items": "⚡ 4 graczy naraz, 🔌 Ładowanie USB, 💡 Świecące efekty, 🛡️ Bezpieczna podczerwień, 🏠 Dom i ogród, 🎁 Prezent nr 1"
+        "items": "🚚 Darmowa dostawa, ⚡ 4 graczy naraz, 🔌 Ładowanie USB, 💡 Świecące efekty, 🛡️ Bezpieczna podczerwień, 🏠 Dom i ogród, 🎁 Prezent nr 1"
       }
     },
     "gallery": {
@@ -535,8 +535,8 @@
         "q6": {
           "type": "faq",
           "settings": {
-            "question": "Ile trwa dostawa?",
-            "answer": "<p>Zamówienia wysyłamy najszybciej, jak to możliwe. Dokładny czas dostawy zobaczysz przy kasie.</p>"
+            "question": "Ile kosztuje i ile trwa dostawa?",
+            "answer": "<p>Dostawa standardowa na terenie Polski jest darmowa. Zamówienia wysyłamy najszybciej, jak to możliwe, a dokładny czas dostawy zobaczysz przy kasie.</p>"
           }
         }
       },
@@ -555,7 +555,7 @@
         "heading": "Gotowi na pierwszą bitwę? ⚡",
         "subheading": "Pierwsze trafienie, pierwszy okrzyk radości — i wieczór bez telefonu. Zamów Laserix dziś.",
         "cta": "Wybieram zestaw ⚡",
-        "chips": "🚚 Szybka wysyłka, 🛡️ 30 dni na zwrot, 🔒 Bezpieczne płatności",
+        "chips": "🚚 Darmowa dostawa, 🛡️ 30 dni na zwrot, 🔒 Bezpieczne płatności",
         "bg": "none"
       }
     }
