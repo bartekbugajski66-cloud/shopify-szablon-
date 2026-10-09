@@ -1,4 +1,11 @@
-{%- assign first_mode = section.blocks.first.settings.mode | default: 'wall' -%}
+{%- liquid
+  assign first_mode = section.blocks.first.settings.mode | default: 'wall'
+  assign fb = section.blocks.first.settings
+  assign first_media = false
+  if fb.video != blank or fb.video_url != blank or fb.image != blank
+    assign first_media = true
+  endif
+-%}
 <section class="vx-section" id="vx-modes" data-vx-modes>
   <div class="vx-wrap">
     <div class="vx-head" data-reveal>
@@ -12,7 +19,7 @@
       {%- endfor -%}
     </div>
     <div class="vx-modes__grid">
-      <div class="vx-stage" data-mode="{{ first_mode }}" data-vx-stage data-reveal>
+      <div class="vx-stage{% if first_media %} has-media{% endif %}" data-mode="{{ first_mode }}" data-vx-stage data-reveal>
         <div class="vx-stage__room">
           <div class="vx-stage__ceil"></div>
           <div class="vx-stage__glass">{%- for i in (1..9) -%}<i style="left:{{ i | times: 11 }}%;height:{{ i | modulo: 3 | plus: 2 | times: 6 }}px;animation-delay:-{{ i | times: 0.37 }}s"></i>{%- endfor -%}</div>
@@ -20,6 +27,21 @@
         </div>
         <div class="vx-stage__hud"><span class="vx-pill vx-pill--hot" data-vx-mode-hud>{{ section.blocks.first.settings.tab }}</span></div>
         <div class="vx-stage__car">{% render 'vexon-car', id: 'stage' %}</div>
+        {%- for block in section.blocks -%}
+          {%- if block.settings.video != blank or block.settings.video_url != blank or block.settings.image != blank -%}
+            <div class="vx-stage__media{% if forloop.first %} is-active{% endif %}" data-mode-media="{{ forloop.index0 }}">
+              {%- if block.settings.video != blank -%}
+                {{ block.settings.video | video_tag: autoplay: forloop.first, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata' }}
+              {%- elsif block.settings.video_url != blank -%}
+                <video src="{{ block.settings.video_url }}" {% if forloop.first %}autoplay{% endif %} loop muted playsinline preload="metadata"></video>
+              {%- elsif block.settings.image.src contains '.gif' -%}
+                <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+              {%- else -%}
+                {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 700px, 100vw', alt: block.settings.title }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
       <div class="vx-mode-copy">
         {%- for block in section.blocks -%}
@@ -48,7 +70,11 @@
       { "type": "text", "id": "icon", "label": "Emoji", "default": "🧱" },
       { "type": "text", "id": "tab", "label": "Nazwa zakładki", "default": "Ściana" },
       { "type": "text", "id": "title", "label": "Tytuł", "default": "Jazda po ścianie" },
-      { "type": "textarea", "id": "text", "label": "Opis" }
+      { "type": "textarea", "id": "text", "label": "Opis" },
+      { "type": "header", "content": "Twoje zdjęcie / film (zamiast animacji)" },
+      { "type": "image_picker", "id": "image", "label": "Zdjęcie lub GIF" },
+      { "type": "video", "id": "video", "label": "Film (MP4)" },
+      { "type": "url", "id": "video_url", "label": "…albo link do MP4" }
     ] }
   ],
   "max_blocks": 5,

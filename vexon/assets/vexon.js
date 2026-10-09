@@ -210,19 +210,19 @@
   }
 
   /* ---------- countdown (resets daily at local midnight) ---------- */
-  function initCountdown() {
+  function tickTimers() {
+    var now = new Date(), end = new Date(now); end.setHours(24, 0, 0, 0);
+    var s = Math.max(0, Math.floor((end - now) / 1000));
+    var parts = [Math.floor(s / 3600), Math.floor(s % 3600 / 60), s % 60].map(function (n) { return String(n).padStart(2, '0'); });
     $$('[data-vx-timer]').forEach(function (el) {
       var spans = $$('span', el);
-      function tick() {
-        var now = new Date(), end = new Date(now); end.setHours(24, 0, 0, 0);
-        var s = Math.max(0, Math.floor((end - now) / 1000));
-        var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
-        spans[0].textContent = String(h).padStart(2, '0');
-        spans[1].textContent = String(m).padStart(2, '0');
-        spans[2].textContent = String(sec).padStart(2, '0');
-      }
-      tick(); setInterval(tick, 1000);
+      for (var k = 0; k < 3 && k < spans.length; k++) spans[k].textContent = parts[k];
     });
+  }
+  var timerStarted = false;
+  function initCountdown() {
+    tickTimers();
+    if (!timerStarted) { timerStarted = true; setInterval(tickTimers, 1000); }
   }
 
   /* ---------- modes showcase ---------- */
@@ -230,7 +230,9 @@
     $$('[data-vx-modes]').forEach(function (root) {
       var stage = $('[data-vx-stage]', root), tabs = $$('[data-vx-mode]', root), panes = $$('[data-mode-pane]', root);
       var hud = $('[data-vx-mode-hud]', root), bar = $('[data-vx-mode-progress]', root);
-      if (!stage || !tabs.length) return;
+      if (!stage || !tabs.length || root.vxInit) return;
+      root.vxInit = true;
+      var media = $$('[data-mode-media]', stage);
       var i = 0, auto = true, timer;
       function show(k) {
         i = k;
@@ -239,6 +241,15 @@
         var car = $('.vx-stage__car', stage); car.style.animation = 'none'; void car.offsetWidth; car.style.animation = '';
         tabs.forEach(function (t, n) { t.classList.toggle('is-active', n === k); t.setAttribute('aria-selected', n === k); });
         panes.forEach(function (p, n) { p.classList.toggle('is-active', n === k); });
+        var hasMedia = false;
+        media.forEach(function (m) {
+          var on = m.getAttribute('data-mode-media') === String(k);
+          m.classList.toggle('is-active', on);
+          if (on) hasMedia = true;
+          var vid = m.querySelector('video');
+          if (vid) { if (on) { var pr = vid.play(); if (pr && pr.catch) pr.catch(function () {}); } else vid.pause(); }
+        });
+        stage.classList.toggle('has-media', hasMedia);
         if (hud) hud.textContent = tabs[k].textContent.trim();
         if (bar) { bar.classList.remove('is-run'); void bar.offsetWidth; if (auto) bar.classList.add('is-run'); }
       }
@@ -408,13 +419,23 @@
   }
 
   /* ---------- boot ---------- */
-  function boot() {
-    initReveal();
-    initMenu();
-    initDrawer();
-    $$('[data-vx-product-section]').forEach(initProduct);
-    initCountdown();
-    initModes();
+  function safe(fn, arg) { try { fn(arg); } catch (e) { if (window.console) console.error('[VEXON]', e); } }
+  function initScope(scope) {
+    safe(initCountdown);
+    $$('[data-vx-product-section]', scope).forEach(function (s) { safe(initProduct, s); });
+    safe(initModes);
   }
+  function boot() {
+    safe(initCountdown);
+    safe(initReveal);
+    safe(initMenu);
+    safe(initDrawer);
+    initScope(document);
+  }
+  /* theme editor: re-init a section after it is re-rendered */
+  document.addEventListener('shopify:section:load', function (e) {
+    $$('[data-reveal]', e.target).forEach(function (el) { el.classList.add('is-in'); });
+    initScope(e.target);
+  });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

@@ -1,0 +1,27 @@
+<div class="vx-cdbar" style="--cd-bg: {{ section.settings.bg }}">
+  <div class="vx-wrap vx-cdbar__in">
+    <span class="vx-cdbar__ic" aria-hidden="true">⚡</span>
+    <span class="vx-cdbar__txt">{{ section.settings.before }}</span>
+    <span class="vx-timer vx-timer--bar" data-vx-timer aria-label="Czas do końca dnia"><span>--</span>:<span>--</span>:<span>--</span></span>
+    <span class="vx-cdbar__txt">{{ section.settings.after }}</span>
+  </div>
+</div>
+<script>
+  (function () {
+    var t = document.currentScript.previousElementSibling.querySelectorAll('[data-vx-timer] span');
+    var n = new Date(), e = new Date(n); e.setHours(24, 0, 0, 0);
+    var s = Math.floor((e - n) / 1000), v = [Math.floor(s / 3600), Math.floor(s % 3600 / 60), s % 60];
+    for (var i = 0; i < 3; i++) t[i].textContent = (v[i] < 10 ? '0' : '') + v[i];
+  })();
+</script>
+{% schema %}
+{
+  "name": "Licznik na górze",
+  "settings": [
+    { "type": "text", "id": "before", "label": "Tekst przed licznikiem", "default": "Zamów w ciągu" },
+    { "type": "text", "id": "after", "label": "Tekst po liczniku", "info": "Licznik liczy do północy i odnawia się codziennie. Pisz tylko to, co naprawdę spełniasz.", "default": "— wyślemy w najbliższy dzień roboczy 🚚" },
+    { "type": "color", "id": "bg", "label": "Kolor tła", "default": "#FFC94D" }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}
