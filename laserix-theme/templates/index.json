@@ -50,7 +50,8 @@
     "product": {
       "type": "laserix-product",
       "settings": {
-        "fallback_image": "lx-hero.jpg",
+        "product": "laserix-zestaw-laser-tag-dla-4-graczy",
+        "fallback_image": "lx-zestaw-4-graczy.jpg",
         "sticker_1": "🎁 Hit na prezent",
         "sticker_2": "4 graczy",
         "chip_hot": "🔥 HIT SEZONU",
@@ -58,7 +59,7 @@
         "rating_text": "4,9/5 · opinie rodziców",
         "heading": "Laserix",
         "heading_accent": "laser tag dla całej ekipy ⚡",
-        "subheading": "Prawdziwa gra laserowa w Twoim domu i ogrodzie. Bezpieczna podczerwień, światła, dźwięki i wibracje przy trafieniu — dzieci odkładają telefony i biegają ze śmiechem.",
+        "subheading": "Przenieś walkę do domu! Pistolety na bezpieczną podczerwień, kamizelki z czujnikami trafień i świecące efekty w 4 kolorach. Ładujesz przez USB — bez kupowania baterii.",
         "timer_enable": true,
         "timer_label": "Promocja kończy się za:",
         "timer_end": "2026-10-31 23:59",
@@ -71,14 +72,14 @@
         "cta_text": "Zamawiam Laserix ⚡",
         "sticky_cta": "Zamawiam ⚡",
         "note_icon": "🎯",
-        "note_text": "Każdy zestaw przychodzi w kolorowym pudełku — gotowy do wręczenia jako prezent. Baterie AAA nie są w zestawie."
+        "note_text": "Ładowanie przez USB — nie musisz kupować baterii. Każdy zestaw jest gotowy do wręczenia jako prezent."
       },
       "blocks": {
         "p1": {
           "type": "benefit",
           "settings": {
             "icon": "🎯",
-            "text": "4 pistolety + 4 odznaki"
+            "text": "4 pistolety + 4 kamizelki"
           }
         },
         "p2": {
@@ -91,15 +92,15 @@
         "p3": {
           "type": "benefit",
           "settings": {
-            "icon": "🔊",
-            "text": "Dźwięki, światła, wibracje"
+            "icon": "🔌",
+            "text": "Ładowanie USB, bez baterii"
           }
         },
         "p4": {
           "type": "benefit",
           "settings": {
-            "icon": "🏡",
-            "text": "Dom, ogród, urodziny"
+            "icon": "🌈",
+            "text": "4 kolory drużyn"
           }
         },
         "k1": {
@@ -107,10 +108,11 @@
           "settings": {
             "emoji": "⚡",
             "title": "1 zestaw",
-            "desc": "4 pistolety + 4 odznaki",
+            "desc": "4 pistolety + 4 kamizelki",
             "pistols": 4,
             "quantity": 1,
             "discount_percent": 0,
+            "variant_id": "59419437007196",
             "badge": "",
             "badge_style": "teal"
           }
@@ -120,10 +122,11 @@
           "settings": {
             "emoji": "🔥",
             "title": "2 zestawy",
-            "desc": "8 pistoletów + 8 odznak",
+            "desc": "8 pistoletów + 8 kamizelek",
             "pistols": 8,
             "quantity": 2,
             "discount_percent": 10,
+            "variant_id": "59419437039964",
             "badge": "⭐ Najczęściej wybierany",
             "badge_style": "purple",
             "highlight": true,
@@ -135,10 +138,11 @@
           "settings": {
             "emoji": "🏆",
             "title": "3 zestawy",
-            "desc": "12 pistoletów + 12 odznak",
+            "desc": "12 pistoletów + 12 kamizelek",
             "pistols": 12,
             "quantity": 3,
             "discount_percent": 20,
+            "variant_id": "59419437072732",
             "badge": "💎 Najlepsza cena",
             "badge_style": "teal"
           }
@@ -181,7 +185,7 @@
     "ribbon": {
       "type": "laserix-ribbon",
       "settings": {
-        "items": "⚡ 4 graczy naraz, 🎯 Zasięg do 20 m, 🔊 Dźwięki i wibracje, 🛡️ Bezpieczna podczerwień, 🏠 Dom i ogród, 🎁 Prezent nr 1"
+        "items": "⚡ 4 graczy naraz, 🔌 Ładowanie USB, 💡 Świecące efekty, 🛡️ Bezpieczna podczerwień, 🏠 Dom i ogród, 🎁 Prezent nr 1"
       }
     },
     "gallery": {
@@ -196,29 +200,29 @@
         "g1": {
           "type": "photo",
           "settings": {
-            "asset": "lx-teams.jpg",
-            "caption": "4 drużyny 🔴🔵"
+            "asset": "lx-zestaw-laser-tag.jpg",
+            "caption": "4 kolory drużyn"
           }
         },
         "g2": {
           "type": "photo",
           "settings": {
-            "asset": "lx-kids.jpg",
-            "caption": "Zestaw na 4 graczy"
+            "asset": "lx-zestaw-4-graczy.jpg",
+            "caption": "Zabawa w domu"
           }
         },
         "g3": {
           "type": "photo",
           "settings": {
-            "asset": "lx-gun-info.jpg",
-            "caption": "Pistolet z bliska"
+            "asset": "lx-ladowanie-usb.jpg",
+            "caption": "Ładowanie USB"
           }
         },
         "g4": {
           "type": "photo",
           "settings": {
-            "asset": "lx-vest.jpg",
-            "caption": "Odznaka z czujnikiem"
+            "asset": "lx-pistolety-kamizelki.jpg",
+            "caption": "Licznik trafień"
           }
         }
       },
@@ -292,9 +296,9 @@
         "s1": {
           "type": "step",
           "settings": {
-            "icon": "🔋",
-            "title": "Włóż baterie",
-            "text": "2 × AAA do pistoletu i 3 × AAA do odznaki. Włącz — wszystko świeci i gra."
+            "icon": "🔌",
+            "title": "Naładuj",
+            "text": "Wstaw pistolety do stacji ładowania USB. Bez kupowania baterii."
           }
         },
         "s2": {
@@ -302,7 +306,7 @@
           "settings": {
             "icon": "🔴",
             "title": "Wybierz drużynę",
-            "text": "Ustaw kolor drużyny i tryb strzelania. Do wyboru 4 kolory i 4 tryby."
+            "text": "Czerwoni, zieloni, żółci czy niebiescy? Załóż kamizelkę w kolorze swojej drużyny."
           }
         },
         "s3": {
@@ -310,7 +314,7 @@
           "settings": {
             "icon": "🎯",
             "title": "Celuj i trafiaj!",
-            "text": "Trafienie = dźwięk, wibracja i zgaszona dioda życia. Kto zostanie ostatni?"
+            "text": "Kamizelka liczy trafienia i pokazuje, ile żyć zostało. Kto zostanie ostatni?"
           }
         }
       },
@@ -354,7 +358,7 @@
           "type": "parent",
           "settings": {
             "icon": "✅",
-            "text": "Gotowa atrakcja na urodziny i spotkania z kuzynami"
+            "text": "Ładowanie USB — koniec z kupowaniem baterii"
           }
         },
         "d4": {
@@ -368,21 +372,21 @@
           "type": "kid",
           "settings": {
             "icon": "⚡",
-            "text": "Prawdziwe dźwięki strzałów i wibracje przy trafieniu"
+            "text": "Świecące pistolety i kamizelki jak w prawdziwej arenie"
           }
         },
         "d6": {
           "type": "kid",
           "settings": {
             "icon": "🔴",
-            "text": "Drużyny: czerwoni kontra niebiescy!"
+            "text": "4 drużyny: czerwoni, zieloni, żółci i niebiescy!"
           }
         },
         "d7": {
           "type": "kid",
           "settings": {
-            "icon": "🚀",
-            "text": "4 tryby: pistolet, karabin, automat i rakieta"
+            "icon": "🎯",
+            "text": "Kamizelka sama liczy trafienia"
           }
         },
         "d8": {
@@ -416,17 +420,17 @@
         "f1": {
           "type": "feature",
           "settings": {
-            "icon": "🎯",
-            "title": "Zasięg do 20 m",
-            "text": "Czujnik podczerwieni łapie trafienia z drugiego końca ogrodu."
+            "icon": "🔌",
+            "title": "Ładowanie USB",
+            "text": "Stacja ładuje wszystkie 4 pistolety jednocześnie. Nie musisz kupować baterii."
           }
         },
         "f2": {
           "type": "feature",
           "settings": {
-            "icon": "🔊",
-            "title": "Dźwięk i wibracje",
-            "text": "Każdy strzał i każde trafienie słychać i czuć. Emocje jak w arenie."
+            "icon": "💡",
+            "title": "Efekty świetlne",
+            "text": "Pistolety i kamizelki świecą w kolorze drużyny. Wygląda jak w prawdziwej arenie."
           }
         },
         "f3": {
@@ -434,7 +438,7 @@
           "settings": {
             "icon": "❤️",
             "title": "Licznik żyć",
-            "text": "Diody na odznace pokazują, ile żyć zostało. Gra sama liczy punkty."
+            "text": "Kamizelka z czujnikami pokazuje, ile żyć zostało. Gra sama liczy punkty."
           }
         },
         "f4": {
@@ -442,7 +446,7 @@
           "settings": {
             "icon": "🌈",
             "title": "4 kolory drużyn",
-            "text": "Biały, niebieski, czerwony i zielony — graj 1 na 1 albo drużynami."
+            "text": "Czerwony, zielony, żółty i niebieski — graj każdy na każdego albo drużynami."
           }
         },
         "f5": {
@@ -457,8 +461,8 @@
           "type": "feature",
           "settings": {
             "icon": "✋",
-            "title": "Lekkie i poręczne",
-            "text": "Pistolet ma 12 cm — idealny do małej dłoni od 4. roku życia."
+            "title": "Chwyć i graj",
+            "text": "Wyjmujesz pistolet ze stacji i od razu grasz. Bez aplikacji i bez kabli."
           }
         }
       },
@@ -601,7 +605,7 @@
           "type": "comment",
           "settings": {
             "name": "Marcin Zieliński",
-            "text": "Wzięliśmy 3 zestawy na komunię — 12 pistoletów i była prawdziwa wojna drużyn 🔴🔵 Dzieci zachwycone, dorośli też.",
+            "text": "Wzięliśmy 3 zestawy na komunię — 12 pistoletów i była prawdziwa wojna drużyn 🔴🟢🟡🔵 Dzieci zachwycone, dorośli też.",
             "time": "2 tyg.",
             "likes": 29,
             "reaction": "love"
@@ -621,11 +625,11 @@
           "type": "comment",
           "settings": {
             "name": "Paweł Lewandowski",
-            "text": "Super sprawa na deszczowe dni — gramy w mieszkaniu, chowając się za kanapą 😂 Polecam dokupić akumulatorki AAA.",
+            "text": "Super sprawa na deszczowe dni — gramy w mieszkaniu, chowając się za kanapą 😂 Ładowanie przez USB to wygoda, nie trzeba pamiętać o bateriach.",
             "time": "3 tyg.",
             "likes": 19,
             "reaction": "like",
-            "reply_text": "Dzięki, Panie Pawle! Dobra rada z akumulatorkami 👍"
+            "reply_text": "Dzięki, Panie Pawle! Miłej zabawy 👍"
           }
         },
         "v7": {
@@ -679,25 +683,25 @@
           "settings": {
             "icon": "🔫",
             "title": "4 × pistolet laserowy",
-            "tag": "2 + 2",
-            "text": "2 niebieskie i 2 czerwone — dźwięki, światła i 4 tryby strzelania."
+            "tag": "4 kolory",
+            "text": "Czerwony, zielony, żółty i niebieski — ze świecącymi efektami."
           }
         },
         "b2": {
           "type": "item",
           "settings": {
-            "icon": "🛡️",
-            "title": "4 × odznaka z czujnikiem",
-            "text": "Liczy trafienia, pokazuje życia i wibruje przy trafieniu."
+            "icon": "🦺",
+            "title": "4 × kamizelka z czujnikami",
+            "text": "Liczy trafienia i pokazuje, ile żyć zostało."
           }
         },
         "b3": {
           "type": "item",
           "settings": {
-            "icon": "📦",
-            "title": "Kolorowe pudełko",
-            "tag": "Na prezent",
-            "text": "Gotowe do wręczenia — bez dodatkowego pakowania."
+            "icon": "🔌",
+            "title": "Stacja ładowania USB",
+            "tag": "Bez baterii",
+            "text": "Ładuje wszystkie 4 pistolety jednocześnie."
           }
         },
         "b4": {
@@ -720,17 +724,17 @@
       "type": "laserix-specs",
       "settings": {
         "eyebrow": "📐 Specyfikacja",
-        "heading": "Wymiary i",
+        "heading": "Najważniejsze",
         "heading_accent": "parametry",
         "bg": "none",
-        "asset": "lx-dims.jpg"
+        "asset": "lx-pistolety-kamizelki.jpg"
       },
       "blocks": {
         "x1": {
           "type": "spec",
           "settings": {
             "key": "W zestawie",
-            "value": "4 pistolety + 4 odznaki"
+            "value": "4 pistolety + 4 kamizelki + stacja ładowania"
           }
         },
         "x2": {
@@ -743,57 +747,22 @@
         "x3": {
           "type": "spec",
           "settings": {
-            "key": "Zasięg",
-            "value": "do 20 m"
+            "key": "Technologia",
+            "value": "podczerwień (IR), 1 mW — bezpieczna dla oczu"
           }
         },
         "x4": {
           "type": "spec",
           "settings": {
-            "key": "Technologia",
-            "value": "podczerwień (IR), 1 mW — bezpieczna dla oczu"
+            "key": "Drużyny",
+            "value": "4 kolory: czerwony, zielony, żółty, niebieski"
           }
         },
         "x5": {
           "type": "spec",
           "settings": {
-            "key": "Drużyny",
-            "value": "4 kolory: biały, niebieski, czerwony, zielony"
-          }
-        },
-        "x6": {
-          "type": "spec",
-          "settings": {
-            "key": "Tryby strzelania",
-            "value": "4"
-          }
-        },
-        "x7": {
-          "type": "spec",
-          "settings": {
-            "key": "Pistolet",
-            "value": "12 × 10,5 cm"
-          }
-        },
-        "x8": {
-          "type": "spec",
-          "settings": {
-            "key": "Odznaka",
-            "value": "10,5 × 11,5 cm"
-          }
-        },
-        "x9": {
-          "type": "spec",
-          "settings": {
             "key": "Zasilanie",
-            "value": "pistolet 2 × AAA, odznaka 3 × AAA (brak w zestawie)"
-          }
-        },
-        "x10": {
-          "type": "spec",
-          "settings": {
-            "key": "Opakowanie",
-            "value": "23 × 11,5 × 13,5 cm"
+            "value": "ładowanie USB — bez baterii"
           }
         }
       },
@@ -802,12 +771,7 @@
         "x2",
         "x3",
         "x4",
-        "x5",
-        "x6",
-        "x7",
-        "x8",
-        "x9",
-        "x10"
+        "x5"
       ]
     },
     "guarantee": {
@@ -849,14 +813,14 @@
           "type": "faq",
           "settings": {
             "question": "Ile osób może grać?",
-            "answer": "<p>Jeden zestaw to 4 pistolety i 4 odznaki, czyli 4 graczy. Zestawy łączą się ze sobą — z 2 zestawami gra 8 osób, z 3 zestawami aż 12.</p>"
+            "answer": "<p>Jeden zestaw to 4 pistolety i 4 kamizelki, czyli 4 graczy. Zestawy łączą się ze sobą — z 2 zestawami gra 8 osób, z 3 zestawami aż 12.</p>"
           }
         },
         "q4": {
           "type": "faq",
           "settings": {
-            "question": "Czy baterie są w zestawie?",
-            "answer": "<p>Nie. Pistolet potrzebuje 2 baterii AAA, a odznaka 3 baterii AAA. Polecamy akumulatorki — wystarczą na długie godziny zabawy.</p>"
+            "question": "Czy trzeba kupować baterie?",
+            "answer": "<p>Nie. Pistolety ładujesz przez USB w stacji ładowania, która ładuje wszystkie 4 sztuki jednocześnie.</p>"
           }
         },
         "q5": {
