@@ -1,1 +1,575 @@
-{"sections":{"announcement":{"type":"laserix-announcement","blocks":{"a1":{"type":"item","settings":{"icon":"🚚","text":"Szybka wysyłka"}},"a2":{"type":"item","settings":{"icon":"⚡","text":"4 graczy w jednym zestawie"}},"a3":{"type":"item","settings":{"icon":"🎁","text":"Hit na Mikołajki i Święta"}},"a4":{"type":"item","settings":{"icon":"🔥","text":"-20% przy 3 zestawach"}},"a5":{"type":"item","settings":{"icon":"🛡️","text":"30 dni na zwrot"}}},"block_order":["a1","a2","a3","a4","a5"]},"product":{"type":"laserix-product","settings":{"product":"laserix-zestaw-laser-tag-dla-4-graczy","fallback_image":"lx-zestaw-4-graczy.jpg","sticker_1":"🎁 Hit na prezent","sticker_2":"4 graczy","chip_hot":"🔥 HIT SEZONU","show_rating":false,"rating_text":"4,9/5 · opinie rodziców","heading":"Laserix","heading_accent":"laser tag dla całej ekipy ⚡","subheading":"Przenieś walkę do domu! Pistolety na bezpieczną podczerwień, kamizelki z czujnikami trafień i świecące efekty w 4 kolorach. Ładujesz przez USB — bez kupowania baterii.","timer_enable":true,"timer_label":"Promocja kończy się za:","timer_end":"2026-10-31 23:59","stock_enable":true,"stock_max":100,"stock_text":"Zostało tylko [ilosc] szt. z tej dostawy!","fomo_text":"Przed świętami znika najszybciej — zamów, zanim zabraknie!","packs_label":"Wybierz swój zestaw 👇","unit_label":"zestaw","cta_text":"Zamawiam Laserix ⚡","sticky_cta":"Zamawiam ⚡","note_icon":"🎯","note_text":"Ładowanie przez USB — nie musisz kupować baterii. Każdy zestaw jest gotowy do wręczenia jako prezent."},"blocks":{"p1":{"type":"benefit","settings":{"icon":"🎯","text":"4 pistolety + 4 kamizelki"}},"p2":{"type":"benefit","settings":{"icon":"🛡️","text":"Bezpieczna podczerwień"}},"p3":{"type":"benefit","settings":{"icon":"🔌","text":"Ładowanie USB, bez baterii"}},"p4":{"type":"benefit","settings":{"icon":"🌈","text":"4 kolory drużyn"}},"k1":{"type":"package","settings":{"emoji":"⚡","title":"1 zestaw","desc":"4 pistolety + 4 kamizelki","pistols":4,"quantity":1,"discount_percent":0,"variant_id":"59419437007196","badge":"","badge_style":"teal"}},"k2":{"type":"package","settings":{"emoji":"🔥","title":"2 zestawy","desc":"8 pistoletów + 8 kamizelek","pistols":8,"quantity":2,"discount_percent":10,"variant_id":"59419437039964","badge":"⭐ Najczęściej wybierany","badge_style":"purple","highlight":true,"preselect":true}},"k3":{"type":"package","settings":{"emoji":"🏆","title":"3 zestawy","desc":"12 pistoletów + 12 kamizelek","pistols":12,"quantity":3,"discount_percent":20,"variant_id":"59419437072732","badge":"💎 Najlepsza cena","badge_style":"teal"}},"t1":{"type":"trust","settings":{"icon":"🚚","text":"Szybka wysyłka"}},"t2":{"type":"trust","settings":{"icon":"🛡️","text":"30 dni na zwrot"}},"t3":{"type":"trust","settings":{"icon":"🔒","text":"Bezpieczne płatności"}}},"block_order":["p1","p2","p3","p4","k1","k2","k3","t1","t2","t3"]},"ribbon":{"type":"laserix-ribbon","settings":{"items":"⚡ 4 graczy naraz, 🔌 Ładowanie USB, 💡 Świecące efekty, 🛡️ Bezpieczna podczerwień, 🏠 Dom i ogród, 🎁 Prezent nr 1"}},"gallery":{"type":"laserix-gallery","settings":{"eyebrow":"📸 Zobacz w akcji","heading":"Tak wygląda","heading_accent":"domowa arena","bg":"none"},"blocks":{"g1":{"type":"photo","settings":{"asset":"lx-zestaw-laser-tag.jpg","caption":"4 kolory drużyn"}},"g2":{"type":"photo","settings":{"asset":"lx-zestaw-4-graczy.jpg","caption":"Zabawa w domu"}},"g3":{"type":"photo","settings":{"asset":"lx-ladowanie-usb.jpg","caption":"Ładowanie USB"}},"g4":{"type":"photo","settings":{"asset":"lx-pistolety-kamizelki.jpg","caption":"Licznik trafień"}}},"block_order":["g1","g2","g3","g4"]},"problems":{"type":"laserix-problems","settings":{"eyebrow":"🤔 Brzmi znajomo?","heading":"Znasz to","heading_accent":"z własnego domu?","bg":"none","answer":"Właśnie dlatego powstał Laserix ⚡"},"blocks":{"r1":{"type":"problem","settings":{"icon":"📱","title":"Telefon zamiast zabawy","text":"Dziecko godzinami wpatrzone w ekran, a każda prośba o odłożenie kończy się kłótnią."}},"r2":{"type":"problem","settings":{"icon":"😴","title":"„Nudzę się…”","text":"Zabawki leżą w kącie po dwóch dniach. Po tygodniu nikt już o nich nie pamięta."}},"r3":{"type":"problem","settings":{"icon":"🛋️","title":"Za mało ruchu","text":"Weekend na kanapie zamiast biegania. Energia, która nie ma gdzie się wyładować."}},"r4":{"type":"problem","settings":{"icon":"🎂","title":"Pomysł na urodziny?","text":"Ciągle szukasz atrakcji, która rozrusza całą grupę dzieci — i nie kosztuje fortuny."}}},"block_order":["r1","r2","r3","r4"]},"steps":{"type":"laserix-steps","settings":{"eyebrow":"🎮 Jak to działa","heading":"Trzy kroki do","heading_accent":"pierwszej bitwy","subheading":"Bez aplikacji, bez kabli, bez instrukcji na 20 stron. Wyjmujesz z pudełka i grasz.","bg":"sky"},"blocks":{"s1":{"type":"step","settings":{"icon":"🔌","title":"Naładuj","text":"Wstaw pistolety do stacji ładowania USB. Bez kupowania baterii."}},"s2":{"type":"step","settings":{"icon":"🔴","title":"Wybierz drużynę","text":"Czerwoni, zieloni, żółci czy niebiescy? Załóż kamizelkę w kolorze swojej drużyny."}},"s3":{"type":"step","settings":{"icon":"🎯","title":"Celuj i trafiaj!","text":"Kamizelka liczy trafienia i pokazuje, ile żyć zostało. Kto zostanie ostatni?"}}},"block_order":["s1","s2","s3"]},"duo":{"type":"laserix-duo","settings":{"eyebrow":"👨‍👩‍👦 Dla całej rodziny","heading":"Rodzic mówi „wow”.","heading_accent":"Dziecko krzyczy „JESZCZE!”","subheading":"Laserix to nie kolejna plastikowa zabawka do szuflady. To zabawa, w którą wciągają się wszyscy — łącznie z rodzicami.","bg":"none","parent_emoji":"😌","parent_quote":"„Wreszcie odłożył telefon!”","parent_label":"Dla rodzica","kid_emoji":"🤩","kid_quote":"„Tato, jeszcze jedna runda!”","kid_label":"Dla dziecka"},"blocks":{"d1":{"type":"parent","settings":{"icon":"✅","text":"Ruch i świeże powietrze zamiast ekranu"}},"d2":{"type":"parent","settings":{"icon":"✅","text":"Bezpieczna podczerwień 1 mW — nic nie wylatuje z lufy"}},"d3":{"type":"parent","settings":{"icon":"✅","text":"Ładowanie USB — koniec z kupowaniem baterii"}},"d4":{"type":"parent","settings":{"icon":"✅","text":"Wspólny czas — rodzice też chcą grać"}},"d5":{"type":"kid","settings":{"icon":"⚡","text":"Świecące pistolety i kamizelki jak w prawdziwej arenie"}},"d6":{"type":"kid","settings":{"icon":"🔴","text":"4 drużyny: czerwoni, zieloni, żółci i niebiescy!"}},"d7":{"type":"kid","settings":{"icon":"🎯","text":"Kamizelka sama liczy trafienia"}},"d8":{"type":"kid","settings":{"icon":"🏆","text":"Kto ostatni zostanie z życiem — wygrywa"}}},"block_order":["d1","d2","d3","d4","d5","d6","d7","d8"]},"features":{"type":"laserix-features","settings":{"eyebrow":"💥 Dlaczego Laserix","heading":"Wygląda jak z gry,","heading_accent":"działa naprawdę","bg":"lilac"},"blocks":{"f1":{"type":"feature","settings":{"icon":"🔌","title":"Ładowanie USB","text":"Stacja ładuje wszystkie 4 pistolety jednocześnie. Nie musisz kupować baterii."}},"f2":{"type":"feature","settings":{"icon":"💡","title":"Efekty świetlne","text":"Pistolety i kamizelki świecą w kolorze drużyny. Wygląda jak w prawdziwej arenie."}},"f3":{"type":"feature","settings":{"icon":"❤️","title":"Licznik żyć","text":"Kamizelka z czujnikami pokazuje, ile żyć zostało. Gra sama liczy punkty."}},"f4":{"type":"feature","settings":{"icon":"🌈","title":"4 kolory drużyn","text":"Czerwony, zielony, żółty i niebieski — graj każdy na każdego albo drużynami."}},"f5":{"type":"feature","settings":{"icon":"🛡️","title":"Bezpieczne dla dzieci","text":"Niewidzialna wiązka podczerwieni 1 mW. Bez kulek, bez pocisków, bez bałaganu."}},"f6":{"type":"feature","settings":{"icon":"✋","title":"Chwyć i graj","text":"Wyjmujesz pistolet ze stacji i od razu grasz. Bez aplikacji i bez kabli."}}},"block_order":["f1","f2","f3","f4","f5","f6"]},"compare":{"type":"laserix-compare","settings":{"eyebrow":"⚖️ Porównanie","heading":"Tablet kontra","heading_accent":"Laserix","subheading":"Zobacz, co dostaje dziecko — i co dostajesz Ty.","bg":"none","left_title":"Kolejna gra na tablecie","left_emoji":"📱","right_title":"Laserix","right_emoji":"⚡"},"blocks":{"c1":{"type":"left","settings":{"text":"Godziny bez ruchu na kanapie"}},"c2":{"type":"left","settings":{"text":"Każdy w swoim ekranie"}},"c3":{"type":"left","settings":{"text":"Marudzenie przy wyłączaniu"}},"c4":{"type":"left","settings":{"text":"Mikropłatności i reklamy"}},"c5":{"type":"right","settings":{"text":"Bieganie, śmiech i ruch"}},"c6":{"type":"right","settings":{"text":"Wspólna zabawa całej rodziny"}},"c7":{"type":"right","settings":{"text":"Dziecko samo chce grać na dworze"}},"c8":{"type":"right","settings":{"text":"Płacisz raz — bawicie się latami"}}},"block_order":["c1","c2","c3","c4","c5","c6","c7","c8"]},"reviews":{"type":"laserix-fb-reviews","settings":{"eyebrow":"💬 Opinie klientów","heading":"Co mówią","heading_accent":"rodzice?","bg":"none","summary_enable":true,"score":"4,9","count_text":"średnia ocen klientów","bars":"91,7,2,0,0","page_name":"Laserix","page_emoji":"🎯","sort_label":"Najtrafniejsze","reactions_total":"1,2 tys.","comments_label":"Komentarze klientów","visible":5,"disclaimer":"Opinie pochodzą od naszych klientów. Mogą być skrócone."},"blocks":{"v1":{"type":"comment","settings":{"name":"Karolina Wiśniewska","badge":"Najlepszy fan","text":"Kupiłam na urodziny syna (8 lat) i to był strzał w dziesiątkę 😄 Cała ósemka dzieciaków biegała po ogrodzie 3 godziny. Nikt nawet nie zapytał o telefon!","time":"3 dni","likes":48,"reaction":"love","reply_text":"Pani Karolino, takie wiadomości to dla nas najlepsza nagroda! Wszystkiego dobrego dla solenizanta 🎉"}},"v2":{"type":"comment","settings":{"name":"Tomasz Kaczmarek","text":"Miało być dla dzieci, a gram z nimi co wieczór 😅 Wibracja przy trafieniu robi robotę. Wziąłem 2 zestawy, żeby grać 4 na 4 z sąsiadami.","time":"1 tydz.","likes":35,"reaction":"mix"}},"v3":{"type":"comment","settings":{"name":"Agnieszka Nowak","text":"Bałam się, że to coś niebezpiecznego, ale to tylko podczerwień — nic nie wylatuje. Córka (6 lat) ogarnęła wszystko w 2 minuty.","time":"1 tydz.","likes":22,"reaction":"like"}},"v4":{"type":"comment","settings":{"name":"Marcin Zieliński","text":"Wzięliśmy 3 zestawy na komunię — 12 pistoletów i była prawdziwa wojna drużyn 🔴🟢🟡🔵 Dzieci zachwycone, dorośli też.","time":"2 tyg.","likes":29,"reaction":"love"}},"v5":{"type":"comment","settings":{"name":"Ewelina Mazur","text":"Paczka przyszła szybko, ładne pudełko — od razu do prezentu. Synowie bawią się codziennie po szkole.","time":"2 tyg.","likes":14,"reaction":"like"}},"v6":{"type":"comment","settings":{"name":"Paweł Lewandowski","text":"Super sprawa na deszczowe dni — gramy w mieszkaniu, chowając się za kanapą 😂 Ładowanie przez USB to wygoda, nie trzeba pamiętać o bateriach.","time":"3 tyg.","likes":19,"reaction":"like","reply_text":"Dzięki, Panie Pawle! Miłej zabawy 👍"}},"v7":{"type":"comment","settings":{"name":"Natalia Kowalczyk","text":"Najlepszy prezent dla chrześniaka. Teraz cała rodzina chce swój zestaw 😄","time":"1 mies.","likes":11,"reaction":"love"}}},"block_order":["v1","v2","v3","v4","v5","v6","v7"]},"gift":{"type":"laserix-gift","settings":{"eyebrow":"🎁 Idealny prezent","heading":"Prezent, o którym","heading_accent":"będą gadać miesiącami","subheading":"Szukasz prezentu, który nie wyląduje w szufladzie po dwóch dniach? Laserix to zabawa, do której dzieci wracają codziennie. A przy 3 zestawach (12 pistoletów) płacisz aż 20% mniej.","bg":"sun","occasions":"🎂 Urodziny, 🎅 Mikołajki, 🎄 Święta, 🕊️ Komunia, 🧸 Dzień Dziecka","cta":"Wybieram prezent 🎁","timer_label":"Do Mikołajek zostało:","timer_end":"2026-12-06 00:00","box_emoji":"🎅","box_text":"Zamów wcześniej i miej prezent z głowy 🎁"}},"box":{"type":"laserix-box","settings":{"eyebrow":"📦 Co dostajesz","heading":"Wszystko w","heading_accent":"jednym pudełku","bg":"white"},"blocks":{"b1":{"type":"item","settings":{"icon":"🔫","title":"4 × pistolet laserowy","tag":"4 kolory","text":"Czerwony, zielony, żółty i niebieski — ze świecącymi efektami."}},"b2":{"type":"item","settings":{"icon":"🦺","title":"4 × kamizelka z czujnikami","text":"Liczy trafienia i pokazuje, ile żyć zostało."}},"b3":{"type":"item","settings":{"icon":"🔌","title":"Stacja ładowania USB","tag":"Bez baterii","text":"Ładuje wszystkie 4 pistolety jednocześnie."}},"b4":{"type":"item","settings":{"icon":"📖","title":"Instrukcja po polsku","text":"Proste zasady gry i pomysły na zabawy dla całej rodziny."}}},"block_order":["b1","b2","b3","b4"]},"specs":{"type":"laserix-specs","settings":{"eyebrow":"📐 Specyfikacja","heading":"Najważniejsze","heading_accent":"parametry","bg":"none","asset":"lx-pistolety-kamizelki.jpg"},"blocks":{"x1":{"type":"spec","settings":{"key":"W zestawie","value":"4 pistolety + 4 kamizelki + stacja ładowania"}},"x2":{"type":"spec","settings":{"key":"Wiek","value":"od 4 lat"}},"x3":{"type":"spec","settings":{"key":"Technologia","value":"podczerwień (IR), 1 mW — bezpieczna dla oczu"}},"x4":{"type":"spec","settings":{"key":"Drużyny","value":"4 kolory: czerwony, zielony, żółty, niebieski"}},"x5":{"type":"spec","settings":{"key":"Zasilanie","value":"ładowanie USB — bez baterii"}}},"block_order":["x1","x2","x3","x4","x5"]},"guarantee":{"type":"laserix-guarantee","settings":{"eyebrow":"🛡️ Kupujesz bez ryzyka","heading":"30 dni","heading_accent":"na zwrot","subheading":"Jesteśmy pewni, że Laserix rozkręci każde popołudnie. Jeśli coś będzie nie tak — napisz do nas, a pomożemy. Bez kruczków i bez stresu.","bg":"none","days":"30","points":"🛡️ 30 dni na zwrot, 🚚 Szybka wysyłka, 🔒 Bezpieczne płatności, 💬 Pomocna obsługa"}},"faq":{"type":"laserix-faq","settings":{"eyebrow":"❓ Pytania","heading":"Najczęściej","heading_accent":"zadawane pytania","bg":"none"},"blocks":{"q1":{"type":"faq","settings":{"question":"Czy to jest bezpieczne dla dzieci?","answer":"<p>Tak. Pistolety strzelają niewidzialną wiązką podczerwieni o mocy 1 mW — takiej samej technologii używa pilot do telewizora. Nic nie wylatuje z lufy, nie ma kulek ani pocisków.</p>"}},"q2":{"type":"faq","settings":{"question":"Od jakiego wieku?","answer":"<p>Zestaw jest przeznaczony dla dzieci od 4. roku życia. Świetnie bawią się też nastolatki i… rodzice.</p>"}},"q3":{"type":"faq","settings":{"question":"Ile osób może grać?","answer":"<p>Jeden zestaw to 4 pistolety i 4 kamizelki, czyli 4 graczy. Zestawy łączą się ze sobą — z 2 zestawami gra 8 osób, z 3 zestawami aż 12.</p>"}},"q4":{"type":"faq","settings":{"question":"Czy trzeba kupować baterie?","answer":"<p>Nie. Pistolety ładujesz przez USB w stacji ładowania, która ładuje wszystkie 4 sztuki jednocześnie.</p>"}},"q5":{"type":"faq","settings":{"question":"Czy można grać w domu?","answer":"<p>Tak! Laserix działa w mieszkaniu, w ogrodzie i na podwórku. W domu kanapa i stół to najlepsze kryjówki.</p>"}},"q6":{"type":"faq","settings":{"question":"Ile trwa dostawa?","answer":"<p>Zamówienia wysyłamy najszybciej, jak to możliwe. Dokładny czas dostawy zobaczysz przy kasie.</p>"}}},"block_order":["q1","q2","q3","q4","q5","q6"]},"final":{"type":"laserix-final-cta","settings":{"heading":"Gotowi na pierwszą bitwę? ⚡","subheading":"Pierwsze trafienie, pierwszy okrzyk radości — i wieczór bez telefonu. Zamów Laserix dziś.","cta":"Wybieram zestaw ⚡","chips":"🚚 Szybka wysyłka, 🛡️ 30 dni na zwrot, 🔒 Bezpieczne płatności","bg":"none"}}},"order":["announcement","product","ribbon","gallery","problems","steps","duo","features","compare","reviews","gift","box","specs","guarantee","faq","final"]}
+{
+  "sections": {
+    "announcement": {
+      "type": "laserix-announcement",
+      "blocks": {
+        "a1": {
+          "type": "item",
+          "settings": {
+            "icon": "🚚",
+            "text": "Szybka wysyłka"
+          }
+        },
+        "a2": {
+          "type": "item",
+          "settings": {
+            "icon": "⚡",
+            "text": "4 graczy w jednym zestawie"
+          }
+        },
+        "a3": {
+          "type": "item",
+          "settings": {
+            "icon": "🎁",
+            "text": "Hit na Mikołajki i Święta"
+          }
+        },
+        "a4": {
+          "type": "item",
+          "settings": {
+            "icon": "🔥",
+            "text": "-20% przy 3 zestawach"
+          }
+        },
+        "a5": {
+          "type": "item",
+          "settings": {
+            "icon": "🛡️",
+            "text": "30 dni na zwrot"
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5"
+      ]
+    },
+    "product": {
+      "type": "laserix-product",
+      "settings": {
+        "product": "laserix-zestaw-laser-tag-dla-4-graczy",
+        "fallback_image": "lx-zestaw-4-graczy.jpg",
+        "sticker_1": "🎁 Hit na prezent",
+        "sticker_2": "4 graczy",
+        "chip_hot": "🔥 HIT SEZONU",
+        "show_rating": false,
+        "rating_text": "4,9/5 · opinie rodziców",
+        "heading": "Laserix",
+        "heading_accent": "laser tag dla całej ekipy ⚡",
+        "subheading": "Przenieś walkę do domu! Pistolety na bezpieczną podczerwień, kamizelki z czujnikami trafień i świecące efekty w 4 kolorach. Ładujesz przez USB — bez kupowania baterii.",
+        "timer_enable": true,
+        "timer_label": "Promocja kończy się za:",
+        "timer_end": "2026-10-31 23:59",
+        "stock_enable": true,
+        "stock_max": 100,
+        "stock_text": "Zostało tylko [ilosc] szt. z tej dostawy!",
+        "fomo_text": "Przed świętami znika najszybciej — zamów, zanim zabraknie!",
+        "packs_label": "Wybierz swój zestaw 👇",
+        "unit_label": "zestaw",
+        "cta_text": "Zamawiam Laserix ⚡",
+        "sticky_cta": "Zamawiam ⚡",
+        "note_icon": "🎯",
+        "note_text": "Ładowanie przez USB — nie musisz kupować baterii. Każdy zestaw jest gotowy do wręczenia jako prezent."
+      },
+      "blocks": {
+        "p1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🎯",
+            "text": "4 pistolety + 4 kamizelki"
+          }
+        },
+        "p2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🛡️",
+            "text": "Bezpieczna podczerwień"
+          }
+        },
+        "p3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🔌",
+            "text": "Ładowanie USB, bez baterii"
+          }
+        },
+        "p4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🌈",
+            "text": "4 kolory drużyn"
+          }
+        },
+        "k1": {
+          "type": "package",
+          "settings": {
+            "emoji": "⚡",
+            "title": "1 zestaw",
+            "desc": "4 pistolety + 4 kamizelki",
+            "pistols": 4,
+            "quantity": 1,
+            "discount_percent": 0,
+            "variant_id": "59419437007196",
+            "badge": "",
+            "badge_style": "teal"
+          }
+        },
+        "k2": {
+          "type": "package",
+          "settings": {
+            "emoji": "🔥",
+            "title": "2 zestawy",
+            "desc": "8 pistoletów + 8 kamizelek",
+            "pistols": 8,
+            "quantity": 2,
+            "discount_percent": 10,
+            "variant_id": "59419437039964",
+            "badge": "⭐ Najczęściej wybierany",
+            "badge_style": "purple",
+            "highlight": true,
+            "preselect": true
+          }
+        },
+        "k3": {
+          "type": "package",
+          "settings": {
+            "emoji": "🏆",
+            "title": "3 zestawy",
+            "desc": "12 pistoletów + 12 kamizelek",
+            "pistols": 12,
+            "quantity": 3,
+            "discount_percent": 20,
+            "variant_id": "59419437072732",
+            "badge": "💎 Najlepsza cena",
+            "badge_style": "teal"
+          }
+        },
+        "t1": {
+          "type": "trust",
+          "settings": {
+            "icon": "🚚",
+            "text": "Szybka wysyłka"
+          }
+        },
+        "t2": {
+          "type": "trust",
+          "settings": {
+            "icon": "🛡️",
+            "text": "30 dni na zwrot"
+          }
+        },
+        "t3": {
+          "type": "trust",
+          "settings": {
+            "icon": "🔒",
+            "text": "Bezpieczne płatności"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "k1",
+        "k2",
+        "k3",
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    "ribbon": {
+      "type": "laserix-ribbon",
+      "settings": {
+        "items": "⚡ 4 graczy naraz, 🔌 Ładowanie USB, 💡 Świecące efekty, 🛡️ Bezpieczna podczerwień, 🏠 Dom i ogród, 🎁 Prezent nr 1"
+      }
+    },
+    "gallery": {
+      "type": "laserix-gallery",
+      "settings": {
+        "eyebrow": "📸 Zobacz w akcji",
+        "heading": "Tak wygląda",
+        "heading_accent": "domowa arena",
+        "subheading": "Kliknij zdjęcie, żeby je powiększyć.",
+        "bg": "none"
+      },
+      "blocks": {
+        "g1": {
+          "type": "photo",
+          "settings": {
+            "asset": "lx-zestaw-laser-tag.jpg",
+            "caption": "4 kolory drużyn"
+          }
+        },
+        "g2": {
+          "type": "photo",
+          "settings": {
+            "asset": "lx-zestaw-4-graczy.jpg",
+            "caption": "Zabawa w domu"
+          }
+        },
+        "g3": {
+          "type": "photo",
+          "settings": {
+            "asset": "lx-ladowanie-usb.jpg",
+            "caption": "Ładowanie USB"
+          }
+        },
+        "g4": {
+          "type": "photo",
+          "settings": {
+            "asset": "lx-pistolety-kamizelki.jpg",
+            "caption": "Licznik trafień"
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4"
+      ]
+    },
+    "duo": {
+      "type": "laserix-duo",
+      "settings": {
+        "eyebrow": "👨‍👩‍👦 Dla całej rodziny",
+        "heading": "Rodzic mówi „wow”.",
+        "heading_accent": "Dziecko krzyczy „JESZCZE!”",
+        "subheading": "Laserix to nie kolejna plastikowa zabawka do szuflady. To zabawa, w którą wciągają się wszyscy — łącznie z rodzicami.",
+        "bg": "none",
+        "parent_emoji": "😌",
+        "parent_quote": "„Wreszcie odłożył telefon!”",
+        "parent_label": "Dla rodzica",
+        "kid_emoji": "🤩",
+        "kid_quote": "„Tato, jeszcze jedna runda!”",
+        "kid_label": "Dla dziecka"
+      },
+      "blocks": {
+        "d1": {
+          "type": "parent",
+          "settings": {
+            "icon": "✅",
+            "text": "Ruch i świeże powietrze zamiast ekranu"
+          }
+        },
+        "d2": {
+          "type": "parent",
+          "settings": {
+            "icon": "✅",
+            "text": "Bezpieczna podczerwień 1 mW — nic nie wylatuje z lufy"
+          }
+        },
+        "d3": {
+          "type": "parent",
+          "settings": {
+            "icon": "✅",
+            "text": "Ładowanie USB — koniec z kupowaniem baterii"
+          }
+        },
+        "d4": {
+          "type": "parent",
+          "settings": {
+            "icon": "✅",
+            "text": "Wspólny czas — rodzice też chcą grać"
+          }
+        },
+        "d5": {
+          "type": "kid",
+          "settings": {
+            "icon": "⚡",
+            "text": "Świecące pistolety i kamizelki jak w prawdziwej arenie"
+          }
+        },
+        "d6": {
+          "type": "kid",
+          "settings": {
+            "icon": "🔴",
+            "text": "4 drużyny: czerwoni, zieloni, żółci i niebiescy!"
+          }
+        },
+        "d7": {
+          "type": "kid",
+          "settings": {
+            "icon": "🎯",
+            "text": "Kamizelka sama liczy trafienia"
+          }
+        },
+        "d8": {
+          "type": "kid",
+          "settings": {
+            "icon": "🏆",
+            "text": "Kto ostatni zostanie z życiem — wygrywa"
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2",
+        "d3",
+        "d4",
+        "d5",
+        "d6",
+        "d7",
+        "d8"
+      ]
+    },
+    "features": {
+      "type": "laserix-features",
+      "settings": {
+        "eyebrow": "💥 Dlaczego Laserix",
+        "heading": "Wygląda jak z gry,",
+        "heading_accent": "działa naprawdę",
+        "bg": "lilac"
+      },
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "🔌",
+            "title": "Ładowanie USB",
+            "text": "Stacja ładuje wszystkie 4 pistolety jednocześnie. Nie musisz kupować baterii."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "💡",
+            "title": "Efekty świetlne",
+            "text": "Pistolety i kamizelki świecą w kolorze drużyny. Wygląda jak w prawdziwej arenie."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "❤️",
+            "title": "Licznik żyć",
+            "text": "Kamizelka z czujnikami pokazuje, ile żyć zostało. Gra sama liczy punkty."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "icon": "🌈",
+            "title": "4 kolory drużyn",
+            "text": "Czerwony, zielony, żółty i niebieski — graj każdy na każdego albo drużynami."
+          }
+        },
+        "f5": {
+          "type": "feature",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Bezpieczne dla dzieci",
+            "text": "Niewidzialna wiązka podczerwieni 1 mW. Bez kulek, bez pocisków, bez bałaganu."
+          }
+        },
+        "f6": {
+          "type": "feature",
+          "settings": {
+            "icon": "✋",
+            "title": "Chwyć i graj",
+            "text": "Wyjmujesz pistolet ze stacji i od razu grasz. Bez aplikacji i bez kabli."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ]
+    },
+    "reviews": {
+      "type": "laserix-fb-reviews",
+      "settings": {
+        "eyebrow": "💬 Opinie klientów",
+        "heading": "Co mówią",
+        "heading_accent": "rodzice?",
+        "bg": "none",
+        "summary_enable": true,
+        "score": "4,9",
+        "count_text": "średnia ocen klientów",
+        "bars": "91,7,2,0,0",
+        "page_name": "Laserix",
+        "page_emoji": "🎯",
+        "sort_label": "Najtrafniejsze",
+        "reactions_total": "1,2 tys.",
+        "comments_label": "Komentarze klientów",
+        "visible": 5,
+        "disclaimer": "Opinie pochodzą od naszych klientów. Mogą być skrócone."
+      },
+      "blocks": {
+        "v1": {
+          "type": "comment",
+          "settings": {
+            "name": "Karolina Wiśniewska",
+            "badge": "Najlepszy fan",
+            "text": "Kupiłam na urodziny syna (8 lat) i to był strzał w dziesiątkę 😄 Cała ósemka dzieciaków biegała po ogrodzie 3 godziny. Nikt nawet nie zapytał o telefon!",
+            "time": "3 dni",
+            "likes": 48,
+            "reaction": "love",
+            "reply_text": "Pani Karolino, takie wiadomości to dla nas najlepsza nagroda! Wszystkiego dobrego dla solenizanta 🎉"
+          }
+        },
+        "v2": {
+          "type": "comment",
+          "settings": {
+            "name": "Tomasz Kaczmarek",
+            "text": "Miało być dla dzieci, a gram z nimi co wieczór 😅 Wibracja przy trafieniu robi robotę. Wziąłem 2 zestawy, żeby grać 4 na 4 z sąsiadami.",
+            "time": "1 tydz.",
+            "likes": 35,
+            "reaction": "mix"
+          }
+        },
+        "v3": {
+          "type": "comment",
+          "settings": {
+            "name": "Agnieszka Nowak",
+            "text": "Bałam się, że to coś niebezpiecznego, ale to tylko podczerwień — nic nie wylatuje. Córka (6 lat) ogarnęła wszystko w 2 minuty.",
+            "time": "1 tydz.",
+            "likes": 22,
+            "reaction": "like"
+          }
+        },
+        "v4": {
+          "type": "comment",
+          "settings": {
+            "name": "Marcin Zieliński",
+            "text": "Wzięliśmy 3 zestawy na komunię — 12 pistoletów i była prawdziwa wojna drużyn 🔴🟢🟡🔵 Dzieci zachwycone, dorośli też.",
+            "time": "2 tyg.",
+            "likes": 29,
+            "reaction": "love"
+          }
+        },
+        "v5": {
+          "type": "comment",
+          "settings": {
+            "name": "Ewelina Mazur",
+            "text": "Paczka przyszła szybko, ładne pudełko — od razu do prezentu. Synowie bawią się codziennie po szkole.",
+            "time": "2 tyg.",
+            "likes": 14,
+            "reaction": "like"
+          }
+        },
+        "v6": {
+          "type": "comment",
+          "settings": {
+            "name": "Paweł Lewandowski",
+            "text": "Super sprawa na deszczowe dni — gramy w mieszkaniu, chowając się za kanapą 😂 Ładowanie przez USB to wygoda, nie trzeba pamiętać o bateriach.",
+            "time": "3 tyg.",
+            "likes": 19,
+            "reaction": "like",
+            "reply_text": "Dzięki, Panie Pawle! Miłej zabawy 👍"
+          }
+        },
+        "v7": {
+          "type": "comment",
+          "settings": {
+            "name": "Natalia Kowalczyk",
+            "text": "Najlepszy prezent dla chrześniaka. Teraz cała rodzina chce swój zestaw 😄",
+            "time": "1 mies.",
+            "likes": 11,
+            "reaction": "love"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "v5",
+        "v6",
+        "v7"
+      ]
+    },
+    "faq": {
+      "type": "laserix-faq",
+      "settings": {
+        "eyebrow": "❓ Pytania",
+        "heading": "Najczęściej",
+        "heading_accent": "zadawane pytania",
+        "bg": "none"
+      },
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy to jest bezpieczne dla dzieci?",
+            "answer": "<p>Tak. Pistolety strzelają niewidzialną wiązką podczerwieni o mocy 1 mW — takiej samej technologii używa pilot do telewizora. Nic nie wylatuje z lufy, nie ma kulek ani pocisków.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Od jakiego wieku?",
+            "answer": "<p>Zestaw jest przeznaczony dla dzieci od 4. roku życia. Świetnie bawią się też nastolatki i… rodzice.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Ile osób może grać?",
+            "answer": "<p>Jeden zestaw to 4 pistolety i 4 kamizelki, czyli 4 graczy. Zestawy łączą się ze sobą — z 2 zestawami gra 8 osób, z 3 zestawami aż 12.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy trzeba kupować baterie?",
+            "answer": "<p>Nie. Pistolety ładujesz przez USB w stacji ładowania, która ładuje wszystkie 4 sztuki jednocześnie.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "question": "Czy można grać w domu?",
+            "answer": "<p>Tak! Laserix działa w mieszkaniu, w ogrodzie i na podwórku. W domu kanapa i stół to najlepsze kryjówki.</p>"
+          }
+        },
+        "q6": {
+          "type": "faq",
+          "settings": {
+            "question": "Ile trwa dostawa?",
+            "answer": "<p>Zamówienia wysyłamy najszybciej, jak to możliwe. Dokładny czas dostawy zobaczysz przy kasie.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ]
+    },
+    "final": {
+      "type": "laserix-final-cta",
+      "settings": {
+        "heading": "Gotowi na pierwszą bitwę? ⚡",
+        "subheading": "Pierwsze trafienie, pierwszy okrzyk radości — i wieczór bez telefonu. Zamów Laserix dziś.",
+        "cta": "Wybieram zestaw ⚡",
+        "chips": "🚚 Szybka wysyłka, 🛡️ 30 dni na zwrot, 🔒 Bezpieczne płatności",
+        "bg": "none"
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "product",
+    "ribbon",
+    "gallery",
+    "duo",
+    "features",
+    "reviews",
+    "faq",
+    "final"
+  ]
+}
