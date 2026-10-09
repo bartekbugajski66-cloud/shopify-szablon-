@@ -153,19 +153,22 @@
         "g1": {
           "type": "gif",
           "settings": {
-            "caption": "Wjazd na ścianę 🧱"
+            "caption": "Jazda po ścianie 🧱",
+            "video_asset": "vexon-film-1.mp4"
           }
         },
         "g2": {
           "type": "gif",
           "settings": {
-            "caption": "Jazda po suficie 🙃"
+            "caption": "Start prosto ze ściany 🚀",
+            "video_asset": "vexon-film-2.mp4"
           }
         },
         "g3": {
           "type": "gif",
           "settings": {
-            "caption": "Obrót 360° 🌀"
+            "caption": "Aż pod sam sufit 🙃",
+            "video_asset": "vexon-film-3.mp4"
           }
         }
       },
@@ -460,11 +463,6 @@
         "s13"
       ]
     },
-    "reviews": {
-      "type": "vx-reviews",
-      "blocks": {},
-      "block_order": []
-    },
     "faq": {
       "type": "vx-faq",
       "blocks": {
@@ -549,7 +547,6 @@
     "parents",
     "compare",
     "specs",
-    "reviews",
     "faq",
     "cta"
   ]

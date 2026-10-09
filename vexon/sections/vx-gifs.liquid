@@ -8,7 +8,9 @@
     <div class="vx-gifs__grid">
       {%- for block in section.blocks -%}
         <div class="vx-gif" data-reveal data-reveal-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
-          {%- if block.settings.video != blank -%}
+          {%- if block.settings.video_asset != blank -%}
+            <video src="{{ block.settings.video_asset | asset_url }}" autoplay loop muted playsinline preload="metadata" aria-label="{{ block.settings.caption | escape }}"></video>
+          {%- elsif block.settings.video != blank -%}
             {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata' }}
           {%- elsif block.settings.video_url != blank -%}
             <video src="{{ block.settings.video_url }}" autoplay loop muted playsinline preload="metadata"></video>
@@ -44,6 +46,7 @@
   "blocks": [
     { "type": "gif", "name": "GIF / film", "settings": [
       { "type": "video", "id": "video", "label": "Film (MP4, najlepiej pionowy)" },
+      { "type": "text", "id": "video_asset", "label": "…albo plik MP4 z motywu (assets)", "info": "Nazwa pliku z folderu assets, np. vexon-film-1.mp4" },
       { "type": "url", "id": "video_url", "label": "…albo link do pliku MP4" },
       { "type": "image_picker", "id": "image", "label": "…albo GIF / zdjęcie" },
       { "type": "text", "id": "caption", "label": "Podpis", "default": "Jazda po ścianie" }
