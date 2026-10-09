@@ -1,0 +1,10 @@
+<div class="drip-page page-width" style="max-width:820px;">
+  <article>
+    <h1>{{ article.title }}</h1>
+    <small style="color:#64748B;">{{ article.published_at | date: '%d.%m.%Y' }}{% if article.author %} • {{ article.author }}{% endif %}</small>
+    {%- if article.image -%}
+      <div style="margin:18px 0;">{{ article.image | image_url: width: 1200 | image_tag: loading: 'lazy', style: 'border-radius:16px;', alt: article.title | escape }}</div>
+    {%- endif -%}
+    <div>{{ article.content }}</div>
+  </article>
+</div>
