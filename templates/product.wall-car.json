@@ -1,0 +1,246 @@
+{
+  "sections": {
+    "announcement": {
+      "type": "dripon-announcement",
+      "settings": { "interval": 5 },
+      "blocks": {
+        "b1": { "type": "benefit", "settings": { "icon": "🏎️", "text": "Jeździ po ścianach i suficie" } },
+        "b2": { "type": "benefit", "settings": { "icon": "🚚", "text": "Szybka dostawa" } },
+        "b3": { "type": "benefit", "settings": { "icon": "🛡️", "text": "30 dni na zwrot" } },
+        "b4": { "type": "benefit", "settings": { "icon": "🔒", "text": "Bezpieczne płatności" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "product_main": {
+      "type": "dripon-product-main",
+      "settings": {
+        "badge": "HIT NA PREZENT",
+        "heading": "Samochód RC, który jeździ —",
+        "heading_accent": "po ścianach i suficie",
+        "subheading": "Zdalnie sterowana wyścigówka z systemem przyssania: przełączasz tryb i auto wjeżdża na ścianę, szybę albo sufit. Obroty 360°, świecące LED-y i ładowanie przez USB — gotowa do zabawy prosto z pudełka.",
+        "show_rating": false,
+        "trust_text": "Idealny prezent urodzinowy",
+        "trust_sub": "Gotowy do zabawy prosto z pudełka",
+        "packs_label": "WYBIERZ ZESTAW:",
+        "cta_text": "Zamawiam — chcę jeździć po ścianach",
+        "sticky_cta": "Dodaj do koszyka",
+        "after_add": "cart",
+        "upsell_enable": false,
+        "brand_box_title": "TRYB ŚCIANA + TRYB PODŁOGA",
+        "brand_box_text": "Jednym przełącznikiem z tyłu auta zmieniasz tryb: na podłodze to szybka wyścigówka, na ścianie i suficie — kaskader, który przeczy grawitacji."
+      },
+      "blocks": {
+        "be1": { "type": "benefit", "settings": { "text": "Jeździ po ścianach, suficie, szybach i podłodze" } },
+        "be2": { "type": "benefit", "settings": { "text": "Obroty kaskaderskie 360° w przód i w tył" } },
+        "be3": { "type": "benefit", "settings": { "text": "Świecące reflektory LED" } },
+        "be4": { "type": "benefit", "settings": { "text": "4-kanałowy pilot, zasięg 8–10 m" } },
+        "be5": { "type": "benefit", "settings": { "text": "Ładowanie przez USB — bez kupowania baterii do auta" } },
+        "pk1": { "type": "package", "settings": { "title": "1 auto", "desc": "129,99 zł / szt.", "price": "129,99 zł", "compare_price": "", "discount": "", "quantity": 1, "preselect": true } },
+        "pk2": { "type": "package", "settings": { "title": "2 auta — wyścigi we dwoje", "desc": "114,99 zł / szt.", "badge": "Najpopularniejsze", "price": "229,98 zł", "compare_price": "259,98 zł", "discount": "Oszczędzasz 30 zł", "quantity": 2, "highlight": true } },
+        "pk3": { "type": "package", "settings": { "title": "3 auta — dla całej ekipy", "desc": "99,99 zł / szt.", "badge": "Najlepsza oferta", "price": "299,97 zł", "compare_price": "389,97 zł", "discount": "Oszczędzasz 90 zł", "quantity": 3 } },
+        "tr1": { "type": "trust", "settings": { "icon": "🚚", "text": "Szybka wysyłka" } },
+        "tr2": { "type": "trust", "settings": { "icon": "🛡️", "text": "30 dni na zwrot" } },
+        "tr3": { "type": "trust", "settings": { "icon": "🔒", "text": "Bezpieczne płatności" } }
+      },
+      "block_order": ["be1", "be2", "be3", "be4", "be5", "pk1", "pk2", "pk3", "tr1", "tr2", "tr3"]
+    },
+    "gratisy": {
+      "type": "banner-gratisy",
+      "settings": {
+        "eyebrow": "W ZESTAWIE",
+        "title_before": "W pudełku od razu dostajesz",
+        "title_accent": "wszystko do zabawy",
+        "g1_icon": "🎮", "g1_title": "Pilot zdalnego sterowania", "g1_value": "W ZESTAWIE",
+        "g2_icon": "🔌", "g2_title": "Kabel USB do ładowania", "g2_value": "W ZESTAWIE",
+        "note": "Baterie do pilota nie są dołączone do zestawu."
+      }
+    },
+    "video": {
+      "type": "dripon-video",
+      "settings": {
+        "eyebrow": "ZOBACZ W AKCJI",
+        "heading": "Auto, które jedzie po ścianie",
+        "subheading": "Zobacz, jak wyścigówka wjeżdża na ścianę, sufit i szybę oraz robi obroty 360°."
+      },
+      "blocks": {
+        "v1": { "type": "video", "settings": { "alt": "Auto RC jedzie po ścianie" } },
+        "v2": { "type": "video", "settings": { "alt": "Auto RC na suficie" } },
+        "v3": { "type": "video", "settings": { "alt": "Obrót 360°" } }
+      },
+      "block_order": ["v1", "v2", "v3"]
+    },
+    "problems": {
+      "type": "dripon-problems",
+      "settings": {
+        "eyebrow": "BRZMI ZNAJOMO?",
+        "heading": "Szukasz prezentu, który naprawdę zaskoczy?",
+        "subheading": "Zwykłe autka szybko się nudzą. To jedno robi coś, czego dzieci jeszcze nie widziały."
+      },
+      "blocks": {
+        "p1": { "type": "problem", "settings": { "icon": "😴", "title": "Zabawki szybko się nudzą", "text": "Kolejne zwykłe autko po tygodniu ląduje w kącie." } },
+        "p2": { "type": "problem", "settings": { "icon": "📱", "title": "Za dużo ekranu", "text": "Trudno oderwać dziecko od telefonu czy tabletu na aktywną zabawę." } },
+        "p3": { "type": "problem", "settings": { "icon": "🏠", "title": "Mało miejsca w domu", "text": "Na wyścigówkę RC zwykle potrzeba dużo podłogi — a tu wystarczy ściana." } },
+        "p4": { "type": "problem", "settings": { "icon": "🎁", "title": "Prezent bez „wow”", "text": "Chcesz dać coś, o czym dziecko będzie opowiadać kolegom." } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"]
+    },
+    "technology": {
+      "type": "dripon-technology",
+      "settings": {
+        "eyebrow": "JAK TO DZIAŁA",
+        "heading": "Cztery triki. Jedno auto.",
+        "subheading": "Wbudowany system przyssania trzyma auto przy gładkiej powierzchni — także do góry nogami."
+      },
+      "blocks": {
+        "t1": { "type": "feature", "settings": { "icon": "🧲", "title": "Jazda po ścianach", "text": "Tryb ściana przysysa auto do gładkiej powierzchni: ściany, szyby, sufitu." } },
+        "t2": { "type": "feature", "settings": { "icon": "🔄", "title": "Obroty 360°", "text": "Kaskaderskie obroty podczas jazdy do przodu i do tyłu." } },
+        "t3": { "type": "feature", "settings": { "icon": "💡", "title": "Reflektory LED", "text": "Świecące przednie i tylne lampy — efektownie wygląda szczególnie po zmroku." } },
+        "t4": { "type": "feature", "settings": { "icon": "🔋", "title": "Szybkie ładowanie USB", "text": "Ładujesz auto kablem USB z ładowarki, komputera albo powerbanku." } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "usecases": {
+      "type": "dripon-usecases",
+      "settings": {
+        "eyebrow": "GDZIE JEŹDZI",
+        "heading": "Podłoga, ściana, szyba, sufit",
+        "subheading": "Każda gładka powierzchnia w domu staje się torem wyścigowym."
+      },
+      "blocks": {
+        "u1": { "type": "usecase", "settings": { "title": "Na ścianie i suficie?", "text": "Tryb ściana — auto przysysa się do gładkiej, płaskiej powierzchni i jedzie pionowo lub do góry nogami." } },
+        "u2": { "type": "usecase", "settings": { "title": "Na szybie?", "text": "Okna, drzwi szklane i lustra to idealny, gładki tor." } },
+        "u3": { "type": "usecase", "settings": { "title": "Na podłodze?", "text": "Tryb podłoga — klasyczna, szybka wyścigówka RC do wyścigów i driftu." } }
+      },
+      "block_order": ["u1", "u2", "u3"]
+    },
+    "gallery": {
+      "type": "dripon-gallery",
+      "settings": { "eyebrow": "GALERIA", "heading": "Zobacz auto z bliska" },
+      "blocks": {
+        "g1": { "type": "photo", "settings": { "caption": "Jazda po ścianie" } },
+        "g2": { "type": "photo", "settings": { "caption": "Jazda po suficie" } },
+        "g3": { "type": "photo", "settings": { "caption": "Reflektory LED" } },
+        "g4": { "type": "photo", "settings": { "caption": "Pilot i auto w zestawie" } }
+      },
+      "block_order": ["g1", "g2", "g3", "g4"]
+    },
+    "comparison": {
+      "type": "dripon-comparison",
+      "settings": {
+        "eyebrow": "PORÓWNANIE",
+        "heading": "Dlaczego nie zwykłe autko RC?",
+        "subheading": "Zobacz różnicę między zwykłą zabawką a autem do jazdy po ścianach.",
+        "left_title": "Zwykłe auto RC",
+        "right_title": "Auto po ścianach"
+      },
+      "blocks": {
+        "l1": { "type": "left", "settings": { "text": "Jeździ tylko po podłodze" } },
+        "l2": { "type": "left", "settings": { "text": "Potrzebuje dużo miejsca" } },
+        "l3": { "type": "left", "settings": { "text": "Brak trików kaskaderskich" } },
+        "l4": { "type": "left", "settings": { "text": "Często bez oświetlenia" } },
+        "l5": { "type": "left", "settings": { "text": "Wymiana baterii w aucie" } },
+        "l6": { "type": "left", "settings": { "text": "Szybko się nudzi" } },
+        "r1": { "type": "right", "settings": { "text": "Ściana, sufit, szyba i podłoga" } },
+        "r2": { "type": "right", "settings": { "text": "Wystarczy kawałek ściany" } },
+        "r3": { "type": "right", "settings": { "text": "Obroty kaskaderskie 360°" } },
+        "r4": { "type": "right", "settings": { "text": "Świecące reflektory LED" } },
+        "r5": { "type": "right", "settings": { "text": "Ładowanie przez USB" } },
+        "r6": { "type": "right", "settings": { "text": "30 dni na zwrot" } }
+      },
+      "block_order": ["l1", "l2", "l3", "l4", "l5", "l6", "r1", "r2", "r3", "r4", "r5", "r6"]
+    },
+    "social_proof": {
+      "type": "dripon-social-proof",
+      "blocks": {
+        "s1": { "type": "stat", "settings": { "number": "360°", "label": "Obroty kaskaderskie", "note": "* w przód i w tył" } },
+        "s2": { "type": "stat", "settings": { "number": "8–10 m", "label": "Zasięg pilota", "note": "* w otwartej przestrzeni" } },
+        "s3": { "type": "stat", "settings": { "number": "4", "label": "Kanały sterowania", "note": "* przód, tył, lewo, prawo" } },
+        "s4": { "type": "stat", "settings": { "number": "30", "label": "Dni na zwrot", "note": "* bez podawania przyczyny" } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"]
+    },
+    "guarantee": {
+      "type": "dripon-guarantee",
+      "settings": {
+        "badge_big": "30",
+        "badge_small": "DNI NA ZWROT",
+        "eyebrow": "TWOJE BEZPIECZEŃSTWO",
+        "heading": "Masz 30 dni na sprawdzenie auta. Jeśli nie spełni oczekiwań — oddajemy pieniądze.",
+        "text": "<p>Wystarczy napisać na kontakt@twojadomena.pl — zapewniamy prosty proces i wygodny zwrot kodem do Paczkomatu. Zwrot środków zlecamy natychmiast po otrzymaniu przesyłki.</p>"
+      }
+    },
+    "materials": {
+      "type": "dripon-materials",
+      "settings": {
+        "eyebrow": "SPECYFIKACJA",
+        "heading": "Dane techniczne",
+        "subheading": "Wszystko, co warto wiedzieć przed zakupem."
+      },
+      "blocks": {
+        "m1": { "type": "spec", "settings": { "key": "Model", "value": "D0151" } },
+        "m2": { "type": "spec", "settings": { "key": "Skala", "value": "1:18" } },
+        "m3": { "type": "spec", "settings": { "key": "Sterowanie", "value": "Pilot 4-kanałowy, zasięg 8–10 m" } },
+        "m4": { "type": "spec", "settings": { "key": "Czas jazdy", "value": "ok. 8 minut na jednym ładowaniu" } },
+        "m5": { "type": "spec", "settings": { "key": "Zasilanie auta", "value": "Akumulator 3,7 V, ładowanie USB" } },
+        "m6": { "type": "spec", "settings": { "key": "Materiał", "value": "Metal i plastik" } },
+        "m7": { "type": "spec", "settings": { "key": "Wymiary opakowania", "value": "16 × 6 × 20 cm" } },
+        "m8": { "type": "spec", "settings": { "key": "Zalecany wiek", "value": "14+" } },
+        "m9": { "type": "spec", "settings": { "key": "Kolory", "value": "Czarny · niebieski · czerwony" } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9"]
+    },
+    "whatyouget": {
+      "type": "dripon-whatyouget",
+      "settings": { "eyebrow": "CO DOSTAJESZ", "heading": "Kompletny zestaw do zabawy" },
+      "blocks": {
+        "w1": { "type": "item", "settings": { "icon": "🏎️", "title": "Auto RC", "text": "Wyścigówka z trybem jazdy po ścianach i podłodze oraz reflektorami LED." } },
+        "w2": { "type": "item", "settings": { "icon": "🎮", "badge": "W ZESTAWIE", "title": "Pilot", "text": "4-kanałowy pilot zdalnego sterowania (baterie do pilota kupowane osobno)." } },
+        "w3": { "type": "item", "settings": { "icon": "🔌", "badge": "W ZESTAWIE", "title": "Kabel USB", "text": "Do ładowania auta z ładowarki, komputera lub powerbanku." } },
+        "w4": { "type": "item", "settings": { "icon": "📖", "badge": "W ZESTAWIE", "title": "Instrukcja obsługi", "text": "Krok po kroku: ładowanie, przełączanie trybów i jazda po ścianie." } }
+      },
+      "block_order": ["w1", "w2", "w3", "w4"]
+    },
+    "care_faq": {
+      "type": "dripon-care-faq",
+      "settings": {
+        "care_enable": true,
+        "care_eyebrow": "JAK ZACZĄĆ",
+        "care_heading": "Na ścianie w 3 krokach",
+        "care_sub": "Bez montażu i skomplikowanej konfiguracji.",
+        "faq_enable": true,
+        "faq_eyebrow": "FAQ",
+        "faq_heading": "Najczęstsze pytania"
+      },
+      "blocks": {
+        "c1": { "type": "step", "settings": { "title": "Naładuj auto", "text": "Podłącz kabel USB. Podczas ładowania przełącznik w aucie ustaw na „OFF”." } },
+        "c2": { "type": "step", "settings": { "title": "Wybierz tryb", "text": "Przełącznikiem z tyłu auta wybierz tryb ściana (WALL) albo podłoga (FLOOR)." } },
+        "c3": { "type": "step", "settings": { "title": "Przyłóż i jedź", "text": "W trybie ściana przyłóż auto do gładkiej, płaskiej powierzchni i steruj pilotem." } },
+        "f1": { "type": "faq", "settings": { "question": "Po jakich powierzchniach jeździ?", "answer": "Po gładkich i płaskich: gładkie ściany, szyby, lustra, drzwi, sufity i podłoga. Nie utrzyma się na chropowatym tynku, tapecie z fakturą ani nierównych powierzchniach." } },
+        "f2": { "type": "faq", "settings": { "question": "Jak długo jeździ na jednym ładowaniu?", "answer": "Około 8 minut. Auto ładujesz przez dołączony kabel USB." } },
+        "f3": { "type": "faq", "settings": { "question": "Czy auto zostawia ślady na ścianie?", "answer": "Auto jeździ na gumowych kołach i trzyma się dzięki zasysaniu powietrza, bez klejów. Na bardzo jasnych ścianach warto najpierw sprawdzić w mało widocznym miejscu." } },
+        "f4": { "type": "faq", "settings": { "question": "Czy baterie są w zestawie?", "answer": "Auto ma wbudowany akumulator ładowany przez USB. Baterie do pilota nie są dołączone." } },
+        "f5": { "type": "faq", "settings": { "question": "Dla kogo jest ta zabawka?", "answer": "Producent zaleca wiek 14+. Młodsze dzieci powinny bawić się pod opieką dorosłych." } },
+        "f6": { "type": "faq", "settings": { "question": "Do czego służy biała osłonka pod autem?", "answer": "To element systemu przyssania — nie wolno jej odrywać. Przed jazdą po ścianie upewnij się, że jest płasko ułożona." } },
+        "f7": { "type": "faq", "settings": { "question": "Kiedy dostanę zamówienie i czy mogę zwrócić?", "answer": "Wysyłka 1–3 dni robocze. Masz 30 dni na zwrot." } }
+      },
+      "block_order": ["c1", "c2", "c3", "f1", "f2", "f3", "f4", "f5", "f6", "f7"]
+    },
+    "reviews": {
+      "type": "dripon-reviews",
+      "disabled": true,
+      "settings": {
+        "eyebrow": "OPINIE KLIENTÓW",
+        "heading": "Co mówią kupujący",
+        "subheading": "",
+        "disclaimer": ""
+      },
+      "blocks": {
+        "rv1": { "type": "review", "settings": { "name": "Imię klienta", "color": "#0c9aa4", "title": "Tytuł opinii", "text": "Wklej tutaj prawdziwą opinię klienta.", "source": "Źródło opinii" } },
+        "rv2": { "type": "review", "settings": { "name": "Imię klienta", "color": "#0a7d85", "title": "Tytuł opinii", "text": "Wklej tutaj prawdziwą opinię klienta.", "source": "Źródło opinii" } },
+        "rv3": { "type": "review", "settings": { "name": "Imię klienta", "color": "#127e88", "title": "Tytuł opinii", "text": "Wklej tutaj prawdziwą opinię klienta.", "source": "Źródło opinii" } }
+      },
+      "block_order": ["rv1", "rv2", "rv3"]
+    }
+  },
+  "order": ["announcement", "product_main", "gratisy", "video", "problems", "technology", "usecases", "gallery", "comparison", "social_proof", "guarantee", "materials", "whatyouget", "care_faq", "reviews"]
+}
