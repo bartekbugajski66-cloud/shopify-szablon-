@@ -1,0 +1,560 @@
+{
+  "sections": {
+    "main": {
+      "type": "vx-product",
+      "blocks": {
+        "b1": {
+          "type": "bullet",
+          "settings": {
+            "text": "Jeździ po podłodze, ścianach, szybach i suficie"
+          }
+        },
+        "b2": {
+          "type": "bullet",
+          "settings": {
+            "text": "Obroty kaskaderskie 360° jednym przyciskiem"
+          }
+        },
+        "b3": {
+          "type": "bullet",
+          "settings": {
+            "text": "Świecące reflektory LED"
+          }
+        },
+        "b4": {
+          "type": "bullet",
+          "settings": {
+            "text": "Ładowanie przez USB — bez kupowania baterii do auta"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "product": "vexon-wall-racer"
+      }
+    },
+    "stripe": {
+      "type": "vx-stripe",
+      "blocks": {
+        "w1": {
+          "type": "word",
+          "settings": {
+            "text": "Ściana"
+          }
+        },
+        "w2": {
+          "type": "word",
+          "settings": {
+            "text": "Sufit"
+          }
+        },
+        "w3": {
+          "type": "word",
+          "settings": {
+            "text": "Szyba"
+          }
+        },
+        "w4": {
+          "type": "word",
+          "settings": {
+            "text": "Obrót 360°"
+          }
+        },
+        "w5": {
+          "type": "word",
+          "settings": {
+            "text": "LED"
+          }
+        },
+        "w6": {
+          "type": "word",
+          "settings": {
+            "text": "Darmowa dostawa"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ]
+    },
+    "modes": {
+      "type": "vx-modes",
+      "blocks": {
+        "m1": {
+          "type": "mode",
+          "settings": {
+            "mode": "wall",
+            "icon": "🧱",
+            "tab": "Ściana",
+            "title": "Jazda po ścianie",
+            "text": "Ustaw przełącznik na WALL, przyłóż auto do gładkiej ściany i jedź w górę, w dół i w bok. System przyssania trzyma auto przy powierzchni."
+          }
+        },
+        "m2": {
+          "type": "mode",
+          "settings": {
+            "mode": "ceiling",
+            "icon": "🙃",
+            "tab": "Sufit",
+            "title": "Do góry nogami",
+            "text": "Na gładkim, płaskim suficie auto jedzie do góry kołami. Tego nie zrobi żadne zwykłe autko RC."
+          }
+        },
+        "m3": {
+          "type": "mode",
+          "settings": {
+            "mode": "glass",
+            "icon": "🪟",
+            "tab": "Szyba",
+            "title": "Po szybie i lustrze",
+            "text": "Okna, lustra i szklane drzwi to idealnie gładki tor. Wygląda kosmicznie, zwłaszcza z włączonymi LED-ami."
+          }
+        },
+        "m4": {
+          "type": "mode",
+          "settings": {
+            "mode": "floor",
+            "icon": "🏁",
+            "tab": "Podłoga",
+            "title": "Klasyczne wyścigi",
+            "text": "Przełącz na FLOOR i masz szybką wyścigówkę na podłogę — do wyścigów z kolegą albo rodzeństwem."
+          }
+        },
+        "m5": {
+          "type": "mode",
+          "settings": {
+            "mode": "stunt",
+            "icon": "🌀",
+            "tab": "360°",
+            "title": "Obrót 360°",
+            "text": "Jeden przycisk na pilocie i auto robi kaskaderski obrót w miejscu — w przód i w tył."
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5"
+      ]
+    },
+    "gifs": {
+      "type": "vx-gifs",
+      "blocks": {
+        "g1": {
+          "type": "gif",
+          "settings": {
+            "caption": "Wjazd na ścianę 🧱"
+          }
+        },
+        "g2": {
+          "type": "gif",
+          "settings": {
+            "caption": "Jazda po suficie 🙃"
+          }
+        },
+        "g3": {
+          "type": "gif",
+          "settings": {
+            "caption": "Obrót 360° 🌀"
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3"
+      ]
+    },
+    "features": {
+      "type": "vx-features",
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "🌀",
+            "big": "360°",
+            "title": "Obroty kaskaderskie",
+            "text": "Kręci się w miejscu podczas jazdy w przód i w tył."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "📡",
+            "big": "8–10 m",
+            "title": "Zasięg pilota",
+            "text": "Pilot 4-kanałowy: przód, tył, lewo, prawo."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "💡",
+            "big": "LED",
+            "title": "Świecące reflektory",
+            "text": "Przednie i tylne światła — efekt jak z gry."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "icon": "🔌",
+            "big": "USB",
+            "title": "Ładowanie kablem",
+            "text": "Ok. 8 minut szaleństwa na jednym ładowaniu."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ]
+    },
+    "parents": {
+      "type": "vx-parents",
+      "blocks": {
+        "p1": {
+          "type": "fact",
+          "settings": {
+            "icon": "🧒",
+            "title": "Zalecany wiek: 14+",
+            "text": "Tak podaje producent. Młodsze dzieci — tylko pod okiem dorosłego."
+          }
+        },
+        "p2": {
+          "type": "fact",
+          "settings": {
+            "icon": "🔋",
+            "title": "Akumulator ładowany przez USB",
+            "text": "Kabel jest w zestawie. Do pilota potrzebne są baterie (nie ma ich w zestawie)."
+          }
+        },
+        "p3": {
+          "type": "fact",
+          "settings": {
+            "icon": "🧱",
+            "title": "Jeździ tylko po gładkich powierzchniach",
+            "text": "Gładka ściana, szyba, lustro, płaski sufit. Na tynku z fakturą czy tapecie się nie utrzyma."
+          }
+        },
+        "p4": {
+          "type": "fact",
+          "settings": {
+            "icon": "↩️",
+            "title": "30 dni na zwrot",
+            "text": "Nie spełni oczekiwań? Odeślij w ciągu 30 dni od odbioru i odzyskaj pieniądze."
+          }
+        },
+        "p5": {
+          "type": "fact",
+          "settings": {
+            "icon": "🚚",
+            "title": "Dostawa zawsze 0 zł",
+            "text": "Cena, którą widzisz, to cena, którą płacisz."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "settings": {
+        "product": "vexon-wall-racer"
+      }
+    },
+    "compare": {
+      "type": "vx-compare",
+      "blocks": {
+        "c1": {
+          "type": "row",
+          "settings": {
+            "feature": "Jazda po podłodze",
+            "them": true,
+            "us": true
+          }
+        },
+        "c2": {
+          "type": "row",
+          "settings": {
+            "feature": "Jazda po ścianach i suficie",
+            "them": false,
+            "us": true
+          }
+        },
+        "c3": {
+          "type": "row",
+          "settings": {
+            "feature": "Jazda po szybach",
+            "them": false,
+            "us": true
+          }
+        },
+        "c4": {
+          "type": "row",
+          "settings": {
+            "feature": "Obrót kaskaderski 360°",
+            "them": false,
+            "us": true
+          }
+        },
+        "c5": {
+          "type": "row",
+          "settings": {
+            "feature": "Reflektory LED",
+            "them": false,
+            "us": true
+          }
+        },
+        "c6": {
+          "type": "row",
+          "settings": {
+            "feature": "Ładowanie przez USB",
+            "them": false,
+            "us": true
+          }
+        },
+        "c7": {
+          "type": "row",
+          "settings": {
+            "feature": "30 dni na zwrot",
+            "them": false,
+            "us": true
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7"
+      ]
+    },
+    "specs": {
+      "type": "vx-specs",
+      "blocks": {
+        "s1": {
+          "type": "item",
+          "settings": {
+            "icon": "🏎️",
+            "title": "Auto VEXON",
+            "note": ""
+          }
+        },
+        "s2": {
+          "type": "item",
+          "settings": {
+            "icon": "🎮",
+            "title": "Pilot 4-kanałowy",
+            "note": "baterie osobno"
+          }
+        },
+        "s3": {
+          "type": "item",
+          "settings": {
+            "icon": "🔌",
+            "title": "Kabel USB",
+            "note": ""
+          }
+        },
+        "s4": {
+          "type": "item",
+          "settings": {
+            "icon": "📖",
+            "title": "Instrukcja",
+            "note": ""
+          }
+        },
+        "s5": {
+          "type": "spec",
+          "settings": {
+            "key": "Model",
+            "value": "D0151"
+          }
+        },
+        "s6": {
+          "type": "spec",
+          "settings": {
+            "key": "Skala",
+            "value": "1:18"
+          }
+        },
+        "s7": {
+          "type": "spec",
+          "settings": {
+            "key": "Sterowanie",
+            "value": "4 kanały, 8–10 m"
+          }
+        },
+        "s8": {
+          "type": "spec",
+          "settings": {
+            "key": "Czas jazdy",
+            "value": "ok. 8 min"
+          }
+        },
+        "s9": {
+          "type": "spec",
+          "settings": {
+            "key": "Akumulator auta",
+            "value": "3,7 V, ładowanie USB"
+          }
+        },
+        "s10": {
+          "type": "spec",
+          "settings": {
+            "key": "Materiał",
+            "value": "metal + plastik"
+          }
+        },
+        "s11": {
+          "type": "spec",
+          "settings": {
+            "key": "Wymiary opakowania",
+            "value": "16 × 6 × 20 cm"
+          }
+        },
+        "s12": {
+          "type": "spec",
+          "settings": {
+            "key": "Wiek",
+            "value": "14+"
+          }
+        },
+        "s13": {
+          "type": "spec",
+          "settings": {
+            "key": "Kolory",
+            "value": "czerwony · niebieski · czarny"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ]
+    },
+    "reviews": {
+      "type": "vx-reviews",
+      "blocks": {},
+      "block_order": []
+    },
+    "faq": {
+      "type": "vx-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Po jakich powierzchniach jeździ?",
+            "a": "<p>Po gładkich i płaskich: gładka ściana, szyba, lustro, szafa, płaski sufit i oczywiście podłoga. Nie utrzyma się na tynku z fakturą, tapecie z wzorem ani nierównych powierzchniach.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Jak przełączyć na jazdę po ścianie?",
+            "a": "<p>Z tyłu auta jest przełącznik WALL / FLOOR. Ustaw WALL, przyłóż auto do ściany i dopiero wtedy ruszaj pilotem.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Ile jeździ na jednym ładowaniu?",
+            "a": "<p>Około 8 minut. Auto ładujesz przez dołączony kabel USB — z ładowarki, komputera lub powerbanku. Podczas ładowania przełącznik w aucie ustaw na OFF.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Czy zostawia ślady na ścianie?",
+            "a": "<p>Auto trzyma się dzięki zasysaniu powietrza, bez kleju. Na bardzo jasnych ścianach dobrze najpierw sprawdzić w mało widocznym miejscu.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Do czego jest biała osłonka pod autem?",
+            "a": "<p>To część systemu przyssania. Nie odrywaj jej — przed jazdą po ścianie upewnij się tylko, że leży płasko.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Czy baterie są w zestawie?",
+            "a": "<p>Auto ma wbudowany akumulator ładowany przez USB. Do pilota potrzebne są baterie, których nie ma w zestawie.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Dla kogo jest ta zabawka?",
+            "a": "<p>Producent zaleca wiek 14+. Młodsze dzieci powinny bawić się pod nadzorem dorosłych.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "Ile kosztuje dostawa i jak zwrócić?",
+            "a": "<p>Dostawa jest zawsze darmowa. Masz 30 dni od odbioru na zwrot — szczegóły na stronie <a href=\"/pages/zwroty\">Zwroty</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ]
+    },
+    "cta": {
+      "type": "vx-cta"
+    }
+  },
+  "order": [
+    "main",
+    "stripe",
+    "modes",
+    "gifs",
+    "features",
+    "parents",
+    "compare",
+    "specs",
+    "reviews",
+    "faq",
+    "cta"
+  ]
+}

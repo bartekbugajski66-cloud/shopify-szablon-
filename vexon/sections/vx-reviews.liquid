@@ -1,0 +1,61 @@
+{%- assign reviews = section.blocks | where: 'type', 'review' -%}
+{%- assign apps = section.blocks | where: 'type', '@app' -%}
+{%- if reviews.size > 0 or apps.size > 0 or request.design_mode -%}
+<section class="vx-section" id="vx-reviews">
+  <div class="vx-wrap">
+    <div class="vx-head" data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<span class="vx-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="vx-h2">{{ section.settings.heading }} <span class="vx-grad">{{ section.settings.heading_accent }}</span></h2>
+    </div>
+    {%- for block in apps -%}{% render block %}{%- endfor -%}
+    {%- if reviews.size > 0 -%}
+      {%- liquid
+        assign total = 0
+        for block in reviews
+          assign total = total | plus: block.settings.stars
+        endfor
+        assign avg10 = total | times: 10 | divided_by: reviews.size
+        assign avg_int = avg10 | divided_by: 10
+        assign avg_dec = avg10 | modulo: 10
+      -%}
+      <div class="vx-revs-summary" data-reveal><b>{{ avg_int }},{{ avg_dec }}</b><div><div class="vx-rev__stars">★★★★★</div><small>{{ reviews.size }} {% if reviews.size == 1 %}opinia{% elsif reviews.size < 5 %}opinie{% else %}opinii{% endif %} klientów</small></div></div>
+      <div class="vx-revs">
+        {%- for block in reviews -%}
+          <article class="vx-rev" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 600 | image_tag: class: 'vx-rev__img', loading: 'lazy', alt: block.settings.title }}{%- endif -%}
+            <div class="vx-rev__stars" aria-label="{{ block.settings.stars }} na 5">{% for i in (1..block.settings.stars) %}★{% endfor %}</div>
+            {%- if block.settings.title != blank -%}<h4>{{ block.settings.title }}</h4>{%- endif -%}
+            <p>{{ block.settings.text }}</p>
+            <div class="vx-rev__who"><span class="vx-rev__av">{{ block.settings.name | slice: 0 }}</span><span>{{ block.settings.name }}{% if block.settings.verified %} · <span class="vx-rev__ver">✓ Zweryfikowany zakup</span>{% endif %}{% if block.settings.date != blank %} · {{ block.settings.date }}{% endif %}</span></div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- elsif apps.size == 0 -%}
+      <div class="vx-editor-hint">Ta sekcja jest ukryta dla klientów, dopóki nie dodasz opinii. Dodaj blok „Opinia” z prawdziwą opinią klienta albo blok aplikacji z opiniami (np. Judge.me).</div>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "VEXON • Opinie",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł", "default": "Opinie" },
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "Co mówią" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł (wyróżnienie)", "default": "kierowcy i rodzice" }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    { "type": "review", "name": "Opinia", "settings": [
+      { "type": "text", "id": "name", "label": "Imię klienta", "default": "Klient" },
+      { "type": "range", "id": "stars", "label": "Gwiazdki", "min": 1, "max": 5, "step": 1, "default": 5 },
+      { "type": "text", "id": "title", "label": "Tytuł" },
+      { "type": "textarea", "id": "text", "label": "Treść", "default": "Wklej prawdziwą opinię klienta." },
+      { "type": "image_picker", "id": "image", "label": "Zdjęcie od klienta" },
+      { "type": "text", "id": "date", "label": "Data" },
+      { "type": "checkbox", "id": "verified", "label": "Zweryfikowany zakup", "info": "Zaznacz tylko, jeśli ta osoba naprawdę kupiła w sklepie.", "default": false }
+    ] }
+  ],
+  "presets": [ { "name": "VEXON • Opinie" } ]
+}
+{% endschema %}

@@ -1,0 +1,12 @@
+<div class="vx-page " style="max-width:480px;">
+  <h1>Aktywacja konta</h1>
+  {%- form 'activate_customer_password' -%}
+    {{ form.errors | default_errors }}
+    <label class="vx-label" for="ActPassword">Hasło</label>
+    <input class="vx-input" type="password" name="customer[password]" id="ActPassword" autocomplete="new-password" required>
+    <label class="vx-label" for="ActPasswordConfirm">Powtórz hasło</label>
+    <input class="vx-input" type="password" name="customer[password_confirmation]" id="ActPasswordConfirm" autocomplete="new-password" required>
+    <button type="submit" class="vx-btn" style="margin-top:16px; width:100%;">Aktywuj konto</button>
+    <button type="submit" name="decline" class="vx-btn vx-btn--ghost" style="margin-top:10px; width:100%;">Odrzuć zaproszenie</button>
+  {%- endform -%}
+</div>

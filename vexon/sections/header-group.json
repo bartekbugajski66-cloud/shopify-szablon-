@@ -1,0 +1,18 @@
+{
+  "type": "header",
+  "name": "Nagłówek",
+  "sections": {
+    "announcement": {
+      "type": "vx-announcement",
+      "blocks": {
+        "a1": { "type": "item", "settings": { "text": "🚚 Darmowa dostawa na każde zamówienie" } },
+        "a2": { "type": "item", "settings": { "text": "↩️ 30 dni na zwrot — bez podawania przyczyny" } },
+        "a3": { "type": "item", "settings": { "text": "🏎️ Jeździ po ścianach, suficie i szybach" } },
+        "a4": { "type": "item", "settings": { "text": "🔒 Bezpieczne płatności" } }
+      },
+      "block_order": ["a1", "a2", "a3", "a4"]
+    },
+    "header": { "type": "vx-header", "settings": {} }
+  },
+  "order": ["announcement", "header"]
+}

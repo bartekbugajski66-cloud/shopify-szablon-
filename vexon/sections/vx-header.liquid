@@ -1,0 +1,48 @@
+<header class="vx-header">
+  <div class="vx-wrap vx-header__in">
+    <div>
+      <button class="vx-iconbtn vx-header__burger" type="button" data-vx-menu-open aria-label="Otwórz menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+      </button>
+      <nav class="vx-header__nav" aria-label="Menu główne">
+        {%- if section.settings.menu.links.size > 0 -%}
+          {%- for link in section.settings.menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        {%- else -%}
+          <a href="#vx-modes">Jak jeździ</a><a href="#vx-gifs">W akcji</a><a href="#vx-faq">FAQ</a>
+        {%- endif -%}
+      </nav>
+    </div>
+    <a href="{{ routes.root_url }}" class="vx-header__logo" aria-label="{{ shop.name | escape }} — strona główna">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: class: 'vx-logo', alt: shop.name, loading: 'eager' }}
+      {%- else -%}
+        {% render 'vexon-logo', id: 'hdr' %}
+      {%- endif -%}
+    </a>
+    <div class="vx-header__right">
+      <a href="{{ routes.cart_url }}" class="vx-iconbtn" data-vx-cart-open aria-label="Koszyk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.3 10.4a2 2 0 0 1-2 1.6H8.3a2 2 0 0 1-2-1.6z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>
+        <span class="vx-cartcount" data-vx-count data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+<div class="vx-mnav" data-vx-menu>
+  <button class="vx-iconbtn vx-mnav__close" type="button" data-vx-menu-close aria-label="Zamknij menu">✕</button>
+  {%- if section.settings.menu.links.size > 0 -%}
+    {%- for link in section.settings.menu.links -%}<a href="{{ link.url }}" data-vx-menu-close>{{ link.title }}</a>{%- endfor -%}
+  {%- else -%}
+    <a href="#vx-modes" data-vx-menu-close>Jak jeździ</a><a href="#vx-gifs" data-vx-menu-close>W akcji</a><a href="#vx-faq" data-vx-menu-close>FAQ</a>
+  {%- endif -%}
+  <a href="{{ routes.cart_url }}" data-vx-cart-open data-vx-menu-close>Koszyk</a>
+</div>
+{% schema %}
+{
+  "name": "Nagłówek VEXON",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Własne logo (opcjonalnie)", "info": "Zostaw puste, aby użyć logo VEXON." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Puste = linki do sekcji strony produktu." }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

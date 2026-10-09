@@ -1,0 +1,18 @@
+{%- comment -%} Top-down race car. Body colour comes from CSS var --car. {%- endcomment -%}
+<svg class="vx-car {{ class }}" viewBox="0 0 132 64" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="vxbeam-{{ id | default: 'c' }}" x1="0" x2="1"><stop offset="0" stop-color="#bff6ff" stop-opacity=".85"/><stop offset="1" stop-color="#bff6ff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="vxglass-{{ id | default: 'c' }}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9fd8ff"/><stop offset="1" stop-color="#0b1838"/></linearGradient>
+  </defs>
+  <g class="vx-car__beams"><path d="M118 22 L132 12 L132 28Z M118 42 L132 36 L132 52Z" fill="url(#vxbeam-{{ id | default: 'c' }})"/></g>
+  <rect x="20" y="1" width="20" height="9" rx="3" fill="#0d1120"/><rect x="20" y="54" width="20" height="9" rx="3" fill="#0d1120"/>
+  <rect x="80" y="3" width="19" height="8" rx="3" fill="#0d1120"/><rect x="80" y="53" width="19" height="8" rx="3" fill="#0d1120"/>
+  <rect x="2" y="8" width="9" height="48" rx="3" fill="var(--car,#2F8BFF)" style="filter:brightness(.7)"/>
+  <path d="M10 20C10 12 16 7 26 7h44c12 0 22 4 34 10l10 6c4 3 4 15 0 18l-10 6c-12 6-22 10-34 10H26C16 57 10 52 10 44Z" fill="var(--car,#2F8BFF)"/>
+  <path d="M14 29h96v6H14z" fill="#e9f2ff" opacity=".55"/>
+  <path d="M26 12h40l-6 6H30zM26 52h40l-6-6H30z" fill="#000" opacity=".22"/>
+  <ellipse cx="66" cy="32" rx="17" ry="11.5" fill="url(#vxglass-{{ id | default: 'c' }})"/>
+  <ellipse cx="62" cy="28" rx="7" ry="3" fill="#fff" opacity=".35"/>
+  <circle class="vx-car__led" cx="112" cy="24" r="2.6" fill="#e8fbff"/><circle class="vx-car__led" cx="112" cy="40" r="2.6" fill="#e8fbff"/>
+  <rect x="11" y="23" width="3" height="5" rx="1" fill="#ff3b4e"/><rect x="11" y="36" width="3" height="5" rx="1" fill="#ff3b4e"/>
+</svg>

@@ -1,0 +1,16 @@
+<div class="vx-page " style="max-width:480px;">
+  <h1>Załóż konto</h1>
+  {%- form 'create_customer' -%}
+    {{ form.errors | default_errors }}
+    <label class="vx-label" for="RegFirst">Imię</label>
+    <input class="vx-input" type="text" name="customer[first_name]" id="RegFirst" autocomplete="given-name">
+    <label class="vx-label" for="RegLast">Nazwisko</label>
+    <input class="vx-input" type="text" name="customer[last_name]" id="RegLast" autocomplete="family-name">
+    <label class="vx-label" for="RegEmail">E-mail</label>
+    <input class="vx-input" type="email" name="customer[email]" id="RegEmail" autocomplete="email" required>
+    <label class="vx-label" for="RegPassword">Hasło</label>
+    <input class="vx-input" type="password" name="customer[password]" id="RegPassword" autocomplete="new-password" required>
+    <button type="submit" class="vx-btn" style="margin-top:16px; width:100%;">Utwórz konto</button>
+  {%- endform -%}
+  <p style="margin-top:18px; font-size:14px;"><a href="{{ routes.account_login_url }}">Masz już konto? Zaloguj się</a></p>
+</div>

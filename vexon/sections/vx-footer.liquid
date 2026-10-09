@@ -1,0 +1,48 @@
+<footer class="vx-footer">
+  <div class="vx-wrap">
+    <div class="vx-footer__grid">
+      <div>
+        {% render 'vexon-logo', id: 'ftr' %}
+        <p style="color:var(--muted);max-width:360px">{{ section.settings.about }}</p>
+        {%- if section.settings.email != blank -%}<p><a href="mailto:{{ section.settings.email }}">✉️ {{ section.settings.email }}</a></p>{%- endif -%}
+      </div>
+      <div>
+        <h4>Informacje</h4>
+        <ul>
+          {%- if section.settings.menu.links.size > 0 -%}
+            {%- for link in section.settings.menu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+          {%- else -%}
+            <li><a href="/pages/regulamin">Regulamin</a></li>
+            <li><a href="/pages/zwroty">Zwroty i gwarancja 30 dni</a></li>
+            <li><a href="/pages/dostawa">Dostawa</a></li>
+            <li><a href="/pages/polityka-prywatnosci">Polityka prywatności</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+      <div>
+        <h4>Zakupy</h4>
+        <ul>
+          <li>🚚 Darmowa dostawa</li>
+          <li>↩️ 30 dni na zwrot</li>
+          <li>🔒 Bezpieczne płatności</li>
+          <li><a href="{{ routes.cart_url }}" data-vx-cart-open>🛒 Koszyk</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="vx-footer__bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}. Wszelkie prawa zastrzeżone.</span>
+      <div class="vx-pay">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag }}{%- endfor -%}</div>
+    </div>
+  </div>
+</footer>
+{% schema %}
+{
+  "name": "Stopka VEXON",
+  "settings": [
+    { "type": "textarea", "id": "about", "label": "O sklepie", "default": "VEXON — zdalnie sterowane auta, które jeżdżą tam, gdzie inne nie dają rady: po ścianach, szybach i suficie." },
+    { "type": "text", "id": "email", "label": "E-mail kontaktowy" },
+    { "type": "link_list", "id": "menu", "label": "Menu informacji", "info": "Puste = linki do Regulaminu, Zwrotów, Dostawy i Polityki prywatności." }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

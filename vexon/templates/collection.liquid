@@ -1,0 +1,39 @@
+<div class="vx-page ">
+  <h1>{{ collection.title }}</h1>
+  {%- if collection.description != blank -%}<div>{{ collection.description }}</div>{%- endif -%}
+
+  {%- paginate collection.products by 24 -%}
+    {%- if collection.products.size == 0 -%}
+      <p>Brak produktów w tej kolekcji.</p>
+    {%- else -%}
+      <div class="vx-grid-products" style="margin-top:20px;">
+        {%- for product in collection.products -%}
+          <a href="{{ product.url }}" class="vx-cardp">
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'vx-cardp__img', alt: product.title | escape }}
+            {%- else -%}
+              <div class="vx-cardp__ph"></div>
+            {%- endif -%}
+            <div class="vx-cardp__t">{{ product.title }}</div>
+            <div class="vx-cardp__p">
+              {{ product.price | money }}
+              {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="vx-pagination" aria-label="Paginacja">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">‹</a>{%- endif -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+          {%- elsif part.title == paginate.current_page -%}<span class="current">{{ part.title }}</span>
+          {%- else -%}<span>{{ part.title }}</span>{%- endif -%}
+        {%- endfor -%}
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}">›</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>

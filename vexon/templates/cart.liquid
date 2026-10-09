@@ -1,0 +1,43 @@
+<div class="vx-page" style="max-width:980px">
+  <h1>Twój koszyk</h1>
+  {%- if cart.item_count == 0 -%}
+    <div class="vx-drawer__empty">
+      {% render 'vexon-car', id: 'cartpage' %}
+      <p><b>Koszyk jest pusty.</b><br>Garaż czeka na nowy bolid.</p>
+      <a href="{{ routes.root_url }}" class="vx-btn">Wybierz auto</a>
+    </div>
+  {%- else -%}
+    <div class="vx-drawer__ship" style="margin:0 0 18px"><span>🚚</span><span>Masz darmową dostawę!</span><span class="vx-bar"><i></i></span></div>
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      {%- for item in cart.items -%}
+        <div class="vx-cartpage__item">
+          <div class="vx-line__img" style="width:96px;height:96px">
+            {%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: item.title }}{%- else -%}{% render 'vexon-car', id: item.key %}{%- endif -%}
+          </div>
+          <div>
+            <div class="vx-line__t">{{ item.product.title }}</div>
+            {%- unless item.product.has_only_default_variant -%}<div class="vx-line__v">{{ item.variant.title }}</div>{%- endunless -%}
+            <div style="display:flex;gap:12px;align-items:center;margin-top:8px">
+              <input class="vx-input" style="width:84px;min-height:42px" type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Ilość: {{ item.product.title | escape }}">
+              <a class="vx-line__rm" href="{{ item.url_to_remove }}">Usuń</a>
+            </div>
+          </div>
+          <div class="vx-line__p">
+            {%- if item.original_line_price > item.final_line_price -%}<s>{{ item.original_line_price | money }}</s>{%- endif -%}
+            {{ item.final_line_price | money }}
+          </div>
+        </div>
+      {%- endfor -%}
+      <div class="vx-cartpage__sum vx-card">
+        <div class="vx-sum"><span>Produkty</span><b>{{ cart.total_price | money }}</b></div>
+        <div class="vx-sum vx-sum--ok"><span>Dostawa</span><b>0,00 zł — gratis</b></div>
+        <div class="vx-sum vx-sum--total"><span>Razem</span><span>{{ cart.total_price | money }}</span></div>
+        <div style="display:grid;gap:10px">
+          <button type="submit" name="checkout" class="vx-btn vx-btn--xl vx-btn--block">Przejdź do kasy 🔒</button>
+          <button type="submit" name="update" class="vx-btn vx-btn--ghost vx-btn--block">Przelicz koszyk</button>
+        </div>
+        <div class="vx-drawer__secure"><span>↩️ 30 dni na zwrot</span><span>🔒 Bezpieczne płatności</span></div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>

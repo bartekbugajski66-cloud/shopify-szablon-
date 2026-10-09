@@ -1,0 +1,24 @@
+{%- if section.blocks.size > 0 -%}
+<div class="vx-ann" style="--speed: {{ section.settings.speed }}s" {{ section.shopify_attributes }}>
+  <div class="vx-ann__track">
+    {%- for i in (1..4) -%}
+      {%- for block in section.blocks -%}
+        <span class="vx-ann__item" {% if i == 1 %}{{ block.shopify_attributes }}{% else %}aria-hidden="true"{% endif %}>{{ block.settings.text }}</span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Pasek ogłoszeń",
+  "class": "vx-ann-section",
+  "settings": [
+    { "type": "range", "id": "speed", "label": "Prędkość przewijania (s)", "min": 10, "max": 60, "step": 2, "default": 28 }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Komunikat", "settings": [ { "type": "text", "id": "text", "label": "Tekst", "default": "🚚 Darmowa dostawa" } ] }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

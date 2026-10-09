@@ -1,0 +1,15 @@
+<div class="vx-page ">
+  <h1>Kolekcje</h1>
+  <div class="vx-grid-products" style="margin-top:20px;">
+    {%- for collection in collections -%}
+      <a href="{{ collection.url }}" class="vx-cardp">
+        {%- if collection.featured_image -%}
+          {{ collection.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'vx-cardp__img', alt: collection.title | escape }}
+        {%- else -%}
+          <div class="vx-cardp__ph"></div>
+        {%- endif -%}
+        <div class="vx-cardp__t">{{ collection.title }}</div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>

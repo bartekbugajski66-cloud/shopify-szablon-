@@ -1,0 +1,38 @@
+<section class="vx-section">
+  <div class="vx-wrap">
+    <div class="vx-head" data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<span class="vx-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="vx-h2">{{ section.settings.heading }} <span class="vx-grad">{{ section.settings.heading_accent }}</span></h2>
+    </div>
+    <div class="vx-feats">
+      {%- for block in section.blocks -%}
+        <div class="vx-feat" data-reveal data-reveal-delay="{{ forloop.index | modulo: 4 }}" {{ block.shopify_attributes }}>
+          <div class="vx-feat__ic">{{ block.settings.icon }}</div>
+          {%- if block.settings.big != blank -%}<div class="vx-feat__big vx-grad" data-vx-count-up>{{ block.settings.big }}</div>{%- endif -%}
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "VEXON • Funkcje",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł", "default": "Co potrafi" },
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "Mały bolid," },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł (wyróżnienie)", "default": "wielkie możliwości" }
+  ],
+  "blocks": [
+    { "type": "feature", "name": "Funkcja", "settings": [
+      { "type": "text", "id": "icon", "label": "Emoji", "default": "⚡" },
+      { "type": "text", "id": "big", "label": "Duża liczba", "default": "360°" },
+      { "type": "text", "id": "title", "label": "Tytuł", "default": "Obroty kaskaderskie" },
+      { "type": "textarea", "id": "text", "label": "Opis" }
+    ] }
+  ],
+  "max_blocks": 8,
+  "presets": [ { "name": "VEXON • Funkcje" } ]
+}
+{% endschema %}

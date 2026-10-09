@@ -1,0 +1,27 @@
+<div class="vx-drawer" data-vx-drawer aria-hidden="true">
+  <div class="vx-drawer__bg" data-vx-cart-close></div>
+  <aside class="vx-drawer__panel" role="dialog" aria-modal="true" aria-label="Koszyk">
+    <div class="vx-drawer__head">
+      <h3>Twój koszyk <span data-vx-drawer-count></span></h3>
+      <button type="button" class="vx-iconbtn" data-vx-cart-close aria-label="Zamknij koszyk">✕</button>
+    </div>
+    <div class="vx-drawer__ship"><span>🚚</span><span>Masz darmową dostawę!</span><span class="vx-bar"><i></i></span></div>
+    <div class="vx-drawer__body" data-vx-drawer-body>
+      <div class="vx-drawer__empty" data-vx-drawer-empty hidden>
+        {% render 'vexon-car', id: 'empty' %}
+        <p><b>Koszyk jest pusty.</b><br>Garaż czeka na nowy bolid.</p>
+        <button type="button" class="vx-btn" data-vx-cart-close data-vx-scroll-buy>Wybierz auto</button>
+      </div>
+      <div data-vx-lines></div>
+      <div data-vx-upsell></div>
+    </div>
+    <div class="vx-drawer__foot" data-vx-drawer-foot>
+      <div class="vx-sum"><span>Produkty</span><b data-vx-sub></b></div>
+      <div class="vx-sum vx-sum--ok" data-vx-savings-row hidden><span>Oszczędzasz</span><b data-vx-savings></b></div>
+      <div class="vx-sum vx-sum--ok"><span>Dostawa</span><b>0,00 zł — gratis</b></div>
+      <div class="vx-sum vx-sum--total"><span>Razem</span><span data-vx-total></span></div>
+      <form action="{{ routes.cart_url }}" method="post"><button type="submit" name="checkout" class="vx-btn vx-btn--xl vx-btn--block">Przejdź do kasy 🔒</button></form>
+      <div class="vx-drawer__secure"><span>↩️ 30 dni na zwrot</span><span>🔒 Bezpieczne płatności</span></div>
+    </div>
+  </aside>
+</div>

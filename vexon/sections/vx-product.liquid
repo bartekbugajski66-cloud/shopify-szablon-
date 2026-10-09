@@ -1,0 +1,270 @@
+{%- liquid
+  assign p = product
+  if p == blank
+    assign p = section.settings.product
+  endif
+  assign pack_name = section.settings.pack_option | default: 'Zestaw'
+  assign color_name = section.settings.color_option | default: 'Kolor'
+  if p != blank
+    assign pack_opt = p.options_with_values | where: 'name', pack_name | first
+    assign color_opt = p.options_with_values | where: 'name', color_name | first
+    assign current = p.selected_or_first_available_variant
+  endif
+-%}
+<section class="vx-pdp" id="vx-buy" data-vx-product-section>
+  <div class="vx-wrap">
+  {%- if p == blank -%}
+    <div class="vx-editor-hint">Wybierz produkt w ustawieniach tej sekcji („Produkt”).</div>
+  {%- else -%}
+    <div class="vx-pdp__grid">
+      {%- comment -%} Gallery {%- endcomment -%}
+      <div class="vx-gallery" data-vx-gallery>
+        <div class="vx-gallery__main">
+          <div class="vx-gallery__badge">
+            {%- if section.settings.badge_1 != blank -%}<span class="vx-pill vx-pill--hot">{{ section.settings.badge_1 }}</span>{%- endif -%}
+            {%- if section.settings.badge_2 != blank -%}<span class="vx-pill">{{ section.settings.badge_2 }}</span>{%- endif -%}
+          </div>
+          {%- if p.media.size > 0 -%}
+            {%- for media in p.media -%}
+              <div class="vx-gallery__slide{% if forloop.first %} is-active{% endif %}" data-media-id="{{ media.id }}">
+                {%- liquid
+                  assign img_loading = 'lazy'
+                  if forloop.first
+                    assign img_loading = 'eager'
+                  endif
+                  assign img_alt = media.alt | default: p.title
+                -%}
+                {%- case media.media_type -%}
+                  {%- when 'image' -%}
+                    {{ media | image_url: width: 1400 | image_tag: widths: '500,800,1100,1400', sizes: '(min-width: 960px) 600px, 100vw', loading: img_loading, alt: img_alt }}
+                  {%- when 'video' -%}
+                    {{ media | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, image_size: '1100x' }}
+                  {%- when 'external_video' -%}
+                    {{ media | external_video_tag }}
+                  {%- else -%}
+                    {{ media | media_tag }}
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+            {%- if p.media.size > 1 -%}
+              <button type="button" class="vx-gallery__nav vx-gallery__nav--prev" data-vx-prev aria-label="Poprzednie zdjęcie">‹</button>
+              <button type="button" class="vx-gallery__nav vx-gallery__nav--next" data-vx-next aria-label="Następne zdjęcie">›</button>
+            {%- endif -%}
+          {%- else -%}
+            <div class="vx-scene" aria-hidden="true">
+              <div class="vx-scene__wall"></div>
+              <div class="vx-scene__ring"></div>
+              <div class="vx-scene__trail"></div>
+              <div class="vx-scene__floor"></div>
+              <div class="vx-scene__car">{% render 'vexon-car', id: 'hero' %}</div>
+              <div class="vx-scene__label">TRYB ŚCIANA · WALL MODE</div>
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if p.media.size > 1 -%}
+          <div class="vx-gallery__thumbs">
+            {%- for media in p.media -%}
+              <button type="button" class="vx-thumb{% if forloop.first %} is-active{% endif %}" data-vx-thumb="{{ forloop.index0 }}" aria-label="Pokaż zdjęcie {{ forloop.index }}">
+                {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Buy box {%- endcomment -%}
+      <div class="vx-buy">
+        <div class="vx-buy__top">
+          {%- if section.settings.top_pill_1 != blank -%}<span class="vx-pill">{{ section.settings.top_pill_1 }}</span>{%- endif -%}
+          {%- if section.settings.top_pill_2 != blank -%}<span class="vx-pill">{{ section.settings.top_pill_2 }}</span>{%- endif -%}
+        </div>
+        <h1 class="vx-buy__title">{{ section.settings.heading | default: p.title }}{% if section.settings.heading_accent != blank %} <span class="vx-grad">{{ section.settings.heading_accent }}</span>{% endif %}</h1>
+        {%- if section.settings.subheading != blank -%}<p class="vx-buy__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+
+        {%- assign bullets = section.blocks | where: 'type', 'bullet' -%}
+        {%- if bullets.size > 0 -%}
+          <ul class="vx-buy__bullets">
+            {%- for block in bullets -%}<li {{ block.shopify_attributes }}><span class="vx-check">✓</span><span>{{ block.settings.text }}</span></li>{%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        <div class="vx-price">
+          <span class="vx-price__now" data-vx-price>{{ current.price | money }}</span>
+          <s class="vx-price__old" data-vx-compare {% unless current.compare_at_price > current.price %}hidden{% endunless %}>{{ current.compare_at_price | money }}</s>
+          {%- if current.compare_at_price > current.price -%}
+            {%- assign pct = current.compare_at_price | minus: current.price | times: 100 | divided_by: current.compare_at_price | round -%}
+          {%- endif -%}
+          <span class="vx-price__save" data-vx-save {% unless current.compare_at_price > current.price %}hidden{% endunless %}>Oszczędzasz {{ pct }}%</span>
+        </div>
+        <div class="vx-price__note">{{ section.settings.price_note }}</div>
+
+        <form method="post" action="{{ routes.cart_add_url }}" data-vx-form>
+          <input type="hidden" name="id" value="{{ current.id }}" data-vx-variant-input>
+          <script type="application/json" data-vx-product-json>{{ p | json }}</script>
+
+          {%- if pack_opt -%}
+            <div class="vx-label">{{ section.settings.pack_label }}</div>
+            <div class="vx-packs" role="radiogroup" aria-label="{{ pack_name | escape }}">
+              {%- for value in pack_opt.values -%}
+                {%- liquid
+                  assign pv = nil
+                  for v in p.variants
+                    if v.options contains value
+                      assign pv = v
+                      break
+                    endif
+                  endfor
+                  assign qty = value | split: ' ' | first | plus: 0
+                  if qty < 1
+                    assign qty = 1
+                  endif
+                  assign per = pv.price | divided_by: qty
+                  assign label = value | split: ' (' | first
+                  assign sub_key = 'pack_sub_' | append: forloop.index
+                  assign tag_key = 'pack_tag_' | append: forloop.index
+                  assign is_on = false
+                  if current.options contains value
+                    assign is_on = true
+                  endif
+                -%}
+                <label class="vx-pack{% if is_on %} is-active{% endif %}" data-vx-pack>
+                  <input type="radio" name="vx-pack-{{ section.id }}" value="{{ value | escape }}" data-vx-opt="{{ pack_opt.position }}" {% if is_on %}checked{% endif %}>
+                  <span class="vx-pack__radio" aria-hidden="true"></span>
+                  <span>
+                    <span class="vx-pack__name">{{ label }}</span>
+                    <span class="vx-pack__per">{% if section.settings[sub_key] != blank %}{{ section.settings[sub_key] }} · {% endif %}{{ per | money }} / szt.</span>
+                    <span class="vx-pack__cars" aria-hidden="true">{%- for i in (1..qty) -%}<span></span>{%- endfor -%}</span>
+                  </span>
+                  <span class="vx-pack__price">
+                    {{ pv.price | money }}
+                    {%- if pv.compare_at_price > pv.price -%}<s>{{ pv.compare_at_price | money }}</s>{%- endif -%}
+                  </span>
+                  {%- if section.settings[tag_key] != blank -%}
+                    <span class="vx-pack__tag{% if forloop.index == 3 %} vx-pack__tag--alt{% endif %}">{{ section.settings[tag_key] }}</span>
+                  {%- endif -%}
+                </label>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if color_opt -%}
+            <div class="vx-label">{% assign cidx = color_opt.position | minus: 1 %}{{ section.settings.color_label }} <b data-vx-color-name>{{ current.options[cidx] }}</b></div>
+            <div class="vx-swatches" role="radiogroup" aria-label="{{ color_name | escape }}">
+              {%- for value in color_opt.values -%}
+                {%- liquid
+                  assign h = value | handleize
+                  case h
+                    when 'czerwony', 'red'
+                      assign sw = '#FF3B4E'
+                    when 'niebieski', 'blue'
+                      assign sw = '#2F8BFF'
+                    when 'czarny', 'black'
+                      assign sw = '#2B3140'
+                    when 'bialy', 'white'
+                      assign sw = '#E9EEF7'
+                    when 'zielony', 'green'
+                      assign sw = '#2BD67B'
+                    else
+                      assign sw = 'mix'
+                  endcase
+                  assign is_on = false
+                  if current.options contains value
+                    assign is_on = true
+                  endif
+                -%}
+                <label class="vx-swatch{% if is_on %} is-active{% endif %}" data-vx-swatch data-color="{{ sw }}" style="--sw: {% if sw == 'mix' %}conic-gradient(#FF3B4E 0 33%,#2F8BFF 0 66%,#2B3140 0){% else %}{{ sw }}{% endif %}">
+                  <input class="vx-visually-hidden" type="radio" name="vx-color-{{ section.id }}" value="{{ value | escape }}" data-vx-opt="{{ color_opt.position }}" {% if is_on %}checked{% endif %}>
+                  <span class="vx-swatch__dot" aria-hidden="true"></span>
+                  <span>{{ value }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.countdown -%}
+            <div class="vx-countdown" data-vx-countdown>
+              <span class="vx-countdown__icon" aria-hidden="true">⏰</span>
+              <span class="vx-countdown__txt">{{ section.settings.countdown_before }} <span class="vx-timer" data-vx-timer><span>00</span>:<span>00</span>:<span>00</span></span> {{ section.settings.countdown_after }}</span>
+            </div>
+          {%- endif -%}
+
+          <button type="submit" class="vx-btn vx-btn--xl vx-btn--block vx-atc" data-vx-atc {% unless current.available %}disabled{% endunless %}>
+            <span data-vx-atc-label>{% if current.available %}{{ section.settings.cta }}{% else %}Wyprzedane{% endif %}</span>
+            <span class="vx-atc__price" data-vx-atc-price>· {{ current.price | money }}</span>
+          </button>
+        </form>
+        <div class="vx-ship-line">✓ {{ section.settings.ship_line }}</div>
+
+        <div class="vx-trust">
+          <div class="vx-trust__i"><span>🚚</span>{{ section.settings.trust_1 }}</div>
+          <div class="vx-trust__i"><span>↩️</span>{{ section.settings.trust_2 }}</div>
+          <div class="vx-trust__i"><span>🔒</span>{{ section.settings.trust_3 }}</div>
+        </div>
+        <div class="vx-pay" aria-label="Metody płatności">
+          {%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag }}{%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+  </div>
+</section>
+
+{%- if p != blank and section.settings.sticky -%}
+<div class="vx-sticky" data-vx-sticky>
+  <div class="vx-sticky__in">
+    <div class="vx-sticky__car">{% render 'vexon-car', id: 'sticky' %}</div>
+    <div class="vx-sticky__info">
+      <div class="vx-sticky__t" data-vx-sticky-title>{{ current.title }}</div>
+      <div class="vx-sticky__p" data-vx-sticky-price>{{ current.price | money }}</div>
+    </div>
+    <button type="button" class="vx-btn" data-vx-sticky-btn>{{ section.settings.sticky_cta }}</button>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "VEXON • Produkt",
+  "tag": "div",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produkt", "info": "Używany na stronie głównej. Na stronie produktu brany jest bieżący produkt." },
+    { "type": "header", "content": "Galeria" },
+    { "type": "text", "id": "badge_1", "label": "Plakietka 1", "default": "⚡ HIT 2026" },
+    { "type": "text", "id": "badge_2", "label": "Plakietka 2", "default": "Jeździ po ścianach" },
+    { "type": "header", "content": "Tekst" },
+    { "type": "text", "id": "top_pill_1", "label": "Etykieta nad tytułem 1", "default": "🎁 Idealny prezent" },
+    { "type": "text", "id": "top_pill_2", "label": "Etykieta nad tytułem 2", "default": "🚚 Darmowa dostawa" },
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "VEXON Wall Racer —" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł (wyróżnienie)", "default": "auto, które jeździ po ścianach" },
+    { "type": "textarea", "id": "subheading", "label": "Opis pod tytułem", "default": "Przełącz tryb i patrz, jak wyścigówka wjeżdża na ścianę, szybę, a nawet sufit. Obroty 360°, świecące LED-y i ładowanie przez USB." },
+    { "type": "text", "id": "price_note", "label": "Notka pod ceną", "default": "Cena zawiera VAT · Dostawa 0 zł" },
+    { "type": "header", "content": "Warianty" },
+    { "type": "text", "id": "pack_option", "label": "Nazwa opcji pakietu", "default": "Zestaw" },
+    { "type": "text", "id": "color_option", "label": "Nazwa opcji koloru", "default": "Kolor" },
+    { "type": "text", "id": "pack_label", "label": "Nagłówek pakietów", "default": "1. Wybierz zestaw" },
+    { "type": "text", "id": "pack_sub_1", "label": "Podpis pakietu 1", "default": "Dla jednego kierowcy" },
+    { "type": "text", "id": "pack_sub_2", "label": "Podpis pakietu 2", "default": "Wyścigi we dwoje" },
+    { "type": "text", "id": "pack_sub_3", "label": "Podpis pakietu 3", "default": "Dla całej ekipy" },
+    { "type": "text", "id": "pack_tag_1", "label": "Plakietka pakietu 1" },
+    { "type": "text", "id": "pack_tag_2", "label": "Plakietka pakietu 2", "default": "Najczęściej wybierany" },
+    { "type": "text", "id": "pack_tag_3", "label": "Plakietka pakietu 3", "default": "Najniższa cena za auto" },
+    { "type": "text", "id": "color_label", "label": "Nagłówek kolorów", "default": "2. Kolor:" },
+    { "type": "header", "content": "Licznik (codziennie do północy)" },
+    { "type": "checkbox", "id": "countdown", "label": "Pokaż licznik", "default": true },
+    { "type": "text", "id": "countdown_before", "label": "Tekst przed licznikiem", "default": "Zamów w ciągu" },
+    { "type": "text", "id": "countdown_after", "label": "Tekst po liczniku", "info": "Pisz tylko to, co naprawdę spełniasz.", "default": "— wyślemy w najbliższy dzień roboczy" },
+    { "type": "header", "content": "Przycisk i zaufanie" },
+    { "type": "text", "id": "cta", "label": "Tekst przycisku", "default": "Dodaj do koszyka" },
+    { "type": "text", "id": "ship_line", "label": "Linia pod przyciskiem", "default": "Darmowa dostawa — płacisz 0 zł za wysyłkę" },
+    { "type": "text", "id": "trust_1", "label": "Zaufanie 1", "default": "Darmowa dostawa" },
+    { "type": "text", "id": "trust_2", "label": "Zaufanie 2", "default": "30 dni na zwrot" },
+    { "type": "text", "id": "trust_3", "label": "Zaufanie 3", "default": "Bezpieczne płatności" },
+    { "type": "checkbox", "id": "sticky", "label": "Przyklejony pasek „Dodaj do koszyka”", "default": true },
+    { "type": "text", "id": "sticky_cta", "label": "Tekst w pasku", "default": "Chcę to auto!" }
+  ],
+  "blocks": [
+    { "type": "bullet", "name": "Zaleta", "settings": [ { "type": "text", "id": "text", "label": "Tekst", "default": "Jeździ po ścianach i suficie" } ] }
+  ],
+  "presets": [ { "name": "VEXON • Produkt" } ]
+}
+{% endschema %}

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "VEXON",
+    "theme_version": "1.0.0",
+    "theme_author": "VEXON",
+    "theme_documentation_url": "https://shopify.dev/docs/themes",
+    "theme_support_url": "https://shopify.dev/docs/themes"
+  },
+  {
+    "name": "Koszyk",
+    "settings": [
+      { "type": "select", "id": "cart_type", "label": "Po dodaniu do koszyka", "options": [ { "value": "drawer", "label": "Otwórz wysuwany koszyk" }, { "value": "page", "label": "Przejdź na stronę koszyka" } ], "default": "drawer" }
+    ]
+  }
+]

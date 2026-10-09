@@ -1,0 +1,56 @@
+{%- liquid
+  assign p = product
+  if p == blank
+    assign p = section.settings.product
+  endif
+  assign price = p.selected_or_first_available_variant.price
+-%}
+<section class="vx-section" id="vx-parents">
+  <div class="vx-wrap vx-parents">
+    <div data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<span class="vx-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="vx-h2">{{ section.settings.heading }} <span class="vx-grad">{{ section.settings.heading_accent }}</span></h2>
+      {%- if section.settings.text != blank -%}<p class="vx-lead">{{ section.settings.text }}</p>{%- endif -%}
+      <ul class="vx-plist">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}><span class="vx-plist__ic">{{ block.settings.icon }}</span><div><b>{{ block.settings.title }}</b><span>{{ block.settings.text }}</span></div></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    <div data-reveal data-reveal-delay="2">
+      <div class="vx-receipt">
+        <h4>VEXON</h4>
+        <small>{{ section.settings.receipt_title }}</small>
+        <span class="vx-receipt__stamp">0 ZŁ UKRYTYCH</span>
+        <div class="vx-receipt__row"><span>Auto VEXON Wall Racer</span><b>{% if price %}{{ price | money }}{% else %}—{% endif %}</b></div>
+        <div class="vx-receipt__row"><span>Pilot + kabel USB</span><b>w zestawie</b></div>
+        <div class="vx-receipt__row vx-receipt__row--zero"><span>Dostawa</span><b>0,00 zł</b></div>
+        <div class="vx-receipt__row vx-receipt__row--zero"><span>Abonamenty, aplikacje, dopłaty</span><b>0,00 zł</b></div>
+        <div class="vx-receipt__row vx-receipt__row--zero"><span>Zwrot w ciągu 30 dni</span><b>✓ możliwy</b></div>
+        <div class="vx-receipt__total"><span>Razem</span><span>{% if price %}{{ price | money }}{% else %}—{% endif %}</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "VEXON • Dla rodziców",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produkt (na stronie głównej)" },
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł", "default": "Dla rodziców" },
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "Konkretnie," },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł (wyróżnienie)", "default": "bez ściemy" },
+    { "type": "textarea", "id": "text", "label": "Opis", "default": "Wiemy, że w internecie łatwo trafić na zabawkę, która wygląda lepiej na reklamie niż w domu. Dlatego mówimy wprost, co dostajesz." },
+    { "type": "text", "id": "receipt_title", "label": "Podtytuł paragonu", "default": "Ile naprawdę płacisz" }
+  ],
+  "blocks": [
+    { "type": "fact", "name": "Fakt", "settings": [
+      { "type": "text", "id": "icon", "label": "Emoji", "default": "✅" },
+      { "type": "text", "id": "title", "label": "Tytuł" },
+      { "type": "textarea", "id": "text", "label": "Opis" }
+    ] }
+  ],
+  "max_blocks": 8,
+  "presets": [ { "name": "VEXON • Dla rodziców" } ]
+}
+{% endschema %}

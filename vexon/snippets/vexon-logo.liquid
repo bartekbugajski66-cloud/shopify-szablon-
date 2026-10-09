@@ -1,0 +1,18 @@
+{%- comment -%} VEXON wordmark. Pass class: 'vx-logo' {%- endcomment -%}
+<svg class="{{ class | default: 'vx-logo' }}" viewBox="-30 -4 200 48" role="img" aria-label="VEXON" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="vxg-{{ id | default: 'a' }}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7CF3FF"/>
+      <stop offset=".45" stop-color="#2F8BFF"/>
+      <stop offset="1" stop-color="#3A3DFF"/>
+    </linearGradient>
+  </defs>
+  <g transform="skewX(-12)" fill="url(#vxg-{{ id | default: 'a' }})">
+    <path d="M-14 9h10l-2.5 5h-10zM-20 19h16l-2.5 5h-16zM-14 29h10l-2.5 5h-10z" opacity=".8"/>
+    <path d="M0 0h9.5l5.5 24.5L20.5 0H30L19.5 40h-9z"/>
+    <path d="M34 0h25v8H43.5v8H56v8H43.5v8H59v8H34z"/>
+    <path d="M62 0h10.5l20 40H82zM82 0h10.5l-20 40H62z"/>
+    <path fill-rule="evenodd" d="M106 0h12c6 0 10 4 10 10v20c0 6-4 10-10 10h-12c-6 0-10-4-10-10V10c0-6 4-10 10-10zm2 9c-1.7 0-3 1.3-3 3v16c0 1.7 1.3 3 3 3h8c1.7 0 3-1.3 3-3V12c0-1.7-1.3-3-3-3z"/>
+    <path d="M132 0h9l13 22V0h9v40h-9l-13-22v22h-9z"/>
+  </g>
+</svg>

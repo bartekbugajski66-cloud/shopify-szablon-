@@ -1,0 +1,14 @@
+<div class="vx-stripe" aria-hidden="true">
+  <div class="vx-stripe__track">
+    {%- for i in (1..6) -%}
+      {%- for block in section.blocks -%}<span>{{ block.settings.text }}</span>{%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Pasek z hasłami",
+  "blocks": [ { "type": "word", "name": "Hasło", "settings": [ { "type": "text", "id": "text", "label": "Tekst", "default": "Ściana" } ] } ],
+  "presets": [ { "name": "Pasek z hasłami", "blocks": [ { "type": "word", "settings": { "text": "Ściana" } }, { "type": "word", "settings": { "text": "Sufit" } }, { "type": "word", "settings": { "text": "Szyba" } }, { "type": "word", "settings": { "text": "360°" } } ] } ]
+}
+{% endschema %}

@@ -1,0 +1,57 @@
+{%- assign first_mode = section.blocks.first.settings.mode | default: 'wall' -%}
+<section class="vx-section" id="vx-modes" data-vx-modes>
+  <div class="vx-wrap">
+    <div class="vx-head" data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<span class="vx-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="vx-h2">{{ section.settings.heading }} <span class="vx-grad">{{ section.settings.heading_accent }}</span></h2>
+      {%- if section.settings.text != blank -%}<p class="vx-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="vx-modes__tabs" role="tablist">
+      {%- for block in section.blocks -%}
+        <button type="button" role="tab" class="vx-tab{% if forloop.first %} is-active{% endif %}" data-vx-mode="{{ block.settings.mode }}" aria-selected="{{ forloop.first }}" {{ block.shopify_attributes }}>{{ block.settings.icon }} {{ block.settings.tab }}</button>
+      {%- endfor -%}
+    </div>
+    <div class="vx-modes__grid">
+      <div class="vx-stage" data-mode="{{ first_mode }}" data-vx-stage data-reveal>
+        <div class="vx-stage__room">
+          <div class="vx-stage__ceil"></div>
+          <div class="vx-stage__glass">{%- for i in (1..9) -%}<i style="left:{{ i | times: 11 }}%;height:{{ i | modulo: 3 | plus: 2 | times: 6 }}px;animation-delay:-{{ i | times: 0.37 }}s"></i>{%- endfor -%}</div>
+          <div class="vx-stage__floor"></div>
+        </div>
+        <div class="vx-stage__hud"><span class="vx-pill vx-pill--hot" data-vx-mode-hud>{{ section.blocks.first.settings.tab }}</span></div>
+        <div class="vx-stage__car">{% render 'vexon-car', id: 'stage' %}</div>
+      </div>
+      <div class="vx-mode-copy">
+        {%- for block in section.blocks -%}
+          <div data-mode-pane="{{ block.settings.mode }}" class="{% if forloop.first %}is-active{% endif %}">
+            <h3>{{ block.settings.icon }} {{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+        <div class="vx-mode-progress" data-vx-mode-progress><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "VEXON • Tryby jazdy",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadtytuł", "default": "Kliknij i zobacz" },
+    { "type": "text", "id": "heading", "label": "Tytuł", "default": "Grawitacja?" },
+    { "type": "text", "id": "heading_accent", "label": "Tytuł (wyróżnienie)", "default": "Nie tym razem." },
+    { "type": "textarea", "id": "text", "label": "Opis", "default": "Jedno auto, pięć sposobów na zabawę. Przełącznik z tyłu auta zmienia tryb: podłoga albo ściana." }
+  ],
+  "blocks": [
+    { "type": "mode", "name": "Tryb", "settings": [
+      { "type": "select", "id": "mode", "label": "Animacja", "options": [ { "value": "floor", "label": "Podłoga" }, { "value": "wall", "label": "Ściana" }, { "value": "ceiling", "label": "Sufit" }, { "value": "glass", "label": "Szyba" }, { "value": "stunt", "label": "Obrót 360°" } ], "default": "wall" },
+      { "type": "text", "id": "icon", "label": "Emoji", "default": "🧱" },
+      { "type": "text", "id": "tab", "label": "Nazwa zakładki", "default": "Ściana" },
+      { "type": "text", "id": "title", "label": "Tytuł", "default": "Jazda po ścianie" },
+      { "type": "textarea", "id": "text", "label": "Opis" }
+    ] }
+  ],
+  "max_blocks": 5,
+  "presets": [ { "name": "VEXON • Tryby jazdy" } ]
+}
+{% endschema %}

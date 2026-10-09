@@ -1,0 +1,15 @@
+{
+  "type": "footer",
+  "name": "Stopka",
+  "sections": {
+    "footer": {
+      "type": "vx-footer",
+      "settings": {
+        "email": "bartekbugajski66@gmail.com"
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}
