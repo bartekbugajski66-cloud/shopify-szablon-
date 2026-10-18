@@ -1,47 +1,27 @@
 {%- comment -%}
-  ZOLUMI — opinie klientów ze zdjęciami.
+  ZOLUMI — opinie klientów ze zdjęciami (karty: zdjęcie, gwiazdki, tytuł, treść, podpis).
   Dodawaj tylko prawdziwe opinie (blok „Opinia”) albo wstaw blok aplikacji z opiniami (np. Judge.me, Loox).
   Bez opinii sekcja jest ukryta w sklepie (w edytorze pokazuje podpowiedź).
 {%- endcomment -%}
 {%- liquid
   assign n = 0
-  assign sum = 0
-  assign photos = 0
+  assign apps = 0
   for block in section.blocks
     if block.type == 'review'
       assign n = n | plus: 1
-      assign sum = sum | plus: block.settings.rating
-      if block.settings.image != blank
-        assign photos = photos | plus: 1
-      endif
-    endif
-  endfor
-  assign apps = 0
-  for block in section.blocks
-    if block.type == '@app'
+    elsif block.type == '@app'
       assign apps = apps | plus: 1
     endif
   endfor
 -%}
 {%- if n > 0 or apps > 0 or request.design_mode -%}
-<section class="z-sec z-rev" id="opinie">
+<section class="z-sec z-sec--white z-rev" id="opinie">
   <div class="z-wrap">
-    <div class="z-head z-reveal">
-      <span class="z-kicker">{{ section.settings.kicker }}</span>
-      <h2 class="z-h2">{{ section.settings.heading }}</h2>
-      {%- if n > 0 -%}
-        {%- assign avg = sum | times: 1.0 | divided_by: n | round: 1 -%}
-        <div class="z-rev__sum">
-          <strong>{{ avg | replace: '.', ',' }}</strong>
-          <span class="z-stars" aria-hidden="true">★★★★★</span>
-          <span>{{ n }} {% if n == 1 %}opinia{% elsif n < 5 %}opinie{% else %}opinii{% endif %}{% if photos > 0 %} · {{ photos }} ze zdjęciem{% endif %}</span>
-        </div>
-      {%- endif -%}
-    </div>
+    <h2 class="z-rev__title z-reveal">{{ section.settings.heading }}</h2>
 
     {%- if n == 0 and apps == 0 -%}
       <div class="z-rev__empty">
-        <p><strong>Tu pojawią się opinie Twoich klientów 💜</strong><br>Dodaj blok „Opinia” (z prawdziwą treścią i zdjęciem od klienta) albo blok aplikacji z opiniami, np. Judge.me. Ta podpowiedź widoczna jest tylko w edytorze.</p>
+        <p><strong>Tu pojawią się opinie Twoich klientów 💜</strong><br>Dodaj blok „Opinia” (prawdziwa treść + zdjęcie od klienta) albo blok aplikacji z opiniami, np. Judge.me. Ta podpowiedź jest widoczna tylko w edytorze.</p>
       </div>
     {%- endif -%}
 
@@ -50,38 +30,32 @@
     {%- endfor -%}
 
     {%- if n > 0 -%}
-      {%- if photos > 0 and photos < n -%}
-        <div class="z-rev__filters" role="tablist">
-          <button type="button" class="is-on" data-f="all">Wszystkie ({{ n }})</button>
-          <button type="button" data-f="photo">📸 Ze zdjęciem ({{ photos }})</button>
-        </div>
-      {%- endif -%}
-      <div class="z-rev__grid" data-z-rev-grid>
+      <div class="z-rev__grid">
         {%- for block in section.blocks -%}{%- if block.type == 'review' -%}
-          <article class="z-rcard{% if forloop.index > section.settings.initial %} is-more{% endif %}" data-photo="{% if block.settings.image != blank %}1{% else %}0{% endif %}" {{ block.shopify_attributes }}>
-            {%- if block.settings.image != blank -%}
-              <button type="button" class="z-rcard__img" data-full="{{ block.settings.image | image_url: width: 1400 }}" aria-label="Powiększ zdjęcie">
-                {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350,500,700', sizes: '(min-width: 900px) 33vw, 100vw', alt: block.settings.image.alt | default: block.settings.title }}
-              </button>
-            {%- endif -%}
+          <article class="z-rcard z-reveal" data-delay="{{ forloop.index0 | modulo: 3 | times: 90 }}" {{ block.shopify_attributes }}>
+            <div class="z-rcard__media">
+              {%- if block.settings.image != blank -%}
+                <button type="button" class="z-rcard__img" data-full="{{ block.settings.image | image_url: width: 1400 }}" aria-label="Powiększ zdjęcie">
+                  {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350,500,700', sizes: '(min-width: 900px) 30vw, 80vw', alt: block.settings.image.alt | default: block.settings.title }}
+                </button>
+              {%- endif -%}
+              <span class="z-rcard__quote" aria-hidden="true">❞</span>
+            </div>
             <div class="z-rcard__body">
               <div class="z-rcard__stars" aria-label="Ocena {{ block.settings.rating }} na 5">
                 {%- for i in (1..5) -%}<span{% if i > block.settings.rating %} class="is-off"{% endif %}>★</span>{%- endfor -%}
               </div>
-              {%- if block.settings.title != blank -%}<h3>„{{ block.settings.title }}”</h3>{%- endif -%}
-              <p>{{ block.settings.text }}</p>
+              {%- if block.settings.title != blank -%}<h3>"{{ block.settings.title }}"</h3>{%- endif -%}
+              <p>"{{ block.settings.text }}"</p>
               <footer>
-                <span class="z-rcard__av" style="background: {{ block.settings.color }}" aria-hidden="true">{{ block.settings.name | slice: 0 | upcase }}</span>
-                <span class="z-rcard__who"><strong>{{ block.settings.name }}</strong>{%- if block.settings.city != blank -%}<small>{{ block.settings.city }}</small>{%- endif -%}</span>
+                <strong>{{ block.settings.name }}</strong>
                 {%- if block.settings.verified -%}<span class="z-rcard__ver">✔ Zweryfikowany zakup</span>{%- endif -%}
               </footer>
             </div>
           </article>
         {%- endif -%}{%- endfor -%}
       </div>
-      {%- if n > section.settings.initial -%}
-        <div class="z-rev__more"><button type="button" class="z-btn z-btn--ghost" data-z-more>Pokaż więcej opinii 👀</button></div>
-      {%- endif -%}
+      {%- if section.settings.disclaimer != blank -%}<p class="z-rev__disc">{{ section.settings.disclaimer }}</p>{%- endif -%}
     {%- endif -%}
   </div>
 
@@ -89,52 +63,38 @@
 </section>
 
 {%- style -%}
-  #opinie .z-rev__sum{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px;background:#fff;padding:10px 20px;border-radius:999px;box-shadow:var(--z-shadow-sm)}
-  #opinie .z-rev__sum strong{font-family:var(--z-head);font-size:28px;line-height:1}
-  #opinie .z-rev__sum span:last-child{color:var(--z-ink-soft);font-weight:700;font-size:14px}
-  #opinie .z-rev__empty{max-width:620px;margin:0 auto;text-align:center;background:#fff;border:3px dashed #d8cdf6;border-radius:var(--z-radius);padding:28px;color:var(--z-ink-soft)}
-  #opinie .z-rev__filters{display:flex;justify-content:center;gap:10px;margin-bottom:22px;flex-wrap:wrap}
-  #opinie .z-rev__filters button{border:0;cursor:pointer;font-weight:800;padding:10px 18px;border-radius:999px;background:#fff;box-shadow:var(--z-shadow-sm)}
-  #opinie .z-rev__filters button.is-on{background:var(--z-ink);color:#fff}
-  #opinie .z-rev__grid{columns:1;column-gap:18px}
-  #opinie .z-rcard{break-inside:avoid;margin:0 0 18px;background:#fff;border-radius:var(--z-radius);overflow:hidden;box-shadow:var(--z-shadow-sm);transition:transform .25s}
+  #opinie .z-rev__title{text-align:center;font-size:clamp(26px,5vw,36px);font-weight:800;margin:0 auto 30px;max-width:760px}
+  #opinie .z-rev__empty{max-width:620px;margin:0 auto;text-align:center;background:var(--z-cream);border:3px dashed #d8cdf6;border-radius:var(--z-radius);padding:28px;color:var(--z-ink-soft)}
+  #opinie .z-rev__grid{display:grid;grid-auto-flow:column;grid-auto-columns:78%;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 2px 18px;margin:0 -16px;padding-left:16px;padding-right:16px}
+  #opinie .z-rev__grid::-webkit-scrollbar{display:none}
+  #opinie .z-rcard{scroll-snap-align:center;background:#f5f5f5;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;align-self:start;transition:transform .25s}
   #opinie .z-rcard:hover{transform:translateY(-4px)}
-  #opinie .z-rcard.is-more,#opinie .z-rcard.is-hidden{display:none}
-  #opinie .z-rcard__img{display:block;width:100%;padding:0;border:0;cursor:zoom-in;background:#f3eefc}
-  #opinie .z-rcard__img img{width:100%;height:auto}
-  #opinie .z-rcard__body{padding:18px 20px 20px}
-  #opinie .z-rcard__stars{color:#ffb800;font-size:18px;letter-spacing:2px}
-  #opinie .z-rcard__stars .is-off{color:#e2dcef}
-  #opinie .z-rcard h3{font-size:20px;margin:6px 0}
-  #opinie .z-rcard p{margin:0 0 14px;color:var(--z-ink-soft)}
-  #opinie .z-rcard footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--z-line);padding-top:12px}
-  #opinie .z-rcard__av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800}
-  #opinie .z-rcard__who strong{display:block;font-size:14.5px}
-  #opinie .z-rcard__who small{color:var(--z-ink-soft);font-size:12.5px}
-  #opinie .z-rcard__ver{margin-left:auto;font-size:12px;font-weight:800;color:var(--z-green);background:#e2f8ee;padding:4px 10px;border-radius:999px}
-  #opinie .z-rev__more{text-align:center;margin-top:10px}
+  #opinie .z-rcard__media{position:relative}
+  #opinie .z-rcard__img{display:block;width:100%;padding:0;border:0;cursor:zoom-in;background:#ece8f3;aspect-ratio:1/1;overflow:hidden}
+  #opinie .z-rcard__img img{width:100%;height:100%;object-fit:cover}
+  #opinie .z-rcard__quote{position:absolute;right:12px;bottom:-16px;width:34px;height:34px;border-radius:50%;background:#7a1c8c;color:#fff;display:grid;place-items:center;font-size:20px;line-height:1;font-weight:800;box-shadow:0 4px 10px rgba(122,28,140,.35)}
+  #opinie .z-rcard__media:not(:has(img)) {height:34px}
+  #opinie .z-rcard__body{padding:14px 16px 12px;text-align:center;display:flex;flex-direction:column;flex:1}
+  #opinie .z-rcard__stars{color:#ffc400;font-size:15px;letter-spacing:1px}
+  #opinie .z-rcard__stars .is-off{color:#ddd}
+  #opinie .z-rcard h3{font-family:var(--z-body);font-size:15px;font-weight:800;line-height:1.35;margin:6px 0 8px}
+  #opinie .z-rcard p{margin:0 0 12px;font-size:13px;line-height:1.6;letter-spacing:.01em;color:#444}
+  #opinie .z-rcard footer{margin-top:auto;border-top:1px solid #e1e1e1;padding-top:9px;display:flex;flex-direction:column;align-items:center;gap:4px}
+  #opinie .z-rcard footer strong{font-size:12px;font-style:italic;font-weight:800}
+  #opinie .z-rcard__ver{font-size:11px;font-weight:800;color:var(--z-green)}
+  #opinie .z-rev__disc{text-align:center;font-size:11.5px;color:#9a94ad;max-width:720px;margin:18px auto 0}
   #opinie .z-rev__app{margin-top:12px}
   #opinie .z-lb{border:0;padding:0;background:transparent;max-width:min(92vw,900px);max-height:90vh}
   #opinie .z-lb::backdrop{background:rgba(30,20,70,.8);backdrop-filter:blur(4px)}
   #opinie .z-lb img{max-height:86vh;width:auto;height:auto;border-radius:20px}
   #opinie .z-lb__x{position:absolute;top:10px;right:10px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;cursor:pointer;font-size:16px}
-  @media(min-width:700px){#opinie .z-rev__grid{columns:2}}
-  @media(min-width:1000px){#opinie .z-rev__grid{columns:3}}
+  @media(min-width:750px){
+    #opinie .z-rev__grid{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-columns:auto;overflow:visible;margin:0 auto;padding:0;max-width:820px;gap:24px}
+  }
 {%- endstyle -%}
 <script>
 (function () {
   var s = document.getElementById('opinie'); if (!s) return;
-  var cards = s.querySelectorAll('.z-rcard');
-  var more = s.querySelector('[data-z-more]');
-  if (more) more.addEventListener('click', function () { cards.forEach(function (c) { c.classList.remove('is-more'); }); more.parentNode.remove(); });
-  s.querySelectorAll('[data-f]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      s.querySelectorAll('[data-f]').forEach(function (x) { x.classList.toggle('is-on', x === b); });
-      var photo = b.getAttribute('data-f') === 'photo';
-      if (photo && more) more.click();
-      cards.forEach(function (c) { c.classList.toggle('is-hidden', photo && c.getAttribute('data-photo') !== '1'); });
-    });
-  });
   var lb = s.querySelector('[data-z-lb]');
   if (lb && lb.showModal) {
     s.querySelectorAll('[data-full]').forEach(function (b) {
@@ -150,9 +110,8 @@
 {
   "name": "Opinie klientów",
   "settings": [
-    { "type": "text", "id": "kicker", "label": "Nadtytuł", "default": "📸 Prawdziwe opinie" },
-    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Uwielbiane przez <em>małych artystów</em> i rodziców" },
-    { "type": "range", "id": "initial", "min": 3, "max": 12, "step": 1, "label": "Ile opinii pokazać na start", "default": 6 }
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Uwielbiane przez małych artystów i rodziców 💖" },
+    { "type": "textarea", "id": "disclaimer", "label": "Informacja o opiniach (pod kartami)", "info": "Wymóg prawny (Omnibus): napisz, skąd pochodzą opinie i czy sprawdzasz, że autorzy kupili produkt." }
   ],
   "blocks": [
     { "type": "@app" },
@@ -162,9 +121,7 @@
       { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Ocena", "default": 5 },
       { "type": "text", "id": "title", "label": "Tytuł" },
       { "type": "textarea", "id": "text", "label": "Treść" },
-      { "type": "text", "id": "name", "label": "Imię i inicjał (np. Anna K.)" },
-      { "type": "text", "id": "city", "label": "Miasto / opis (np. mama 4-latka)" },
-      { "type": "color", "id": "color", "label": "Kolor awatara", "default": "#6d3bef" },
+      { "type": "text", "id": "name", "label": "Podpis (np. Anna K.)" },
       { "type": "checkbox", "id": "verified", "label": "Zweryfikowany zakup", "default": false, "info": "Zaznacz tylko, jeśli ta osoba faktycznie kupiła produkt w Twoim sklepie." }
     ] }
   ],
