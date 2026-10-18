@@ -20,7 +20,7 @@
 </section>
 {%- style -%}
   #z-ben-{{ section.id }}{overflow:hidden}
-  #z-ben-{{ section.id }} .z-ben__grid{display:grid;grid-template-columns:1fr;gap:16px}
+  #z-ben-{{ section.id }} .z-ben__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   #z-ben-{{ section.id }} .z-ben__card{position:relative;background:#fff;border-radius:var(--z-radius);padding:26px 24px;box-shadow:var(--z-shadow-sm);overflow:hidden;transition:transform .25s cubic-bezier(.3,1.5,.5,1),box-shadow .25s}
   #z-ben-{{ section.id }} .z-ben__card::before{content:"";position:absolute;right:-40px;top:-40px;width:130px;height:130px;border-radius:50%;background:var(--c);opacity:.14;transition:transform .4s}
   #z-ben-{{ section.id }} .z-ben__card:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:var(--z-shadow)}
@@ -29,7 +29,12 @@
   #z-ben-{{ section.id }} .z-ben__ico{display:grid;place-items:center;width:62px;height:62px;border-radius:20px;font-size:32px;background:color-mix(in srgb,var(--c) 18%,#fff);margin-bottom:16px}
   #z-ben-{{ section.id }} h3{font-size:23px;font-weight:800;margin-bottom:6px}
   #z-ben-{{ section.id }} p{margin:0;color:var(--z-ink-soft)}
-  @media(min-width:700px){#z-ben-{{ section.id }} .z-ben__grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:699px){
+    #z-ben-{{ section.id }} .z-ben__card{padding:18px 14px;border-radius:20px}
+    #z-ben-{{ section.id }} .z-ben__ico{width:46px;height:46px;font-size:24px;border-radius:14px;margin-bottom:10px}
+    #z-ben-{{ section.id }} h3{font-size:18px}
+    #z-ben-{{ section.id }} p{font-size:13.5px;line-height:1.45}
+  }
   @media(min-width:1000px){#z-ben-{{ section.id }} .z-ben__grid{grid-template-columns:repeat(3,1fr);gap:22px}}
 {%- endstyle -%}
 {% schema %}

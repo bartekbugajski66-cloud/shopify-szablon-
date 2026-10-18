@@ -28,8 +28,13 @@
 </section>
 {%- style -%}
   #jak-dziala{overflow:hidden}
-  #jak-dziala .z-how__steps{list-style:none;margin:0;padding:0;display:grid;gap:22px;position:relative}
-  #jak-dziala .z-how__step{text-align:center}
+  #jak-dziala .z-how__steps{list-style:none;margin:0;padding:0;display:grid;gap:16px;position:relative}
+  #jak-dziala .z-how__step{display:grid;grid-template-columns:110px 1fr;gap:4px 16px;align-items:center;text-align:left;background:rgba(255,255,255,.05);border-radius:24px;padding:12px}
+  #jak-dziala .z-how__step .z-how__media{grid-row:span 2;margin:0;aspect-ratio:1/1}
+  #jak-dziala .z-how__step .z-how__emoji{font-size:52px}
+  #jak-dziala .z-how__step .z-how__num{top:8px;left:8px;width:30px;height:30px;font-size:16px}
+  #jak-dziala .z-how__step h3{font-size:21px;align-self:end}
+  #jak-dziala .z-how__step p{align-self:start;font-size:14.5px}
   #jak-dziala .z-how__media{position:relative;aspect-ratio:4/3;border-radius:var(--z-radius);overflow:hidden;background:color-mix(in srgb,var(--c) 26%,#1e1446);display:grid;place-items:center;margin-bottom:18px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.08)}
   #jak-dziala .z-how__media img{width:100%;height:100%;object-fit:cover}
   #jak-dziala .z-how__emoji{font-size:84px;filter:drop-shadow(0 12px 20px rgba(0,0,0,.35));animation:zBob 3s ease-in-out infinite}
@@ -39,7 +44,11 @@
   @media(min-width:900px){
     #jak-dziala .z-how__steps{grid-template-columns:repeat(3,1fr);gap:30px}
     #jak-dziala .z-how__steps::before{content:"";position:absolute;top:calc(33% - 2px);left:16%;right:16%;border-top:3px dashed rgba(255,255,255,.2);z-index:0}
-    #jak-dziala .z-how__step{position:relative;z-index:1}
+    #jak-dziala .z-how__step{position:relative;z-index:1;display:block;text-align:center;background:none;padding:0}
+    #jak-dziala .z-how__step .z-how__media{aspect-ratio:4/3;margin-bottom:18px}
+    #jak-dziala .z-how__step .z-how__emoji{font-size:84px}
+    #jak-dziala .z-how__step .z-how__num{top:14px;left:14px;width:44px;height:44px;font-size:22px}
+    #jak-dziala .z-how__step h3{font-size:25px}
   }
 {%- endstyle -%}
 {% schema %}

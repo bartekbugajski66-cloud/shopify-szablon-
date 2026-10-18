@@ -109,7 +109,7 @@
               {%- when 3 -%}{%- assign lbl = section.settings.label_3 -%}{%- assign bdg = section.settings.badge_3 -%}
               {%- else -%}{%- assign lbl = '' -%}{%- assign bdg = '' -%}
             {%- endcase -%}
-            <label class="z-pack{% if forloop.index == 2 %} z-pack--pop{% endif %}{% unless v.available %} is-off{% endunless %}">
+            <label class="z-pack z-pack--{{ forloop.index }}{% if forloop.index == 2 %} z-pack--pop{% endif %}{% unless v.available %} is-off{% endunless %}">
               <input type="radio" name="id" value="{{ v.id }}" class="z-pack__radio"
                 data-price="{{ v.price | money }}" data-full="{{ full | money }}" data-save="{% if save > 0 %}{{ save | money }}{% endif %}" data-pct="{{ pct }}" data-title="{{ v.title | escape }}"
                 {% if v.id == sel.id %}checked{% endif %}{% unless v.available %} disabled{% endunless %}>
@@ -243,7 +243,7 @@
   .z-pack__radio{position:absolute;opacity:0;pointer-events:none}
   .z-pack__radio:focus-visible ~ .z-pack__dot{outline:3px solid var(--z-violet);outline-offset:3px}
   .z-pack__badge{position:absolute;top:-13px;right:16px;font-size:12px;font-weight:800;color:#fff;background:var(--z-grad);padding:4px 12px;border-radius:999px;box-shadow:0 6px 14px -6px rgba(109,59,239,.7)}
-  .z-pack:nth-child(3) .z-pack__badge{background:linear-gradient(135deg,#ff8a1f,#ff4d5e)}
+  .z-pack--3 .z-pack__badge{background:linear-gradient(135deg,#ff8a1f,#ff4d5e)}
   .z-pack__dot{width:24px;height:24px;border-radius:50%;border:3px solid #d8d0ee;position:relative;transition:border-color .15s}
   .z-pack:has(.z-pack__radio:checked) .z-pack__dot{border-color:var(--z-violet)}
   .z-pack:has(.z-pack__radio:checked) .z-pack__dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--z-violet);animation:zPop .35s cubic-bezier(.3,1.8,.5,1)}

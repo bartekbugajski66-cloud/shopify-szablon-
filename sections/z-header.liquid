@@ -18,7 +18,7 @@
         <summary aria-label="Menu"><span></span><span></span><span></span></summary>
         <nav class="z-hdr__drop" aria-label="Menu">
           {%- for link in section.settings.menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
-          {%- if section.settings.menu.links.size == 0 -%}
+          {%- if section.settings.menu == blank or section.settings.menu.links.size == 0 -%}
             <a href="{{ routes.root_url }}#kup">🎨 Kup Zolumi</a>
             <a href="{{ routes.root_url }}#jak-dziala">✨ Jak to działa</a>
             <a href="{{ routes.root_url }}#faq">❓ Pytania</a>
@@ -28,7 +28,7 @@
       </details>
       <nav class="z-hdr__nav" aria-label="Menu główne">
         {%- for link in section.settings.menu.links limit: 3 -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
-        {%- if section.settings.menu.links.size == 0 -%}
+        {%- if section.settings.menu == blank or section.settings.menu.links.size == 0 -%}
           <a href="{{ routes.root_url }}#jak-dziala">Jak to działa</a>
           <a href="{{ routes.root_url }}#faq">Pytania</a>
         {%- endif -%}
