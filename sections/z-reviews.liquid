@@ -1,0 +1,173 @@
+{%- comment -%}
+  ZOLUMI — opinie klientów ze zdjęciami.
+  Dodawaj tylko prawdziwe opinie (blok „Opinia”) albo wstaw blok aplikacji z opiniami (np. Judge.me, Loox).
+  Bez opinii sekcja jest ukryta w sklepie (w edytorze pokazuje podpowiedź).
+{%- endcomment -%}
+{%- liquid
+  assign n = 0
+  assign sum = 0
+  assign photos = 0
+  for block in section.blocks
+    if block.type == 'review'
+      assign n = n | plus: 1
+      assign sum = sum | plus: block.settings.rating
+      if block.settings.image != blank
+        assign photos = photos | plus: 1
+      endif
+    endif
+  endfor
+  assign apps = 0
+  for block in section.blocks
+    if block.type == '@app'
+      assign apps = apps | plus: 1
+    endif
+  endfor
+-%}
+{%- if n > 0 or apps > 0 or request.design_mode -%}
+<section class="z-sec z-rev" id="opinie">
+  <div class="z-wrap">
+    <div class="z-head z-reveal">
+      <span class="z-kicker">{{ section.settings.kicker }}</span>
+      <h2 class="z-h2">{{ section.settings.heading }}</h2>
+      {%- if n > 0 -%}
+        {%- assign avg = sum | times: 1.0 | divided_by: n | round: 1 -%}
+        <div class="z-rev__sum">
+          <strong>{{ avg | replace: '.', ',' }}</strong>
+          <span class="z-stars" aria-hidden="true">★★★★★</span>
+          <span>{{ n }} {% if n == 1 %}opinia{% elsif n < 5 %}opinie{% else %}opinii{% endif %}{% if photos > 0 %} · {{ photos }} ze zdjęciem{% endif %}</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if n == 0 and apps == 0 -%}
+      <div class="z-rev__empty">
+        <p><strong>Tu pojawią się opinie Twoich klientów 💜</strong><br>Dodaj blok „Opinia” (z prawdziwą treścią i zdjęciem od klienta) albo blok aplikacji z opiniami, np. Judge.me. Ta podpowiedź widoczna jest tylko w edytorze.</p>
+      </div>
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}<div class="z-rev__app">{% render block %}</div>{%- endif -%}
+    {%- endfor -%}
+
+    {%- if n > 0 -%}
+      {%- if photos > 0 and photos < n -%}
+        <div class="z-rev__filters" role="tablist">
+          <button type="button" class="is-on" data-f="all">Wszystkie ({{ n }})</button>
+          <button type="button" data-f="photo">📸 Ze zdjęciem ({{ photos }})</button>
+        </div>
+      {%- endif -%}
+      <div class="z-rev__grid" data-z-rev-grid>
+        {%- for block in section.blocks -%}{%- if block.type == 'review' -%}
+          <article class="z-rcard{% if forloop.index > section.settings.initial %} is-more{% endif %}" data-photo="{% if block.settings.image != blank %}1{% else %}0{% endif %}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <button type="button" class="z-rcard__img" data-full="{{ block.settings.image | image_url: width: 1400 }}" aria-label="Powiększ zdjęcie">
+                {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350,500,700', sizes: '(min-width: 900px) 33vw, 100vw', alt: block.settings.image.alt | default: block.settings.title }}
+              </button>
+            {%- endif -%}
+            <div class="z-rcard__body">
+              <div class="z-rcard__stars" aria-label="Ocena {{ block.settings.rating }} na 5">
+                {%- for i in (1..5) -%}<span{% if i > block.settings.rating %} class="is-off"{% endif %}>★</span>{%- endfor -%}
+              </div>
+              {%- if block.settings.title != blank -%}<h3>„{{ block.settings.title }}”</h3>{%- endif -%}
+              <p>{{ block.settings.text }}</p>
+              <footer>
+                <span class="z-rcard__av" style="background: {{ block.settings.color }}" aria-hidden="true">{{ block.settings.name | slice: 0 | upcase }}</span>
+                <span class="z-rcard__who"><strong>{{ block.settings.name }}</strong>{%- if block.settings.city != blank -%}<small>{{ block.settings.city }}</small>{%- endif -%}</span>
+                {%- if block.settings.verified -%}<span class="z-rcard__ver">✔ Zweryfikowany zakup</span>{%- endif -%}
+              </footer>
+            </div>
+          </article>
+        {%- endif -%}{%- endfor -%}
+      </div>
+      {%- if n > section.settings.initial -%}
+        <div class="z-rev__more"><button type="button" class="z-btn z-btn--ghost" data-z-more>Pokaż więcej opinii 👀</button></div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+
+  <dialog class="z-lb" data-z-lb><button type="button" class="z-lb__x" aria-label="Zamknij">✕</button><img alt="" width="1400" height="1400"></dialog>
+</section>
+
+{%- style -%}
+  #opinie .z-rev__sum{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px;background:#fff;padding:10px 20px;border-radius:999px;box-shadow:var(--z-shadow-sm)}
+  #opinie .z-rev__sum strong{font-family:var(--z-head);font-size:28px;line-height:1}
+  #opinie .z-rev__sum span:last-child{color:var(--z-ink-soft);font-weight:700;font-size:14px}
+  #opinie .z-rev__empty{max-width:620px;margin:0 auto;text-align:center;background:#fff;border:3px dashed #d8cdf6;border-radius:var(--z-radius);padding:28px;color:var(--z-ink-soft)}
+  #opinie .z-rev__filters{display:flex;justify-content:center;gap:10px;margin-bottom:22px;flex-wrap:wrap}
+  #opinie .z-rev__filters button{border:0;cursor:pointer;font-weight:800;padding:10px 18px;border-radius:999px;background:#fff;box-shadow:var(--z-shadow-sm)}
+  #opinie .z-rev__filters button.is-on{background:var(--z-ink);color:#fff}
+  #opinie .z-rev__grid{columns:1;column-gap:18px}
+  #opinie .z-rcard{break-inside:avoid;margin:0 0 18px;background:#fff;border-radius:var(--z-radius);overflow:hidden;box-shadow:var(--z-shadow-sm);transition:transform .25s}
+  #opinie .z-rcard:hover{transform:translateY(-4px)}
+  #opinie .z-rcard.is-more,#opinie .z-rcard.is-hidden{display:none}
+  #opinie .z-rcard__img{display:block;width:100%;padding:0;border:0;cursor:zoom-in;background:#f3eefc}
+  #opinie .z-rcard__img img{width:100%;height:auto}
+  #opinie .z-rcard__body{padding:18px 20px 20px}
+  #opinie .z-rcard__stars{color:#ffb800;font-size:18px;letter-spacing:2px}
+  #opinie .z-rcard__stars .is-off{color:#e2dcef}
+  #opinie .z-rcard h3{font-size:20px;margin:6px 0}
+  #opinie .z-rcard p{margin:0 0 14px;color:var(--z-ink-soft)}
+  #opinie .z-rcard footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--z-line);padding-top:12px}
+  #opinie .z-rcard__av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800}
+  #opinie .z-rcard__who strong{display:block;font-size:14.5px}
+  #opinie .z-rcard__who small{color:var(--z-ink-soft);font-size:12.5px}
+  #opinie .z-rcard__ver{margin-left:auto;font-size:12px;font-weight:800;color:var(--z-green);background:#e2f8ee;padding:4px 10px;border-radius:999px}
+  #opinie .z-rev__more{text-align:center;margin-top:10px}
+  #opinie .z-rev__app{margin-top:12px}
+  #opinie .z-lb{border:0;padding:0;background:transparent;max-width:min(92vw,900px);max-height:90vh}
+  #opinie .z-lb::backdrop{background:rgba(30,20,70,.8);backdrop-filter:blur(4px)}
+  #opinie .z-lb img{max-height:86vh;width:auto;height:auto;border-radius:20px}
+  #opinie .z-lb__x{position:absolute;top:10px;right:10px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;cursor:pointer;font-size:16px}
+  @media(min-width:700px){#opinie .z-rev__grid{columns:2}}
+  @media(min-width:1000px){#opinie .z-rev__grid{columns:3}}
+{%- endstyle -%}
+<script>
+(function () {
+  var s = document.getElementById('opinie'); if (!s) return;
+  var cards = s.querySelectorAll('.z-rcard');
+  var more = s.querySelector('[data-z-more]');
+  if (more) more.addEventListener('click', function () { cards.forEach(function (c) { c.classList.remove('is-more'); }); more.parentNode.remove(); });
+  s.querySelectorAll('[data-f]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      s.querySelectorAll('[data-f]').forEach(function (x) { x.classList.toggle('is-on', x === b); });
+      var photo = b.getAttribute('data-f') === 'photo';
+      if (photo && more) more.click();
+      cards.forEach(function (c) { c.classList.toggle('is-hidden', photo && c.getAttribute('data-photo') !== '1'); });
+    });
+  });
+  var lb = s.querySelector('[data-z-lb]');
+  if (lb && lb.showModal) {
+    s.querySelectorAll('[data-full]').forEach(function (b) {
+      b.addEventListener('click', function () { lb.querySelector('img').src = b.getAttribute('data-full'); lb.showModal(); });
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb || e.target.closest('.z-lb__x')) lb.close(); });
+  }
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Opinie klientów",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Nadtytuł", "default": "📸 Prawdziwe opinie" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Uwielbiane przez <em>małych artystów</em> i rodziców" },
+    { "type": "range", "id": "initial", "min": 3, "max": 12, "step": 1, "label": "Ile opinii pokazać na start", "default": 6 }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    { "type": "review", "name": "Opinia", "settings": [
+      { "type": "paragraph", "content": "Wklejaj tylko prawdziwe opinie i zdjęcia od klientów (za ich zgodą). Publikowanie zmyślonych opinii jest w UE nielegalne." },
+      { "type": "image_picker", "id": "image", "label": "Zdjęcie od klienta" },
+      { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Ocena", "default": 5 },
+      { "type": "text", "id": "title", "label": "Tytuł" },
+      { "type": "textarea", "id": "text", "label": "Treść" },
+      { "type": "text", "id": "name", "label": "Imię i inicjał (np. Anna K.)" },
+      { "type": "text", "id": "city", "label": "Miasto / opis (np. mama 4-latka)" },
+      { "type": "color", "id": "color", "label": "Kolor awatara", "default": "#6d3bef" },
+      { "type": "checkbox", "id": "verified", "label": "Zweryfikowany zakup", "default": false, "info": "Zaznacz tylko, jeśli ta osoba faktycznie kupiła produkt w Twoim sklepie." }
+    ] }
+  ],
+  "presets": [ { "name": "Opinie klientów" } ]
+}
+{% endschema %}

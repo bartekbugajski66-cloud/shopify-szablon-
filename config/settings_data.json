@@ -1,22 +1,45 @@
 {
   "current": {
+    "featured_product": "zolumi",
     "sections": {
-      "dripon-header": {
-        "type": "dripon-header",
-        "settings": { "logo_text": "Zerorys", "tagline": "PREMIUM AUTO CARE", "logo_height": 40 }
-      },
-      "dripon-footer": {
-        "type": "dripon-footer",
+      "z-header": {
+        "type": "z-header",
+        "blocks": {
+          "a1": {
+            "type": "message",
+            "settings": {
+              "text": "🚚 Dostawa 0 zł · zamów dziś, a paczka będzie u Ciebie [DOSTAWA]"
+            }
+          },
+          "a2": {
+            "type": "message",
+            "settings": {
+              "text": "🎨 Zero plam — kolory pojawiają się tylko na magicznym papierze"
+            }
+          },
+          "a3": {
+            "type": "message",
+            "settings": {
+              "text": "↩️ 30 dni na zwrot · kupujesz bez ryzyka"
+            }
+          }
+        },
+        "block_order": [
+          "a1",
+          "a2",
+          "a3"
+        ],
         "settings": {
-          "brand_name": "ZERORYS",
-          "brand_text": "Powłoki i preparaty do pielęgnacji lakieru. Głęboki połysk, maskowanie rys i hydrofobowa ochrona — efekt detailingu bez polerki. Marka WMXR.",
-          "badge_text": "30 Dni Gwarancji Satysfakcji",
-          "col1_title": "Informacje",
-          "col2_title": "Pomoc",
-          "contact_title": "Kontakt",
-          "email": "kontakt@twojadomena.pl",
-          "hours": "Pn-Pt: 8:00 - 16:00",
-          "payments": "BLIK, Przelew, VISA, MasterCard, ApplePay"
+          "tagline": "magiczne malowanie",
+          "logo_size": 44,
+          "ann_interval": 4
+        }
+      },
+      "z-footer": {
+        "type": "z-footer",
+        "settings": {
+          "brand": "Zolumi",
+          "email": "bartekbugajski66@gmail.com"
         }
       }
     }

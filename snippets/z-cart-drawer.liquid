@@ -1,0 +1,96 @@
+{%- comment -%} Szuflada koszyka (renderowana przez assets/zolumi.js) {%- endcomment -%}
+{%- assign zp = settings.featured_product -%}
+<script type="application/json" id="z-cart-variants">
+  [{%- if zp != blank -%}{%- for v in zp.variants -%}{%- assign q = v.title | split: ' ' | first | plus: 0 -%}{%- if q < 1 -%}{%- assign q = forloop.index -%}{%- endif -%}{"id":{{ v.id }},"title":{{ v.title | json }},"price":{{ v.price }},"qty":{{ q }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- endif -%}]
+</script>
+
+<div class="z-cart" id="z-cart" hidden>
+  <div class="z-cart__overlay" data-z-cart-close></div>
+  <aside class="z-cart__panel" role="dialog" aria-modal="true" aria-labelledby="z-cart-title">
+    <header class="z-cart__head">
+      <h2 id="z-cart-title">Twój koszyk <span aria-hidden="true">🛒</span></h2>
+      <button type="button" class="z-cart__x" data-z-cart-close aria-label="Zamknij koszyk">✕</button>
+    </header>
+
+    <div class="z-cart__ship">
+      <div class="z-cart__shiprow"><strong>🎉 Masz darmową dostawę!</strong><span>0,00 zł</span></div>
+      <div class="z-cart__bar"><span></span></div>
+      <p class="z-cart__eta">🚚 Zamów teraz, a paczka będzie u Ciebie <strong data-z-delivery="label">w ciągu 2–4 dni</strong></p>
+    </div>
+
+    <div class="z-cart__body">
+      <div class="z-cart__empty" data-z-cart-empty {% if cart.item_count > 0 %}hidden{% endif %}>
+        <div class="z-cart__emptyart" aria-hidden="true">🎨</div>
+        <p><strong>Koszyk czeka na kolory!</strong><br>Dodaj Magiczną Paletę Zolumi i zacznijcie malować bez bałaganu.</p>
+        {%- if zp != blank -%}<a href="{{ zp.url }}#kup" class="z-btn" data-z-cart-close>Wybierz zestaw</a>{%- endif -%}
+      </div>
+      <ul class="z-cart__items" data-z-cart-items></ul>
+
+      <div class="z-cart__upsell" data-z-cart-upsell hidden>
+        <div class="z-cart__upico" aria-hidden="true">🎁</div>
+        <div class="z-cart__uptext"><strong data-z-up-title></strong><span data-z-up-text></span></div>
+        <button type="button" class="z-cart__upbtn"><span data-z-up-price></span> <span aria-hidden="true">→</span></button>
+      </div>
+    </div>
+
+    <footer class="z-cart__foot" data-z-cart-foot {% if cart.item_count == 0 %}hidden{% endif %}>
+      <div class="z-cart__savings" data-z-cart-savings hidden>💜 Oszczędzasz <span></span></div>
+      <div class="z-cart__total"><span>Razem</span><strong data-z-cart-total>{{ cart.total_price | money }}</strong></div>
+      <p class="z-cart__note">Cena zawiera VAT · Dostawa 0 zł</p>
+      <form action="{{ routes.cart_url }}" method="post">
+        <button type="submit" name="checkout" class="z-btn z-btn--block"><span class="z-btn__label">🔒 Przejdź do kasy</span></button>
+      </form>
+      <ul class="z-cart__trust">
+        <li>↩️ 30 dni na zwrot</li><li>🔒 Bezpieczne płatności</li><li>⚡ BLIK</li>
+      </ul>
+    </footer>
+  </aside>
+</div>
+
+{%- style -%}
+  .z-lock,.z-lock body{overflow:hidden}
+  .z-cart{position:fixed;inset:0;z-index:200}
+  .z-cart__overlay{position:absolute;inset:0;background:rgba(30,20,70,.45);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s}
+  .z-cart.is-open .z-cart__overlay{opacity:1}
+  .z-cart__panel{position:absolute;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--z-cream);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .38s cubic-bezier(.2,.9,.25,1);box-shadow:-20px 0 50px rgba(30,20,70,.25)}
+  .z-cart.is-open .z-cart__panel{transform:none}
+  .z-cart__head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:#fff;border-bottom:1px solid var(--z-line)}
+  .z-cart__head h2{font-size:26px;font-weight:800}
+  .z-cart__x{width:40px;height:40px;border-radius:50%;border:0;background:var(--z-cream);font-size:16px;cursor:pointer}
+  .z-cart__ship{padding:14px 20px;background:#fff;border-bottom:1px solid var(--z-line)}
+  .z-cart__shiprow{display:flex;justify-content:space-between;font-size:14px}
+  .z-cart__shiprow span{font-weight:800;color:var(--z-green)}
+  .z-cart__bar{height:10px;border-radius:999px;background:#eee7ff;margin:8px 0 10px;overflow:hidden}
+  .z-cart__bar span{display:block;height:100%;width:100%;background:var(--z-rainbow);background-size:200% 100%;animation:zShift 3s linear infinite;border-radius:999px}
+  .z-cart__eta{margin:0;font-size:13.5px;color:var(--z-ink-soft)}
+  .z-cart__eta strong{color:var(--z-ink)}
+  .z-cart__body{flex:1;overflow-y:auto;padding:16px 20px}
+  .z-cart__empty{text-align:center;padding:40px 10px}
+  .z-cart__emptyart{font-size:64px;animation:zFloat 4s ease-in-out infinite}
+  .z-cart__empty p{color:var(--z-ink-soft);margin:10px 0 20px}
+  .z-cart__items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+  .z-ci{display:grid;grid-template-columns:80px 1fr;gap:14px;background:#fff;border-radius:20px;padding:12px;box-shadow:var(--z-shadow-sm);transition:opacity .2s}
+  .z-ci.is-busy{opacity:.5;pointer-events:none}
+  .z-ci__img img,.z-ci__ph{width:80px;height:80px;border-radius:14px;object-fit:cover;background:var(--z-cream);display:grid;place-items:center;font-size:34px}
+  .z-ci__title{font-weight:800;color:var(--z-ink);text-decoration:none;display:block;line-height:1.25}
+  .z-ci__var{display:inline-block;font-size:12px;font-weight:800;color:var(--z-violet);background:#efe8ff;border-radius:999px;padding:2px 9px;margin-top:4px}
+  .z-ci__row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+  .z-ci__price{font-weight:800;text-align:right}
+  .z-ci__price s{display:block;font-size:12px;color:#a39fb8;font-weight:600}
+  .z-ci__rm{border:0;background:none;padding:0;margin-top:4px;font-size:12px;color:#a39fb8;cursor:pointer;text-decoration:underline}
+  .z-qty{display:inline-flex;align-items:center;border:2px solid var(--z-line);border-radius:999px;overflow:hidden}
+  .z-qty button{width:32px;height:32px;border:0;background:#fff;font-size:18px;font-weight:800;cursor:pointer}
+  .z-qty span{min-width:26px;text-align:center;font-weight:800}
+  .z-cart__upsell{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;margin-top:16px;padding:14px;border-radius:20px;background:linear-gradient(135deg,#fff4d6,#ffe6f2);border:2px dashed #ffb3d6}
+  .z-cart__upico{font-size:30px}
+  .z-cart__uptext strong{display:block;font-size:14.5px;line-height:1.3}
+  .z-cart__uptext span{font-size:12.5px;color:var(--z-ink-soft)}
+  .z-cart__upbtn{grid-column:1/-1;border:0;cursor:pointer;background:var(--z-ink);color:#fff;font-weight:800;padding:11px;border-radius:999px;font-size:14px}
+  .z-cart__upbtn[aria-busy="true"]{opacity:.6}
+  .z-cart__foot{padding:16px 20px calc(16px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--z-line)}
+  .z-cart__savings{background:#efe8ff;color:var(--z-violet);font-weight:800;font-size:14px;text-align:center;border-radius:12px;padding:8px;margin-bottom:10px}
+  .z-cart__total{display:flex;justify-content:space-between;align-items:baseline;font-size:17px}
+  .z-cart__total strong{font-family:var(--z-head);font-size:28px}
+  .z-cart__note{font-size:12.5px;color:var(--z-ink-soft);margin:0 0 12px}
+  .z-cart__trust{list-style:none;display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:12px 0 0;padding:0;font-size:12.5px;font-weight:700;color:var(--z-ink-soft)}
+{%- endstyle -%}

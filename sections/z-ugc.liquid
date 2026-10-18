@@ -1,0 +1,56 @@
+{%- comment -%} ZOLUMI — galeria zdjęć/wideo „Zolumi w akcji” (przewijana) {%- endcomment -%}
+{%- assign has_media = false -%}
+{%- for block in section.blocks -%}{%- if block.settings.image != blank or block.settings.video != blank -%}{%- assign has_media = true -%}{%- endif -%}{%- endfor -%}
+{%- if has_media or request.design_mode -%}
+<section class="z-sec z-ugc" id="z-ugc-{{ section.id }}">
+  <div class="z-wrap">
+    <div class="z-head z-reveal">
+      <span class="z-kicker">{{ section.settings.kicker }}</span>
+      <h2 class="z-h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="z-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+  </div>
+  <div class="z-ugc__track">
+    {%- for block in section.blocks -%}
+      <figure class="z-ugc__tile" style="--r: {% cycle '-2deg', '1.5deg', '-1deg', '2deg' %}" {{ block.shopify_attributes }}>
+        {%- if block.settings.video != blank -%}
+          {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '600x' }}
+        {%- elsif block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350,500,700', sizes: '(min-width: 900px) 25vw, 70vw', alt: block.settings.caption }}
+        {%- else -%}
+          <span class="z-ugc__ph">📸<small>Dodaj zdjęcie lub wideo</small></span>
+        {%- endif -%}
+        {%- if block.settings.caption != blank -%}<figcaption>{{ block.settings.caption }}</figcaption>{%- endif -%}
+      </figure>
+    {%- endfor -%}
+  </div>
+</section>
+{%- style -%}
+  #z-ugc-{{ section.id }}{overflow:hidden}
+  #z-ugc-{{ section.id }} .z-ugc__track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px max(16px,calc((100vw - 1200px)/2 + 28px)) 26px;scrollbar-width:none}
+  #z-ugc-{{ section.id }} .z-ugc__track::-webkit-scrollbar{display:none}
+  #z-ugc-{{ section.id }} .z-ugc__tile{position:relative;flex:0 0 68%;max-width:320px;margin:0;scroll-snap-align:center;aspect-ratio:9/14;border-radius:26px;overflow:hidden;background:#fff;box-shadow:var(--z-shadow);transform:rotate(var(--r));transition:transform .3s cubic-bezier(.3,1.5,.5,1);border:6px solid #fff}
+  #z-ugc-{{ section.id }} .z-ugc__tile:hover{transform:rotate(0) scale(1.03)}
+  #z-ugc-{{ section.id }} .z-ugc__tile img,#z-ugc-{{ section.id }} .z-ugc__tile video{width:100%;height:100%;object-fit:cover;border-radius:20px}
+  #z-ugc-{{ section.id }} .z-ugc__ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:48px;background:var(--z-cream);color:var(--z-ink-soft)}
+  #z-ugc-{{ section.id }} .z-ugc__ph small{font-size:14px;font-weight:700}
+  #z-ugc-{{ section.id }} figcaption{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(255,255,255,.92);border-radius:14px;padding:8px 12px;font-weight:800;font-size:14px}
+  @media(min-width:900px){#z-ugc-{{ section.id }} .z-ugc__tile{flex-basis:24%}}
+{%- endstyle -%}
+{%- endif -%}
+{% schema %}
+{
+  "name": "Zolumi w akcji (galeria)",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Nadtytuł", "default": "🎬 Zolumi w akcji" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Zobacz, jak pojawiają się <em>kolory</em>" },
+    { "type": "textarea", "id": "text", "label": "Tekst" }
+  ],
+  "blocks": [ { "type": "media", "name": "Zdjęcie / wideo", "settings": [
+    { "type": "video", "id": "video", "label": "Wideo (pionowe 9:16)" },
+    { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+    { "type": "text", "id": "caption", "label": "Podpis" }
+  ] } ],
+  "presets": [ { "name": "Zolumi w akcji (galeria)", "blocks": [ { "type": "media" }, { "type": "media" }, { "type": "media" } ] } ]
+}
+{% endschema %}

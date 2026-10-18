@@ -1,0 +1,14 @@
+{%- comment -%}
+  Logo Zolumi: słowo z tęczową „o” (paleta farb) i gwiazdką nad „i”.
+  Parametry: size (px), tagline (tekst pod logo), image (opcjonalny obrazek logo), link (true/false)
+{%- endcomment -%}
+{%- assign logo_size = size | default: 40 -%}
+<a href="{{ routes.root_url }}" class="z-logo" style="--z-logo-size: {{ logo_size }}px;" aria-label="{{ shop.name | escape }} — strona główna">
+  {%- if image != blank -%}
+    {%- assign logo_style = 'height:' | append: logo_size | append: 'px;width:auto;' -%}
+    {{ image | image_url: width: 600 | image_tag: loading: 'eager', widths: '200,400,600', style: logo_style, alt: shop.name }}
+  {%- else -%}
+    <span class="z-logo__word" aria-hidden="true">z<span class="z-logo__ring"></span>lum<span class="z-logo__i">ı<span class="z-logo__star">✦</span></span></span>
+    {%- if tagline != blank -%}<span class="z-logo__tag" aria-hidden="true">{{ tagline }}</span>{%- endif -%}
+  {%- endif -%}
+</a>

@@ -1,0 +1,81 @@
+{%- comment -%} ZOLUMI — stopka z politykami sklepu {%- endcomment -%}
+<footer class="z-ftr" id="z-ftr-{{ section.id }}">
+  <div class="z-ftr__wave" aria-hidden="true"></div>
+  <div class="z-wrap z-ftr__grid">
+    <div class="z-ftr__brand">
+      {%- render 'z-logo', size: 46, tagline: 'magiczne malowanie' -%}
+      <p>{{ section.settings.about }}</p>
+      {%- if section.settings.email != blank -%}<a class="z-ftr__mail" href="mailto:{{ section.settings.email }}">💌 {{ section.settings.email }}</a>{%- endif -%}
+    </div>
+
+    <div>
+      <h3>Zakupy</h3>
+      <ul>
+        <li><a href="{{ routes.root_url }}#kup">Kup Zolumi</a></li>
+        <li><a href="/pages/polityka-wysylki">Dostawa 0 zł</a></li>
+        <li><a href="/pages/polityka-zwrotow">Zwroty (30 dni)</a></li>
+        <li><a href="/pages/kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Informacje prawne</h3>
+      <ul>
+        <li><a href="/pages/regulamin">Regulamin</a></li>
+        <li><a href="/pages/polityka-prywatnosci">Polityka prywatności</a></li>
+        <li><a href="/pages/polityka-zwrotow">Odstąpienie od umowy</a></li>
+        <li><a href="/pages/polityka-wysylki">Polityka wysyłki</a></li>
+        {%- for policy in shop.policies -%}
+          <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div>
+      <h3>Płatności</h3>
+      <div class="z-ftr__pays">
+        {%- assign pays = section.settings.payments | split: ',' -%}
+        {%- for p in pays -%}<span>{{ p | strip }}</span>{%- endfor -%}
+      </div>
+      <p class="z-ftr__small">🔒 Szyfrowane, bezpieczne płatności<br>🚚 Dostawa na terenie Polski — 0 zł</p>
+    </div>
+  </div>
+  <div class="z-wrap z-ftr__bottom">
+    <span>© {{ 'now' | date: '%Y' }} {{ section.settings.brand }}. Wszystkie prawa zastrzeżone.</span>
+    <span>Zrobione z 💜 dla małych artystów</span>
+  </div>
+</footer>
+
+{%- style -%}
+  #z-ftr-{{ section.id }}{background:var(--z-ink);color:rgba(255,255,255,.8);position:relative;margin-top:0}
+  #z-ftr-{{ section.id }} .z-ftr__wave{height:6px;background:var(--z-rainbow);background-size:200% 100%;animation:zShift 6s linear infinite}
+  #z-ftr-{{ section.id }} .z-ftr__grid{display:grid;grid-template-columns:1fr;gap:34px;padding-top:56px;padding-bottom:40px}
+  #z-ftr-{{ section.id }} .z-logo{color:#fff;align-items:flex-start}
+  #z-ftr-{{ section.id }} .z-logo__tag{color:rgba(255,255,255,.6)}
+  #z-ftr-{{ section.id }} .z-ftr__brand p{max-width:340px;font-size:14.5px;margin:16px 0}
+  #z-ftr-{{ section.id }} .z-ftr__mail{color:#fff;font-weight:800;text-decoration:none}
+  #z-ftr-{{ section.id }} h3{font-size:18px;color:#fff;margin:0 0 14px}
+  #z-ftr-{{ section.id }} ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  #z-ftr-{{ section.id }} ul a{color:rgba(255,255,255,.78);text-decoration:none;font-size:14.5px}
+  #z-ftr-{{ section.id }} ul a:hover{color:var(--z-yellow)}
+  #z-ftr-{{ section.id }} .z-ftr__pays{display:flex;flex-wrap:wrap;gap:8px}
+  #z-ftr-{{ section.id }} .z-ftr__pays span{background:#fff;color:var(--z-ink);font-size:12px;font-weight:800;padding:6px 11px;border-radius:8px}
+  #z-ftr-{{ section.id }} .z-ftr__small{font-size:13px;margin:14px 0 0;line-height:1.8}
+  #z-ftr-{{ section.id }} .z-ftr__bottom{display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;border-top:1px solid rgba(255,255,255,.1);padding-top:18px;padding-bottom:calc(22px + env(safe-area-inset-bottom));font-size:12.5px;color:rgba(255,255,255,.55)}
+  @media(min-width:900px){
+    #z-ftr-{{ section.id }} .z-ftr__grid{grid-template-columns:1.6fr 1fr 1.2fr 1.2fr;gap:48px;padding-top:72px}
+    #z-ftr-{{ section.id }} .z-ftr__bottom{flex-direction:row;justify-content:space-between}
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Stopka",
+  "settings": [
+    { "type": "text", "id": "brand", "label": "Marka", "default": "Zolumi" },
+    { "type": "textarea", "id": "about", "label": "O marce", "default": "Zolumi to magiczne malowanie bez bałaganu. Kolory pojawiają się tylko na magicznym papierze — dzieci tworzą, a dom zostaje czysty." },
+    { "type": "text", "id": "email", "label": "E-mail kontaktowy" },
+    { "type": "text", "id": "payments", "label": "Płatności (po przecinku)", "default": "BLIK, Visa, Mastercard, Apple Pay, Google Pay, Przelewy24" }
+  ]
+}
+{% endschema %}

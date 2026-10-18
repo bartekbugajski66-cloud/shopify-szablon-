@@ -1,0 +1,427 @@
+{%- comment -%}
+  ZOLUMI — buy-box: galeria, wybór zestawu (warianty 1/2/3 szt.), data dostawy z licznikiem, dodanie do koszyka.
+  Ceny i rabaty liczone automatycznie z wariantów produktu w Shopify.
+{%- endcomment -%}
+{%- assign p = section.settings.product | default: product -%}
+{%- if p == blank -%}{%- assign p = settings.featured_product -%}{%- endif -%}
+{%- if p != blank -%}
+{%- assign base = p.variants.first.price -%}
+{%- assign preselect = section.settings.default_variant | minus: 1 -%}
+{%- if preselect >= p.variants.size -%}{%- assign preselect = 0 -%}{%- endif -%}
+{%- assign sel = p.variants[preselect] -%}
+{%- unless sel.available -%}{%- assign sel = p.selected_or_first_available_variant -%}{%- endunless -%}
+
+<section class="z-pdp" id="kup" data-section="{{ section.id }}">
+  <span class="z-blob" style="width:320px;height:320px;background:#ffc93c;top:-60px;left:-80px"></span>
+  <span class="z-blob" style="width:280px;height:280px;background:#ff4fa3;top:40%;right:-120px;animation-delay:-5s"></span>
+  <div class="z-wrap z-pdp__grid">
+
+    {%- comment -%} ========== GALERIA ========== {%- endcomment -%}
+    <div class="z-pdp__media">
+      <div class="z-gal" id="z-gal-{{ section.id }}">
+        <div class="z-gal__track" data-z-gal-track>
+          {%- if p.media.size > 0 -%}
+            {%- for media in p.media -%}
+              <div class="z-gal__slide">
+                {%- case media.media_type -%}
+                  {%- when 'image' -%}
+                    {%- if forloop.first -%}{%- assign lz = 'eager' -%}{%- else -%}{%- assign lz = 'lazy' -%}{%- endif -%}
+                    {{ media | image_url: width: 1400 | image_tag: loading: lz, widths: '400,600,800,1000,1200,1400', sizes: '(min-width: 900px) 50vw, 100vw', alt: media.alt | default: p.title }}
+                  {%- when 'video' -%}
+                    {{ media | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata' }}
+                  {%- when 'external_video' -%}
+                    {{ media | external_video_tag }}
+                  {%- else -%}
+                    {{ media | media_tag }}
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="z-gal__slide z-gal__slide--art">{%- render 'z-palette-art' -%}</div>
+          {%- endif -%}
+        </div>
+        <div class="z-gal__stickers" aria-hidden="true">
+          <span class="z-stk z-stk--1">✨ Bez plam!</span>
+          <span class="z-stk z-stk--2">🎨 3+</span>
+        </div>
+        {%- if p.media.size > 1 -%}
+          <button type="button" class="z-gal__arrow z-gal__arrow--prev" data-z-gal="-1" aria-label="Poprzednie zdjęcie">‹</button>
+          <button type="button" class="z-gal__arrow z-gal__arrow--next" data-z-gal="1" aria-label="Następne zdjęcie">›</button>
+          <div class="z-gal__dots" aria-hidden="true">{%- for media in p.media -%}<span{% if forloop.first %} class="is-on"{% endif %}></span>{%- endfor -%}</div>
+        {%- endif -%}
+      </div>
+      {%- if p.media.size > 1 -%}
+        <div class="z-gal__thumbs">
+          {%- for media in p.media limit: 8 -%}
+            <button type="button" class="z-gal__thumb{% if forloop.first %} is-on{% endif %}" data-z-thumb="{{ forloop.index0 }}" aria-label="Pokaż zdjęcie {{ forloop.index }}">
+              {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ========== ZAKUP ========== {%- endcomment -%}
+    <div class="z-pdp__info">
+      <div class="z-pdp__chips">
+        {%- for block in section.blocks -%}{%- if block.type == 'chip' -%}
+          <span class="z-chip" style="--c: {{ block.settings.color }}" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+        {%- endif -%}{%- endfor -%}
+      </div>
+
+      <h1 class="z-pdp__title">
+        {%- if section.settings.heading != blank -%}{{ section.settings.heading }}{%- else -%}{{ p.title }}{%- endif -%}
+      </h1>
+      {%- if section.settings.subheading != blank -%}<p class="z-pdp__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+
+      {%- if section.settings.rating != blank -%}
+        <a href="#opinie" class="z-pdp__rating">
+          <span class="z-stars" aria-hidden="true">★★★★★</span>
+          <strong>{{ section.settings.rating }}</strong>
+          {%- if section.settings.rating_text != blank -%}<span>{{ section.settings.rating_text }}</span>{%- endif -%}
+        </a>
+      {%- endif -%}
+
+      <ul class="z-pdp__bens">
+        {%- for block in section.blocks -%}{%- if block.type == 'benefit' -%}
+          <li {{ block.shopify_attributes }}><span class="z-pdp__ico" style="background: {{ block.settings.color }}" aria-hidden="true">{{ block.settings.icon }}</span><span>{{ block.settings.text }}</span></li>
+        {%- endif -%}{%- endfor -%}
+      </ul>
+
+      {%- form 'product', p, id: 'z-form', class: 'z-pdp__form', novalidate: 'novalidate', data-z-form: '' -%}
+        <div class="z-packs__head">
+          <span>{{ section.settings.packs_title }}</span>
+          <span class="z-packs__hint">💜 Im więcej, tym taniej</span>
+        </div>
+        <fieldset class="z-packs">
+          <legend class="visually-hidden">Wybierz zestaw</legend>
+          {%- for v in p.variants -%}
+            {%- assign q = v.title | split: ' ' | first | plus: 0 -%}
+            {%- if q < 1 -%}{%- assign q = forloop.index -%}{%- endif -%}
+            {%- assign full = base | times: q -%}
+            {%- assign save = full | minus: v.price -%}
+            {%- assign per = v.price | divided_by: q -%}
+            {%- assign pct = 0 -%}
+            {%- if save > 0 -%}{%- assign pct = save | times: 100.0 | divided_by: full | round -%}{%- endif -%}
+            {%- case forloop.index -%}
+              {%- when 1 -%}{%- assign lbl = section.settings.label_1 -%}{%- assign bdg = section.settings.badge_1 -%}
+              {%- when 2 -%}{%- assign lbl = section.settings.label_2 -%}{%- assign bdg = section.settings.badge_2 -%}
+              {%- when 3 -%}{%- assign lbl = section.settings.label_3 -%}{%- assign bdg = section.settings.badge_3 -%}
+              {%- else -%}{%- assign lbl = '' -%}{%- assign bdg = '' -%}
+            {%- endcase -%}
+            <label class="z-pack{% if forloop.index == 2 %} z-pack--pop{% endif %}{% unless v.available %} is-off{% endunless %}">
+              <input type="radio" name="id" value="{{ v.id }}" class="z-pack__radio"
+                data-price="{{ v.price | money }}" data-full="{{ full | money }}" data-save="{% if save > 0 %}{{ save | money }}{% endif %}" data-pct="{{ pct }}" data-title="{{ v.title | escape }}"
+                {% if v.id == sel.id %}checked{% endif %}{% unless v.available %} disabled{% endunless %}>
+              {%- if bdg != blank -%}<span class="z-pack__badge">{{ bdg }}</span>{%- endif -%}
+              <span class="z-pack__dot" aria-hidden="true"></span>
+              <span class="z-pack__icons" aria-hidden="true">{%- for i in (1..q) -%}<span class="z-pack__pal" style="--i: {{ forloop.index0 }}"></span>{%- endfor -%}</span>
+              <span class="z-pack__body">
+                <span class="z-pack__title">{{ v.title }}{% if lbl != blank %} <em>· {{ lbl }}</em>{% endif %}</span>
+                <span class="z-pack__per">{{ per | money }} / szt.{% if pct > 0 %} <b>−{{ pct }}%</b>{% endif %}</span>
+              </span>
+              <span class="z-pack__price">
+                <strong>{{ v.price | money }}</strong>
+                {%- if save > 0 -%}<small>oszczędzasz {{ save | money }}</small>{%- endif -%}
+              </span>
+            </label>
+          {%- endfor -%}
+        </fieldset>
+
+        <div class="z-ship">
+          <div class="z-ship__top">
+            <span class="z-ship__truck" aria-hidden="true">🚚</span>
+            <p>Zamów w ciągu
+              <span class="z-cd" data-z-countdown="parts"><b data-h>00</b><i>:</i><b data-m>00</b><i>:</i><b data-s>00</b></span>
+              <br>a paczka będzie u Ciebie <strong data-z-delivery="label">w ciągu 2–4 dni</strong>
+            </p>
+          </div>
+          <ol class="z-ship__steps">
+            <li class="is-done"><span>🛒</span><b>Zamówienie</b><small>dziś</small></li>
+            <li class="is-mid"><span>📦</span><b>W drodze</b><small>wysyłka</small></li>
+            <li><span>🎉</span><b>U Ciebie</b><small data-z-delivery="short">wkrótce</small></li>
+          </ol>
+        </div>
+
+        <button type="submit" class="z-btn z-btn--block z-pdp__atc" data-z-atc {% unless sel.available %}disabled{% endunless %}>
+          <span class="z-btn__label">{{ section.settings.cta }} · <span data-z-price>{{ sel.price | money }}</span></span>
+          <span class="z-btn__spin" aria-hidden="true"></span>
+        </button>
+        <p class="z-pdp__err" role="alert" hidden data-z-err></p>
+
+        <ul class="z-pdp__trust">
+          {%- for block in section.blocks -%}{%- if block.type == 'trust' -%}
+            <li {{ block.shopify_attributes }}><span aria-hidden="true">{{ block.settings.icon }}</span>{{ block.settings.text }}</li>
+          {%- endif -%}{%- endfor -%}
+        </ul>
+        <div class="z-pdp__pays" aria-label="Metody płatności">
+          {%- assign pays = section.settings.payments | split: ',' -%}
+          {%- for pm in pays -%}<span>{{ pm | strip }}</span>{%- endfor -%}
+        </div>
+      {%- endform -%}
+
+      <div class="z-acc">
+        {%- if p.description != blank -%}
+          <details class="z-acc__item" open>
+            <summary>📖 Opis produktu</summary>
+            <div class="z-acc__body">{{ p.description }}</div>
+          </details>
+        {%- endif -%}
+        {%- if section.settings.box_text != blank -%}
+          <details class="z-acc__item">
+            <summary>🎁 Co jest w pudełku?</summary>
+            <div class="z-acc__body">{{ section.settings.box_text }}</div>
+          </details>
+        {%- endif -%}
+        <details class="z-acc__item">
+          <summary>🚚 Dostawa i zwroty</summary>
+          <div class="z-acc__body">
+            <p><strong>Dostawa 0 zł</strong> na terenie Polski. Zamów teraz — szacowana dostawa <strong data-z-delivery="label">w ciągu 2–4 dni</strong>.</p>
+            <p><strong>30 dni na zwrot</strong> bez podawania przyczyny. <a href="/pages/polityka-zwrotow">Zasady zwrotów</a> · <a href="/pages/polityka-wysylki">Polityka wysyłki</a></p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ========== PASEK NA DOLE (mobile) ========== {%- endcomment -%}
+  <div class="z-sbar" data-z-sbar aria-hidden="true">
+    <div class="z-sbar__info">
+      <strong data-z-price>{{ sel.price | money }}</strong>
+      <span data-z-vtitle>{{ sel.title }}</span>
+    </div>
+    <button type="button" class="z-btn z-sbar__btn" data-z-sbar-btn tabindex="-1">Dodaj do koszyka 🎨</button>
+  </div>
+</section>
+
+{%- style -%}
+  .z-pdp{position:relative;overflow:hidden;padding:20px 0 48px}
+  .z-pdp__grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:26px}
+  .z-gal{position:relative;border-radius:var(--z-radius);overflow:hidden;background:#fff;box-shadow:var(--z-shadow)}
+  .z-gal__track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .z-gal__track::-webkit-scrollbar{display:none}
+  .z-gal__slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:1/1;display:grid;place-items:center;background:#fff}
+  .z-gal__slide img,.z-gal__slide video{width:100%;height:100%;object-fit:cover}
+  .z-gal__slide--art .z-art{width:100%;height:100%}
+  .z-art__glow{animation:zGlow 1.8s ease-in-out infinite;transform-origin:430px 352px}
+  @keyframes zGlow{50%{opacity:.4;transform:scale(1.25)}}
+  .z-gal__stickers{position:absolute;inset:0;pointer-events:none}
+  .z-stk{position:absolute;font-family:var(--z-head);font-weight:800;font-size:15px;padding:8px 14px;border-radius:999px;box-shadow:var(--z-shadow-sm);animation:zBob 3.4s ease-in-out infinite}
+  .z-stk--1{top:16px;left:16px;background:var(--z-yellow);color:var(--z-ink);transform:rotate(-6deg)}
+  .z-stk--2{top:16px;right:16px;background:var(--z-violet);color:#fff;animation-delay:-1.7s}
+  @keyframes zBob{50%{translate:0 -6px}}
+  .z-gal__arrow{position:absolute;top:50%;translate:0 -50%;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);box-shadow:var(--z-shadow-sm);font-size:26px;line-height:1;cursor:pointer;display:none}
+  .z-gal__arrow--prev{left:12px}.z-gal__arrow--next{right:12px}
+  .z-gal__dots{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:6px}
+  .z-gal__dots span{width:8px;height:8px;border-radius:999px;background:rgba(30,20,70,.25);transition:width .25s,background .25s}
+  .z-gal__dots span.is-on{width:24px;background:var(--z-violet)}
+  .z-gal__thumbs{display:flex;gap:10px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
+  .z-gal__thumb{flex:0 0 68px;height:68px;padding:0;border:3px solid transparent;border-radius:16px;overflow:hidden;background:#fff;cursor:pointer;box-shadow:var(--z-shadow-sm)}
+  .z-gal__thumb.is-on{border-color:var(--z-violet)}
+  .z-gal__thumb img{width:100%;height:100%;object-fit:cover}
+
+  .z-pdp__chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .z-chip{font-size:13px;font-weight:800;padding:6px 12px;border-radius:999px;background:color-mix(in srgb,var(--c) 16%,#fff);color:color-mix(in srgb,var(--c) 70%,#1e1446)}
+  .z-pdp__title{font-size:clamp(34px,8vw,54px);font-weight:800}
+  .z-pdp__title span{background:var(--z-rainbow);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:zShift 6s linear infinite}
+  .z-pdp__sub{font-size:17px;color:var(--z-ink-soft);margin:12px 0 0}
+  .z-pdp__rating{display:inline-flex;align-items:center;gap:8px;margin-top:12px;color:var(--z-ink);text-decoration:none;font-size:14.5px}
+  .z-stars{color:#ffb800;letter-spacing:2px;font-size:17px}
+  .z-pdp__rating span:last-child{color:var(--z-ink-soft);text-decoration:underline}
+  .z-pdp__bens{list-style:none;padding:0;margin:20px 0 22px;display:grid;gap:10px}
+  .z-pdp__bens li{display:flex;align-items:center;gap:12px;font-weight:700;font-size:15.5px}
+  .z-pdp__ico{flex:none;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;font-size:18px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.08)}
+
+  .z-packs__head{display:flex;justify-content:space-between;align-items:center;font-family:var(--z-head);font-size:20px;font-weight:800;margin-bottom:12px}
+  .z-packs__hint{font-family:var(--z-body);font-size:13px;color:var(--z-violet)}
+  .z-packs{border:0;margin:0 0 16px;padding:0;display:grid;gap:14px}
+  .z-pack{position:relative;display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:12px;background:#fff;border:3px solid #fff;border-radius:22px;padding:18px 16px;cursor:pointer;box-shadow:var(--z-shadow-sm);transition:transform .18s cubic-bezier(.3,1.6,.5,1),border-color .18s,box-shadow .18s}
+  .z-pack:hover{transform:translateY(-2px)}
+  .z-pack:has(.z-pack__radio:checked){border-color:var(--z-violet);box-shadow:0 16px 34px -14px rgba(109,59,239,.55);background:linear-gradient(#fff,#fff) padding-box}
+  .z-pack:has(.z-pack__radio:checked) .z-pack__icons{animation:zWiggle .5s ease}
+  .z-pack.is-off{opacity:.5;cursor:not-allowed}
+  .z-pack__radio{position:absolute;opacity:0;pointer-events:none}
+  .z-pack__radio:focus-visible ~ .z-pack__dot{outline:3px solid var(--z-violet);outline-offset:3px}
+  .z-pack__badge{position:absolute;top:-13px;right:16px;font-size:12px;font-weight:800;color:#fff;background:var(--z-grad);padding:4px 12px;border-radius:999px;box-shadow:0 6px 14px -6px rgba(109,59,239,.7)}
+  .z-pack:nth-child(3) .z-pack__badge{background:linear-gradient(135deg,#ff8a1f,#ff4d5e)}
+  .z-pack__dot{width:24px;height:24px;border-radius:50%;border:3px solid #d8d0ee;position:relative;transition:border-color .15s}
+  .z-pack:has(.z-pack__radio:checked) .z-pack__dot{border-color:var(--z-violet)}
+  .z-pack:has(.z-pack__radio:checked) .z-pack__dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--z-violet);animation:zPop .35s cubic-bezier(.3,1.8,.5,1)}
+  .z-pack__icons{display:flex;width:50px}
+  .z-pack__pal{flex:none;width:26px;height:26px;border-radius:50%;background:conic-gradient(#ff4d5e,#ff8a1f,#ffc93c,#1fbf75,#2f8bff,#6d3bef,#ff4d5e);border:3px solid #fff;box-shadow:0 2px 6px rgba(30,20,70,.2)}
+  .z-pack__pal + .z-pack__pal{margin-left:-14px}
+  .z-pack__title{display:block;font-weight:800;font-size:16.5px;line-height:1.25}
+  .z-pack__title em{font-style:normal;font-weight:700;color:var(--z-ink-soft);font-size:14px}
+  .z-pack__per{display:block;font-size:13px;color:var(--z-ink-soft);margin-top:2px}
+  .z-pack__per b{color:#fff;background:var(--z-green);padding:1px 7px;border-radius:999px;font-size:12px;margin-left:4px}
+  .z-pack__price{text-align:right}
+  .z-pack__price strong{display:block;font-family:var(--z-head);font-size:22px;line-height:1}
+  .z-pack__price small{display:block;font-size:11.5px;font-weight:800;color:var(--z-green);margin-top:4px;white-space:nowrap}
+  @keyframes zWiggle{25%{transform:rotate(-10deg) scale(1.1)}75%{transform:rotate(8deg) scale(1.1)}}
+
+  .z-ship{background:#fff;border-radius:22px;padding:16px;margin-bottom:16px;box-shadow:var(--z-shadow-sm);border:2px solid #e7f8ef}
+  .z-ship__top{display:flex;gap:12px;align-items:center}
+  .z-ship__truck{font-size:34px;animation:zDrive 2.6s ease-in-out infinite}
+  @keyframes zDrive{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+  .z-ship__top p{margin:0;font-size:15px;line-height:1.5}
+  .z-ship__top strong{color:var(--z-green)}
+  .z-cd{display:inline-flex;align-items:center;gap:2px;font-family:var(--z-head);font-weight:800;vertical-align:middle}
+  .z-cd b{background:var(--z-ink);color:#fff;border-radius:8px;padding:1px 7px;font-size:16px;min-width:32px;text-align:center}
+  .z-cd i{font-style:normal;color:var(--z-ink);animation:zBlink 1s steps(1) infinite}
+  @keyframes zBlink{50%{opacity:0}}
+  .z-ship__steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:14px 0 0;padding:0;position:relative}
+  .z-ship__steps::before{content:"";position:absolute;top:19px;left:16%;right:16%;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--z-green) 50%,#e3e0ee 50%)}
+  .z-ship__steps li{position:relative;text-align:center;font-size:12.5px;line-height:1.25}
+  .z-ship__steps span{display:grid;place-items:center;width:42px;height:42px;margin:0 auto 6px;border-radius:50%;background:#f1eef8;font-size:20px;border:3px solid #fff;box-shadow:var(--z-shadow-sm)}
+  .z-ship__steps .is-done span{background:#d9f7e8}
+  .z-ship__steps .is-mid span{background:#fff4d6;animation:zBob 2s ease-in-out infinite}
+  .z-ship__steps b{display:block}
+  .z-ship__steps small{color:var(--z-ink-soft);font-weight:700}
+  .z-ship__steps li:last-child small{color:var(--z-green);font-weight:800}
+
+  .z-pdp__atc{font-size:20px;padding:21px 24px}
+  .z-pdp__atc[disabled]{background:#c9c3dc;box-shadow:none;cursor:not-allowed}
+  .z-pdp__err{color:#d0213d;font-weight:700;text-align:center;margin:10px 0 0}
+  .z-pdp__trust{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .z-pdp__trust li{background:#fff;border-radius:16px;padding:10px 6px;text-align:center;font-size:12.5px;font-weight:800;line-height:1.3;box-shadow:var(--z-shadow-sm)}
+  .z-pdp__trust li span{display:block;font-size:22px;margin-bottom:2px}
+  .z-pdp__pays{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:14px}
+  .z-pdp__pays span{font-size:11.5px;font-weight:800;padding:5px 10px;border-radius:8px;background:#fff;border:1px solid var(--z-line);color:var(--z-ink-soft)}
+
+  .z-acc{margin-top:22px;display:grid;gap:10px}
+  .z-acc__item{background:#fff;border-radius:18px;box-shadow:var(--z-shadow-sm);overflow:hidden}
+  .z-acc__item summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+  .z-acc__item summary::-webkit-details-marker{display:none}
+  .z-acc__item summary::after{content:"+";font-size:22px;color:var(--z-violet);transition:transform .2s}
+  .z-acc__item[open] summary::after{transform:rotate(45deg)}
+  .z-acc__body{padding:0 18px 16px;color:var(--z-ink-soft);font-size:15px}
+  .z-acc__body ul{padding-left:20px}
+
+  .z-sbar{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:90;display:flex;align-items:center;gap:12px;background:#fff;border-radius:22px;padding:10px 10px 10px 18px;box-shadow:0 18px 40px -10px rgba(30,20,70,.45);transform:translateY(150%);transition:transform .35s cubic-bezier(.2,.9,.3,1.2)}
+  .z-sbar.is-on{transform:none}
+  .z-sbar__info{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+  .z-sbar__info strong{font-family:var(--z-head);font-size:20px}
+  .z-sbar__info span{font-size:12px;color:var(--z-ink-soft)}
+  .z-sbar__btn{margin-left:auto;font-size:16px;padding:14px 20px;white-space:nowrap}
+
+  @media(min-width:900px){
+    .z-pdp{padding:44px 0 80px}
+    .z-pdp__grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:56px;align-items:start}
+    .z-pdp__media{position:sticky;top:110px}
+    .z-gal__arrow{display:grid;place-items:center}
+    .z-sbar{display:none}
+  }
+{%- endstyle -%}
+
+<script>
+(function () {
+  var sec = document.getElementById('kup'); if (!sec) return;
+  var form = sec.querySelector('[data-z-form]');
+  var btn = sec.querySelector('[data-z-atc]');
+  var err = sec.querySelector('[data-z-err]');
+
+  /* galeria */
+  var track = sec.querySelector('[data-z-gal-track]');
+  var dots = sec.querySelectorAll('.z-gal__dots span');
+  var thumbs = sec.querySelectorAll('[data-z-thumb]');
+  function go(i) { if (track) track.scrollTo({ left: track.clientWidth * i, behavior: 'smooth' }); }
+  function cur() { return track ? Math.round(track.scrollLeft / track.clientWidth) : 0; }
+  if (track) {
+    track.addEventListener('scroll', function () {
+      var i = cur();
+      dots.forEach(function (d, j) { d.classList.toggle('is-on', i === j); });
+      thumbs.forEach(function (t, j) { t.classList.toggle('is-on', i === j); });
+    }, { passive: true });
+  }
+  sec.querySelectorAll('[data-z-gal]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var n = track.children.length, i = cur() + parseInt(b.getAttribute('data-z-gal'), 10);
+      go((i + n) % n);
+    });
+  });
+  thumbs.forEach(function (t) { t.addEventListener('click', function () { go(+t.getAttribute('data-z-thumb')); }); });
+
+  /* wybór zestawu */
+  function sync(pop) {
+    var r = form.querySelector('input[name="id"]:checked'); if (!r) return;
+    sec.querySelectorAll('[data-z-price]').forEach(function (el) { el.textContent = r.getAttribute('data-price'); });
+    sec.querySelectorAll('[data-z-vtitle]').forEach(function (el) { el.textContent = r.getAttribute('data-title'); });
+    if (pop && window.Zolumi && +r.getAttribute('data-pct') > 0) {
+      Zolumi.confetti(r.closest('.z-pack'), 40);
+      Zolumi.toast('Oszczędzasz ' + r.getAttribute('data-save') + ' 🎉');
+    }
+  }
+  form.querySelectorAll('input[name="id"]').forEach(function (r) { r.addEventListener('change', function () { sync(true); }); });
+  sync(false);
+
+  /* dodanie do koszyka */
+  function add(source) {
+    var r = form.querySelector('input[name="id"]:checked');
+    if (!r) { err.textContent = 'Wybierz zestaw 🙂'; err.hidden = false; return; }
+    if (!window.Zolumi || !Zolumi.cart) { form.submit(); return; }
+    err.hidden = true;
+    btn.setAttribute('aria-busy', 'true');
+    Zolumi.cart.add([{ id: +r.value, quantity: 1 }], source || btn)
+      .catch(function (e) { err.textContent = e.message; err.hidden = false; })
+      .then(function () { btn.removeAttribute('aria-busy'); });
+  }
+  form.addEventListener('submit', function (e) { e.preventDefault(); add(btn); });
+
+  /* pasek na dole */
+  var sbar = sec.querySelector('[data-z-sbar]');
+  var sbtn = sec.querySelector('[data-z-sbar-btn]');
+  if (sbtn) sbtn.addEventListener('click', function () { add(sbtn); });
+  if (sbar && 'IntersectionObserver' in window) {
+    var seen = false;
+    new IntersectionObserver(function (en) {
+      var vis = en[0].isIntersecting, past = en[0].boundingClientRect.top < 0;
+      var on = !vis && past;
+      sbar.classList.toggle('is-on', on);
+      sbar.setAttribute('aria-hidden', on ? 'false' : 'true');
+      sbtn.tabIndex = on ? 0 : -1;
+    }).observe(btn);
+  }
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Produkt — zakup",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produkt", "info": "Na stronie produktu zostaw puste — użyje bieżącego produktu." },
+    { "type": "text", "id": "heading", "label": "Nagłówek (puste = nazwa produktu)", "info": "Możesz użyć <span>…</span>, by pokolorować słowo tęczą." },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł", "default": "Kolory pojawiają się tylko na magicznym papierze — nie na rękach, ścianach ani ubraniach. Dziecko tworzy, a Ty odpoczywasz." },
+    { "type": "text", "id": "rating", "label": "Ocena (np. 4,9/5)", "info": "Pokaż dopiero, gdy masz prawdziwe opinie klientów." },
+    { "type": "text", "id": "rating_text", "label": "Tekst przy ocenie (np. 120 opinii)" },
+    { "type": "header", "content": "Zestawy" },
+    { "type": "text", "id": "packs_title", "label": "Tytuł wyboru", "default": "Wybierz zestaw" },
+    { "type": "range", "id": "default_variant", "min": 1, "max": 3, "step": 1, "label": "Domyślnie zaznaczony zestaw", "default": 2 },
+    { "type": "text", "id": "label_1", "label": "Zestaw 1 — opis", "default": "dla 1 artysty" },
+    { "type": "text", "id": "badge_1", "label": "Zestaw 1 — plakietka" },
+    { "type": "text", "id": "label_2", "label": "Zestaw 2 — opis", "default": "dla rodzeństwa" },
+    { "type": "text", "id": "badge_2", "label": "Zestaw 2 — plakietka", "default": "⭐ Najczęściej wybierany" },
+    { "type": "text", "id": "label_3", "label": "Zestaw 3 — opis", "default": "rodzina + prezent" },
+    { "type": "text", "id": "badge_3", "label": "Zestaw 3 — plakietka", "default": "🔥 Najlepsza cena" },
+    { "type": "text", "id": "cta", "label": "Tekst przycisku", "default": "Dodaj do koszyka" },
+    { "type": "text", "id": "payments", "label": "Płatności (po przecinku)", "default": "BLIK, Visa, Mastercard, Apple Pay, Google Pay" },
+    { "type": "richtext", "id": "box_text", "label": "Co jest w pudełku", "default": "<ul><li>Magiczna paleta × 1</li><li>Buteleczki z kolorami × 6</li><li>Magiczny papier × 20 kartek</li><li>Pędzelki × 2</li></ul>" }
+  ],
+  "blocks": [
+    { "type": "chip", "name": "Etykieta", "settings": [
+      { "type": "text", "id": "text", "label": "Tekst", "default": "🎨 Bez plam" },
+      { "type": "color", "id": "color", "label": "Kolor", "default": "#6d3bef" }
+    ] },
+    { "type": "benefit", "name": "Zaleta", "settings": [
+      { "type": "text", "id": "icon", "label": "Emoji", "default": "✨" },
+      { "type": "color", "id": "color", "label": "Tło ikony", "default": "#efe8ff" },
+      { "type": "text", "id": "text", "label": "Tekst", "default": "Kolory tylko na magicznym papierze" }
+    ] },
+    { "type": "trust", "name": "Ikona zaufania", "limit": 3, "settings": [
+      { "type": "text", "id": "icon", "label": "Emoji", "default": "🚚" },
+      { "type": "text", "id": "text", "label": "Tekst", "default": "Dostawa 0 zł" }
+    ] }
+  ],
+  "presets": [ { "name": "Produkt — zakup" } ]
+}
+{% endschema %}

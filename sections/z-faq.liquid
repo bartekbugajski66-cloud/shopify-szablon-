@@ -1,0 +1,61 @@
+{%- comment -%} ZOLUMI — najczęstsze pytania {%- endcomment -%}
+<section class="z-sec z-sec--white z-faq" id="faq">
+  <div class="z-wrap">
+    <div class="z-head z-reveal">
+      <span class="z-kicker">{{ section.settings.kicker }}</span>
+      <h2 class="z-h2">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="z-faq__list">
+      {%- for block in section.blocks -%}
+        <details class="z-faq__item z-reveal" data-delay="{{ forloop.index0 | modulo: 4 | times: 60 }}" {{ block.shopify_attributes }}>
+          <summary><span class="z-faq__q"><span aria-hidden="true">{{ block.settings.icon }}</span>{{ block.settings.question }}</span><span class="z-faq__pm" aria-hidden="true"></span></summary>
+          <div class="z-faq__a">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+    <p class="z-faq__more">Nie ma Twojego pytania? <a href="/pages/kontakt">Napisz do nas 💌</a></p>
+  </div>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for block in section.blocks -%}
+      { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- style -%}
+  #faq .z-faq__list{max-width:820px;margin:0 auto;display:grid;gap:12px}
+  #faq .z-faq__item{background:var(--z-cream);border-radius:20px;overflow:hidden;transition:background .2s,box-shadow .2s}
+  #faq .z-faq__item[open]{background:#fff;box-shadow:var(--z-shadow)}
+  #faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 20px;font-weight:800;font-size:16.5px}
+  #faq summary::-webkit-details-marker{display:none}
+  #faq .z-faq__q{display:flex;align-items:center;gap:12px}
+  #faq .z-faq__q span{font-size:22px}
+  #faq .z-faq__pm{flex:none;position:relative;width:32px;height:32px;border-radius:50%;background:#efe8ff;transition:background .2s,transform .3s}
+  #faq .z-faq__pm::before,#faq .z-faq__pm::after{content:"";position:absolute;left:50%;top:50%;width:13px;height:3px;border-radius:3px;background:var(--z-violet);translate:-50% -50%}
+  #faq .z-faq__pm::after{rotate:90deg;transition:opacity .2s}
+  #faq .z-faq__item[open] .z-faq__pm{background:var(--z-violet);transform:rotate(180deg)}
+  #faq .z-faq__item[open] .z-faq__pm::before{background:#fff}
+  #faq .z-faq__item[open] .z-faq__pm::after{opacity:0}
+  #faq .z-faq__a{padding:0 20px 20px 54px;color:var(--z-ink-soft)}
+  #faq .z-faq__more{text-align:center;margin:26px 0 0;font-weight:700}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Nadtytuł", "default": "❓ Pytania" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Rodzice często <em>pytają</em>" }
+  ],
+  "blocks": [ { "type": "faq", "name": "Pytanie", "settings": [
+    { "type": "text", "id": "icon", "label": "Emoji", "default": "🎨" },
+    { "type": "text", "id": "question", "label": "Pytanie", "default": "Pytanie?" },
+    { "type": "richtext", "id": "answer", "label": "Odpowiedź", "default": "<p>Odpowiedź.</p>" }
+  ] } ],
+  "presets": [ { "name": "FAQ", "blocks": [ { "type": "faq" } ] } ]
+}
+{% endschema %}

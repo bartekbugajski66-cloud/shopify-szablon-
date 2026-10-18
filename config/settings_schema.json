@@ -1,16 +1,27 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Zerorys by WMXR",
+    "theme_name": "Zolumi",
     "theme_version": "1.0.0",
-    "theme_author": "WMXR",
-    "theme_documentation_url": "https://shopify.dev/docs/themes",
-    "theme_support_url": "https://shopify.dev/docs/themes"
+    "theme_author": "Zolumi",
+    "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+    "theme_support_url": "https://help.shopify.com"
   },
   {
-    "name": "Koszyk / Kasa",
+    "name": "Sklep",
     "settings": [
-      { "type": "checkbox", "id": "skip_cart", "label": "Pomiń koszyk — po „Dodaj do koszyka” przejdź od razu do kasy", "default": false }
+      {
+        "type": "product",
+        "id": "featured_product",
+        "label": "Główny produkt",
+        "info": "Używany w koszyku (podpowiedź większego zestawu) i na stronie głównej."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Ikona strony (favicon)",
+        "info": "Kwadrat 64×64 px. Puste = kolorowe „z”."
+      }
     ]
   }
 ]

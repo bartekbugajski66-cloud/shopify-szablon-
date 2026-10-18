@@ -1,0 +1,108 @@
+{%- comment -%} ZOLUMI — porównanie z przełącznikiem: zwykłe farby vs Zolumi {%- endcomment -%}
+<section class="z-sec z-sec--white z-cmp" id="z-cmp-{{ section.id }}" data-state="bad">
+  <div class="z-wrap">
+    <div class="z-head z-reveal">
+      <span class="z-kicker">{{ section.settings.kicker }}</span>
+      <h2 class="z-h2">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="z-cmp__box z-reveal">
+      <div class="z-cmp__switch" role="tablist" aria-label="Porównanie">
+        <button type="button" role="tab" data-to="bad" aria-selected="true">😬 {{ section.settings.bad_title }}</button>
+        <button type="button" role="tab" data-to="good" aria-selected="false">✨ {{ section.settings.good_title }}</button>
+        <span class="z-cmp__knob" aria-hidden="true"></span>
+      </div>
+
+      <div class="z-cmp__scene" aria-hidden="true">
+        <div class="z-cmp__mess">
+          <i style="--x:12%;--y:22%;--c:#ff4d5e;--s:90px"></i><i style="--x:70%;--y:18%;--c:#2f8bff;--s:70px"></i>
+          <i style="--x:40%;--y:62%;--c:#1fbf75;--s:110px"></i><i style="--x:82%;--y:70%;--c:#ffc93c;--s:80px"></i>
+          <i style="--x:20%;--y:78%;--c:#6d3bef;--s:60px"></i>
+          <span class="z-cmp__emo">🛋️👕🧦</span>
+          <b>{{ section.settings.bad_caption }}</b>
+        </div>
+        <div class="z-cmp__clean">
+          <span class="z-cmp__emo">🧒✨🖼️</span>
+          <b>{{ section.settings.good_caption }}</b>
+        </div>
+      </div>
+
+      <ul class="z-cmp__list">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            <span class="z-cmp__k">{{ block.settings.label }}</span>
+            <span class="z-cmp__v z-cmp__v--bad"><em>✕</em>{{ block.settings.bad }}</span>
+            <span class="z-cmp__v z-cmp__v--good"><em>✓</em>{{ block.settings.good }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+{%- style -%}
+  #z-cmp-{{ section.id }} .z-cmp__box{max-width:760px;margin:0 auto;background:var(--z-cream);border-radius:28px;padding:18px;box-shadow:var(--z-shadow)}
+  #z-cmp-{{ section.id }} .z-cmp__switch{position:relative;display:grid;grid-template-columns:1fr 1fr;background:#fff;border-radius:999px;padding:6px;box-shadow:var(--z-shadow-sm)}
+  #z-cmp-{{ section.id }} .z-cmp__switch button{position:relative;z-index:1;border:0;background:none;cursor:pointer;font-family:var(--z-head);font-weight:800;font-size:17px;padding:12px 8px;border-radius:999px;transition:color .3s}
+  #z-cmp-{{ section.id }} .z-cmp__knob{position:absolute;top:6px;bottom:6px;left:6px;width:calc(50% - 6px);border-radius:999px;background:#ffd9de;transition:transform .45s cubic-bezier(.3,1.4,.5,1),background .45s}
+  #z-cmp-{{ section.id }}[data-state="good"] .z-cmp__knob{transform:translateX(100%);background:var(--z-grad)}
+  #z-cmp-{{ section.id }}[data-state="good"] [data-to="good"]{color:#fff}
+  #z-cmp-{{ section.id }} .z-cmp__scene{position:relative;aspect-ratio:16/8;margin:16px 0;border-radius:22px;overflow:hidden;background:#fff}
+  #z-cmp-{{ section.id }} .z-cmp__mess,#z-cmp-{{ section.id }} .z-cmp__clean{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:opacity .5s,transform .5s}
+  #z-cmp-{{ section.id }} .z-cmp__mess{background:#fff5ec}
+  #z-cmp-{{ section.id }} .z-cmp__mess i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);translate:-50% -50%;background:var(--c);opacity:.75;border-radius:43% 57% 61% 39%/45% 38% 62% 55%;animation:zSplat 4s ease-in-out infinite}
+  @keyframes zSplat{50%{border-radius:58% 42% 37% 63%/52% 60% 40% 48%;scale:1.08}}
+  #z-cmp-{{ section.id }} .z-cmp__clean{background:radial-gradient(circle at 50% 40%,#fff,#f1ecff);opacity:0;transform:scale(.94)}
+  #z-cmp-{{ section.id }}[data-state="good"] .z-cmp__clean{opacity:1;transform:none}
+  #z-cmp-{{ section.id }}[data-state="good"] .z-cmp__mess{opacity:0}
+  #z-cmp-{{ section.id }} .z-cmp__emo{position:relative;font-size:clamp(40px,10vw,64px);letter-spacing:6px}
+  #z-cmp-{{ section.id }} .z-cmp__scene b{position:relative;font-family:var(--z-head);font-size:clamp(18px,3.6vw,24px);background:#fff;padding:4px 16px;border-radius:999px;box-shadow:var(--z-shadow-sm)}
+  #z-cmp-{{ section.id }} .z-cmp__list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  #z-cmp-{{ section.id }} .z-cmp__list li{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);align-items:center;gap:10px;background:#fff;border-radius:16px;padding:12px 14px}
+  #z-cmp-{{ section.id }} .z-cmp__k{font-weight:800;font-size:14px;color:var(--z-ink-soft)}
+  #z-cmp-{{ section.id }} .z-cmp__v{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px}
+  #z-cmp-{{ section.id }} .z-cmp__v em{font-style:normal;flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;color:#fff}
+  #z-cmp-{{ section.id }} .z-cmp__v--bad em{background:var(--z-red)}
+  #z-cmp-{{ section.id }} .z-cmp__v--good em{background:var(--z-green)}
+  #z-cmp-{{ section.id }} .z-cmp__v--good{display:none}
+  #z-cmp-{{ section.id }}[data-state="good"] .z-cmp__v--good{display:flex;animation:zIn .4s ease both}
+  #z-cmp-{{ section.id }}[data-state="good"] .z-cmp__v--bad{display:none}
+  @keyframes zIn{from{opacity:0;transform:translateX(10px)}}
+{%- endstyle -%}
+<script>
+(function () {
+  var s = document.getElementById('z-cmp-{{ section.id }}'); if (!s) return;
+  var btns = s.querySelectorAll('[data-to]');
+  function set(v, celebrate) {
+    s.setAttribute('data-state', v);
+    btns.forEach(function (b) { b.setAttribute('aria-selected', b.getAttribute('data-to') === v ? 'true' : 'false'); });
+    if (v === 'good' && celebrate && window.Zolumi) Zolumi.confetti(s.querySelector('.z-cmp__scene'), 50);
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-to'), true); }); });
+  /* po wejściu na ekran sam przełącza się na Zolumi */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting) { io.disconnect(); setTimeout(function () { if (s.getAttribute('data-state') === 'bad') set('good', true); }, 1800); }
+    }, { threshold: .5 });
+    io.observe(s.querySelector('.z-cmp__scene'));
+  }
+})();
+</script>
+{% schema %}
+{
+  "name": "Porównanie (przełącznik)",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Nadtytuł", "default": "🤔 Porównaj sam" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Zwykłe farby vs <em>Zolumi</em>" },
+    { "type": "text", "id": "bad_title", "label": "Lewa strona", "default": "Zwykłe farby" },
+    { "type": "text", "id": "bad_caption", "label": "Podpis — zwykłe farby", "default": "Plamy wszędzie…" },
+    { "type": "text", "id": "good_title", "label": "Prawa strona", "default": "Zolumi" },
+    { "type": "text", "id": "good_caption", "label": "Podpis — Zolumi", "default": "Kolory tylko na kartce!" }
+  ],
+  "blocks": [ { "type": "row", "name": "Wiersz", "settings": [
+    { "type": "text", "id": "label", "label": "Cecha", "default": "Plamy" },
+    { "type": "text", "id": "bad", "label": "Zwykłe farby", "default": "Na rękach i meblach" },
+    { "type": "text", "id": "good", "label": "Zolumi", "default": "Tylko na papierze" }
+  ] } ],
+  "presets": [ { "name": "Porównanie (przełącznik)", "blocks": [ { "type": "row" } ] } ]
+}
+{% endschema %}

@@ -1,0 +1,144 @@
+{%- comment -%} ZOLUMI — interaktywna magiczna kartka: maluj palcem, kolor pojawia się po chwili {%- endcomment -%}
+<section class="z-sec z-sec--white z-magic" id="z-magic-{{ section.id }}">
+  <div class="z-wrap">
+    <div class="z-head z-reveal">
+      <span class="z-kicker">👆 {{ section.settings.kicker }}</span>
+      <h2 class="z-h2">{{ section.settings.heading }}</h2>
+      <p class="z-lead">{{ section.settings.text }}</p>
+    </div>
+
+    <div class="z-magic__stage z-reveal">
+      <div class="z-magic__paper">
+        <canvas class="z-magic__canvas" aria-label="Magiczna kartka do malowania"></canvas>
+        <div class="z-magic__hint" aria-hidden="true"><span>👆</span>Maluj tutaj!</div>
+        <div class="z-magic__win" aria-live="polite"></div>
+      </div>
+
+      <div class="z-magic__tools">
+        <div class="z-magic__wells" role="radiogroup" aria-label="Wybierz kolor">
+          {%- assign cols = '#ff4d5e,#ff8a1f,#ffc93c,#1fbf75,#2f8bff,#6d3bef' | split: ',' -%}
+          {%- assign names = 'czerwony,pomarańczowy,żółty,zielony,niebieski,fioletowy' | split: ',' -%}
+          {%- for c in cols -%}
+            <button type="button" class="z-well{% if forloop.first %} is-on{% endif %}" style="--c: {{ c }}" data-color="{{ c }}" role="radio" aria-checked="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ names[forloop.index0] }}"></button>
+          {%- endfor -%}
+        </div>
+        <div class="z-magic__meta">
+          <div class="z-magic__stars" aria-label="Użyte kolory"><span data-used>0</span>/6 kolorów <span class="z-magic__starrow" data-stars>☆☆☆☆☆☆</span></div>
+          <button type="button" class="z-magic__new" data-new>🧻 Nowa kartka</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- style -%}
+  #z-magic-{{ section.id }} .z-magic__stage{max-width:820px;margin:0 auto}
+  #z-magic-{{ section.id }} .z-magic__paper{position:relative;aspect-ratio:4/3;background:#fff;border-radius:22px;box-shadow:0 30px 60px -28px rgba(30,20,70,.45),0 0 0 1px var(--z-line);overflow:hidden;transform:rotate(-1deg);background-image:radial-gradient(circle at 1px 1px,#efe9f9 1px,transparent 0);background-size:22px 22px}
+  #z-magic-{{ section.id }} .z-magic__canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+  #z-magic-{{ section.id }} .z-magic__hint{position:absolute;left:50%;top:50%;translate:-50% -50%;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--z-head);font-size:26px;font-weight:800;color:#b8aed6;pointer-events:none;transition:opacity .4s}
+  #z-magic-{{ section.id }} .z-magic__hint span{font-size:54px;animation:zTap 1.4s ease-in-out infinite}
+  @keyframes zTap{50%{transform:translate(18px,14px) scale(.9)}}
+  #z-magic-{{ section.id }} .z-magic__paper.is-used .z-magic__hint{opacity:0}
+  #z-magic-{{ section.id }} .z-magic__win{position:absolute;left:50%;top:18px;translate:-50% 0;font-family:var(--z-head);font-weight:800;font-size:20px;background:var(--z-grad);color:#fff;padding:8px 18px;border-radius:999px;opacity:0;transform:scale(.6);transition:opacity .3s,transform .4s cubic-bezier(.3,1.8,.5,1);pointer-events:none;white-space:nowrap}
+  #z-magic-{{ section.id }} .z-magic__win.is-on{opacity:1;transform:none}
+  #z-magic-{{ section.id }} .z-magic__tools{margin-top:22px;display:flex;flex-direction:column;align-items:center;gap:14px}
+  #z-magic-{{ section.id }} .z-magic__wells{display:flex;gap:10px;background:#fff;padding:12px 16px;border-radius:999px;box-shadow:var(--z-shadow);border-bottom:6px solid #ffb347}
+  #z-magic-{{ section.id }} .z-well{width:44px;height:44px;border-radius:50%;border:7px solid var(--c);background:#f6f2ec;cursor:pointer;transition:transform .2s cubic-bezier(.3,1.8,.5,1),box-shadow .2s}
+  #z-magic-{{ section.id }} .z-well:hover{transform:scale(1.08)}
+  #z-magic-{{ section.id }} .z-well.is-on{transform:scale(1.18) translateY(-4px);box-shadow:0 0 0 4px #fff,0 0 0 7px var(--c),0 10px 18px -6px var(--c)}
+  #z-magic-{{ section.id }} .z-magic__meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+  #z-magic-{{ section.id }} .z-magic__stars{font-weight:800;color:var(--z-ink-soft)}
+  #z-magic-{{ section.id }} .z-magic__starrow{color:#ffb800;letter-spacing:2px;margin-left:4px}
+  #z-magic-{{ section.id }} .z-magic__new{border:0;cursor:pointer;background:var(--z-cream);font-weight:800;padding:10px 16px;border-radius:999px;box-shadow:inset 0 0 0 2px var(--z-line)}
+  @media(max-width:480px){#z-magic-{{ section.id }} .z-well{width:36px;height:36px;border-width:6px}#z-magic-{{ section.id }} .z-magic__wells{gap:7px;padding:10px 12px}}
+{%- endstyle -%}
+
+<script>
+(function () {
+  var sec = document.getElementById('z-magic-{{ section.id }}'); if (!sec) return;
+  var paper = sec.querySelector('.z-magic__paper');
+  var cv = sec.querySelector('canvas'), ctx = cv.getContext('2d');
+  var baked = document.createElement('canvas'), bctx = baked.getContext('2d');
+  var win = sec.querySelector('.z-magic__win');
+  var usedEl = sec.querySelector('[data-used]'), starsEl = sec.querySelector('[data-stars]');
+  var color = '#ff4d5e', used = {}, segs = [], last = null, dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, raf = 0, celebrated = false;
+  var REVEAL = 850, DELAY = 180;
+
+  function size() {
+    var r = cv.getBoundingClientRect();
+    var old = document.createElement('canvas'); old.width = baked.width; old.height = baked.height; old.getContext('2d').drawImage(baked, 0, 0);
+    W = Math.round(r.width * dpr); H = Math.round(r.height * dpr);
+    cv.width = baked.width = W; cv.height = baked.height = H;
+    if (old.width) bctx.drawImage(old, 0, 0, W, H);
+    render();
+  }
+  function rgba(hex, a) { var n = parseInt(hex.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')'; }
+  function line(c, s, style, w) { c.strokeStyle = style; c.lineWidth = w; c.lineCap = 'round'; c.beginPath(); c.moveTo(s.x0, s.y0); c.lineTo(s.x1, s.y1); c.stroke(); }
+  function alpha(s, now) { return Math.min(1, Math.max(0, (now - s.t - DELAY) / REVEAL)); }
+  /* gotowe pociągnięcia „wypalamy” na osobnym płótnie, animujemy tylko świeże */
+  function render() {
+    var now = performance.now();
+    segs = segs.filter(function (s) { if (alpha(s, now) >= 1) { line(bctx, s, s.c, s.w); return false; } return true; });
+    ctx.clearRect(0, 0, W, H);
+    ctx.drawImage(baked, 0, 0);
+    segs.forEach(function (s) {
+      var a = alpha(s, now);
+      line(ctx, s, 'rgba(160,180,215,.28)', s.w * 1.05);   /* „woda”, zanim pojawi się kolor */
+      if (a > 0) line(ctx, s, rgba(s.c, a), s.w * (0.75 + a * 0.25));
+    });
+    return segs.length;
+  }
+  function loop() { raf = 0; if (render()) raf = requestAnimationFrame(loop); }
+  function kick() { if (!raf) raf = requestAnimationFrame(loop); }
+  function pt(e) { var r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) * dpr, y: (e.clientY - r.top) * dpr }; }
+  function addSeg(a, b) { segs.push({ x0: a.x, y0: a.y, x1: b.x, y1: b.y, c: color, w: Math.max(14, W / 38), t: performance.now() }); kick(); }
+
+  cv.addEventListener('pointerdown', function (e) {
+    cv.setPointerCapture(e.pointerId); last = pt(e); addSeg(last, { x: last.x + .1, y: last.y + .1 });
+    paper.classList.add('is-used');
+    if (!used[color]) {
+      used[color] = 1;
+      var n = Object.keys(used).length;
+      usedEl.textContent = n;
+      starsEl.textContent = '★★★★★★'.slice(0, n) + '☆☆☆☆☆☆'.slice(n);
+      if (n === 6 && !celebrated) {
+        celebrated = true;
+        win.textContent = '🏆 Brawo, mały artysto!';
+        win.classList.add('is-on');
+        if (window.Zolumi) Zolumi.confetti(paper, 140);
+        setTimeout(function () { win.classList.remove('is-on'); }, 3200);
+      }
+    }
+  });
+  cv.addEventListener('pointermove', function (e) { if (!last) return; var p = pt(e); if (Math.hypot(p.x - last.x, p.y - last.y) < 2) return; addSeg(last, p); last = p; });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) { cv.addEventListener(ev, function () { last = null; }); });
+
+  sec.querySelectorAll('.z-well').forEach(function (b) {
+    b.addEventListener('click', function () {
+      sec.querySelectorAll('.z-well').forEach(function (x) { x.classList.remove('is-on'); x.setAttribute('aria-checked', 'false'); });
+      b.classList.add('is-on'); b.setAttribute('aria-checked', 'true');
+      color = b.getAttribute('data-color');
+    });
+  });
+  sec.querySelector('[data-new]').addEventListener('click', function () {
+    segs = []; bctx.clearRect(0, 0, W, H); ctx.clearRect(0, 0, W, H);
+    paper.classList.remove('is-used');
+    paper.animate && paper.animate([{ transform: 'rotate(-1deg) translateY(0)' }, { transform: 'rotate(2deg) translateY(-14px)' }, { transform: 'rotate(-1deg) translateY(0)' }], { duration: 450, easing: 'ease-out' });
+  });
+
+  if ('ResizeObserver' in window) new ResizeObserver(size).observe(cv); else { window.addEventListener('resize', size); }
+  size();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Magiczna kartka",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Nadtytuł", "default": "Spróbuj sam!" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Pomaluj <em>magiczną kartkę</em>" },
+    { "type": "textarea", "id": "text", "label": "Tekst", "default": "Tak działa Zolumi: pędzelek maluje przezroczystym płynem, a kolor pojawia się dopiero na magicznym papierze. Wybierz kolor i maluj palcem lub myszką 👇" }
+  ],
+  "presets": [ { "name": "Magiczna kartka" } ]
+}
+{% endschema %}

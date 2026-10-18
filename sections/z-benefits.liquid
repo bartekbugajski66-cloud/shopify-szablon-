@@ -1,0 +1,51 @@
+{%- comment -%} ZOLUMI — karty korzyści (dla rodziców) {%- endcomment -%}
+<section class="z-sec z-ben" id="z-ben-{{ section.id }}">
+  <span class="z-blob" style="width:300px;height:300px;background:#2f8bff;top:10%;left:-140px;opacity:.18"></span>
+  <div class="z-wrap">
+    <div class="z-head z-reveal">
+      <span class="z-kicker">{{ section.settings.kicker }}</span>
+      <h2 class="z-h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="z-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="z-ben__grid">
+      {%- for block in section.blocks -%}
+        <article class="z-ben__card z-reveal" data-delay="{{ forloop.index0 | modulo: 3 | times: 90 }}" style="--c: {{ block.settings.color }}" {{ block.shopify_attributes }}>
+          <span class="z-ben__ico" aria-hidden="true">{{ block.settings.icon }}</span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- style -%}
+  #z-ben-{{ section.id }}{overflow:hidden}
+  #z-ben-{{ section.id }} .z-ben__grid{display:grid;grid-template-columns:1fr;gap:16px}
+  #z-ben-{{ section.id }} .z-ben__card{position:relative;background:#fff;border-radius:var(--z-radius);padding:26px 24px;box-shadow:var(--z-shadow-sm);overflow:hidden;transition:transform .25s cubic-bezier(.3,1.5,.5,1),box-shadow .25s}
+  #z-ben-{{ section.id }} .z-ben__card::before{content:"";position:absolute;right:-40px;top:-40px;width:130px;height:130px;border-radius:50%;background:var(--c);opacity:.14;transition:transform .4s}
+  #z-ben-{{ section.id }} .z-ben__card:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:var(--z-shadow)}
+  #z-ben-{{ section.id }} .z-ben__card:hover::before{transform:scale(1.5)}
+  #z-ben-{{ section.id }} .z-ben__card:hover .z-ben__ico{animation:zWiggle .6s ease}
+  #z-ben-{{ section.id }} .z-ben__ico{display:grid;place-items:center;width:62px;height:62px;border-radius:20px;font-size:32px;background:color-mix(in srgb,var(--c) 18%,#fff);margin-bottom:16px}
+  #z-ben-{{ section.id }} h3{font-size:23px;font-weight:800;margin-bottom:6px}
+  #z-ben-{{ section.id }} p{margin:0;color:var(--z-ink-soft)}
+  @media(min-width:700px){#z-ben-{{ section.id }} .z-ben__grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1000px){#z-ben-{{ section.id }} .z-ben__grid{grid-template-columns:repeat(3,1fr);gap:22px}}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "Korzyści",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Nadtytuł", "default": "💜 Dla rodziców" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Dlaczego rodzice <em>kochają</em> Zolumi" },
+    { "type": "textarea", "id": "text", "label": "Tekst" }
+  ],
+  "blocks": [ { "type": "card", "name": "Karta", "settings": [
+    { "type": "text", "id": "icon", "label": "Emoji", "default": "🧼" },
+    { "type": "color", "id": "color", "label": "Kolor", "default": "#6d3bef" },
+    { "type": "text", "id": "title", "label": "Tytuł", "default": "Zero bałaganu" },
+    { "type": "textarea", "id": "text", "label": "Tekst", "default": "Kolory pojawiają się tylko na magicznym papierze." }
+  ] } ],
+  "presets": [ { "name": "Korzyści", "blocks": [ { "type": "card" } ] } ]
+}
+{% endschema %}

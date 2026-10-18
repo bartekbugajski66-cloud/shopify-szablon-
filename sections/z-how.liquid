@@ -1,0 +1,63 @@
+{%- comment -%} ZOLUMI — jak to działa (kroki) {%- endcomment -%}
+<section class="z-sec z-sec--ink z-how" id="jak-dziala">
+  <span class="z-blob" style="width:360px;height:360px;background:#6d3bef;top:-120px;right:-120px;opacity:.45"></span>
+  <span class="z-blob" style="width:300px;height:300px;background:#ff4fa3;bottom:-120px;left:-100px;opacity:.3;animation-delay:-6s"></span>
+  <div class="z-wrap">
+    <div class="z-head z-reveal">
+      <span class="z-kicker">{{ section.settings.kicker }}</span>
+      <h2 class="z-h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="z-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <ol class="z-how__steps">
+      {%- for block in section.blocks -%}
+        <li class="z-how__step z-reveal" data-delay="{{ forloop.index0 | times: 120 }}" style="--c: {{ block.settings.color }}" {{ block.shopify_attributes }}>
+          <div class="z-how__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400,600,800', sizes: '(min-width: 900px) 33vw, 100vw', alt: block.settings.title }}
+            {%- else -%}
+              <span class="z-how__emoji" aria-hidden="true">{{ block.settings.icon }}</span>
+            {%- endif -%}
+            <span class="z-how__num">{{ forloop.index }}</span>
+          </div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+{%- style -%}
+  #jak-dziala{overflow:hidden}
+  #jak-dziala .z-how__steps{list-style:none;margin:0;padding:0;display:grid;gap:22px;position:relative}
+  #jak-dziala .z-how__step{text-align:center}
+  #jak-dziala .z-how__media{position:relative;aspect-ratio:4/3;border-radius:var(--z-radius);overflow:hidden;background:color-mix(in srgb,var(--c) 26%,#1e1446);display:grid;place-items:center;margin-bottom:18px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.08)}
+  #jak-dziala .z-how__media img{width:100%;height:100%;object-fit:cover}
+  #jak-dziala .z-how__emoji{font-size:84px;filter:drop-shadow(0 12px 20px rgba(0,0,0,.35));animation:zBob 3s ease-in-out infinite}
+  #jak-dziala .z-how__num{position:absolute;top:14px;left:14px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--z-head);font-weight:800;font-size:22px;color:var(--z-ink);background:var(--c);box-shadow:0 8px 18px -6px var(--c)}
+  #jak-dziala h3{font-size:25px;color:#fff;margin-bottom:6px}
+  #jak-dziala p{margin:0;color:rgba(255,255,255,.72)}
+  @media(min-width:900px){
+    #jak-dziala .z-how__steps{grid-template-columns:repeat(3,1fr);gap:30px}
+    #jak-dziala .z-how__steps::before{content:"";position:absolute;top:calc(33% - 2px);left:16%;right:16%;border-top:3px dashed rgba(255,255,255,.2);z-index:0}
+    #jak-dziala .z-how__step{position:relative;z-index:1}
+  }
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "Jak to działa",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Nadtytuł", "default": "✨ Proste jak 1-2-3" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Jak działa <em>magia</em>?" },
+    { "type": "textarea", "id": "text", "label": "Tekst" }
+  ],
+  "blocks": [ { "type": "step", "name": "Krok", "settings": [
+    { "type": "image_picker", "id": "image", "label": "Zdjęcie / GIF" },
+    { "type": "text", "id": "icon", "label": "Emoji (gdy brak zdjęcia)", "default": "🎨" },
+    { "type": "color", "id": "color", "label": "Kolor", "default": "#ffc93c" },
+    { "type": "text", "id": "title", "label": "Tytuł", "default": "Krok" },
+    { "type": "textarea", "id": "text", "label": "Tekst" }
+  ] } ],
+  "max_blocks": 4,
+  "presets": [ { "name": "Jak to działa", "blocks": [ { "type": "step" } ] } ]
+}
+{% endschema %}
