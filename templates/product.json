@@ -1,0 +1,248 @@
+{
+  "sections": {
+    "announcement": {
+      "type": "dripon-announcement",
+      "settings": { "interval": 5 },
+      "blocks": {
+        "b1": { "type": "benefit", "settings": { "icon": "💧", "text": "Promocja -50% tylko dziś" } },
+        "b2": { "type": "benefit", "settings": { "icon": "🚚", "text": "Ekspresowa dostawa" } },
+        "b3": { "type": "benefit", "settings": { "icon": "🛡️", "text": "30 dni na zwrot" } },
+        "b4": { "type": "benefit", "settings": { "icon": "🔒", "text": "Bezpieczne płatności" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "product_main": {
+      "type": "dripon-product-main",
+      "settings": {
+        "badge": "BESTSELLER · 89 OPINII",
+        "heading": "Usuń rysy i przywróć głęboki połysk —",
+        "heading_accent": "jednym spryskaniem",
+        "subheading": "Zerorys to powłoka ochronna w sprayu: wypełnia drobne rysy, nadaje lustrzany połysk i tworzy hydrofobową barierę, od której woda i brud spływają same. Bez polerki, bez kosztownego detailingu.",
+        "show_rating": true,
+        "rating": "4,9/5",
+        "rating_text": "89 opinii · ponad 1000 sprzedanych",
+        "trust_text": "Wiele osób ogląda tę ofertę",
+        "trust_sub": "Ostatni zakup: 4 min temu",
+        "packs_label": "WYBIERZ SWÓJ ZESTAW:",
+        "cta_text": "Zamawiam Zerorys — chcę połysk bez rys",
+        "sticky_cta": "Dodaj do koszyka",
+        "after_add": "cart",
+        "upsell_enable": true,
+        "upsell_title": "TAK, dobieram ręcznik z mikrofibry!",
+        "upsell_text": "Idealny do rozprowadzania i wypolerowania powłoki bez smug. Tylko teraz za 14,90 zł (zamiast 29,90 zł).",
+        "upsell_price": "+14,90 zł",
+        "brand_box_title": "ORYGINALNY ZERORYS",
+        "brand_box_text": "Każda butelka Zerorys przechodzi kontrolę jakości — sprawdzona formuła zapewnia połysk i ochronę od pierwszego użycia."
+      },
+      "blocks": {
+        "be1": { "type": "benefit", "settings": { "text": "Wypełnia i maskuje drobne rysy oraz wiry" } },
+        "be2": { "type": "benefit", "settings": { "text": "Głęboki, lustrzany połysk lakieru" } },
+        "be3": { "type": "benefit", "settings": { "text": "Efekt hydrofobowy — woda spływa sama" } },
+        "be4": { "type": "benefit", "settings": { "text": "Ochrona UV — chroni przed blaknięciem" } },
+        "be5": { "type": "benefit", "settings": { "text": "Łatwa aplikacja — spryskaj i przetrzyj" } },
+        "pk1": { "type": "package", "settings": { "title": "1 szt. — Pakiet Kierowcy", "desc": "69,99 zł / szt.", "price": "69,99 zł", "compare_price": "139,99 zł", "discount": "Oszczędzasz 70 zł", "quantity": 1, "preselect": true } },
+        "pk2": { "type": "package", "settings": { "title": "2 szt. — Pakiet Rodzinny", "desc": "62,99 zł / szt.", "badge": "Najpopularniejsze", "price": "125,99 zł", "compare_price": "279,98 zł", "discount": "Oszczędzasz 154 zł", "quantity": 2, "highlight": true } },
+        "pk3": { "type": "package", "settings": { "title": "3 szt. — Pakiet Garażowy", "desc": "55,99 zł / szt.", "badge": "Najlepsza oferta", "price": "167,98 zł", "compare_price": "419,97 zł", "discount": "Oszczędzasz 252 zł", "quantity": 3 } },
+        "tr1": { "type": "trust", "settings": { "icon": "🚚", "text": "Darmowa dostawa" } },
+        "tr2": { "type": "trust", "settings": { "icon": "🛡️", "text": "30 dni na test" } },
+        "tr3": { "type": "trust", "settings": { "icon": "🔒", "text": "Bezpieczne płatności" } }
+      },
+      "block_order": ["be1", "be2", "be3", "be4", "be5", "pk1", "pk2", "pk3", "tr1", "tr2", "tr3"]
+    },
+    "gratisy": {
+      "type": "banner-gratisy",
+      "settings": {
+        "eyebrow": "TYLKO DZIŚ",
+        "title_before": "Do zamówienia otrzymujesz",
+        "title_accent": "2 gratisy!",
+        "g1_icon": "🧽", "g1_title": "Ręcznik z mikrofibry", "g1_value": "GRATIS",
+        "g2_icon": "📖", "g2_title": "E-book: Detailing w domu", "g2_value": "GRATIS",
+        "note": "Gratisy dodajemy automatycznie do Twojego zamówienia — tylko dziś."
+      }
+    },
+    "video": {
+      "type": "dripon-video",
+      "settings": {
+        "eyebrow": "ZOBACZ EFEKT",
+        "heading": "Zobacz Zerorys w akcji",
+        "subheading": "Nasi klienci pokazują efekt hydrofobowy i głęboki połysk po jednym spryskaniu."
+      },
+      "blocks": {
+        "v1": { "type": "video", "settings": { "alt": "Efekt Zerorys" } },
+        "v2": { "type": "video", "settings": { "alt": "Efekt Zerorys" } },
+        "v3": { "type": "video", "settings": { "alt": "Efekt Zerorys" } }
+      },
+      "block_order": ["v1", "v2", "v3"]
+    },
+    "problems": {
+      "type": "dripon-problems",
+      "settings": {
+        "eyebrow": "BRZMI ZNAJOMO?",
+        "heading": "Znasz te problemy z lakierem?",
+        "subheading": "Drobne rysy, matowy lakier i brud, który trzyma się karoserii, psują wygląd nawet zadbanego auta."
+      },
+      "blocks": {
+        "p1": { "type": "problem", "settings": { "icon": "🌀", "title": "Drobne rysy i wiry", "text": "Mycie i ścieranie zostawiają siateczkę rysek (swirl marks) widoczną w słońcu." } },
+        "p2": { "type": "problem", "settings": { "icon": "🌫️", "title": "Matowy, zmęczony lakier", "text": "Z czasem lakier traci głębię i połysk, auto wygląda na starsze niż jest." } },
+        "p3": { "type": "problem", "settings": { "icon": "💧", "title": "Brud i woda się trzymają", "text": "Bez ochrony brud przywiera do karoserii, a po deszczu zostają zacieki." } },
+        "p4": { "type": "problem", "settings": { "icon": "☀️", "title": "Blaknięcie od słońca", "text": "Promieniowanie UV powoli matowi i odbarwia lakier oraz plastiki." } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"]
+    },
+    "technology": {
+      "type": "dripon-technology",
+      "settings": {
+        "eyebrow": "ROZWIĄZANIE",
+        "heading": "Cztery efekty. Jeden spray.",
+        "subheading": "Zerorys to powłoka ochronna, która działa od razu po nałożeniu — bez polerki i specjalistycznego sprzętu."
+      },
+      "blocks": {
+        "t1": { "type": "feature", "settings": { "icon": "✨", "title": "Maskowanie rys", "text": "Formuła wypełnia drobne rysy i wiry, wyrównując powierzchnię lakieru." } },
+        "t2": { "type": "feature", "settings": { "icon": "💎", "title": "Lustrzany połysk", "text": "Zwiększa odbicie światła i przywraca głęboki, mokry połysk." } },
+        "t3": { "type": "feature", "settings": { "icon": "💧", "title": "Efekt hydrofobowy", "text": "Woda i brud spływają same — auto dłużej zostaje czyste." } },
+        "t4": { "type": "feature", "settings": { "icon": "☀️", "title": "Ochrona UV", "text": "Tworzy barierę chroniącą lakier przed blaknięciem i utlenianiem." } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "usecases": {
+      "type": "dripon-usecases",
+      "settings": {
+        "eyebrow": "DOPASOWANIE",
+        "heading": "Do każdej powierzchni auta",
+        "subheading": "Jeden preparat do lakieru, szkła, plastików i felg — uniwersalna ochrona całego auta."
+      },
+      "blocks": {
+        "u1": { "type": "usecase", "settings": { "title": "Lakier i maska?", "text": "Przywraca głęboki połysk i maskuje drobne rysy na całej karoserii." } },
+        "u2": { "type": "usecase", "settings": { "title": "Zderzaki i panele boczne?", "text": "Chroni najbardziej narażone elementy i ułatwia utrzymanie czystości." } },
+        "u3": { "type": "usecase", "settings": { "title": "Felgi, chrom i plastiki?", "text": "Odświeża kolor plastików i dodaje połysku felgom oraz elementom chromowanym." } }
+      },
+      "block_order": ["u1", "u2", "u3"]
+    },
+    "gallery": {
+      "type": "dripon-gallery",
+      "settings": { "eyebrow": "GALERIA", "heading": "Zobacz Zerorys z bliska" },
+      "blocks": {
+        "g1": { "type": "photo", "settings": { "caption": "Efekt hydrofobowy" } },
+        "g2": { "type": "photo", "settings": { "caption": "Głęboki połysk" } },
+        "g3": { "type": "photo", "settings": { "caption": "Maskowanie rys" } },
+        "g4": { "type": "photo", "settings": { "caption": "Prosta aplikacja" } }
+      },
+      "block_order": ["g1", "g2", "g3", "g4"]
+    },
+    "comparison": {
+      "type": "dripon-comparison",
+      "settings": {
+        "eyebrow": "PORÓWNANIE",
+        "heading": "Dlaczego zwykły wosk nie wystarcza?",
+        "subheading": "Zobacz różnicę między tradycyjnym woskiem a powłoką Zerorys.",
+        "left_title": "Zwykły wosk",
+        "right_title": "Zerorys"
+      },
+      "blocks": {
+        "l1": { "type": "left", "settings": { "text": "Nie maskuje rys" } },
+        "l2": { "type": "left", "settings": { "text": "Krótkotrwały efekt" } },
+        "l3": { "type": "left", "settings": { "text": "Słaba hydrofobowość" } },
+        "l4": { "type": "left", "settings": { "text": "Brak ochrony UV" } },
+        "l5": { "type": "left", "settings": { "text": "Wymaga częstego nakładania" } },
+        "l6": { "type": "left", "settings": { "text": "Pracochłonne polerowanie" } },
+        "r1": { "type": "right", "settings": { "text": "Wypełnia i maskuje drobne rysy" } },
+        "r2": { "type": "right", "settings": { "text": "Głęboki, lustrzany połysk" } },
+        "r3": { "type": "right", "settings": { "text": "Mocny efekt hydrofobowy" } },
+        "r4": { "type": "right", "settings": { "text": "Ochrona UV i długa trwałość" } },
+        "r5": { "type": "right", "settings": { "text": "Łatwa aplikacja w kilka minut" } },
+        "r6": { "type": "right", "settings": { "text": "30 dni gwarancji — 100% zwrotu" } }
+      },
+      "block_order": ["l1", "l2", "l3", "l4", "l5", "l6", "r1", "r2", "r3", "r4", "r5", "r6"]
+    },
+    "social_proof": {
+      "type": "dripon-social-proof",
+      "blocks": {
+        "s1": { "type": "stat", "settings": { "number": "1000+", "label": "Sprzedanych butelek Zerorys", "note": "* dane sprzedażowe marketplace" } },
+        "s2": { "type": "stat", "settings": { "number": "89", "label": "Recenzji klientów", "note": "* na podstawie opinii kupujących" } },
+        "s3": { "type": "stat", "settings": { "number": "4,9★", "label": "Średnia ocena", "note": "* na podstawie recenzji" } },
+        "s4": { "type": "stat", "settings": { "number": "30", "label": "Dni na domowy test", "note": "* gwarancja satysfakcji – bez ryzyka" } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"]
+    },
+    "guarantee": {
+      "type": "dripon-guarantee",
+      "settings": {
+        "badge_big": "30",
+        "badge_small": "DNI TESTÓW",
+        "eyebrow": "TWOJE BEZPIECZEŃSTWO",
+        "heading": "Wypróbuj Zerorys przez 30 dni. Jeśli nie zobaczysz różnicy w połysku — oddajemy 100% wpłaconych środków.",
+        "text": "<p>Wystarczy napisać na kontakt@twojadomena.pl — zapewniamy prosty proces i wygodny zwrot kodem do Paczkomatu. Zwrot środków zlecamy natychmiast po otrzymaniu przesyłki. To nasza obietnica.</p>"
+      }
+    },
+    "materials": {
+      "type": "dripon-materials",
+      "settings": {
+        "eyebrow": "SPECYFIKACJA",
+        "heading": "Jakość, której możesz zaufać",
+        "subheading": "Sprawdzona formuła powłoki ochronnej do lakieru i innych powierzchni auta."
+      },
+      "blocks": {
+        "m1": { "type": "spec", "settings": { "key": "Typ", "value": "Powłoka ochronna w sprayu" } },
+        "m2": { "type": "spec", "settings": { "key": "Pojemność", "value": "100 ml" } },
+        "m3": { "type": "spec", "settings": { "key": "Efekt", "value": "Połysk · maskowanie rys · hydrofoba" } },
+        "m4": { "type": "spec", "settings": { "key": "Powierzchnie", "value": "Lakier · szkło · plastik · felgi" } },
+        "m5": { "type": "spec", "settings": { "key": "Ochrona UV", "value": "Tak" } },
+        "m6": { "type": "spec", "settings": { "key": "Aplikacja", "value": "Spryskaj · rozprowadź · przetrzyj" } },
+        "m7": { "type": "spec", "settings": { "key": "Trwałość", "value": "Długotrwała ochrona powierzchni" } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4", "m5", "m6", "m7"]
+    },
+    "whatyouget": {
+      "type": "dripon-whatyouget",
+      "settings": { "eyebrow": "CO DOSTAJESZ", "heading": "Kompletny zestaw do połysku" },
+      "blocks": {
+        "w1": { "type": "item", "settings": { "icon": "🧴", "title": "Zerorys 100 ml", "text": "Powłoka ochronna w sprayu: połysk, maskowanie rys i hydrofoba w jednym." } },
+        "w2": { "type": "item", "settings": { "icon": "🧽", "badge": "W ZESTAWIE", "title": "Aplikator", "text": "Gąbka aplikacyjna do równomiernego rozprowadzenia preparatu." } },
+        "w3": { "type": "item", "settings": { "icon": "📖", "badge": "GRATIS", "title": "E-book „Detailing w domu\"", "text": "Jak myć, zabezpieczać i pielęgnować lakier jak profesjonalista. Wysyłka elektroniczna." } },
+        "w4": { "type": "item", "settings": { "icon": "🛡️", "title": "Ochrona Kupującego", "text": "30-dniowa gwarancja satysfakcji. Jeśli preparat nie spełni oczekiwań — zwrócimy pieniądze." } }
+      },
+      "block_order": ["w1", "w2", "w3", "w4"]
+    },
+    "care_faq": {
+      "type": "dripon-care-faq",
+      "settings": {
+        "care_enable": true,
+        "care_eyebrow": "JAK NAKŁADAĆ",
+        "care_heading": "Połysk w 3 krokach",
+        "care_sub": "Bez polerki i specjalistycznego sprzętu — wystarczy kilka minut.",
+        "faq_enable": true,
+        "faq_eyebrow": "FAQ",
+        "faq_heading": "Najczęstsze pytania"
+      },
+      "blocks": {
+        "c1": { "type": "step", "settings": { "title": "Umyj i osusz auto", "text": "Nakładaj na czysty, suchy lakier — bez piasku i zabrudzeń." } },
+        "c2": { "type": "step", "settings": { "title": "Spryskaj i rozprowadź", "text": "Nanieś preparat i rozprowadź równomiernie dołączonym aplikatorem." } },
+        "c3": { "type": "step", "settings": { "title": "Przetrzyj mikrofibrą", "text": "Wypoleruj czystą mikrofibrą do uzyskania głębokiego połysku." } },
+        "f1": { "type": "faq", "settings": { "question": "Czy Zerorys naprawdę usuwa rysy?", "answer": "Wypełnia i maskuje drobne rysy oraz wiry (swirl marks). Głębokich rys sięgających metalu nie usunie żaden spray — do tego potrzebna jest renowacja lakieru." } },
+        "f2": { "type": "faq", "settings": { "question": "Jak długo utrzymuje się efekt?", "answer": "Powłoka zapewnia długotrwałą ochronę i połysk. Trwałość zależy od warunków i częstotliwości mycia — w razie potrzeby łatwo odświeżysz efekt." } },
+        "f3": { "type": "faq", "settings": { "question": "Na jakie powierzchnie mogę nakładać?", "answer": "Na lakier, szkło, plastiki i felgi. To uniwersalny preparat do całego auta." } },
+        "f4": { "type": "faq", "settings": { "question": "Czy aplikacja jest trudna?", "answer": "Nie. Spryskaj, rozprowadź aplikatorem i przetrzyj mikrofibrą — zajmuje kilka minut, bez polerki." } },
+        "f5": { "type": "faq", "settings": { "question": "Czy działa na każdy kolor lakieru?", "answer": "Tak, preparat jest bezbarwny i działa na lakierach w każdym kolorze, również metalikach." } },
+        "f6": { "type": "faq", "settings": { "question": "Na ile aut wystarczy 100 ml?", "answer": "Przy oszczędnej aplikacji jednej butelki wystarcza na wielokrotne zabezpieczenie auta." } },
+        "f7": { "type": "faq", "settings": { "question": "Kiedy dostanę zamówienie i czy mogę zwrócić?", "answer": "Wysyłka 1–3 dni robocze. Masz 30 dni na test — jeśli nie zobaczysz różnicy, zwrócimy pieniądze." } }
+      },
+      "block_order": ["c1", "c2", "c3", "f1", "f2", "f3", "f4", "f5", "f6", "f7"]
+    },
+    "reviews": {
+      "type": "dripon-reviews",
+      "settings": {
+        "eyebrow": "PRAWDZIWE HISTORIE",
+        "heading": "Opinie kierowców o Zerorys",
+        "subheading": "Średnia 4,9/5 na podstawie 89 recenzji kupujących",
+        "disclaimer": "* Informacja: Prezentowane opinie pochodzą od kupujących i komentarzy z mediów społecznościowych. Treści mogą być skracane i redagowane na potrzeby prezentacji. Efekt zależy od stanu lakieru."
+      },
+      "blocks": {
+        "rv1": { "type": "review", "settings": { "name": "Pan Marek", "color": "#0c9aa4", "title": "Lakier jak nowy", "text": "Drobne wiry po myjni prawie zniknęły, a połysk mega. Woda spływa kroplami, brud się nie trzyma. Polecam.", "source": "Komentarz pod reklamą" } },
+        "rv2": { "type": "review", "settings": { "name": "Pan Tomasz", "color": "#0a7d85", "title": "Hydrofoba robi robotę", "text": "Spryskałem, przetarłem i auto lśni. Po deszczu woda po prostu zlatuje. Aplikacja banalna, zero polerki.", "source": "Komentarz pod reklamą" } },
+        "rv3": { "type": "review", "settings": { "name": "Pan Krzysztof", "color": "#127e88", "title": "Świetny stosunek ceny do efektu", "text": "Za te pieniądze rewelacja. Czarny lakier wygląda jak po polerce, a to kilka minut roboty.", "source": "Komentarz pod reklamą" } }
+      },
+      "block_order": ["rv1", "rv2", "rv3"]
+    }
+  },
+  "order": ["announcement", "product_main", "gratisy", "video", "problems", "technology", "usecases", "gallery", "comparison", "social_proof", "guarantee", "materials", "whatyouget", "care_faq", "reviews"]
+}

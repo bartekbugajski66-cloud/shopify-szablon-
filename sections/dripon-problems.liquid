@@ -1,0 +1,51 @@
+{%- comment -%} DripON — Problemy (styl THEVIREA) {%- endcomment -%}
+<section class="drip-prob drip-sec" id="drip-prob-{{ section.id }}">
+  <div class="drip-container drip-prob__wrap">
+    <div class="drip-prob__head">
+      {%- if section.settings.eyebrow != blank -%}<span class="drip-eyebrow drip-eyebrow--red">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="drip-h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p class="drip-lead">{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+    <div class="drip-prob__list">
+      {%- for block in section.blocks -%}
+        <div class="drip-prob__card" {{ block.shopify_attributes }}>
+          <span class="drip-prob__ico" aria-hidden="true">{{ block.settings.icon }}</span>
+          <div>
+            <h3 class="drip-prob__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="drip-prob__desc">{{ block.settings.text }}</p>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- style -%}
+  #drip-prob-{{ section.id }} .drip-prob__wrap{max-width:920px;margin:0 auto}
+  #drip-prob-{{ section.id }} .drip-prob__list{display:flex;flex-direction:column;gap:14px}
+  #drip-prob-{{ section.id }} .drip-prob__card{display:flex;align-items:flex-start;gap:16px;background:#fff;border:1px solid var(--drip-line);border-radius:16px;padding:18px 20px;box-shadow:0 2px 12px rgba(15,23,42,.04)}
+  #drip-prob-{{ section.id }} .drip-prob__ico{flex:none;width:46px;height:46px;display:grid;place-items:center;border-radius:50%;background:#fde7ea;font-size:22px}
+  #drip-prob-{{ section.id }} .drip-prob__title{margin:0 0 4px;font-size:16px;font-weight:800}
+  #drip-prob-{{ section.id }} .drip-prob__desc{margin:0;font-size:14px;color:var(--drip-ink);line-height:1.5}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "DripON • Problemy",
+  "settings": [
+    { "type":"text","id":"eyebrow","label":"Nadtytuł","default":"WAŻNE PYTANIE" },
+    { "type":"text","id":"heading","label":"Nagłówek","default":"Znasz te problemy po myciu auta?" },
+    { "type":"textarea","id":"subheading","label":"Podnagłówek","default":"Niewłaściwy ręcznik to nie tylko strata czasu. To najczęstsza przyczyna smug i mikro-zarysowań lakieru." }
+  ],
+  "blocks": [ { "type":"problem","name":"Problem","settings":[
+    {"type":"text","id":"icon","label":"Emoji","default":"💧"},
+    {"type":"text","id":"title","label":"Tytuł","default":"Smugi i zacieki"},
+    {"type":"textarea","id":"text","label":"Opis","default":"Zwykła szmatka rozmazuje wodę po lakierze i szybie, zostawiając widoczne smugi po wyschnięciu."}
+  ] } ],
+  "max_blocks": 8,
+  "presets": [ { "name":"DripON • Problemy", "blocks":[
+    {"type":"problem","settings":{"icon":"💧","title":"Smugi i zacieki","text":"Zwykła szmatka rozmazuje wodę po lakierze i szybie, zostawiając widoczne smugi po wyschnięciu."}},
+    {"type":"problem","settings":{"icon":"🌀","title":"Ryzyko mikro-zarysowań","text":"Twarde lub brudne ściereczki ciągną drobinki po lakierze i tworzą siateczkę rys widoczną w słońcu."}},
+    {"type":"problem","settings":{"icon":"🧽","title":"Szybko nasiąka","text":"Cienki ręcznik po chwili jest mokry — musisz go wykręcać i zaczynać od nowa."}},
+    {"type":"problem","settings":{"icon":"⏳","title":"Długie osuszanie","text":"Wiele przejazdów po tej samej powierzchni zabiera czas i energię po każdym myciu."}}
+  ] } ]
+}
+{% endschema %}

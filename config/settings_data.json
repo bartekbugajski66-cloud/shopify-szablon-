@@ -1,0 +1,24 @@
+{
+  "current": {
+    "sections": {
+      "dripon-header": {
+        "type": "dripon-header",
+        "settings": { "logo_text": "Zerorys", "tagline": "PREMIUM AUTO CARE", "logo_height": 40 }
+      },
+      "dripon-footer": {
+        "type": "dripon-footer",
+        "settings": {
+          "brand_name": "ZERORYS",
+          "brand_text": "Powłoki i preparaty do pielęgnacji lakieru. Głęboki połysk, maskowanie rys i hydrofobowa ochrona — efekt detailingu bez polerki. Marka WMXR.",
+          "badge_text": "30 Dni Gwarancji Satysfakcji",
+          "col1_title": "Informacje",
+          "col2_title": "Pomoc",
+          "contact_title": "Kontakt",
+          "email": "kontakt@twojadomena.pl",
+          "hours": "Pn-Pt: 8:00 - 16:00",
+          "payments": "BLIK, Przelew, VISA, MasterCard, ApplePay"
+        }
+      }
+    }
+  }
+}

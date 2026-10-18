@@ -1,0 +1,8 @@
+{%- assign target = collections.all.products.first.url | default: routes.all_products_collection_url -%}
+<script>
+  window.location.replace("{{ target }}");
+</script>
+<div class="drip-page page-width" style="text-align:center; padding:80px 16px;">
+  <p>Przenosimy Cię do oferty…</p>
+  <a href="{{ target }}" class="drip-btn">Przejdź do oferty</a>
+</div>

@@ -1,0 +1,13 @@
+<div class="drip-page page-width" style="max-width:560px; text-align:center; padding-top:60px;">
+  <h1>Karta podarunkowa</h1>
+  <p>Wartość: <strong>{{ gift_card.initial_value | money }}</strong></p>
+  {%- if gift_card.enabled == false or gift_card.expired -%}
+    <p>Ta karta jest nieaktywna.</p>
+  {%- else -%}
+    <p>Saldo: <strong>{{ gift_card.balance | money }}</strong></p>
+  {%- endif -%}
+  <div style="background:#F5F7FB; border-radius:16px; padding:24px; margin:20px 0; font-size:22px; font-weight:800; letter-spacing:.08em;">
+    {{ gift_card.code | format_code }}
+  </div>
+  <a href="{{ shop.url }}" class="drip-btn">Przejdź do sklepu</a>
+</div>

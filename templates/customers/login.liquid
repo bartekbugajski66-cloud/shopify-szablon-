@@ -1,0 +1,30 @@
+<div class="drip-page page-width" style="max-width:480px;">
+  <h1>Logowanie</h1>
+
+  {%- form 'customer_login' -%}
+    {{ form.errors | default_errors }}
+    <label class="drip-label" for="CustomerEmail">E-mail</label>
+    <input class="drip-input" type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required>
+    <label class="drip-label" for="CustomerPassword">Hasło</label>
+    <input class="drip-input" type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required>
+    <button type="submit" class="drip-btn" style="margin-top:16px; width:100%;">Zaloguj się</button>
+  {%- endform -%}
+
+  <p style="margin-top:18px; font-size:14px;">
+    <a href="#recover">Nie pamiętasz hasła?</a> ·
+    <a href="{{ routes.account_register_url }}">Załóż konto</a>
+  </p>
+
+  <div id="recover" style="margin-top:32px; border-top:1px solid #f1f4f9; padding-top:24px;">
+    <h2 style="font-size:20px; font-weight:800;">Resetowanie hasła</h2>
+    {%- form 'recover_customer_password' -%}
+      {{ form.errors | default_errors }}
+      {%- if form.posted_successfully? -%}
+        <p class="drip-notice">Wysłaliśmy e-mail z linkiem do zmiany hasła.</p>
+      {%- endif -%}
+      <label class="drip-label" for="RecoverEmail">E-mail</label>
+      <input class="drip-input" type="email" name="email" id="RecoverEmail" autocomplete="email" required>
+      <button type="submit" class="drip-btn drip-btn--ghost" style="margin-top:14px;">Wyślij link</button>
+    {%- endform -%}
+  </div>
+</div>
